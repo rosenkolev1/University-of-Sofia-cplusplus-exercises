@@ -22,11 +22,6 @@ int main()
 			cout << "* ";
 		}
 
-		/*for (int y = 0; y < n - 1 - i; y++)
-		{
-			cout << " ";
-		}*/
-
 		cout << endl;
 	}
 
@@ -47,11 +42,6 @@ int main()
 		{
 			cout << "* ";
 		}
-
-		/*for (int y = 0; y < 1 + i; y++)
-		{
-			cout << " ";
-		}*/
 
 		cout << endl;
 	}
