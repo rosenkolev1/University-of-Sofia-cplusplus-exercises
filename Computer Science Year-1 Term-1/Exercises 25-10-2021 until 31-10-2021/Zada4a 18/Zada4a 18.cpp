@@ -14,21 +14,17 @@ int main()
 	cout << "Enter the month: ";
 	cin >> month;
 
-	//const string startingDayOf2021 = "Friday";
-
 	int totalNumberOfDaysSinceBeginningOfTheYear = 0;
 
 	for (int i = 1; i <= month - 1; i++)
 	{
 		//If it is February
 		if (i == 2) totalNumberOfDaysSinceBeginningOfTheYear += 28;
-		//If it is August
-		else if (i == 8) totalNumberOfDaysSinceBeginningOfTheYear += 31;
 		//If it is April or June
 		else if (i % 2 == 0 && i <= 6) totalNumberOfDaysSinceBeginningOfTheYear += 30;
 		//If it is September or November
 		else if (i % 2 == 1 && i >= 9) totalNumberOfDaysSinceBeginningOfTheYear += 30;
-		//If it is January, March, May, July, October, December
+		//If it is January, March, May, July, August October, December
 		else totalNumberOfDaysSinceBeginningOfTheYear += 31;
 	}
 
@@ -44,4 +40,5 @@ int main()
 	else if (weekDayNumberOffset == 5) cout << "Wednesday";
 	else if (weekDayNumberOffset == 6) cout << "Thursday";
 }
+
 
