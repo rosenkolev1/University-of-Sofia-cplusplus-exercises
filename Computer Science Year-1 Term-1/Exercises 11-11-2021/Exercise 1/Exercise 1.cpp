@@ -5,8 +5,33 @@
 
 using namespace std;
 
+int reverseNumber(int a)
+{
+    int reversedNumber = 0;
+    int c = 0;
+
+    while (a != 0)
+    {
+        reversedNumber = reversedNumber * 10 + (a % 10);
+        a /= 10;
+        c++;
+    }
+
+    return reversedNumber;
+}
+
+bool checkIfNumberIsSymmetrical(int a) 
+{
+    int reversedNumber = reverseNumber(a);
+
+    return reversedNumber == a;
+}
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    int a;
+    cin >> a;
+
+    cout << (checkIfNumberIsSymmetrical(a) ? "The number is symmetrical" : "The number is not symmetrical");
 }
 
