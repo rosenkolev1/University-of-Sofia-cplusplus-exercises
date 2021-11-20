@@ -30,7 +30,7 @@ void returnDate(int day, int month, int year, int daysPassed)
 			day -= maxDaysInCurrentMonth;
 		}
 
-		//If the current date is 31st of December
+		//If the current date is the 31st of December, i. e. if the next date is the 1st of January of next year.
 		if (month > 12)
 		{
 			year++;
