@@ -9,19 +9,6 @@
 
 using namespace std;
 
-//double toFloorPrecision(double floatValue, int precision)
-//{
-//    char buffer[64];
-//    int ret = snprintf(buffer, sizeof buffer, "%f", floatValue);
-//
-//    if (ret < 0) {
-//        return EXIT_FAILURE;
-//    }
-//    if (ret >= sizeof buffer) {
-//        // Result was truncated - resize the buffer and retry.
-//    }
-//}
-
 double toPrecisionFloor(double floatValue, int precision)
 {
     return floor(floatValue * pow(10, precision)) / pow(10, precision);
@@ -34,7 +21,12 @@ void exerciseOne()
 
     const string thePointIsOutsideAnyArea = "The point isn't inside any of the coloured areas";
 
-    //If x or y are really big values, then the next calculations might throw an error.
+    //The x coordinate of the points B,D
+    const double pointX = 2.828;
+    //The y coordinate of the points B,D
+    const double pointY = 2.828;
+
+    //If x or y are really big values that are guaranteed to be outside the area, then the next calculations might throw an error, so instead return the correct input immediately.
     if (x > 5 || x < -5 || y  > 6 || y < -8)
     {
         cout << thePointIsOutsideAnyArea;
@@ -51,58 +43,45 @@ void exerciseOne()
     double distanceToCenterSecondPower = toPrecisionFloor(xSecondPower + ySecondPower, 3);
 
     const double circleRadiusSecondPower = 16;
-
-    //Check if the point is in a shared border or point
-    if (
-        //Points D,B,C,E
-        (abs(x) == 2.8 && abs(y) == 2.8) || 
-        //Line QP
-        (x == 0 && y >= -4 && y <= 4 ) ||
-        //Lines CB, DA
-        (x == y || (x < 0 && y > 0 && abs(x) == abs(y))) ||
-        //Line BE
-        (x == 2.8 && y > -2.8 && y < 2.8)
-        )
-    {
-        cout << thePointIsOutsideAnyArea;
-    }
+    
     //Check if the point is in the pink area
-    else if (x >= -2.8 && x <= 0 && y <= 2.8 && y >= -2.8 && abs(x) >= abs(y))
+    if (x > -pointX && x < 0 && y < pointY && y > -pointY && abs(x) > abs(y))
     {
         cout << "The point is in the pink area";
     }
     //Check if the point is in the red area
-    else if (x >= -2.8 && x <= 0 && y <= 4 && y >= 0 && abs(y) >= abs(x) && distanceToCenterSecondPower <= circleRadiusSecondPower)
+    else if (x > -pointX && x < 0 && y < 4 && y > 0 && abs(y) > abs(x) && distanceToCenterSecondPower < circleRadiusSecondPower)
     {
         cout << "The point is in the red area";
     }
     //Check if the point is in the yellow area
     else if (
-        (x <= 2.8 && x >= 0 && y <= 2.8 && y >= -2.8 && abs(x) >= abs(y)) ||
-        (x <= 2.8 && x >= 0 && y >= -4 && y <= 0 && abs(y) >= abs(x) && distanceToCenterSecondPower <= circleRadiusSecondPower)
+        (x < pointX && x > 0 && y < pointY && y > -pointY && abs(x) > abs(y)) ||
+        (x < pointX && x > 0 && y > -4 && y < 0 && abs(y) > abs(x) && distanceToCenterSecondPower < circleRadiusSecondPower) ||
+        //Edge case when the point is, for example, (2, -2)
+        (x > 0 && x < pointX && x == -y) 
         )
     {
         cout << "The point is in the yellow area";
     }
     //Check if the point is in the green area
-    else if (x >= 0 && x <= 2.8 && y <= 4 && y >= 0 && abs(y) >= abs(x) && distanceToCenterSecondPower <= circleRadiusSecondPower)
+    else if (x > 0 && x < pointX && y < 4 && y > 0 && abs(y) > abs(x) && distanceToCenterSecondPower < circleRadiusSecondPower)
     {
         cout << "The point is in the green area";
     }
     //Check if the point is in the blue area
-    else if (x <= 0 && x >= -2.8 && y >= -4 && y <= 0 && abs(y) >= abs(x) && distanceToCenterSecondPower <= circleRadiusSecondPower)
+    else if (x < 0 && x > -pointX && y > -4 && y < 0 && abs(y) > abs(x) && distanceToCenterSecondPower < circleRadiusSecondPower)
     {
         cout << "The point is in the blue area";
     }
     //Check if the point is in the purple area
-    else if (x >= 2.8 && distanceToCenterSecondPower <= circleRadiusSecondPower)
+    else if (x > pointX && distanceToCenterSecondPower < circleRadiusSecondPower)
     {
         cout << "The point is in the purple area";
     }
-    //Check if the point is in the grey area. If the point is on the border of the grey area, then it counts as being inside it, since the grey are doesn't share a border with any other coloured area.
+    //Check if the point is in the grey area. 
     else if (
-        (x >= -2 && x <= 2 && y <= -7 && y >= -6) ||
-        (x >= -1 && x <= 1 && y == 5)
+        (x > -2 && x < 2 && y > -7 && y < -6)
         )
     {
         cout << "The point is in the grey area";
@@ -154,10 +133,9 @@ void exerciseThree()
         }
         else if (i % 4 == 0 && i % 8 == 0)
         {
-            //Ne sum siguren dali edin marmalad moje da e ednovremenno ot dva vida, primerno borovinkov i praskov marmalad.
-            if (typeCode % 7 == 0 && typeCode % 13 != 0 && typeCode % 17 != 0) borovinkovTypeCount++;
-            else if (typeCode % 13 == 0 && typeCode % 7 != 0 && typeCode && 17 != 0) praskovTypeCount++;
-            else if (typeCode % 17 == 0 && typeCode % 7 != 0 && typeCode % 13 != 0) shipkovTypeCount++;
+            if (typeCode % 7 == 0) borovinkovTypeCount++;
+            else if (typeCode % 13 == 0) praskovTypeCount++;
+            else if (typeCode % 17 == 0) shipkovTypeCount++;
 
             //Annulate the typeCode and stop counting it 
             typeCode = 0;
@@ -166,7 +144,15 @@ void exerciseThree()
 
         if (currentlyCountingTypeCode)
         {
-            typeCode += digit * pow(10, 3 - (i % 4));
+            //If the digit isn't positive or even a digit at all, then the barcode is invalid
+            if (digit < 0 || digit > 9) 
+            {
+                currentlyCountingTypeCode = false;
+            }
+            else 
+            {
+                typeCode += digit * pow(10, 3 - (i % 4));
+            }
         }
     }
 
@@ -269,6 +255,56 @@ void outputBikoveAndKravi(int* digitsOfPlayerNumber, int* digitsOfComputerNumber
     cout << bikove << " bik(ove) and " << kravi << " krava/kravi"<< endl << endl;
 }
 
+bool numberContainsZeroAsDigit(int number)
+{
+    if (number == 0) return true;
+
+    while (number != 0)
+    {
+        int digit = number % 10;
+
+        if (digit == 0) return true;
+
+        number /= 10;
+    }
+
+    return false;
+}
+
+bool numberHasRepeatingDigits(int number)
+{
+    int digitsCount = 0;
+    int digits[100] = {};
+
+    if (number >= -9 && number <= 9) return false;
+
+    while (number != 0)
+    {
+        int digit = number % 10;
+        digits[digitsCount] = digit;
+        digitsCount++;
+        number /= 10;
+    }
+
+    if (digitsCount > 10) return true;
+
+    for (int i = 0; i < digitsCount; i++)
+    {
+        int digit = digits[i];
+
+        for (int y = 0; y < digitsCount; y++)
+        {
+            int currentDigit = digits[y];
+            if (digit == currentDigit && i != y)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 int createRandomNumberForBikoveAndKraviGame()
 {
     int computerNumber = 0;
@@ -281,67 +317,71 @@ int createRandomNumberForBikoveAndKraviGame()
 
         int* digitsOfComputerNumber = returnDigitsOfNumberInArray(computerNumber);
 
-        bool repeatingDigits = false;
-        bool digitsIsZero = false;
+        bool repeatingDigits = numberHasRepeatingDigits(computerNumber);
+        bool numberContainsZero = numberContainsZeroAsDigit(computerNumber);
 
-        for (int i = 0; i < 4; i++)
-        {
-            int digit = digitsOfComputerNumber[i];
-            if (digit == 0)
-            {
-                digitsIsZero = true;
-                break;
-            }
+        if (repeatingDigits || numberContainsZero) continue;
 
-            for (int y = 0; y < 4; y++)
-            {
-                int currentDigit = digitsOfComputerNumber[y];
-                if (digit == currentDigit && i != y)
-                {
-                    repeatingDigits = true;
-                    break;
-                }
-            }
-
-            if (repeatingDigits == true) break;
-        }
-
-        if (!repeatingDigits && !digitsIsZero) break;
+        return computerNumber;
     }
-
-    return computerNumber;
 }
 
 void exerciseFive()
 {
     int computerNumber = 0, playerNumber = 0;
     const int N = 3;
+    const string invalidInput = "Invalid number input! Try again! \n \n";
 
     computerNumber = createRandomNumberForBikoveAndKraviGame();
 
     cout << "Created random number for Bikove and Kravi Game." << endl << "Begin game!" << endl;
 
-     int* digitsOfComputerNumber = returnDigitsOfNumberInArray(computerNumber);
+    int* digitsOfComputerNumber = returnDigitsOfNumberInArray(computerNumber);
 
     for (int i = 0; i < N; i++)
     {
-        cout << "Number of guesses left: " << N - i << " | Enter your next guess: "; 
-        cin >> playerNumber;
-
-        if (playerNumber == computerNumber)
+        while (true)
         {
-            cout << "The player has guessed the correct number in not more than " << N << " turns. Congrats!";
-            return;
+            cout << "Number of guesses left: " << N - i << " | Enter your next guess: ";
+
+            if (cin >> playerNumber);
+            else 
+            {
+                cout << invalidInput;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                continue;
+            }
+
+            if (playerNumber == computerNumber)
+            {
+                cout << "The player has guessed the correct number in not more than " << N << " turns. Congrats!";
+                return;
+            }
+
+            //Player number validations
+            if (playerNumber < 1000 || playerNumber > 9999)
+            {
+                cout << invalidInput;
+                continue;
+            }
+            if (numberContainsZeroAsDigit(playerNumber))
+            {
+                cout << invalidInput;
+                continue;
+            }
+            if (numberHasRepeatingDigits(playerNumber))
+            {
+                cout << invalidInput;
+                continue;
+            }
+
+            int* digitsOfPlayerNumber = returnDigitsOfNumberInArray(playerNumber);
+
+            outputBikoveAndKravi(digitsOfPlayerNumber, digitsOfComputerNumber);
+
+            break;
         }
-
-        int* digitsOfPlayerNumber = returnDigitsOfNumberInArray(playerNumber);
-
-        int a = digitsOfComputerNumber[0];
-        int b = digitsOfComputerNumber[1];
-        int c = digitsOfComputerNumber[2];
-        int d = digitsOfComputerNumber[3];
-
-        outputBikoveAndKravi(digitsOfPlayerNumber, digitsOfComputerNumber);
     }
 
     cout << "The player was unable to guess the correct number in " << N << " turns. The number was: " << computerNumber;
