@@ -80,9 +80,7 @@ void exerciseOne()
         cout << "The point is in the purple area";
     }
     //Check if the point is in the grey area. 
-    else if (
-        (x > -2 && x < 2 && y > -7 && y < -6)
-        )
+    else if (x > -2 && x < 2 && y > -7 && y < -6)
     {
         cout << "The point is in the grey area";
     }
