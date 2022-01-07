@@ -1,0 +1,83 @@
+3
+5
+2
+4
+
+1  -3   8  10  34
+4   7  13   2   9
+3   0  -4   5   2
+
+1   2   3  -4
+10  19   2   0
+
+
+
+3
+5
+3
+4
+1  -3   8  10  34
+   4   7  13   2   9
+   3   0  -4   5   2
+1   2   3  -4
+  10  19   2   0
+  -5   0   2   1
+
+3
+4
+3
+5
+
+1   2   3  -4
+  10  19   2   0
+  -5   0   2   1
+
+1  -3   8  10  34
+   4   7  13   2   9
+   3   0  -4   5   2
+
+
+4 4 
+RRRD
+RUUD
+URUD
+ULLR
+
+4 5
+RRRDL
+RUUDU
+URUDL
+ULLRU
+
+3;2
+
+5 4
+RRRD
+RUUD
+URUD
+ULLD
+ULLL
+
+2;1
+
+TEST INPUT 1 FOR EXERCISE ZERO
+
+203
+Tova a test,za zadachata,"koqto mi otne sumati vreme da napravq"misq 4e mi otne okolo 8 chasa da q napravq "be6e mnogo gadno""otvratitelno napravo"
+Napravo glavata me zabolq dokato q(napravq)
+Kill meeeee~
+[Gruba forma na input-a: 
+Tova a test,za zadachata,\"koqto mi otne sumati vreme da napravq\"misq 4e mi otne okolo 8 chasa da q napravq \"be6e mnogo gadno\"\"otvratitelno napravo\"\nNapravo glavata me zabolq dokato q(napravq)\nKill meeeee
+]
+5
+stil-still
+meeeee-me
+za zadachata-Za Zadachkata gadna
+misq-mislq
+a-e
+
+EXPECTED OUTPUT:
+Tova e test, Za Zadachkata gadna, "koqto mi otne sumati vreme da napravq" mislq 4e mi otne okolo 8 chasa da q napravq "be6e mnogo gadno" (otvratitelno napravo).
+Napravo glavata me zabolq dokato q (napravq).
+Kill me.
+
