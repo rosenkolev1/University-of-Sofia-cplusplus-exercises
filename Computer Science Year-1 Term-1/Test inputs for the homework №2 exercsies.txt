@@ -65,7 +65,7 @@ TEST INPUT 1 FOR EXERCISE ZERO
 203
 Tova a test,za zadachata,"koqto mi otne sumati vreme da napravq"misq 4e mi otne okolo 8 chasa da q napravq "be6e mnogo gadno""otvratitelno napravo"
 Napravo glavata me zabolq dokato q(napravq)
-Kill meeeee~
+Kill meeeee
 [Gruba forma na input-a: 
 Tova a test,za zadachata,\"koqto mi otne sumati vreme da napravq\"misq 4e mi otne okolo 8 chasa da q napravq \"be6e mnogo gadno\"\"otvratitelno napravo\"\nNapravo glavata me zabolq dokato q(napravq)\nKill meeeee
 ]

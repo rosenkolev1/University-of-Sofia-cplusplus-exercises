@@ -314,10 +314,7 @@ void ExerciseZero()
     //Lenght = 203
     //Dictionary Entries = 5
     /*
-    
-    //The only way I could get the whole text input with the newline characters from the console was
-    //to add a '~' at the end so that cin.get() didn't terminate upon hitting a newline character 
-    
+   
 Example Input:
 203
 Tova a test,za zadachata,"koqto mi otne sumati vreme da napravq"misq 4e mi otne okolo 8 chasa da q napravq "be6e mnogo gadno""otvratitelno napravo"
@@ -336,8 +333,8 @@ Napravo glavata me zabolq dokato q (napravq).
 Kill me.
     */
 
-    //TEST INPUT.
-    char text[1024] = "Tova a test,za zadachata,\"koqto mi otne sumati vreme da napravq\"misq 4e mi otne okolo 8 chasa da q napravq \"be6e mnogo gadno\"\"otvratitelno napravo\"\nNapravo glavata me zabolq dokato q(napravq)\nKill meeeee";
+    //TEST INPUT. UNCOMMENT THIS AND COMMENT THE USER INPUT IF YOU WANT TO USE THE TEST TEXT
+    //char text[1024] = "Tova a test,za zadachata,\"koqto mi otne sumati vreme da napravq\"misq 4e mi otne okolo 8 chasa da q napravq \"be6e mnogo gadno\"\"otvratitelno napravo\"\nNapravo glavata me zabolq dokato q(napravq)\nKill meeeee";
     //TEST INPUT
     char dictionary[128][100] =
     {
@@ -351,7 +348,7 @@ Kill me.
     int textLength = 0, dictionaryLength = 0;
 
     //DEBUG. Can be used to get the length of any text. Useful for testing and debugging purposes. 
-    int trueTextLength = GetCharArrayLength(text);
+    //int trueTextLength = GetCharArrayLength(text);
 
     //Validate text length
     cin >> textLength;
@@ -360,15 +357,31 @@ Kill me.
         cin >> textLength;
     }
 
-    //Input text from console
-    //The only way I could get the whole text input with the newline characters from the console was
-    //to add a '~' at the end so that the cin.get didn't terminate upon hitting a newline character
-   
-    //UNCOMMENT IF YOU WANT TO INPUT A TEXT MANUALLY FROM THE CONSOLE. MAKE SURE THE TEXT FINISHES WITH A '~'
+    //Input text from console  
+    //UNCOMMENT IF YOU WANT TO INPUT A TEXT MANUALLY FROM THE CONSOLE.
     //COMMENT IF YOU WANT THE TEST INPUT INSTEAD
-    /*cin.ignore();
-    cin.get(text, sizeof(text), '~');
-    cin.ignore();*/
+    cin.ignore();
+    char text[1024] = "";
+
+    char currentParagraphOfText[1024];
+    int counter = 0;
+    int currentTextLength = 0;
+
+    while (currentTextLength < textLength)
+    {
+        cin.getline(currentParagraphOfText, sizeof(currentParagraphOfText));
+        int getParagraphLength = GetCharArrayLength(currentParagraphOfText);
+
+        for (int i = 0; i < getParagraphLength; i++)
+        {
+            text[i + currentTextLength] = currentParagraphOfText[i];
+        }
+
+        text[getParagraphLength + currentTextLength] = '\n';
+        currentTextLength++;
+
+        currentTextLength = GetCharArrayLength(text);
+    }
 
     //Validate dictionary length
     cin >> dictionaryLength;
@@ -381,11 +394,11 @@ Kill me.
     
     //UNCOMMENT IF YOU WANT TO INPUT A TEXT MANUALLY FROM THE CONSOLE.
     //COMMENT IF YOU WANT THE TEST INPUT INSTEAD
-    /*cin.ignore();
+    cin.ignore();
     for (int i = 0; i < dictionaryLength; i++)
     {
         cin.getline(dictionary[i], 100);
-    }*/
+    }
     
     AutoCorrect(text, textLength, dictionary, dictionaryLength);
 
