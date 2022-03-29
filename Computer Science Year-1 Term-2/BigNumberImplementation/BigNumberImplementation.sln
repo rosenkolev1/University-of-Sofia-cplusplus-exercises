@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigNumberImplementation", "BigNumberImplementation\BigNumberImplementation.vcxproj", "{21492F90-0F98-4C9F-A7FB-9FCE2491C776}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Debug|x64.ActiveCfg = Debug|x64
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Debug|x64.Build.0 = Debug|x64
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Debug|x86.ActiveCfg = Debug|Win32
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Debug|x86.Build.0 = Debug|Win32
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Release|x64.ActiveCfg = Release|x64
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Release|x64.Build.0 = Release|x64
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Release|x86.ActiveCfg = Release|Win32
+		{21492F90-0F98-4C9F-A7FB-9FCE2491C776}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93A07C87-5715-4E68-866F-377B584D5388}
+	EndGlobalSection
+EndGlobal
