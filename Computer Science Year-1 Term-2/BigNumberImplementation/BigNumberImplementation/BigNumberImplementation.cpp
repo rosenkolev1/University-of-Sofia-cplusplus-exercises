@@ -1,6 +1,109 @@
 ﻿#include <iostream>
 #include "BigNumber.h"
 
+void ConstructorAndCopyAndAssignTests()
+{
+    int someNumberInt = 5678;
+    char someNumberChar[] = "1234";
+    BigNumber defaultBigNumber = BigNumber();
+    BigNumber someBigNumberInt = BigNumber(someNumberInt);
+    BigNumber someBigNumberChar = BigNumber(someNumberChar);
+    BigNumber someOtherBigNumber = BigNumber("-1");
+    BigNumber someOtheBigNumberZero = BigNumber("0");
+
+    //OLD
+    std::cout << "Initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
+    std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
+    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
+    std::cout << "someBigNumberChar: "; someBigNumberChar.printOutNumber();
+    std::cout << "someOtherBigNumber: "; someOtherBigNumber.printOutNumber();
+    std::cout << "someOtheBigNumberZero: "; someOtheBigNumberZero.printOutNumber();
+
+    //NEW
+    std::cout << std::endl << "New Values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR" << std::endl;
+    std::cout << "TESTING -> defaultBigNumber = someNumberInt\n";
+    //Calls constructor for with someNumberInt as long long int parameter
+    defaultBigNumber = someNumberInt;
+    std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
+
+    std::cout << "TESTING -> BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar)\n";
+    BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar);
+    std::cout << "copyOfBigNumberChar: "; copyOfBigNumberChar.printOutNumber();
+
+    std::cout << "TESTING -> someBigNumberInt = someBigNumberChar\n";
+    someBigNumberInt = someBigNumberChar;
+    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
+
+    std::cout << "TESTING -> someBigNumberInt = someBigNumberInt\n";
+    someBigNumberInt = someBigNumberInt;
+    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
+}
+
+void ReadingOperatorTests()
+{
+    std::cout << std::endl << "TESTS FOR READING A NUMBER FROM CONSOLE:\n" << std::endl;
+    std::cout << "\">>\" Operator TESTS: " << std::endl << std::endl;
+    BigNumber someBigNumberToRead = BigNumber();
+    std::cout << "Enter a BigNumber here: ";  std::cin >> someBigNumberToRead;
+    std::cout << "Testing \">>\" operator: (Expected: {same input from console}): ";
+    someBigNumberToRead.printOutNumber();
+    std::cout << std::endl << std::endl;
+}
+
+void EqualsAndNotEqualsTests()
+{
+    int someNumberInt = 5678;
+    char someNumberChar[] = "1234";
+    BigNumber defaultBigNumber = BigNumber();
+    BigNumber someBigNumberInt = BigNumber(someNumberInt);
+    BigNumber someBigNumberChar = BigNumber(someNumberChar);
+    BigNumber someOtherBigNumber = BigNumber("-1");
+    BigNumber someOtheBigNumberZero = BigNumber("0");
+
+    ////OLD
+    //std::cout << "Initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
+    //std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
+    //std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
+    //std::cout << "someBigNumberChar: "; someBigNumberChar.printOutNumber();
+    //std::cout << "someOtherBigNumber: "; someOtherBigNumber.printOutNumber();
+    //std::cout << "someOtheBigNumberZero: "; someOtheBigNumberZero.printOutNumber();
+
+    //NEW
+    defaultBigNumber = someNumberInt;
+    BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar);
+    someBigNumberInt = someBigNumberChar;
+
+    //== Operator tests
+    std::cout << "\"==\" Operator TESTS: " << std::endl << std::endl;
+
+    std::cout << "Testing \"==\" operator (defaultBigNumber == someBigNumberInt): (Expected: FALSE): " <<
+        (defaultBigNumber == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberInt): (Expected: TRUE): " <<
+        (someBigNumberChar == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;
+
+    /*std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberChar): (Expected: TRUE): " <<
+        (someBigNumberChar == someBigNumberChar ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;*/
+
+    //!= Operator tests
+    std::cout << "\"!=\" Operator TESTS: " << std::endl;
+
+    std::cout << "Testing \"!=\" operator (defaultBigNumber != someBigNumberInt): (Expected: TRUE): " <<
+        (defaultBigNumber != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Testing \"!=\" operator (someBigNumberChar != someBigNumberInt): (Expected: FALSE): " <<
+        (someBigNumberChar != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;
+
+    /*std::cout << "Testing \"!=\" operator (someBigNumberChar != someBigNumberChar): (Expected: FALSE): " <<
+        (someBigNumberChar != someBigNumberChar ? "TRUE" : "FALSE") << std::endl;
+    std::cout << std::endl;*/
+}
+
 void OperatorGreaterThanTestTemplate(const char testTitle[], const char textDescription[], 
     const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine)
 {
@@ -949,113 +1052,11 @@ void PeshoAndLuboTests()
     std::cout << std::boolalpha << ((BigNumber("-12345678901234567890") * BigNumber("4354678097643135")) == BigNumber("-53761457511741137249987999149935150")) << std::endl;
 }
 
-void ReadingOperatorTests()
-{
-    std::cout << std::endl << "TESTS FOR READING A NUMBER FROM CONSOLE:\n" << std::endl;
-    std::cout << "\">>\" Operator TESTS: " << std::endl << std::endl;
-    BigNumber someBigNumberToRead = BigNumber();
-    std::cout << "Enter a BigNumber here: ";  std::cin >> someBigNumberToRead;
-    std::cout << "Testing \">>\" operator: (Expected: {same input from console}): ";
-    someBigNumberToRead.printOutNumber();
-    std::cout << std::endl <<std::endl;
-}
-
-void ConstructorTests()
-{
-    int someNumberInt = 5678;
-    char someNumberChar[] = "1234";
-    BigNumber defaultBigNumber = BigNumber();
-    BigNumber someBigNumberInt = BigNumber(someNumberInt);
-    BigNumber someBigNumberChar = BigNumber(someNumberChar);
-    BigNumber someOtherBigNumber = BigNumber("-1");
-    BigNumber someOtheBigNumberZero = BigNumber("0");
-
-    //OLD
-    std::cout << "Initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
-    std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
-    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
-    std::cout << "someBigNumberChar: "; someBigNumberChar.printOutNumber();
-    std::cout << "someOtherBigNumber: "; someOtherBigNumber.printOutNumber();
-    std::cout << "someOtheBigNumberZero: "; someOtheBigNumberZero.printOutNumber();
-
-    //NEW
-    std::cout << std::endl << "New Values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR" << std::endl;
-    std::cout << "TESTING -> defaultBigNumber = someNumberInt\n";
-    //Calls constructor for with someNumberInt as long long int parameter
-    defaultBigNumber = someNumberInt;
-    std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
-
-    std::cout << "TESTING -> BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar)\n";
-    BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar);
-    std::cout << "copyOfBigNumberChar: "; copyOfBigNumberChar.printOutNumber();
-
-    std::cout << "TESTING -> someBigNumberInt = someBigNumberChar\n";
-    someBigNumberInt = someBigNumberChar;
-    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
-
-    std::cout << "TESTING -> someBigNumberInt = someBigNumberInt\n";
-    someBigNumberInt = someBigNumberInt;
-    std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
-}
-
-void EqualsAndNotEqualsTests()
-{
-    int someNumberInt = 5678;
-    char someNumberChar[] = "1234";
-    BigNumber defaultBigNumber = BigNumber();
-    BigNumber someBigNumberInt = BigNumber(someNumberInt);
-    BigNumber someBigNumberChar = BigNumber(someNumberChar);
-    BigNumber someOtherBigNumber = BigNumber("-1");
-    BigNumber someOtheBigNumberZero = BigNumber("0");
-
-    ////OLD
-    //std::cout << "Initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
-    //std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
-    //std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
-    //std::cout << "someBigNumberChar: "; someBigNumberChar.printOutNumber();
-    //std::cout << "someOtherBigNumber: "; someOtherBigNumber.printOutNumber();
-    //std::cout << "someOtheBigNumberZero: "; someOtheBigNumberZero.printOutNumber();
-
-    //NEW
-    defaultBigNumber = someNumberInt;
-    BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar);
-    someBigNumberInt = someBigNumberChar;
-
-    //== Operator tests
-    std::cout << "\"==\" Operator TESTS: " << std::endl << std::endl;
-
-    std::cout << "Testing \"==\" operator (defaultBigNumber == someBigNumberInt): (Expected: FALSE): " <<
-        (defaultBigNumber == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberInt): (Expected: TRUE): " <<
-        (someBigNumberChar == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;
-
-    /*std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberChar): (Expected: TRUE): " <<
-        (someBigNumberChar == someBigNumberChar ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;*/
-
-    //!= Operator tests
-    std::cout << "\"!=\" Operator TESTS: " << std::endl;
-
-    std::cout << "Testing \"!=\" operator (defaultBigNumber != someBigNumberInt): (Expected: TRUE): " <<
-        (defaultBigNumber != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "Testing \"!=\" operator (someBigNumberChar != someBigNumberInt): (Expected: FALSE): " <<
-        (someBigNumberChar != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;
-
-    /*std::cout << "Testing \"!=\" operator (someBigNumberChar != someBigNumberChar): (Expected: FALSE): " <<
-        (someBigNumberChar != someBigNumberChar ? "TRUE" : "FALSE") << std::endl;
-    std::cout << std::endl;*/
-}
 
 int main()
 {
     // CONSTRUCTOR TESTS
-    //ConstructorTests();
+    ConstructorAndCopyAndAssignTests();
 
     // READING OPERATOR TESTS
     //ReadingOperatorTests();
@@ -1084,16 +1085,16 @@ int main()
     // += Operator Tests
     //OperatorSumAndEqualsTests();
     
-    //// - Operator Tests
+    // - Operator Tests
     //OperatorMinusTests();
     
-    //// -= Operator Tests
+    // -= Operator Tests
     //OperatorMinusAndEqualsTests();
 
-    // * Operator Tests TO BE CONTINUED
+    // * Operator Tests 
     //OperatorMultiplyTests();
 
-    // *= Operator Tests TO BE CONTINUED
+    // *= Operator Tests
     //OperatorMultiplyAndEqualsTests();
 
     // Test inputs from Pesho and Lubo

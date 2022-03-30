@@ -3,6 +3,8 @@
 #include <cassert>
 #include <cmath>
 
+//TODO: Change the number array from int to char without somehow breaking anything
+
 BigNumber::BigNumber()
 {
 	this->capacity = INIT_CAPACITY;
@@ -182,8 +184,6 @@ bool BigNumber::operator!=(const BigNumber& other) const
 {
 	return !(other == *this);
 }
-
-//TODO: ADD IMPLEMENTATION OFF "<="and ">=" operators
 
 bool BigNumber::operator<(const BigNumber& other) const
 {
@@ -555,7 +555,6 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 			int sizeOfMultiplicationRes = firstDigitOfRes == 0 ? 1 : 2;
 
 			char* digitsOfNewNumber = new char[sizeOfMultiplicationRes + zeroesPadding];
-			//TODO fix
 			if (sizeOfMultiplicationRes == 2)
 			{
 				digitsOfNewNumber[0] = '0' + firstDigitOfRes;
@@ -582,7 +581,6 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 
 		for (long long int y = 0; y < sumOfMultiplicationDigit.size; y++)
 		{
-			//TODO fix
 			charsOfMultiplication[y] = '0' + sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.size - 1 - y];
 		}
 
