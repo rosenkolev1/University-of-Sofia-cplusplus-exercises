@@ -17,6 +17,7 @@ private:
 	//@brief Changes the number from negative to positive and vice versa
 	void invertNumber();
 	void changeNumber(int* const number, long long int newCapacity, long long int newSize);
+	void changeNumber(char* const number, long long int newCapacity, long long int newSize);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
 	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
@@ -70,8 +71,9 @@ public:
 	BigNumber operator - (const BigNumber& other) const;
 	BigNumber& operator *= (const BigNumber& other);
 	BigNumber operator * (const BigNumber& other) const;
-	BigNumber& operator /= (const BigNumber& other);
-	BigNumber operator / (const BigNumber& other) const;
+
+	//Reading shit from console
+	friend std::istream& operator >> (std::istream& cin, BigNumber& other);
 
 	//Printing shit
 	void printOutNumber();

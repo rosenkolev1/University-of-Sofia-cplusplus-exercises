@@ -20,6 +20,7 @@ void BigNumber::copy(const BigNumber& other)
 	}
 
 	this->changeNumber(otherNumberCopy, other.capacity, other.size);
+	delete[] otherNumberCopy;
 }
 
 void BigNumber::resizeCapacity(int capacity)
@@ -44,38 +45,71 @@ void BigNumber::invertNumber()
 	this->number[this->size - 1] *= -1;
 }
 
+/*
+@brief Changes the number array to the specified number array
+*/
 void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize)
 {
 	this->capacity = newCapacity;
 	this->size = newSize;
 	delete[] this->number;
-	this->number = number;
+	this->number = new int[this->capacity];
+	for (long long int i = 0; i < this->size; i++)
+	{
+		this->number[i] = number[i];
+	}
+}
+
+/*
+@brief Changes the number array to the specified number array
+*/
+void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize)
+{
+	this->capacity = newCapacity;
+	this->size = newSize;
+	delete[] this->number;
+	this->number = new int[newCapacity];
+	for (long long int i = 0; i < newSize; i++)
+	{
+		int digit = number[i] - '0';
+		this->number[i] = digit;
+	}
 }
 
 BigNumber::BigNumber(const BigNumber& other)
 {
-	copy(other);
+	//IF YOU MISS INITIALISING THIS SHIT GOOD LUCK MOTHERFUCKER!!!!!! HAHAH FUCK ME THIS TOOK LIKE AN HALF AN HOUR TO FIGURE OUT
+	this->number = new int[1];
+	this->copy(other);
 }
 
 BigNumber::BigNumber(const char* number)
 {	
 	long long int numberSize = 0;
+	bool isNegative = number[0] == '-';
+	if (isNegative) numberSize++;
 	while (number[numberSize] - '0' >= 0 && number[numberSize] - '0' <= 9)
 	{
-		char something = number[numberSize];
 		numberSize++;
 	}
+	if (isNegative) numberSize--;
 
 	this->capacity = numberSize;
 	this->size = numberSize;
 	this->number = new int[this->capacity];
 
+	int startOfNumberArrayIndex = isNegative ? numberSize : numberSize - 1;
+	int endOfNumberArrayIndex = isNegative ? 1 : 0;
+
 	//Digits are stored in reverse. 
-	for (long long int i = numberSize - 1; i >= 0; i--)
+	for (long long int i = startOfNumberArrayIndex; i >= endOfNumberArrayIndex; i--)
 	{
 		int digit = number[i] - '0';
-		this->number[numberSize - 1 - i] = digit;
+		this->number[startOfNumberArrayIndex - i] = digit;
 	}
+
+	if (isNegative) this->invertNumber();
+
 }
 
 BigNumber::BigNumber(long long int number)
@@ -117,7 +151,10 @@ BigNumber::~BigNumber()
 
 BigNumber& BigNumber::operator = (const BigNumber& other)
 {
-	copy(other);
+	if (this != &other)
+	{
+		copy(other);
+	}
 	return *this;
 }
 
@@ -250,6 +287,7 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 
 	BigNumber newBigNumber = BigNumber();
 	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize);
+	delete[] newNumber;
 	return newBigNumber;
 }
 
@@ -351,7 +389,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	int carryOver = 0;
 
-	for (int i = 0; i < biggerSize; i++)
+	for (long long int i = 0; i < biggerSize; i++)
 	{
 		int digitLarger = largerNumber.size > i ? largerNumber.number[i] : 0;
 		int digitSmaller = smallerNumber.size > i ? smallerNumber.number[i] : 0;
@@ -377,7 +415,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	//Remove trailing zeroes
 	int trailingZeroesCounter = 0;
-	for (int i = biggerSize - 1; i >= 0; i--)
+	for (long long int i = biggerSize - 1; i >= 0; i--)
 	{
 		if (newNumber[i] != 0) break;
 		trailingZeroesCounter++;
@@ -385,7 +423,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	int* newNumberCopy = new int[biggerSize - trailingZeroesCounter];
 	long long int finalSize = biggerSize - trailingZeroesCounter;
-	for (int i = 0; i < finalSize; i++)
+	for (long long int i = 0; i < finalSize; i++)
 	{
 		newNumberCopy[i] = newNumber[i];
 	}
@@ -402,6 +440,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	BigNumber newBigNumber = BigNumber();
 	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize);
+	delete[] newNumber;
 	return newBigNumber;
 }
 
@@ -561,9 +600,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 	return finalMultiplicationSum;
 }
 
-
-
-//Printing shit
+//Printing shit and reading shit
 void BigNumber::printOutNumber()
 {
 	//Cacluclate comma spacings
@@ -586,4 +623,44 @@ void BigNumber::printOutNumber()
 		}
 	}
 	std::cout<<std::endl;
+}
+
+//TODO Potentially fix the reading, because this way you cannot read more than long long int size of a number in terms of digits
+std::istream& operator>>(std::istream& cin, BigNumber& other)
+{
+	//
+	char* number = new char[100000000];
+
+	cin.getline(number, INT_MAX - 1);
+
+	std::cout << "This is the number: " << number << std::endl;
+
+	bool numberIsNegative = number[0] == '-';
+
+	long long int sizeOfNumber = 0;
+	if (numberIsNegative) sizeOfNumber++;
+	while (number[sizeOfNumber] )
+	{
+		sizeOfNumber++;
+	}
+	if (numberIsNegative) sizeOfNumber--;
+
+	char* reversedNumber = new char[sizeOfNumber];
+
+	int numberTrueSize = numberIsNegative ? sizeOfNumber + 1 : sizeOfNumber;
+
+	for (long long int i = 0; i < sizeOfNumber; i++)
+	{
+		reversedNumber[i] = number[numberTrueSize - 1 - i];
+	}
+
+	delete[] number;
+	long long int largerCapacity = other.capacity > sizeOfNumber + 1 ? other.capacity : sizeOfNumber + 1;
+
+	other.changeNumber(reversedNumber, largerCapacity, sizeOfNumber);
+	if (numberIsNegative) other.invertNumber();
+
+	delete[] reversedNumber;
+
+	return cin;
 }
