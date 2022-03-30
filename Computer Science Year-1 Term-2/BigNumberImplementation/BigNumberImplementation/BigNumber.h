@@ -60,7 +60,9 @@ public:
 	bool operator == (const BigNumber& other) const;
 	bool operator != (const BigNumber& other) const;
 	bool operator < (const BigNumber& other) const;
+	bool operator <= (const BigNumber& other) const;
 	bool operator > (const BigNumber& other) const;
+	bool operator >= (const BigNumber& other) const;
 
 	BigNumber& operator += (const BigNumber& other);
 	BigNumber operator + (const BigNumber& other) const;
@@ -68,6 +70,8 @@ public:
 	BigNumber operator - (const BigNumber& other) const;
 	BigNumber& operator *= (const BigNumber& other);
 	BigNumber operator * (const BigNumber& other) const;
+	BigNumber& operator /= (const BigNumber& other);
+	BigNumber operator / (const BigNumber& other) const;
 
 	//Printing shit
 	void printOutNumber();

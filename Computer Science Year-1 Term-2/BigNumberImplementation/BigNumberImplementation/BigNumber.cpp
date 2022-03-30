@@ -154,6 +154,12 @@ bool BigNumber::operator<(const BigNumber& other) const
 	return !(*this > other);
 }
 
+bool BigNumber::operator <=(const BigNumber& other) const
+{
+	if (*this == other) return true;
+	return *this < other;
+}
+
 bool BigNumber::operator>(const BigNumber& other) const
 {
 	int signOfOther = other.getSign();
@@ -206,56 +212,10 @@ bool BigNumber::operator>(const BigNumber& other) const
 	return false;
 }
 
-BigNumber& BigNumber::operator+=(const BigNumber& other)
+bool BigNumber::operator >=(const BigNumber& other) const
 {
-	int signOfThis = this->getSign();
-	int signOfOther = other.getSign();
-
-	//Edge cases for 0
-	if (signOfThis == 0 && signOfOther == 0)
-	{
-		return *this;
-	}
-
-	if (signOfThis == 0 && signOfOther != 0)
-	{
-		*this = other;
-		return *this;
-	}
-
-	if (signOfThis > signOfOther) // Substraction this - other! Change first digit
-	{
-		BigNumber invertedOtherCopy = other;
-		invertedOtherCopy.invertNumber();
-		BigNumber thisCopy = subtractAndReturn(*this, invertedOtherCopy, false);
-		*this = thisCopy;
-		return *this;
-	}
-	else if (signOfThis < signOfOther) // Substraction other - this! Change first digit
-	{
-		BigNumber invertedThisCopy = *this;
-		invertedThisCopy.invertNumber();
-		BigNumber thisCopy = subtractAndReturn(other, invertedThisCopy, false);
-		*this = thisCopy;
-		return *this;
-
-		//Doesn't work for some reason?????
-		/*this = subtractAndReturn(other, invertedThisCopy, false);
-		return *this;*/
-	}
-	else if (signOfThis == signOfOther && signOfThis > 0)
-	{
-		BigNumber newBigNumber = addAndReturn(*this, other, false);
-		*this = newBigNumber;
-		return *this;
-	}
-	else if (signOfThis == signOfOther && signOfThis < 0)
-	{
-		//!!!*this = addAndReturn(*this, other, true);
-		BigNumber newBigNumber = addAndReturn(*this, other, true);
-		*this = newBigNumber;
-		return *this;
-	}
+	if (*this == other) return true;
+	return *this > other;
 }
 
 BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
@@ -266,7 +226,7 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 
 	int carryOver = 0;
 
-	int* newNumber = new int[capacity + 1];
+	int* newNumber = new int[biggerCapacity + 1];
 
 	for (long long int i = 0; i < biggerSize; i++)
 	{
@@ -341,11 +301,17 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	//return BigNumber();
 }
 
+BigNumber& BigNumber::operator+=(const BigNumber& other)
+{
+	BigNumber resultCopy = *this + other;
+	*this = resultCopy;
+	return *this;
+}
+
 BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
 {
 	long long int biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
 	long long int biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
-
 	int* newNumber = new int[biggerCapacity];
 
 	BigNumber largerNumber = thisNumber;
@@ -492,65 +458,110 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 
 BigNumber& BigNumber::operator-=(const BigNumber& other)
 {
-	int signOfThis = this->getSign();
-	int signOfOther = other.getSign();
-
-	//Edge cases for 0
-	if (signOfOther == 0)
-	{
-		return *this;
-	}
-
-	if (signOfThis == 0 && signOfOther != 0)
-	{
-		this->invertNumber();
-		return *this;
-	}
-
-	if (signOfThis > signOfOther) // Addition this + other! Change first digit of other
-	{
-		BigNumber invertedOtherCopy = other;
-		invertedOtherCopy.invertNumber();
-		BigNumber thisCopy = addAndReturn(*this, invertedOtherCopy, false);
-		*this = thisCopy;
-		return *this;
-	}
-	else if (signOfThis < signOfOther) // Equivalent to -(this + other)! Change first digit of this
-	{
-		BigNumber invertedThisCopy = *this;
-		invertedThisCopy.invertNumber();
-		BigNumber invertedResults = addAndReturn(invertedThisCopy, other, false);
-		invertedResults.invertNumber();
-		*this = invertedResults;
-		return *this;
-	}
-	else if (signOfThis == signOfOther && signOfThis > 0)
-	{
-		BigNumber thisCopy = subtractAndReturn(*this, other, false);
-		*this = thisCopy;
-		return *this;
-	}
-	else if (signOfThis == signOfOther && signOfThis < 0)
-	{
-		BigNumber thisCopy = subtractAndReturn(*this, other, true);
-		*this = thisCopy;
-		return *this;
-	}
-
+	BigNumber resultCopy = *this - other;
+	*this = resultCopy;
+	return *this;
 }
 
-//NOT IMPLEMENTED SHIT
-// TODO: IMPLEMENT
-//BigNumber& BigNumber::operator*=(const BigNumber& other)
-//{
-//	// TODO: insert return statement here
-//}
+BigNumber& BigNumber::operator*=(const BigNumber& other)
+{
+	BigNumber resultCopy = *this * other;
+	*this = resultCopy;
+	return *this;
+}
 
-//TODO: IMPLEMENT THE THING
 BigNumber BigNumber::operator*(const BigNumber& other) const
 {
-	return BigNumber();
+	//Check if either of the numbers are 0
+	int thisSign = this->getSign();
+	int otherSign = other.getSign();
+	if (thisSign == 0 || otherSign == 0) return BigNumber();
+
+	bool resultIsNegative = thisSign != otherSign;
+
+	bool thisHasSmallerSize = this->size < other.size;
+	int smallerSize = thisHasSmallerSize ? this->size : other.size;
+	int biggerSize = thisHasSmallerSize ? other.size : this->size;
+
+	const BigNumber& smallerNumber = thisHasSmallerSize ? *this : other;
+	const BigNumber& largerNumber = thisHasSmallerSize ? other : *this;
+
+
+	BigNumber finalMultiplicationSum = BigNumber();
+	int zeroesPadding = 0;
+
+	for (long long int i = 0; i < smallerSize; i++)
+	{
+		int digitOfSmallerNumber = abs(smallerNumber.number[i]);
+
+		//If digit is 0, then just move on to the next digit
+		if (digitOfSmallerNumber == 0) continue;
+
+		BigNumber sumOfMultiplicationDigit = BigNumber();
+		//Multiply and add together to get the multiplication sum numbers
+		for (long long int y = 0; y < biggerSize; y++)
+		{
+			//Multiply the larger number with the digit from the smaller number
+			int digitOfLargerNumber = abs(largerNumber.number[y]);
+
+			//If digit is 0, then just move on to the next digit
+			if (digitOfLargerNumber == 0) continue;
+
+			int multiplicationRes = digitOfSmallerNumber * digitOfLargerNumber;
+
+			//Pad with zeroes
+			zeroesPadding = y;
+			int firstDigitOfRes = multiplicationRes / 10;
+			int secondDigitOfRes = multiplicationRes % 10;
+			int sizeOfMultiplicationRes = firstDigitOfRes == 0 ? 1 : 2;
+
+			char* digitsOfNewNumber = new char[sizeOfMultiplicationRes + zeroesPadding];
+			//TODO fix
+			if (sizeOfMultiplicationRes == 2)
+			{
+				digitsOfNewNumber[0] = '0' + firstDigitOfRes;
+				digitsOfNewNumber[1] = '0' + secondDigitOfRes;
+			}
+			else digitsOfNewNumber[0] = '0' + secondDigitOfRes;
+
+			for (long long int z = 0; z < zeroesPadding; z++)
+			{
+				digitsOfNewNumber[z + sizeOfMultiplicationRes] = '0';
+			}
+
+			BigNumber multiplicationResNumber = BigNumber(digitsOfNewNumber);
+			sumOfMultiplicationDigit += multiplicationResNumber;
+
+			//Cleanup digitsOfNewNumber
+			delete[] digitsOfNewNumber;
+		}
+		//Multiplication with one digits has been made
+		//Pad with zeroes
+		zeroesPadding = i;
+		long long int newSize = sumOfMultiplicationDigit.size + zeroesPadding;
+		char* charsOfMultiplication = new char[newSize];
+
+		for (long long int y = 0; y < sumOfMultiplicationDigit.size; y++)
+		{
+			//TODO fix
+			charsOfMultiplication[y] = '0' + sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.size - 1 - y];
+		}
+
+		for (long long int y = 0; y < zeroesPadding; y++)
+		{
+			charsOfMultiplication[sumOfMultiplicationDigit.size + y] = '0';
+		}
+
+		BigNumber multiplicationWithDigitFinalSum = BigNumber(charsOfMultiplication);
+		finalMultiplicationSum += multiplicationWithDigitFinalSum;
+	}
+
+	if (resultIsNegative) finalMultiplicationSum.invertNumber();
+
+	return finalMultiplicationSum;
 }
+
+
 
 //Printing shit
 void BigNumber::printOutNumber()

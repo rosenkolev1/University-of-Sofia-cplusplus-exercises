@@ -10,6 +10,15 @@ void OperatorGreaterThanTestTemplate(const char testTitle[], const char textDesc
     if(newLine) std::cout << std::endl;
 }
 
+void OperatorGreaterThanOrEqualsTestTemplate(const char testTitle[], const char textDescription[],
+    const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine)
+{
+    if (testTitle != NULL) std::cout << testTitle << std::endl;
+    std::cout << textDescription <<
+        (bigNumber1 >= bigNumber2 ? "TRUE" : "FALSE") << std::endl;
+    if (newLine) std::cout << std::endl;
+}
+
 void OperatorGreaterThanTests()
 {
     // > Operator tests
@@ -123,6 +132,119 @@ void OperatorGreaterThanTests()
         lesserBigNumber10, lesserBigNumber10, true);
 }
 
+void OperatorGreaterThanOrEqualsTests()
+{
+    // > Operator tests
+    std::cout << "\">=\" Operator TESTS: " << std::endl << std::endl;
+
+    //INIT Phase
+
+    BigNumber lesserBigNumber1 = BigNumber(5050);
+    BigNumber biggerBigNumber1 = BigNumber(65000);
+    //
+    BigNumber lesserBigNumber2 = BigNumber(-67890);
+    BigNumber biggerBigNumber2 = BigNumber(-6789);
+    //
+    BigNumber lesserBigNumber3 = BigNumber(-67890);
+    BigNumber biggerBigNumber3 = BigNumber(1);
+    //
+    BigNumber lesserBigNumber4 = BigNumber(-69);
+    BigNumber biggerBigNumber4 = BigNumber(10);
+    //
+    BigNumber lesserBigNumber5 = BigNumber(1023);
+    BigNumber biggerBigNumber5 = BigNumber(1030);
+    //
+    BigNumber lesserBigNumber6 = BigNumber(-4010);
+    BigNumber biggerBigNumber6 = BigNumber(-4000);
+    //
+    BigNumber lesserBigNumber7 = BigNumber();
+    BigNumber biggerBigNumber7 = BigNumber(100);
+    //
+    BigNumber lesserBigNumber8 = BigNumber(-100);
+    BigNumber biggerBigNumber8 = BigNumber();
+    //
+    BigNumber lesserBigNumber9 = BigNumber();
+    BigNumber biggerBigNumber9 = BigNumber();
+    //
+    BigNumber lesserBigNumber10 = BigNumber(2456);
+
+    //TEST Phase
+
+    //BigNumber1
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber1 tests: ",
+        "Testing \">=\" operator -> (5050 >= 65000). Expected: False, because sizes are different:",
+        lesserBigNumber1, biggerBigNumber1, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (65000 >= 5050). Expected: True, because sizes are different:",
+        biggerBigNumber1, lesserBigNumber1, true);
+
+    //BigNumber2
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber2 tests: ",
+        "Testing \">=\" operator -> (-67890 >= -6789). Expected: False, because sizes are different:",
+        lesserBigNumber2, biggerBigNumber2, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (-6789 >= -67890). Expected: True, because sizes are different:",
+        biggerBigNumber2, lesserBigNumber2, true);
+
+    //BigNumber3
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber3 tests: ",
+        "Testing \">=\" operator -> (-67890 >= 1). Expected: False, because signs are different:",
+        lesserBigNumber3, biggerBigNumber3, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (1 >= -67890). Expected: True, because signs are different:",
+        biggerBigNumber3, lesserBigNumber3, true);
+
+    //BigNumber4
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber4 tests: ",
+        "Testing \">=\" operator -> (-69 >= 10). Expected: False, because signs are different:",
+        lesserBigNumber4, biggerBigNumber4, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (10 >= -69). Expected: True, because signs are different:",
+        biggerBigNumber4, lesserBigNumber4, true);
+
+    //BigNumber5
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber5 tests: ",
+        "Testing \">=\" operator -> (1023 >= 1030). Expected: False, because first number is smaller:",
+        lesserBigNumber5, biggerBigNumber5, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (1030 >= 1023). Expected: True, because first number is bigger:",
+        biggerBigNumber5, lesserBigNumber5, true);
+
+    //BigNumber6
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber6 tests: ",
+        "Testing \">=\" operator -> (-4010 >= -4000). Expected: False, because first number is smaller:",
+        lesserBigNumber6, biggerBigNumber6, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (-4000 >= -4010). Expected: True, because first number is bigger:",
+        biggerBigNumber6, lesserBigNumber6, true);
+
+    //BigNumber7
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber7 tests: ",
+        "Testing \">=\" operator -> (0 >= 100). Expected: False, because first number is 0 and second is positive:",
+        lesserBigNumber7, biggerBigNumber7, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (100 >= 0). Expected: True, because second number is 0 and first is positive:",
+        biggerBigNumber7, lesserBigNumber7, true);
+
+    //BigNumber8
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber8 tests: ",
+        "Testing \">=\" operator -> (-100 >= 0). Expected: False, because second number is 0 and first is negative:",
+        lesserBigNumber8, biggerBigNumber8, false);
+    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+        "REVERSE: Testing \">=\" operator -> (0 >= -100). Expected: True, because first number is 0 and second is negative:",
+        biggerBigNumber8, lesserBigNumber8, true);
+
+    //BigNumber9
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber9 tests: ",
+        "Testing \">=\" operator -> (0 >= 0). Expected: True, because both numbers are equal:",
+        lesserBigNumber9, biggerBigNumber9, true);
+
+    //BigNumber10
+    OperatorGreaterThanOrEqualsTestTemplate("BigNumber10 tests: ",
+        "Testing \">=\" operator -> (2456 >= 2456). Expected: True, because both numbers are equal:",
+        lesserBigNumber10, lesserBigNumber10, true);
+}
+
 void OperatorLessThanTests()
 {
     std::cout << "LESS THAN TESTS:" << std::endl;
@@ -132,6 +254,19 @@ void OperatorLessThanTests()
         (BigNumber(110) < BigNumber(110) ? "TRUE" : "FALSE") << std::endl;
     std::cout << "Testing \"<\" operator -> (0 < 0). Expected: False, the numbers are equal:" <<
         (BigNumber() < BigNumber() ? "TRUE" : "FALSE") << std::endl;
+
+    std::cout << std::endl;
+}
+
+void OperatorLessThanOrEqualsTests()
+{
+    std::cout << "\"<=\" Operator TESTS:" << std::endl;
+    std::cout << "Testing \"<=\" operator -> (100 <= -130). Expected: False, because 100 > -130:" <<
+        (BigNumber(100) <= BigNumber(-130) ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "Testing \"<=\" operator -> (110 <= 110). Expected: True, the numbers are equal:" <<
+        (BigNumber(110) <= BigNumber(110) ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "Testing \"<=\" operator -> (0 <= 0). Expected: True, the numbers are equal:" <<
+        (BigNumber() <= BigNumber() ? "TRUE" : "FALSE") << std::endl;
 
     std::cout << std::endl;
 }
@@ -624,6 +759,158 @@ void OperatorMinusAndEqualsTests()
     std::cout << std::endl;
 }
 
+void OperatorMultiplyTests()
+{
+    // - Operator tests
+    std::cout << "\"*\" Operator TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    BigNumber number1 = BigNumber(3);
+    BigNumber number2 = BigNumber(2);
+    BigNumber number3 = number1 * number2;
+    
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (3 * 2). Expected: 6: ";
+    number3.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 2
+    BigNumber number4 = BigNumber();
+    BigNumber number5 = BigNumber(2);
+    BigNumber number6 = number4 * number5;
+    
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (0 * 2). Expected: 0: ";
+    number6.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 3
+    BigNumber number7 = BigNumber(-100);
+    BigNumber number8 = BigNumber();
+    BigNumber number9 = number7 * number8;
+    
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (-100 * 0). Expected: 0: ";
+    number9.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number10 = BigNumber(56846);
+    BigNumber number11 = BigNumber(3501);
+    BigNumber number12 = number10 * number11;
+
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (56846 * 3501). Expected: 199,017,846: ";
+    number12.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 5
+    BigNumber number13 = BigNumber(-3129);
+    BigNumber number14 = BigNumber(309);
+    BigNumber number15 = number13 * number14;
+
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (-3129 * 309). Expected: -966,861: ";
+    number15.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 6
+    BigNumber number16 = BigNumber(-9999);
+    BigNumber number17 = BigNumber(-1001);
+    BigNumber number18 = number16 * number17;
+
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (-9999 * -1001). Expected: 10,008,999: ";
+    number18.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 7
+    BigNumber number19 = BigNumber(-99);
+    BigNumber number20 = BigNumber(1000);
+    BigNumber number21 = number19 * number20;
+
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"*\" operator -> (-99 * 1000). Expected: -99,000: ";
+    number21.printOutNumber();
+    std::cout << std::endl;
+}
+
+void OperatorMultiplyAndEqualsTests()
+{
+    // - Operator tests
+    std::cout << "\"*=\" Operator TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    BigNumber number1 = BigNumber(3);
+    BigNumber number2 = BigNumber(2);
+    number1 *= number2;
+
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (3 * 2). Expected: 6: ";
+    number1.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 2
+    BigNumber number4 = BigNumber();
+    BigNumber number5 = BigNumber(2);
+    number4 *= number5;
+
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (0 * 2). Expected: 0: ";
+    number4.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 3
+    BigNumber number7 = BigNumber(-100);
+    BigNumber number8 = BigNumber();
+    number7 *= number8;
+
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (-100 * 0). Expected: 0: ";
+    number7.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number10 = BigNumber(56846);
+    BigNumber number11 = BigNumber(3501);
+    number10 *= number11;
+
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (56846 * 3501). Expected: 199,017,846: ";
+    number10.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 5
+    BigNumber number13 = BigNumber(-3129);
+    BigNumber number14 = BigNumber(309);
+    number13 *= number14;
+
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (-3129 * 309). Expected: -966,861: ";
+    number13.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 6
+    BigNumber number16 = BigNumber(-9999);
+    BigNumber number17 = BigNumber(-1001);
+    number16 *= number17;
+
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (-9999 * -1001). Expected: 10,008,999: ";
+    number16.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 7
+    BigNumber number19 = BigNumber(-99);
+    BigNumber number20 = BigNumber(1000);
+    number19 *= number20;
+
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"*=\" operator -> (-99 * 1000). Expected: -99,000: ";
+    number19.printOutNumber();
+    std::cout << std::endl;
+}
+
 int main()
 {
     int someNumberInt = 5678;
@@ -633,12 +920,13 @@ int main()
     BigNumber someBigNumberChar = BigNumber(someNumberChar);
 
     //OLD
-    std::cout << "initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
+    std::cout << "Initial values: TESTS FOR NON-COPY CONSTRUCTORS" << std::endl;
     std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
     std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
     std::cout << "someBigNumberChar: "; someBigNumberChar.printOutNumber();
 
-    std::cout << std::endl << "new values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR" << std::endl;
+    //NEW
+    std::cout << std::endl << "New Values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR" << std::endl;
     defaultBigNumber = someNumberInt;
     std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
     BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar);
@@ -647,43 +935,55 @@ int main()
     std::cout << "defaultBigNumber: "; defaultBigNumber.printOutNumber();
 
     // Operator tests
-    std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS" << std::endl;
+    std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
 
     //== Operator tests
     std::cout << "\"==\" Operator TESTS: " << std::endl;
-    std::cout << "Testing \"==\" operator (defaultBigNumber == someBigNumberInt): (Expected: false)" << 
-        (defaultBigNumber == someBigNumberInt ? "true" : "false") << std::endl;
-    std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberInt): (Expected: true)" <<
-        (someBigNumberChar == someBigNumberInt ? "true" : "false") << std::endl;
+    std::cout << "Testing \"==\" operator (defaultBigNumber == someBigNumberInt): (Expected: FALSE)" << 
+        (defaultBigNumber == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "Testing \"==\" operator (someBigNumberChar == someBigNumberInt): (Expected: TRUE)" <<
+        (someBigNumberChar == someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
     std::cout << std::endl;
 
     //!= Operator tests
     std::cout << "\"!=\" Operator TESTS: " << std::endl;
-    std::cout << "Testing \"==\" operator (defaultBigNumber != someBigNumberInt): (Expected: true)" << 
-        (defaultBigNumber != someBigNumberInt ? "true" : "false") << std::endl;
-    std::cout << "Testing \"==\" operator (someBigNumberChar != someBigNumberInt): (Expected: false)" << 
-        (someBigNumberChar != someBigNumberInt ? "true" : "false") << std::endl;
+    std::cout << "Testing \"==\" operator (defaultBigNumber != someBigNumberInt): (Expected: TRUE)" << 
+        (defaultBigNumber != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "Testing \"==\" operator (someBigNumberChar != someBigNumberInt): (Expected: FALSE)" << 
+        (someBigNumberChar != someBigNumberInt ? "TRUE" : "FALSE") << std::endl;
     std::cout << std::endl;
 
     // > Operator Tests
-    OperatorGreaterThanTests();
+    //OperatorGreaterThanTests();
 
+    // >= Operator Tests
+    //OperatorGreaterThanOrEqualsTests();
+    
     // < Operator Tests
-    OperatorLessThanTests();
+    //OperatorLessThanTests();
 
+    // <= Operator Tests
+    //OperatorLessThanOrEqualsTests();
+    
     // + Operator Tests
-    OperatorSumTests();
-
+    //OperatorSumTests();
+    
     // += Operator Tests
-    OperatorSumAndEqualsTests();
-
-    // - Operator Tests
-    OperatorMinusTests();
-
-    // -= Operator Tests
-    OperatorMinusAndEqualsTests();
+    //OperatorSumAndEqualsTests();
+    
+    //// - Operator Tests
+    //OperatorMinusTests();
+    
+    //// -= Operator Tests
+    //OperatorMinusAndEqualsTests();
 
     // * Operator Tests TO BE CONTINUED
+    //OperatorMultiplyTests();
+
+    // *= Operator Tests TO BE CONTINUED
+    //OperatorMultiplyAndEqualsTests();
+
+
 }
 
 
