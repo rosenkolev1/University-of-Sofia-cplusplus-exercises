@@ -17,8 +17,8 @@ private:
 	bool uninitializedCopier;
 
 	void copy(const BigNumber& other);
-	void changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign);
-	void changeNumber(char* const number, long long int newCapacity, long long int newSize, int sign);
+	//void changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign);
+	void changeNumber(const char* number, long long int newCapacity, long long int newSize, int sign);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
 	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
@@ -48,6 +48,8 @@ public:
 	 * @param number a number represented as an integer
 	 */
 	BigNumber(long long int number);
+
+	BigNumber(const char* number, long long int newCapacity, long long int newSize, int sign);
 
 	~BigNumber();
 

@@ -79,6 +79,11 @@ BigNumber::BigNumber(long long int number)
 	}
 }
 
+BigNumber::BigNumber(const char* number, long long int newCapacity, long long int newSize, int sign)
+{
+	this->changeNumber(number, newCapacity, newSize, sign);
+}
+
 void BigNumber::copy(const BigNumber& other)
 {
 	this->capacity = other.capacity;
@@ -93,23 +98,23 @@ void BigNumber::copy(const BigNumber& other)
 	}
 }
 
-void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign)
-{
-	this->capacity = newCapacity;
-	this->size = newSize;
-	this->sign = sign;
-	delete[] this->number;
-	this->number = new char[this->capacity];
-	for (long long int i = 0; i < this->size; i++)
-	{
-		this->number[i] = number[i] + '0';
-	}
-}
+//void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign)
+//{
+//	this->capacity = newCapacity;
+//	this->size = newSize;
+//	this->sign = sign;
+//	delete[] this->number;
+//	this->number = new char[this->capacity];
+//	for (long long int i = 0; i < this->size; i++)
+//	{
+//		this->number[i] = number[i] + '0';
+//	}
+//}
 
 /*
 @brief Changes the number array to the specified number array
 */
-void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize, int sign)
+void BigNumber::changeNumber(const char* number, long long int newCapacity, long long int newSize, int sign)
 {
 	this->capacity = newCapacity;
 	this->size = newSize;
@@ -256,8 +261,8 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 	}
 
 	int signOfNumber = areNegative ? -1 : 1;
-	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
+	BigNumber newBigNumber = BigNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
+	//newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
 	delete[] newNumber;
 	newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
@@ -422,8 +427,8 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 	delete[] newNumber;
 	newNumber = newNumberCopy;
 
-	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
+	BigNumber newBigNumber = BigNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
+	//newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
 	delete[] newNumber;
 	newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
