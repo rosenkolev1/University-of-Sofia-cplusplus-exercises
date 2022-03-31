@@ -11,13 +11,15 @@ private:
 	long long int size;
 	//Digits of the number
 	int *number;
+	//When this object is getting copied by another, define if this other object is initialized or is not
+	bool uninitializedCopier;
 
 	void copy(const BigNumber& other);
 	void resizeCapacity(int capacity = -1);
 	//@brief Changes the number from negative to positive and vice versa
 	void invertNumber();
-	void changeNumber(int* const number, long long int newCapacity, long long int newSize);
-	void changeNumber(char* const number, long long int newCapacity, long long int newSize);
+	void changeNumber(int* const number, long long int newCapacity, long long int newSize, bool initialized);
+	void changeNumber(char* const number, long long int newCapacity, long long int newSize, bool initialized);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
 	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;

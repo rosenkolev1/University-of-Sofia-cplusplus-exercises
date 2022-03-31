@@ -21,7 +21,7 @@ void BigNumber::copy(const BigNumber& other)
 		otherNumberCopy[i] = other.number[i];
 	}
 
-	this->changeNumber(otherNumberCopy, other.capacity, other.size);
+	this->changeNumber(otherNumberCopy, other.capacity, other.size, !other.uninitializedCopier);
 	delete[] otherNumberCopy;
 }
 
@@ -50,11 +50,11 @@ void BigNumber::invertNumber()
 /*
 @brief Changes the number array to the specified number array
 */
-void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize)
+void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize, bool initialized)
 {
 	this->capacity = newCapacity;
 	this->size = newSize;
-	delete[] this->number;
+	if(initialized == true) delete[] this->number;
 	this->number = new int[this->capacity];
 	for (long long int i = 0; i < this->size; i++)
 	{
@@ -65,11 +65,11 @@ void BigNumber::changeNumber(int* const number, long long int newCapacity, long 
 /*
 @brief Changes the number array to the specified number array
 */
-void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize)
+void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize, bool initialized)
 {
 	this->capacity = newCapacity;
 	this->size = newSize;
-	delete[] this->number;
+	if (initialized == true) delete[] this->number;
 	this->number = new int[newCapacity];
 	for (long long int i = 0; i < newSize; i++)
 	{
@@ -81,7 +81,7 @@ void BigNumber::changeNumber(char* const number, long long int newCapacity, long
 BigNumber::BigNumber(const BigNumber& other)
 {
 	//IF YOU MISS INITIALISING THIS SHIT GOOD LUCK MOTHERFUCKER!!!!!! HAHAH FUCK ME THIS TOOK LIKE AN HALF AN HOUR TO FIGURE OUT
-	this->number = new int[1];
+	//this->number = new int[1];
 	this->copy(other);
 }
 
@@ -286,8 +286,9 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 	if (areNegative) newNumber[biggerSize - 1] *= -1;
 
 	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize);
+	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize, true);
 	delete[] newNumber;
+	newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
 }
 
@@ -300,17 +301,20 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	if (signOfThis == 0 && signOfOther == 0)
 	{
 		BigNumber newBigNumber = BigNumber();
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 
 	if (signOfThis == 0 && signOfOther != 0)
 	{
 		BigNumber newBigNumber = BigNumber(other);
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
 		BigNumber newBigNumber = BigNumber(*this);
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 
@@ -318,21 +322,29 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	{
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.invertNumber();
-		return subtractAndReturn(*this, invertedOtherCopy, false);
+		BigNumber result = subtractAndReturn(*this, invertedOtherCopy, false);
+		result.uninitializedCopier = true;
+		return result;
 	}
 	else if (signOfThis < signOfOther) // Substraction other - this! Change first digit
 	{
 		BigNumber invertedThisCopy = *this;
 		invertedThisCopy.invertNumber();
-		return subtractAndReturn(other, invertedThisCopy, false);
+		BigNumber result = subtractAndReturn(other, invertedThisCopy, false);
+		result.uninitializedCopier = true;
+		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
 	{
-		return addAndReturn(*this, other, false);
+		BigNumber result = addAndReturn(*this, other, false);
+		result.uninitializedCopier = true;
+		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis < 0)
 	{
-		return addAndReturn(*this, other, true);
+		BigNumber result = addAndReturn(*this, other, true);
+		result.uninitializedCopier = true;
+		return result;
 	}
 
 	//This is error state
@@ -341,8 +353,9 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 
 BigNumber& BigNumber::operator+=(const BigNumber& other)
 {
-	BigNumber resultCopy = *this + other;
-	*this = resultCopy;
+	/*BigNumber resultCopy = *this + other;
+	*this = resultCopy;*/
+	*this = *this + other;
 	return *this;
 }
 
@@ -439,8 +452,9 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 
 	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize);
+	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize, true);
 	delete[] newNumber;
+	newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
 }
 
@@ -453,6 +467,7 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	if (signOfThis == 0 && signOfOther == 0)
 	{
 		BigNumber newBigNumber = BigNumber();
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 
@@ -460,11 +475,13 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	{
 		BigNumber newBigNumber = BigNumber(other);
 		newBigNumber.invertNumber();
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
 		BigNumber newBigNumber = BigNumber(*this);
+		newBigNumber.uninitializedCopier = true;
 		return newBigNumber;
 	}
 
@@ -472,7 +489,9 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	{
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.invertNumber();
-		return addAndReturn(*this, invertedOtherCopy, false);
+		BigNumber result = addAndReturn(*this, invertedOtherCopy, false);
+		result.uninitializedCopier = true;
+		return result;
 	}
 	else if (signOfThis < signOfOther) // Equivalent to -(this + other)! Change first digit of this
 	{
@@ -480,15 +499,20 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 		invertedThisCopy.invertNumber();
 		BigNumber invertedResults = addAndReturn(invertedThisCopy, other, false);
 		invertedResults.invertNumber();
+		invertedResults.uninitializedCopier = true;
 		return invertedResults;
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
 	{
-		return subtractAndReturn(*this, other, false);
+		BigNumber result = subtractAndReturn(*this, other, false);
+		result.uninitializedCopier = true;
+		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis < 0)
 	{
-		return subtractAndReturn(*this, other, true);
+		BigNumber result = subtractAndReturn(*this, other, true);
+		result.uninitializedCopier = true;
+		return result;
 	}
 
 	//This is error state
@@ -504,8 +528,9 @@ BigNumber& BigNumber::operator-=(const BigNumber& other)
 
 BigNumber& BigNumber::operator*=(const BigNumber& other)
 {
-	BigNumber resultCopy = *this * other;
-	*this = resultCopy;
+	/*BigNumber resultCopy = *this * other;
+	*this = resultCopy;*/
+	*this = *this * other;
 	return *this;
 }
 
@@ -514,7 +539,12 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 	//Check if either of the numbers are 0
 	int thisSign = this->getSign();
 	int otherSign = other.getSign();
-	if (thisSign == 0 || otherSign == 0) return BigNumber();
+	if (thisSign == 0 || otherSign == 0)
+	{
+		BigNumber result = BigNumber();
+		result.uninitializedCopier = true;
+		return result;
+	}
 
 	bool resultIsNegative = thisSign != otherSign;
 
@@ -597,7 +627,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 	}
 
 	if (resultIsNegative) finalMultiplicationSum.invertNumber();
-
+	finalMultiplicationSum.uninitializedCopier = true;
 	return finalMultiplicationSum;
 }
 
@@ -658,7 +688,7 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 	delete[] number;
 	long long int largerCapacity = other.capacity > sizeOfNumber + 1 ? other.capacity : sizeOfNumber + 1;
 
-	other.changeNumber(reversedNumber, largerCapacity, sizeOfNumber);
+	other.changeNumber(reversedNumber, largerCapacity, sizeOfNumber, true);
 	if (numberIsNegative) other.invertNumber();
 
 	delete[] reversedNumber;

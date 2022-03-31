@@ -473,22 +473,22 @@ void OperatorSumAndEqualsTests()
     BigNumber number1 = BigNumber(1);
     BigNumber number2 = BigNumber(2);
     number1 += number2;
-
+    
     std::cout << "TEST 1:" << std::endl;
     std::cout << "Testing \"+=\" operator -> (1 + 2). Expected: 3: ";
     number1.printOutNumber();
     std::cout << std::endl;
-
+    
     //TEST 2
     BigNumber number4 = BigNumber(9);
     BigNumber number5 = BigNumber(1);
     number4 += number5;
-
+    
     std::cout << "TEST 2:" << std::endl;
     std::cout << "Testing \"+=\" operator -> (9 + 1). Expected: 10: ";
     number4.printOutNumber();
     std::cout << std::endl;
-
+    
     //TEST 3
     BigNumber number7 = BigNumber(9999999);
     BigNumber number8 = BigNumber(78);
@@ -1060,28 +1060,28 @@ int main()
     EqualsAndNotEqualsTests();
 
     // > Operator Tests
-    //OperatorGreaterThanTests();
+    OperatorGreaterThanTests();
 
     // >= Operator Tests
-    //OperatorGreaterThanOrEqualsTests();
+    OperatorGreaterThanOrEqualsTests();
     
     // < Operator Tests
-    //OperatorLessThanTests();
+    OperatorLessThanTests();
 
     // <= Operator Tests
-    //OperatorLessThanOrEqualsTests();
+    OperatorLessThanOrEqualsTests();
     
     // + Operator Tests
-    //OperatorSumTests();
+    OperatorSumTests();
     
     // += Operator Tests
-    //OperatorSumAndEqualsTests();
+    OperatorSumAndEqualsTests();
     
     // - Operator Tests
-    //OperatorMinusTests();
+    OperatorMinusTests();
     
     // -= Operator Tests
-    //OperatorMinusAndEqualsTests();
+    OperatorMinusAndEqualsTests();
 
     // * Operator Tests 
     OperatorMultiplyTests();
@@ -1090,7 +1090,7 @@ int main()
     OperatorMultiplyAndEqualsTests();
 
     // Test inputs from Pesho and Lubo
-    //PeshoAndLuboTests();
+    PeshoAndLuboTests();
 }
 
 
