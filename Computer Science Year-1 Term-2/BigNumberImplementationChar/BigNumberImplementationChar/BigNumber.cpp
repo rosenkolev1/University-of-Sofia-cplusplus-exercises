@@ -3,122 +3,56 @@
 #include <cassert>
 #include <cmath>
 
-//TODO: Change the number array from int to char without somehow breaking anything
-
 BigNumber::BigNumber()
 {
 	this->capacity = INIT_CAPACITY;
 	this->size = 1;
-	this->number = new int[INIT_CAPACITY];
-	this->number[0] = 0;
-}
-
-void BigNumber::copy(const BigNumber& other)
-{
-	int* otherNumberCopy = new int[other.capacity];
-	for (long long int i = 0; i < other.size; i++)
-	{
-		otherNumberCopy[i] = other.number[i];
-	}
-
-	this->changeNumber(otherNumberCopy, other.capacity, other.size);
-	delete[] otherNumberCopy;
-}
-
-void BigNumber::resizeCapacity(int capacity)
-{
-	//If capacity == -1, then double it. Otherwise, set it to new capacity
-	int newCapacity = capacity == -1 ? this->capacity * 2 : capacity;
-	
-	int* numberCopy = new int[newCapacity];
-
-	for (long long int i = 0; i < this->size; i++)
-	{
-		numberCopy[i] = this->number[i];
-	}
-
-	delete[] this->number;
-	this->capacity = newCapacity;
-	this->number = numberCopy;
-}
-
-void BigNumber::invertNumber()
-{
-	this->number[this->size - 1] *= -1;
-}
-
-/*
-@brief Changes the number array to the specified number array
-*/
-void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize)
-{
-	this->capacity = newCapacity;
-	this->size = newSize;
-	delete[] this->number;
-	this->number = new int[this->capacity];
-	for (long long int i = 0; i < this->size; i++)
-	{
-		this->number[i] = number[i];
-	}
-}
-
-/*
-@brief Changes the number array to the specified number array
-*/
-void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize)
-{
-	this->capacity = newCapacity;
-	this->size = newSize;
-	delete[] this->number;
-	this->number = new int[newCapacity];
-	for (long long int i = 0; i < newSize; i++)
-	{
-		int digit = number[i] - '0';
-		this->number[i] = digit;
-	}
+	this->number = new char[INIT_CAPACITY];
+	this->number[0] = '0';
+	this->sign = 0;
 }
 
 BigNumber::BigNumber(const BigNumber& other)
 {
-	//IF YOU MISS INITIALISING THIS SHIT GOOD LUCK MOTHERFUCKER!!!!!! HAHAH FUCK ME THIS TOOK LIKE AN HALF AN HOUR TO FIGURE OUT
-	this->number = new int[1];
+	//IF YOU MISS INITIALISING THIS SHIT GOOD LUCK MOTHERFUCKER!!!!!! HAHAH FUCK ME THIS TOOK LIKE HALF AN HOUR TO FIGURE OUT
+	this->number = new char[1];
 	this->copy(other);
 }
 
 BigNumber::BigNumber(const char* number)
-{	
+{
+	bool otherNumberIsNegative = number[0] == '-';
+
 	long long int numberSize = 0;
-	bool isNegative = number[0] == '-';
-	if (isNegative) numberSize++;
+	if (otherNumberIsNegative) numberSize++;
 	while (number[numberSize] - '0' >= 0 && number[numberSize] - '0' <= 9)
 	{
 		numberSize++;
 	}
-	if (isNegative) numberSize--;
+	if (otherNumberIsNegative) numberSize--;
 
 	this->capacity = numberSize;
 	this->size = numberSize;
-	this->number = new int[this->capacity];
+	
+	//Set sign
+	if (otherNumberIsNegative) this->sign = -1;
+	else if (numberSize == 1 && number[0] == '0') this->sign = 0;
+	else this->sign = 1;
 
-	int startOfNumberArrayIndex = isNegative ? numberSize : numberSize - 1;
-	int endOfNumberArrayIndex = isNegative ? 1 : 0;
-
-	//Digits are stored in reverse. 
-	for (long long int i = startOfNumberArrayIndex; i >= endOfNumberArrayIndex; i--)
+	//Copy the reversed number into this->number
+	this->number = new char[numberSize];
+	long long int trueSizeOfNumber = otherNumberIsNegative ? numberSize + 1 : numberSize;
+	for (long long int i = 0; i < numberSize; i++)
 	{
-		int digit = number[i] - '0';
-		this->number[startOfNumberArrayIndex - i] = digit;
+		this->number[i] = number[trueSizeOfNumber - 1 - i];
 	}
-
-	if (isNegative) this->invertNumber();
-
 }
 
 BigNumber::BigNumber(long long int number)
 {
-	int signOfNumber = 0;
-	if (number > 0) signOfNumber = 1;
-	else if (number < 0) signOfNumber = -1;
+	if (number > 0) this->sign = 1;
+	else if (number < 0) this->sign = -1;
+	else this->sign = 1;
 
 	number = abs(number);
 
@@ -132,18 +66,57 @@ BigNumber::BigNumber(long long int number)
 
 	this->capacity = numberSize;
 	this->size = numberSize;
-	this->number = new int[this->capacity];
+	this->number = new char[this->capacity];
 
 	//Digits are stored in reverse. 
 	for (long long int i = numberSize - 1; i >= 0; i--)
 	{
-		int digit = number%10;
+		int digit = number % 10;
 		number /= 10;
-		this->number[numberSize - 1 - i] = digit;
+		this->number[numberSize - 1 - i] = '0' + digit;
 	}
+}
 
-	//Change the sign of the front digit if int is negative
-	if (signOfNumber < 0) this->number[numberSize - 1] *= -1;
+void BigNumber::copy(const BigNumber& other)
+{
+	this->capacity = other.capacity;
+	this->size = other.size;
+	this->sign = other.sign;
+	delete[] this->number;
+	this->number = new char[other.capacity];
+	for (long long int i = 0; i < other.size; i++)
+	{
+		this->number[i] = other.number[i];
+	}
+}
+
+void BigNumber::changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign)
+{
+	this->capacity = newCapacity;
+	this->size = newSize;
+	this->sign = sign;
+	delete[] this->number;
+	this->number = new char[this->capacity];
+	for (long long int i = 0; i < this->size; i++)
+	{
+		this->number[i] = number[i] + '0';
+	}
+}
+
+/*
+@brief Changes the number array to the specified number array
+*/
+void BigNumber::changeNumber(char* const number, long long int newCapacity, long long int newSize, int sign)
+{
+	this->capacity = newCapacity;
+	this->size = newSize;
+	this->sign = sign;
+	delete[] this->number;
+	this->number = new char[newCapacity];
+	for (long long int i = 0; i < newSize; i++)
+	{
+		this->number[i] = number[i];
+	}
 }
 
 BigNumber::~BigNumber()
@@ -151,7 +124,7 @@ BigNumber::~BigNumber()
 	delete[] this->number;
 }
 
-BigNumber& BigNumber::operator = (const BigNumber& other)
+BigNumber& BigNumber::operator=(const BigNumber& other)
 {
 	if (this != &other)
 	{
@@ -160,18 +133,11 @@ BigNumber& BigNumber::operator = (const BigNumber& other)
 	return *this;
 }
 
-int BigNumber::getSign() const
-{
-	int frontDigit = this->number[this->size - 1];
-	if (frontDigit > 0) return 1;
-	else if (frontDigit < 0) return -1;
-	else return 0;
-}
-
 bool BigNumber::operator==(const BigNumber& other) const
 {
 	//Compare the numbers
 	if (other.size != this->size) return false;
+	if (this->sign != other.sign) return false;
 	for (long long int i = 0; i < other.size; i++)
 	{
 		if (this->number[i] != other.number[i]) return false;
@@ -187,25 +153,24 @@ bool BigNumber::operator!=(const BigNumber& other) const
 
 bool BigNumber::operator<(const BigNumber& other) const
 {
-	if (*this == other) return false;
-	return !(*this > other);
+	return !(*this > other) && !(*this == other);
 }
 
-bool BigNumber::operator <=(const BigNumber& other) const
+bool BigNumber::operator<=(const BigNumber& other) const
 {
-	if (*this == other) return true;
-	return *this < other;
+	return !(*this > other);
 }
 
 bool BigNumber::operator>(const BigNumber& other) const
 {
-	int signOfOther = other.getSign();
-	int signOfThis = this->getSign();
+	int signOfOther = other.sign;
+	int signOfThis = this->sign;
 
 	//Check by sign of numbers first
 	//Edge cases for 1 or both of the numbers being 0
 	if (signOfOther == 0) return signOfThis > 0 ? true : false;
 	if (signOfThis == 0) return signOfOther < 0 ? true : false;
+
 	//Normal cases
 	if (signOfOther > 0 && signOfThis < 0) return false;
 	else if (signOfOther < 0 && signOfThis > 0) return true;
@@ -218,8 +183,8 @@ bool BigNumber::operator>(const BigNumber& other) const
 		{
 			for (long long int i = other.size - 1; i >= 0; i--)
 			{
-				int thisDigit = this->number[i];
-				int otherDigit = other.number[i];
+				int thisDigit = this->number[i] - '0';
+				int otherDigit = other.number[i] - '0';
 				//Return if the digits arent equal. Continue cycle if digits are equal
 				if (thisDigit > otherDigit) return true;
 				else if (thisDigit < otherDigit) return false;
@@ -236,8 +201,8 @@ bool BigNumber::operator>(const BigNumber& other) const
 			for (long long int i = other.size - 1; i >= 0; i--)
 			{
 				//abs is included here because the front digits are negative, which means comparing them is weird
-				int thisDigit = abs(this->number[i]);
-				int otherDigit = abs(other.number[i]);
+				int thisDigit = this->number[i] - '0';
+				int otherDigit = other.number[i] - '0';
 				//Return if the digits arent equal. Continue cycle if digits are equal
 				if (thisDigit > otherDigit) return false;
 				else if (thisDigit < otherDigit) return true;
@@ -249,12 +214,12 @@ bool BigNumber::operator>(const BigNumber& other) const
 	return false;
 }
 
-bool BigNumber::operator >=(const BigNumber& other) const
+bool BigNumber::operator>=(const BigNumber& other) const
 {
-	if (*this == other) return true;
-	return *this > other;
+	return *this > other || *this == other;
 }
 
+//TODO: STOP USING INT ARRAYS BECAUSE IT DEFEATS THE PURPOSE OF USING A CHAR ARRAY FOR THE DIGITS OF THE NUMBERS IN THE FIRST PLACE
 BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
 {
 	long long int biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
@@ -267,8 +232,8 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 
 	for (long long int i = 0; i < biggerSize; i++)
 	{
-		int digitThis = thisNumber.size > i ? abs(thisNumber.number[i]) : 0;
-		int digitOther = other.size > i ? abs(other.number[i]) : 0;
+		int digitThis = thisNumber.size > i ? thisNumber.number[i] - '0' : 0;
+		int digitOther = other.size > i ? other.number[i] - '0' : 0;
 
 		int sum = digitThis + digitOther + carryOver;
 		int newDigit = sum % 10;
@@ -283,47 +248,45 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 		biggerSize++;
 	}
 
-	if (areNegative) newNumber[biggerSize - 1] *= -1;
-
+	int signOfNumber = areNegative ? -1 : 1;
 	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize);
+	newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
 	delete[] newNumber;
 	return newBigNumber;
 }
 
 BigNumber BigNumber::operator+(const BigNumber& other) const
 {
-	int signOfThis = this->getSign();
-	int signOfOther = other.getSign();
+	int signOfThis = this->sign;
+	int signOfOther = other.sign;
 
 	//Edge cases for 0
 	if (signOfThis == 0 && signOfOther == 0)
 	{
-		BigNumber newBigNumber = BigNumber();
-		return newBigNumber;
+		return BigNumber();
 	}
 
 	if (signOfThis == 0 && signOfOther != 0)
 	{
-		BigNumber newBigNumber = BigNumber(other);
-		return newBigNumber;
+		return BigNumber(other);
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
-		BigNumber newBigNumber = BigNumber(*this);
-		return newBigNumber;
+		return BigNumber(*this);
 	}
 
 	if (signOfThis > signOfOther) // Substraction this - other! Change first digit of other
 	{
+		//TODO SUBTRACTION
 		BigNumber invertedOtherCopy = other;
-		invertedOtherCopy.invertNumber();
+		invertedOtherCopy.sign *= -1;
 		return subtractAndReturn(*this, invertedOtherCopy, false);
 	}
 	else if (signOfThis < signOfOther) // Substraction other - this! Change first digit
 	{
+		//TODO SUBTRACTION
 		BigNumber invertedThisCopy = *this;
-		invertedThisCopy.invertNumber();
+		invertedThisCopy.sign *= -1;
 		return subtractAndReturn(other, invertedThisCopy, false);
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
@@ -341,49 +304,55 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 
 BigNumber& BigNumber::operator+=(const BigNumber& other)
 {
-	BigNumber resultCopy = *this + other;
-	*this = resultCopy;
+	*this = *this + other;
 	return *this;
 }
 
+//TODO: STOP USING INT ARRAYS BECAUSE IT DEFEATS THE PURPOSE OF USING A CHAR ARRAY FOR THE DIGITS OF THE NUMBERS IN THE FIRST PLACE
 BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
 {
 	long long int biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
 	long long int biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
 	int* newNumber = new int[biggerCapacity];
 
-	BigNumber largerNumber = thisNumber;
-	BigNumber smallerNumber = other;
+	int expectedResultsSign = 0;
+
+	BigNumber largerAbsoluteNumber = thisNumber;
+	BigNumber smallerAbsoluteNumber = other;
 
 	//Determine which is the bigger number while flipping both of them to being positive integers
-	if (areNegative)
+
+	if (thisNumber == other)
 	{
-		if (thisNumber > other) 
+		expectedResultsSign = 0;
+		return BigNumber();
+	}
+	else if (thisNumber > other)
+	{
+		expectedResultsSign = 1;
+		if (areNegative)
 		{
-			largerNumber = other;
-			smallerNumber = thisNumber;
-			largerNumber.invertNumber();
-			smallerNumber.invertNumber();
+			largerAbsoluteNumber = other;
+			smallerAbsoluteNumber = thisNumber;
 		}
 		else
 		{
-			largerNumber = thisNumber;
-			smallerNumber = other;
-			largerNumber.invertNumber();
-			smallerNumber.invertNumber();
+			largerAbsoluteNumber = thisNumber;
+			smallerAbsoluteNumber = other;
 		}
 	}
-	else
+	else if (thisNumber < other)
 	{
-		if (thisNumber > other)
+		expectedResultsSign = -1;
+		if (areNegative)
 		{
-			largerNumber = thisNumber;
-			smallerNumber = other;
+			largerAbsoluteNumber = thisNumber;
+			smallerAbsoluteNumber = other;
 		}
 		else
 		{
-			largerNumber = other;
-			smallerNumber = thisNumber;
+			largerAbsoluteNumber = other;
+			smallerAbsoluteNumber = thisNumber;
 		}
 	}
 
@@ -391,8 +360,8 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	for (long long int i = 0; i < biggerSize; i++)
 	{
-		int digitLarger = largerNumber.size > i ? largerNumber.number[i] : 0;
-		int digitSmaller = smallerNumber.size > i ? smallerNumber.number[i] : 0;
+		int digitLarger = largerAbsoluteNumber.size > i ? largerAbsoluteNumber.number[i] - '0' : 0;
+		int digitSmaller = smallerAbsoluteNumber.size > i ? smallerAbsoluteNumber.number[i] - '0' : 0;
 
 		bool carryOverLocked = false;
 
@@ -421,8 +390,8 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 		trailingZeroesCounter++;
 	}
 
-	int* newNumberCopy = new int[biggerSize - trailingZeroesCounter];
 	long long int finalSize = biggerSize - trailingZeroesCounter;
+	int* newNumberCopy = new int[finalSize];
 	for (long long int i = 0; i < finalSize; i++)
 	{
 		newNumberCopy[i] = newNumber[i];
@@ -431,55 +400,49 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 	delete[] newNumber;
 	newNumber = newNumberCopy;
 
-	//Flip sign to negative if expecting <0 result
-	if (thisNumber < other)
-	{
-		newNumber[finalSize - 1] *= -1;
-	}
-
-
 	BigNumber newBigNumber = BigNumber();
-	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize);
+	newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
 	delete[] newNumber;
 	return newBigNumber;
 }
 
 BigNumber BigNumber::operator-(const BigNumber& other) const
 {
-	int signOfThis = this->getSign();
-	int signOfOther = other.getSign();
+	int signOfThis = this->sign;
+	int signOfOther = other.sign;
 
 	//Edge cases for 0
 	if (signOfThis == 0 && signOfOther == 0)
 	{
-		BigNumber newBigNumber = BigNumber();
-		return newBigNumber;
+		return BigNumber();
 	}
 
 	if (signOfThis == 0 && signOfOther != 0)
 	{
 		BigNumber newBigNumber = BigNumber(other);
-		newBigNumber.invertNumber();
+		newBigNumber.sign *= -1;
 		return newBigNumber;
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
-		BigNumber newBigNumber = BigNumber(*this);
+		BigNumber newBigNumber = *this;
 		return newBigNumber;
 	}
 
 	if (signOfThis > signOfOther) // Addition this + other! Change first digit of other
 	{
+		//TODO Make Addition
 		BigNumber invertedOtherCopy = other;
-		invertedOtherCopy.invertNumber();
+		invertedOtherCopy.sign *= -1;
 		return addAndReturn(*this, invertedOtherCopy, false);
 	}
 	else if (signOfThis < signOfOther) // Equivalent to -(this + other)! Change first digit of this
 	{
+		//TODO Make Addition
 		BigNumber invertedThisCopy = *this;
-		invertedThisCopy.invertNumber();
+		invertedThisCopy.sign *= -1;
 		BigNumber invertedResults = addAndReturn(invertedThisCopy, other, false);
-		invertedResults.invertNumber();
+		invertedResults.sign *= -1;
 		return invertedResults;
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
@@ -495,25 +458,24 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	//return BigNumber();
 }
 
+
 BigNumber& BigNumber::operator-=(const BigNumber& other)
 {
-	BigNumber resultCopy = *this - other;
-	*this = resultCopy;
+	*this = *this - other;
 	return *this;
 }
 
 BigNumber& BigNumber::operator*=(const BigNumber& other)
 {
-	BigNumber resultCopy = *this * other;
-	*this = resultCopy;
+	*this = *this * other;
 	return *this;
 }
 
 BigNumber BigNumber::operator*(const BigNumber& other) const
 {
 	//Check if either of the numbers are 0
-	int thisSign = this->getSign();
-	int otherSign = other.getSign();
+	int thisSign = this->sign;
+	int otherSign = other.sign;
 	if (thisSign == 0 || otherSign == 0) return BigNumber();
 
 	bool resultIsNegative = thisSign != otherSign;
@@ -531,7 +493,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 
 	for (long long int i = 0; i < smallerSize; i++)
 	{
-		int digitOfSmallerNumber = abs(smallerNumber.number[i]);
+		int digitOfSmallerNumber = smallerNumber.number[i] - '0';
 
 		//If digit is 0, then just move on to the next digit
 		if (digitOfSmallerNumber == 0) continue;
@@ -541,7 +503,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 		for (long long int y = 0; y < biggerSize; y++)
 		{
 			//Multiply the larger number with the digit from the smaller number
-			int digitOfLargerNumber = abs(largerNumber.number[y]);
+			int digitOfLargerNumber = largerNumber.number[y] - '0';
 
 			//If digit is 0, then just move on to the next digit
 			if (digitOfLargerNumber == 0) continue;
@@ -581,7 +543,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 
 		for (long long int y = 0; y < sumOfMultiplicationDigit.size; y++)
 		{
-			charsOfMultiplication[y] = '0' + sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.size - 1 - y];
+			charsOfMultiplication[y] = sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.size - 1 - y];
 		}
 
 		for (long long int y = 0; y < zeroesPadding; y++)
@@ -596,7 +558,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 		delete[] charsOfMultiplication;
 	}
 
-	if (resultIsNegative) finalMultiplicationSum.invertNumber();
+	if (resultIsNegative) finalMultiplicationSum.sign *= -1;
 
 	return finalMultiplicationSum;
 }
@@ -612,6 +574,7 @@ void BigNumber::printOutNumber()
 	int commaCounter = leftOverDigitSpaces != 0 ? threeDigitSpaces : threeDigitSpaces - 1;
 	int commaStep = initialDigitsSpaces;
 
+	if (this->sign == -1) std::cout << '-';
 	for (long long int i = this->size - 1; i >= 0; i--)
 	{
 		std::cout << this->number[i];
@@ -623,10 +586,9 @@ void BigNumber::printOutNumber()
 			commaStep = 3;
 		}
 	}
-	std::cout<<std::endl;
+	std::cout << std::endl;
 }
 
-//TODO Potentially fix the reading, because this way you cannot read more than long long int size of a number in terms of digits
 std::istream& operator>>(std::istream& cin, BigNumber& other)
 {
 	//
@@ -636,19 +598,20 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 
 	std::cout << "This is the number: " << number << std::endl;
 
-	bool numberIsNegative = number[0] == '-';
+	int numberSign = number[0] == '-' ? -1 : 1;
+	if (number[0] == '0') numberSign = 0;
 
 	long long int sizeOfNumber = 0;
-	if (numberIsNegative) sizeOfNumber++;
-	while (number[sizeOfNumber] )
+	if (numberSign < 0) sizeOfNumber++;
+	while (number[sizeOfNumber])
 	{
 		sizeOfNumber++;
 	}
-	if (numberIsNegative) sizeOfNumber--;
+	if (numberSign < 0) sizeOfNumber--;
 
 	char* reversedNumber = new char[sizeOfNumber];
 
-	int numberTrueSize = numberIsNegative ? sizeOfNumber + 1 : sizeOfNumber;
+	int numberTrueSize = numberSign < 0 ? sizeOfNumber + 1 : sizeOfNumber;
 
 	for (long long int i = 0; i < sizeOfNumber; i++)
 	{
@@ -658,8 +621,7 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 	delete[] number;
 	long long int largerCapacity = other.capacity > sizeOfNumber + 1 ? other.capacity : sizeOfNumber + 1;
 
-	other.changeNumber(reversedNumber, largerCapacity, sizeOfNumber);
-	if (numberIsNegative) other.invertNumber();
+	other.changeNumber(reversedNumber, largerCapacity, sizeOfNumber, numberSign);
 
 	delete[] reversedNumber;
 
