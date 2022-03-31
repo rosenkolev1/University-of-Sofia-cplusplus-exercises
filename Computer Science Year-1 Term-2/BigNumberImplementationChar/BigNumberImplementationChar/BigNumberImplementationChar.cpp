@@ -381,22 +381,22 @@ void OperatorSumTests()
     BigNumber number1 = BigNumber(1);
     BigNumber number2 = BigNumber(2);
     BigNumber number3 = number1 + number2;
-
+    
     std::cout << "TEST 1:" << std::endl;
     std::cout << "Testing \"+\" operator -> (1 + 2). Expected: 3: ";
     number3.printOutNumber();
     std::cout << std::endl;
-
+    
     //TEST 2
     BigNumber number4 = BigNumber(9);
     BigNumber number5 = BigNumber(1);
     BigNumber number6 = number4 + number5;
-
+    
     std::cout << "TEST 2:" << std::endl;
     std::cout << "Testing \"+\" operator -> (9 + 1). Expected: 10: ";
     number6.printOutNumber();
     std::cout << std::endl;
-
+    
     //TEST 3
     BigNumber number7 = BigNumber(9999999);
     BigNumber number8 = BigNumber(78);
@@ -405,7 +405,7 @@ void OperatorSumTests()
     std::cout << "Testing \"+\" operator -> (9999999 + 78). Expected: 10 000 077: ";
     number9.printOutNumber();
     std::cout << std::endl;
-
+    
     //TEST 4
     BigNumber number10 = BigNumber();
     BigNumber number11 = BigNumber(-79);
@@ -415,7 +415,7 @@ void OperatorSumTests()
     number12.printOutNumber();
     std::cout << std::endl;
 
-    ////TEST 5
+    //TEST 5
     BigNumber number13 = BigNumber(-101);
     BigNumber number14 = BigNumber();
     BigNumber number15 = number13 + number14;
@@ -1050,52 +1050,78 @@ void PeshoAndLuboTests()
     std::cout << std::boolalpha << ((BigNumber("-12345678901234567890") * BigNumber("4354678097643135")) == BigNumber("-53761457511741137249987999149935150")) << std::endl;
 }
 
+//Tests for copying shit correctly without access violation reading exceptions
+void SpecialTests()
+{
+    //CORRECT
+    BigNumber otherBigNumber = BigNumber("4354678097643135");
+    BigNumber anotherBigNumber = BigNumber("12345678901234567890");
+    BigNumber otherAnotherBigNumber = BigNumber("12350033579332211025");
+    otherBigNumber.printOutNumber();
+    anotherBigNumber.printOutNumber();
+    /*BigNumber otherAnotherBigNumber = otherBigNumber + anotherBigNumber;
+    otherAnotherBigNumber.printOutNumber();*/
+    std::cout << std::boolalpha << ((otherBigNumber + anotherBigNumber) == otherAnotherBigNumber) << std::endl;
+
+    BigNumber copyOfOtherBigNumber = otherBigNumber;
+    BigNumber copyOfAnotherBigNumber = anotherBigNumber;
+    BigNumber copyOfOtherAnotherBigNumber = otherAnotherBigNumber;
+
+    std::cout << "Is copyOfOtherBigNumber == otherBigNumber -> " << std::boolalpha << (copyOfOtherBigNumber == otherBigNumber) << std::endl;
+    std::cout << "Is copyOfAnotherBigNumber == anotherBigNumber -> " << std::boolalpha << (copyOfAnotherBigNumber == anotherBigNumber) << std::endl;
+    std::cout << "Is copyOfOtherAnotherBigNumber == otherAnotherBigNumber -> " << std::boolalpha << (copyOfOtherAnotherBigNumber == otherAnotherBigNumber) << std::endl;
+    std::cout << "Is copyOfOtherAnotherBigNumber2 == copyOfOtherAnotherBigNumber -> " << std::boolalpha << ((copyOfOtherBigNumber += copyOfAnotherBigNumber) == copyOfOtherAnotherBigNumber) << std::endl;
+}
+
 int main()
 {
-    // CONSTRUCTOR TESTS
-    ConstructorAndCopyAndAssignTests();
-
-    // READING OPERATOR TESTS
-    //ReadingOperatorTests();
-
-    // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
-    std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
-
-    // == Operator and != Operator Tests
-    EqualsAndNotEqualsTests();
-
-    // > Operator Tests
-    OperatorGreaterThanTests();
-
-    // >= Operator Tests
-    OperatorGreaterThanOrEqualsTests();
-
-    // < Operator Tests
-    OperatorLessThanTests();
-
-    // <= Operator Tests
-    OperatorLessThanOrEqualsTests();
-
+    //// CONSTRUCTOR TESTS
+    //ConstructorAndCopyAndAssignTests();
+    //
+    //// READING OPERATOR TESTS
+    ////ReadingOperatorTests();
+    //
+    //// ARITHMETIC AND COMPARATIVE OPERATORS TESTS
+    //std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
+    //
+    //// == Operator and != Operator Tests
+    //EqualsAndNotEqualsTests();
+    //
+    //// > Operator Tests
+    //OperatorGreaterThanTests();
+    //
+    //// >= Operator Tests
+    //OperatorGreaterThanOrEqualsTests();
+    //
+    //// < Operator Tests
+    //OperatorLessThanTests();
+    //
+    //// <= Operator Tests
+    //OperatorLessThanOrEqualsTests();
+    //
     // + Operator Tests
     OperatorSumTests();
-
+    
     // += Operator Tests
     OperatorSumAndEqualsTests();
-
+    
     // - Operator Tests
     OperatorMinusTests();
-
+    
     // -= Operator Tests
     OperatorMinusAndEqualsTests();
-
+    
     // * Operator Tests 
     OperatorMultiplyTests();
-
+    
     // *= Operator Tests
     OperatorMultiplyAndEqualsTests();
 
     // Test inputs from Pesho and Lubo
     PeshoAndLuboTests();
+
+    //Special Tests
+    //SpecialTests();
 }
 
 
