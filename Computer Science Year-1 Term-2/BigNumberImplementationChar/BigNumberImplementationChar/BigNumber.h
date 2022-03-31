@@ -15,9 +15,6 @@ private:
 	int sign;
 
 	void copy(const BigNumber& other);
-	void resizeCapacity(int capacity = -1);
-	//@brief Changes the number from negative to positive and vice versa
-	void invertNumber();
 	void changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign);
 	void changeNumber(char* const number, long long int newCapacity, long long int newSize, int sign);
 	//Add 2 numbers together and return a new number that is their sum
@@ -53,11 +50,6 @@ public:
 
 	//Assigment operator
 	BigNumber& operator = (const BigNumber& other);
-
-	/*
-	@brief //Returns the sign of the number. 1 if positive, -1 if negative, 0 if 0.
-	*/
-	int getSign() const;
 
 	// Mandatory
 	bool operator == (const BigNumber& other) const;

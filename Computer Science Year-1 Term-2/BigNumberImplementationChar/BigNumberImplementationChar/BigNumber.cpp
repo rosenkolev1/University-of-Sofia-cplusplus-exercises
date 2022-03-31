@@ -219,7 +219,6 @@ bool BigNumber::operator>=(const BigNumber& other) const
 	return *this > other || *this == other;
 }
 
-//TODO: STOP USING INT ARRAYS BECAUSE IT DEFEATS THE PURPOSE OF USING A CHAR ARRAY FOR THE DIGITS OF THE NUMBERS IN THE FIRST PLACE
 BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
 {
 	long long int biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
@@ -228,7 +227,7 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 
 	int carryOver = 0;
 
-	int* newNumber = new int[biggerCapacity + 1];
+	char* newNumber = new char[biggerCapacity + 1];
 
 	for (long long int i = 0; i < biggerSize; i++)
 	{
@@ -239,12 +238,12 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 		int newDigit = sum % 10;
 		carryOver = sum / 10;
 
-		newNumber[i] = newDigit;
+		newNumber[i] = newDigit + '0';
 	}
 
 	if (carryOver == 1)
 	{
-		newNumber[biggerSize] = 1;
+		newNumber[biggerSize] = 1 + '0';
 		biggerSize++;
 	}
 
@@ -313,7 +312,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 {
 	long long int biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
 	long long int biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
-	int* newNumber = new int[biggerCapacity];
+	char* newNumber = new char[biggerCapacity];
 
 	int expectedResultsSign = 0;
 
@@ -379,19 +378,19 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 		int subtractionResult = digitLarger < digitSmaller ? digitLarger + 10 - digitSmaller : digitLarger - digitSmaller;
 
-		newNumber[i] = subtractionResult;
+		newNumber[i] = subtractionResult + '0';
 	}
 
 	//Remove trailing zeroes
 	int trailingZeroesCounter = 0;
 	for (long long int i = biggerSize - 1; i >= 0; i--)
 	{
-		if (newNumber[i] != 0) break;
+		if (newNumber[i] != '0') break;
 		trailingZeroesCounter++;
 	}
 
 	long long int finalSize = biggerSize - trailingZeroesCounter;
-	int* newNumberCopy = new int[finalSize];
+	char* newNumberCopy = new char[finalSize];
 	for (long long int i = 0; i < finalSize; i++)
 	{
 		newNumberCopy[i] = newNumber[i];
