@@ -3,7 +3,7 @@
 #include<iostream>
 
 const long long int INIT_CAPACITY = 20;
-
+class BigNumberDivisionResult;
 class BigNumber
 {
 private:
@@ -22,6 +22,7 @@ private:
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
 	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
+	BigNumberDivisionResult divideAndReturn(const BigNumber& other) const;
 
 public:
 	/**
@@ -60,6 +61,12 @@ public:
 	bool operator <= (const BigNumber& other) const;
 	bool operator > (const BigNumber& other) const;
 	bool operator >= (const BigNumber& other) const;
+	/// <summary>
+	/// Compares two numbers by absolute value
+	/// </summary>
+	/// <param name="other"></param>
+	/// <returns></returns>
+	bool greaterThanOrEqualsAbsolute(const BigNumber& other) const;
 
 	BigNumber& operator += (const BigNumber& other);
 	BigNumber operator + (const BigNumber& other) const;

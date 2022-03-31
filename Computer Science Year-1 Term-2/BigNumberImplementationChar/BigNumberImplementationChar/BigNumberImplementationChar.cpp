@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "BigNumber.h"
+#include "BigNumberDivisionResult.h"
 
 void ConstructorAndCopyAndAssignTests()
 {
@@ -1022,6 +1023,471 @@ void OperatorMultiplyAndEqualsTests()
     std::cout << std::endl;
 }
 
+void OperatorDivideTests()
+{
+    // / Operator tests
+    std::cout << "\"/\" Operator TESTS: " << std::endl << std::endl;
+    
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    BigNumber number2 = BigNumber(1);
+    BigNumber number3 = number1 / number2;
+    
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (0 / 1). Expected: 0: ";
+    number3.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 2
+    BigNumber number4 = BigNumber(100);
+    BigNumber number5 = BigNumber(101);
+    BigNumber number6 = number4 / number5;
+    
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (100 / 101). Expected: 0: ";
+    number6.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 3
+    BigNumber number7 = BigNumber(100);
+    BigNumber number8 = BigNumber(-101);
+    BigNumber number9 = number7 / number8;
+    
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (100 / -101). Expected: 0: ";
+    number9.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 4
+    BigNumber number10 = BigNumber(5474253);
+    BigNumber number11 = BigNumber(1);
+    BigNumber number12 = number10 / number11;
+    
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (5474253 / 1). Expected: 5474253: ";
+    number12.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 5
+    BigNumber number13 = BigNumber(225);
+    BigNumber number14 = BigNumber(15);
+    BigNumber number15 = number13 / number14;
+    
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (225 / 15). Expected: 15: ";
+    number15.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 6
+    BigNumber number16 = BigNumber(225);
+    BigNumber number17 = BigNumber(5);
+    BigNumber number18 = number16 / number17;
+
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (225 / 5). Expected: 45: ";
+    number18.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 7
+    BigNumber number19 = BigNumber(29773);
+    BigNumber number20 = BigNumber(-19);
+    BigNumber number21 = number19 / number20;
+
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (29773 / -19). Expected: -1567: ";
+    number21.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 8
+    BigNumber number22 = BigNumber(-14670163);
+    BigNumber number23 = BigNumber(163);
+    BigNumber number24 = number22 / number23;
+
+    std::cout << "TEST 8:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (-14670163 / 163). Expected: -90,001: ";
+    number24.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 9
+    BigNumber number25 = BigNumber(-14670187);
+    BigNumber number26 = BigNumber(163);
+    BigNumber number27 = number25 / number26;
+
+    std::cout << "TEST 9:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (-14670187 / 163). Expected: -90,001: ";
+    number27.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 10
+    BigNumber number28 = BigNumber("38715980218941283691286446981264988961289");
+    BigNumber number29 = BigNumber(-356);
+    BigNumber number30 = number28 / number29;
+
+    std::cout << "TEST 10:" << std::endl;
+    std::cout << "Testing \"/\" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: ";
+    number30.printOutNumber();
+    std::cout << std::endl;
+}
+
+void OperatorDivideAndEqualsTests()
+{
+    // /= Operator tests
+    std::cout << "\"/=\" Operator TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    BigNumber number2 = BigNumber(1);
+    number1 /= number2;
+
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (0 / 1). Expected: 0: ";
+    number1.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 2
+    BigNumber number4 = BigNumber(100);
+    BigNumber number5 = BigNumber(101);
+    number4 /= number5;
+
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (100 / 101). Expected: 0: ";
+    number4.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 3
+    BigNumber number7 = BigNumber(100);
+    BigNumber number8 = BigNumber(-101);
+    number7 /= number8;
+
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (100 / -101). Expected: 0: ";
+    number7.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number10 = BigNumber(5474253);
+    BigNumber number11 = BigNumber(1);
+    number10 /= number11;
+
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (5474253 / 1). Expected: 5474253: ";
+    number10.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 5
+    BigNumber number13 = BigNumber(225);
+    BigNumber number14 = BigNumber(15);
+    number13 /= number14;
+
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (225 / 15). Expected: 15: ";
+    number13.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 6
+    BigNumber number16 = BigNumber(225);
+    BigNumber number17 = BigNumber(5);
+    number16 /= number17;
+
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (225 / 5). Expected: 45: ";
+    number16.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 7
+    BigNumber number19 = BigNumber(29773);
+    BigNumber number20 = BigNumber(-19);
+    number19 /= number20;
+
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (29773 / -19). Expected: -1567: ";
+    number19.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 8
+    BigNumber number22 = BigNumber(-14670163);
+    BigNumber number23 = BigNumber(163);
+    number22 /= number23;
+
+    std::cout << "TEST 8:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (-14670163 / 163). Expected: -90,001: ";
+    number22.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 9
+    BigNumber number25 = BigNumber(-14670187);
+    BigNumber number26 = BigNumber(163);
+    number25 /= number26;
+
+    std::cout << "TEST 9:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (-14670187 / 163). Expected: -90,001: ";
+    number25.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 10
+    BigNumber number28 = BigNumber("38715980218941283691286446981264988961289");
+    BigNumber number29 = BigNumber(-356);
+    number28 /= number29;
+
+    std::cout << "TEST 10:" << std::endl;
+    std::cout << "Testing \"/=\" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: ";
+    number28.printOutNumber();
+    std::cout << std::endl;
+}
+
+void OperatorPercentTests()
+{
+    // / Operator tests
+    std::cout << "\"%\" Operator TESTS: " << std::endl << std::endl;
+    std::cout << (-14670187 % 163);
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    BigNumber number2 = BigNumber(1);
+    BigNumber number3 = number1 % number2;
+    
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (0 % 1). Expected: 0: ";
+    number3.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 2
+    BigNumber number4 = BigNumber(100);
+    BigNumber number5 = BigNumber(101);
+    BigNumber number6 = number4 % number5;
+    
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (100 % 101). Expected: 100: ";
+    number6.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 3
+    BigNumber number7 = BigNumber(100);
+    BigNumber number8 = BigNumber(-101);
+    BigNumber number9 = number7 % number8;
+    
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (100 % -101). Expected: 100: ";
+    number9.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 4
+    BigNumber number10 = BigNumber(5474253);
+    BigNumber number11 = BigNumber(1);
+    BigNumber number12 = number10 % number11;
+    
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (5474253 % 1). Expected: 0: ";
+    number12.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 5
+    BigNumber number13 = BigNumber(225);
+    BigNumber number14 = BigNumber(15);
+    BigNumber number15 = number13 % number14;
+    
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (225 % 15). Expected: 0: ";
+    number15.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 6
+    BigNumber number16 = BigNumber(225);
+    BigNumber number17 = BigNumber(5);
+    BigNumber number18 = number16 % number17;
+    
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (225 % 5). Expected: 0: ";
+    number18.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 7
+    BigNumber number19 = BigNumber(29773);
+    BigNumber number20 = BigNumber(-19);
+    BigNumber number21 = number19 % number20;
+    
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (29773 % -19). Expected: 0: ";
+    number21.printOutNumber();
+    std::cout << std::endl;
+    
+    //TEST 8
+    BigNumber number22 = BigNumber(-14670163);
+    BigNumber number23 = BigNumber(163);
+    BigNumber number24 = number22 % number23;
+    
+    std::cout << "TEST 8:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (-14670163 % 163). Expected: 0: ";
+    number24.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 9
+    BigNumber number25 = BigNumber(-14670187);
+    BigNumber number26 = BigNumber(163);
+    BigNumber number27 = number25 % number26;
+
+    std::cout << "TEST 9:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (-14670187 % 163). Expected: -24: ";
+    number27.printOutNumber();
+    std::cout << std::endl;
+
+    //3871598021894108369 --> 289
+    //38715980218941283691286446981264988961289 --> 341
+    //TEST 10
+    BigNumber number28 = BigNumber("38715980218941283691286446981264988961289");
+    BigNumber number29 = BigNumber(-356);
+    BigNumber number30 = number28 % number29;
+
+    std::cout << "TEST 10:" << std::endl;
+    std::cout << "Testing \"%\" operator -> (38715980218941283691286446981264988961289 % -356). Expected: 341: ";
+    number30.printOutNumber();
+    //std::cout << std::endl;
+    std::cout << "Testing \"%\" operator PART 2-> ( (38715980218941283691286446981264988961289 / -356)*-356 + 341 ). Expected: 38715980218941283691286446981264988961289: ";
+    (((number28 / number29)* number29) + number30).printOutNumber();
+    std::cout << std::endl;
+
+}
+
+void OperatorPercentAndEqualsTests()
+{
+    // / Operator tests
+    std::cout << "\"%=\" Operator TESTS: " << std::endl << std::endl;
+    std::cout << (-14670187 % 163);
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    BigNumber number2 = BigNumber(1);
+    number1 %= number2;
+
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (0 %= 1). Expected: 0: ";
+    number1.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 2
+    BigNumber number4 = BigNumber(100);
+    BigNumber number5 = BigNumber(101);
+    number4 %= number5;
+
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (100 %= 101). Expected: 100: ";
+    number4.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 3
+    BigNumber number7 = BigNumber(100);
+    BigNumber number8 = BigNumber(-101);
+    number7 %= number8;
+
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (100 %= -101). Expected: 100: ";
+    number7.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number10 = BigNumber(5474253);
+    BigNumber number11 = BigNumber(1);
+    number10 %= number11;
+
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (5474253 %= 1). Expected: 0: ";
+    number10.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 5
+    BigNumber number13 = BigNumber(225);
+    BigNumber number14 = BigNumber(15);
+    number13 %= number14;
+
+    std::cout << "TEST 5:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (225 %= 15). Expected: 0: ";
+    number13.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 6
+    BigNumber number16 = BigNumber(225);
+    BigNumber number17 = BigNumber(5);
+    number16 %= number17;
+
+    std::cout << "TEST 6:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (225 %= 5). Expected: 0: ";
+    number16.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 7
+    BigNumber number19 = BigNumber(29773);
+    BigNumber number20 = BigNumber(-19);
+    number19 %= number20;
+
+    std::cout << "TEST 7:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (29773 %= -19). Expected: 0: ";
+    number19.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 8
+    BigNumber number22 = BigNumber(-14670163);
+    BigNumber number23 = BigNumber(163);
+    number22 %= number23;
+
+    std::cout << "TEST 8:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (-14670163 %= 163). Expected: 0: ";
+    number22.printOutNumber();
+    std::cout << std::endl;
+
+    //TEST 9
+    BigNumber number25 = BigNumber(-14670187);
+    BigNumber number26 = BigNumber(163);
+    number25 %= number26;
+
+    std::cout << "TEST 9:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (-14670187 %= 163). Expected: -24: ";
+    number25.printOutNumber();
+    std::cout << std::endl;
+
+    //3871598021894108369 --> 289
+    //38715980218941283691286446981264988961289 --> 341
+    //TEST 10
+    BigNumber number28 = BigNumber("38715980218941283691286446981264988961289");
+    BigNumber number29 = BigNumber(-356);
+    number28 %= number29;
+
+    std::cout << "TEST 10:" << std::endl;
+    std::cout << "Testing \"%=\" operator -> (38715980218941283691286446981264988961289 %= -356). Expected: 341: ";
+    number28.printOutNumber();
+    std::cout << std::endl;
+}
+
+void OperatorDivideAndPercentMemoryLeakTests()
+{
+    // / Operator tests
+    std::cout << "\"/\" Operator TESTS FOR MEMORY LEAKS: " << std::endl << std::endl;
+    std::cout << "Starting test...";
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    BigNumber number2 = BigNumber(1);
+
+    for (long long int i = 0; i < 1000000; i++)
+    {
+        BigNumber number3 = number1 / number2;
+    }
+
+    //TEST 2
+    BigNumber number4 = BigNumber(100);
+    BigNumber number5 = BigNumber(101);
+    for (long long int i = 0; i < 1000000; i++)
+    {
+        BigNumber number6 = number4 % number5;
+    }
+
+    //TEST 5
+    BigNumber number13 = BigNumber(225);
+    BigNumber number14 = BigNumber(15);
+    for (long long int i = 0; i < 1000000; i++)
+    {
+        number13 /= number14;
+    }
+
+    std::cout << "TEST ENDED --> ";
+}
+
 void PeshoAndLuboTests()
 {
     std::cout << "TESTS FROM PESHO AND LUBO: \n\n";
@@ -1036,23 +1502,20 @@ void PeshoAndLuboTests()
     std::cout << std::boolalpha << ((BigNumber("12345678901234567890") + BigNumber("4354678097643135")) == BigNumber("12350033579332211025")) << std::endl;
     std::cout << std::boolalpha << ((BigNumber("12345678901234567890") - BigNumber("4354678097643135")) == BigNumber("12341324223136924755")) << std::endl;
     std::cout << std::boolalpha << ((BigNumber("12345678901234567890") * BigNumber("4354678097643135")) == BigNumber("53761457511741137249987999149935150")) << std::endl;
-    //std::cout << std::boolalpha << ((BigNumber("12345678901234567890") / BigNumber("4354678097643135")) == BigNumber("2835")) << std::endl;
-    //std::cout << std::boolalpha << ((BigNumber("12345678901234567890") % BigNumber("4354678097643135")) == BigNumber("166494416280165")) << std::endl;
+    std::cout << std::boolalpha << ((BigNumber("12345678901234567890") / BigNumber("4354678097643135")) == BigNumber("2835")) << std::endl;
+    std::cout << std::boolalpha << ((BigNumber("12345678901234567890") % BigNumber("4354678097643135")) == BigNumber("166494416280165")) << std::endl;
 
     //DEBUG SHIT
-    /*BigNumber otherBigNumber = BigNumber("4354678097643135");
-    BigNumber anotherBigNumber = BigNumber("-12345678901234567890");
-    otherBigNumber.printOutNumber();
-    anotherBigNumber.printOutNumber();
-    BigNumber otherAnotherBigNumber = otherBigNumber + anotherBigNumber;
-    otherAnotherBigNumber.printOutNumber();*/
     std::cout << std::boolalpha << ((BigNumber("-12345678901234567890") + BigNumber("4354678097643135")) == BigNumber("-12341324223136924755")) << std::endl;
     std::cout << std::boolalpha << ((BigNumber("-12345678901234567890") * BigNumber("4354678097643135")) == BigNumber("-53761457511741137249987999149935150")) << std::endl;
+
+    std::cout << std::endl;
 }
 
-//Tests for copying shit correctly without access violation reading exceptions
+//Tests for copying shit correctly without access violation reading exceptions or memory leaks
 void SpecialTests()
 {
+    std::cout << "SPECIAL Tests for copying shit correctly without access violation reading exceptions or memory leaks: \n\n";
     //CORRECT
     BigNumber otherBigNumber = BigNumber("4354678097643135");
     BigNumber anotherBigNumber = BigNumber("12345678901234567890");
@@ -1075,30 +1538,30 @@ void SpecialTests()
 
 int main()
 {
-    //// CONSTRUCTOR TESTS
-    //ConstructorAndCopyAndAssignTests();
-    //
-    //// READING OPERATOR TESTS
-    ////ReadingOperatorTests();
-    //
-    //// ARITHMETIC AND COMPARATIVE OPERATORS TESTS
-    //std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
-    //
-    //// == Operator and != Operator Tests
-    //EqualsAndNotEqualsTests();
-    //
-    //// > Operator Tests
-    //OperatorGreaterThanTests();
-    //
-    //// >= Operator Tests
-    //OperatorGreaterThanOrEqualsTests();
-    //
-    //// < Operator Tests
-    //OperatorLessThanTests();
-    //
-    //// <= Operator Tests
-    //OperatorLessThanOrEqualsTests();
-    //
+    // CONSTRUCTOR TESTS
+    ConstructorAndCopyAndAssignTests();
+    
+    // READING OPERATOR TESTS
+    ReadingOperatorTests();
+    
+    // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
+    std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
+    
+    // == Operator and != Operator Tests
+    EqualsAndNotEqualsTests();
+    
+    // > Operator Tests
+    OperatorGreaterThanTests();
+    
+    // >= Operator Tests
+    OperatorGreaterThanOrEqualsTests();
+    
+    // < Operator Tests
+    OperatorLessThanTests();
+    
+    // <= Operator Tests
+    OperatorLessThanOrEqualsTests();
+    
     // + Operator Tests
     OperatorSumTests();
     
@@ -1117,11 +1580,26 @@ int main()
     // *= Operator Tests
     OperatorMultiplyAndEqualsTests();
 
+    // Operator tests
+    OperatorDivideTests();
+
+    //= Operator tests
+    OperatorDivideAndEqualsTests();
+
+    // % Operator tests
+    OperatorPercentTests();
+
+    // %= Operator tests
+    OperatorPercentAndEqualsTests();
+
+    // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
+    //OperatorDivideAndPercentMemoryLeakTests();
+
     // Test inputs from Pesho and Lubo
     PeshoAndLuboTests();
 
     //Special Tests
-    //SpecialTests();
+    SpecialTests();
 }
 
 

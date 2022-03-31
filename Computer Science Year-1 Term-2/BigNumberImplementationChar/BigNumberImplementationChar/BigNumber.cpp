@@ -1,7 +1,8 @@
-#include "BigNumber.h"
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include "BigNumberDivisionResult.h"
+#include "BigNumber.h"
 
 BigNumber::BigNumber()
 {
@@ -52,11 +53,11 @@ BigNumber::BigNumber(long long int number)
 {
 	if (number > 0) this->sign = 1;
 	else if (number < 0) this->sign = -1;
-	else this->sign = 1;
+	else this->sign = 0;
 
 	number = abs(number);
 
-	long long int numberSize = 0;
+	long long int numberSize = number == 0 ? 1 : 0;
 	long long int numberCopy = number;
 	while (numberCopy != 0)
 	{
@@ -219,6 +220,11 @@ bool BigNumber::operator>(const BigNumber& other) const
 bool BigNumber::operator>=(const BigNumber& other) const
 {
 	return *this > other || *this == other;
+}
+
+bool BigNumber::greaterThanOrEqualsAbsolute(const BigNumber& other) const
+{
+	return BigNumber(this->number) >= BigNumber(other.number);
 }
 
 BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
@@ -492,12 +498,6 @@ BigNumber& BigNumber::operator-=(const BigNumber& other)
 	return *this;
 }
 
-BigNumber& BigNumber::operator*=(const BigNumber& other)
-{
-	*this = *this * other;
-	return *this;
-}
-
 BigNumber BigNumber::operator*(const BigNumber& other) const
 {
 	//Check if either of the numbers are 0
@@ -591,10 +591,211 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 	return finalMultiplicationSum;
 }
 
+BigNumber& BigNumber::operator*=(const BigNumber& other)
+{
+	*this = *this * other;
+	return *this;
+}
+
+BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const 
+{
+	//Edge Cases for 0
+	if (other.sign == 0)
+	{
+		while (true)
+		{
+			std::cout << "Idiot ";
+		}
+	}
+
+	if (this->sign == 0)
+	{
+		BigNumber* divisionQuotient = new BigNumber();
+		BigNumber* divisionLeftover = new BigNumber();
+		BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
+		return divisionResult;
+	}
+
+	bool resultIsNegative = this->sign != other.sign;
+	//Check this and other by absolute value
+	bool thisIsBiggerAbsolute = this->greaterThanOrEqualsAbsolute(other);
+
+	BigNumber smallerNumber = thisIsBiggerAbsolute ? other : *this;
+	BigNumber largerNumber = thisIsBiggerAbsolute ? *this : other;
+
+	if (smallerNumber.sign < 0) smallerNumber *= -1;
+	else if (largerNumber.sign < 0) largerNumber *= -1;
+
+	// this/other = 0; this%other = this
+	if (thisIsBiggerAbsolute == false)
+	{
+		BigNumber* divisionQuotient = new BigNumber();
+		BigNumber* divisionLeftover = new BigNumber(*this);
+		BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
+		return divisionResult;
+	}
+
+	const BigNumber BIGNUMBER10 = BigNumber(10);
+
+	long long int lowerSize = thisIsBiggerAbsolute ? other.size : this->size;
+	long long int upperSize = thisIsBiggerAbsolute ? this->size : other.size;
+
+	//Unreverse the numbers of this and other
+	char* largerNumberChars = new char[largerNumber.size];
+	for (int i = 0; i < largerNumber.size; i++)
+	{
+		largerNumberChars[i] = largerNumber.number[largerNumber.size - 1 - i];
+	}
+	char* smallerNumberChars = new char[smallerNumber.size];
+	for (int i = 0; i < smallerNumber.size; i++)
+	{
+		smallerNumberChars[i] = smallerNumber.number[smallerNumber.size - 1 - i];
+	}
+
+	char* tempNumber = new char[lowerSize];
+	char* resultChars = new char[upperSize];
+	long long int resultCharsCounter = 0;
+	long long int finalSize = 0;
+	long long int largerNumberCounter = 0;
+	long long int tempNumberOffset = 0;
+	bool endOfLargeNumberReached = false;
+	bool tempIsGarbage = true;
+	//Get the initial temp
+	for (long long int i = 0; i < lowerSize - 1; i++)
+	{
+		tempNumber[i] = largerNumberChars[largerNumberCounter];
+		largerNumberCounter++;
+		tempIsGarbage = false;
+		/*if (largerNumberCounter >= largerNumber.size)
+		{
+			endOfLargeNumberReached = true;
+			break;
+		}*/
+	}
+	//START of cycle
+	while (largerNumberCounter < largerNumber.size)
+	{
+		//REMOVE THE FRONT ZERO LATER
+		BigNumber tempBigNumber = tempIsGarbage ? BigNumber() : BigNumber(tempNumber);
+		bool tempIsLessThanSmaller = tempBigNumber < smallerNumber;
+		if (tempIsLessThanSmaller)
+		{
+			if (!endOfLargeNumberReached)
+			{
+				tempBigNumber *= BIGNUMBER10;
+				tempBigNumber += BigNumber(largerNumber.number[largerNumber.size - 1 - largerNumberCounter] - '0');
+				largerNumberCounter++;
+			}
+		}
+
+		int tempDividedResult = 0;
+		if (tempBigNumber >= smallerNumber)
+		{
+			for (long long int i = 2; i <= 10; i++)
+			{
+				BigNumber multiplierBigNumber = BigNumber(i);
+				BigNumber multipliedBigNumber = smallerNumber * multiplierBigNumber;
+				if (tempBigNumber < multipliedBigNumber)
+				{
+					tempDividedResult = i - 1;
+					resultChars[resultCharsCounter] = (tempDividedResult)+'0';
+					resultCharsCounter++;
+					finalSize++;
+					break;
+				}
+			}
+		}
+		else
+		{
+			resultChars[resultCharsCounter] = '0';
+			resultCharsCounter++;
+			finalSize++;
+		}
+		tempBigNumber.uninitializedCopier = true;
+		BigNumber leftOverFromTemp = tempDividedResult == 0 ? tempBigNumber : tempBigNumber - (smallerNumber * BigNumber(tempDividedResult));
+		//Change old temp char array to new temp
+		delete[] tempNumber;
+		tempNumber = new char[lowerSize];
+		//temp char array remains with no chars if leftover is 0
+		if (leftOverFromTemp.sign != 0)
+		{
+			for (long long int i = 0; i < leftOverFromTemp.size; i++)
+			{
+				tempNumber[i] = leftOverFromTemp.number[leftOverFromTemp.size - 1 - i];
+				tempIsGarbage = false;
+			}
+		}
+		else
+		{
+			tempIsGarbage = true;
+		}
+	}
+
+	//tempNumber holds the chars of the leftover, i.e % operator result
+	//resultChars holds the chars of the division, i.e / operator result. It may or may not have an invalid zero as first integer, however!
+	//Remove possible zero as first digit of resultChars
+	if (resultChars[0] == '0')
+	{
+		finalSize--;
+		char* copyOfResultChars = new char[finalSize];
+		for (long long int i = 0; i < finalSize; i++)
+		{
+			if (i + 1 > upperSize)
+			{
+				std::cout << "ERROR: Somehow the results char holds more characters than the larger of the numbers being divided";
+			}
+			copyOfResultChars[i] = resultChars[i + 1];
+		}
+		delete[] resultChars;
+		resultChars = copyOfResultChars;
+	}
+
+	BigNumber* divisionQuotient = new BigNumber(resultChars);
+	//Check if temp number is 0
+	BigNumber* divisionLeftover = tempIsGarbage ? new BigNumber() : new BigNumber(tempNumber);
+	if (resultIsNegative)
+	{
+		(*divisionQuotient).sign *= -1;
+	}
+	if (this->sign < 0) (*divisionLeftover).sign *= -1;
+	
+	BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
+	return divisionResult;
+}
+
 //OPTIONAL
 BigNumber BigNumber::operator/(const BigNumber& other) const
 {
-	return BigNumber();
+	BigNumberDivisionResult divisionResult = divideAndReturn(other);
+	BigNumber divisionQuotient = divisionResult.getQuotient();
+	divisionQuotient.uninitializedCopier = true;
+	//MAIKO MILA KOLKO VREME MI OTNE DA UPRAVQ SHIBANIQT MEMORI LEAK BEZ DA RAZRUSHA VUTRESNITE MEMORY UDRESI. FUUUUK
+	delete&(divisionResult.getQuotient());
+	delete& (divisionResult.getLeftover());
+	return divisionQuotient;
+}
+
+BigNumber& BigNumber::operator/=(const BigNumber& other)
+{
+	*this = *this / other;
+	return *this;
+}
+
+BigNumber BigNumber::operator%(const BigNumber& other) const
+{
+	BigNumberDivisionResult divisionResult = divideAndReturn(other);
+	BigNumber divisionLeftover = divisionResult.getLeftover();
+	divisionLeftover.uninitializedCopier = true;
+	//MAIKO MILA KOLKO VREME MI OTNE DA UPRAVQ SHIBANIQT MEMORI LEAK BEZ DA RAZRUSHA VUTRESNITE MEMORY UDRESI. FUUUUK
+	delete& (divisionResult.getQuotient());
+	delete& (divisionResult.getLeftover());
+	return divisionLeftover;
+}
+
+BigNumber& BigNumber::operator%=(const BigNumber& other)
+{
+	*this = *this % other;
+	return *this;
 }
 
 //Printing shit and reading shit
