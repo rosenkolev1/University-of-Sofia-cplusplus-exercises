@@ -1,11 +1,9 @@
 #ifndef BIGNUMBER_H
 #define BIGNUMBER_H
-
 #include<iostream>
 
-#include "../Project.GlobalConstants/GlobalConstants.h"
-
 const int INIT_CAPACITY = 20;
+const char BAD_ALLOC_EXCEPTION[] = "Bad allocation of memory";
 
 class BigNumberDivisionResult;
 class BigNumber

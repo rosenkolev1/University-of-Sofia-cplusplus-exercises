@@ -3,14 +3,13 @@
 #include <cmath>
 #include "BigNumberDivisionResult.h"
 #include "BigNumber.h"
-#include "../Project.GlobalConstants/GlobalConstants.cpp"
 
 BigNumber::BigNumber()
 {
 	this->capacity = INIT_CAPACITY;
 	this->size = 1;
 	this->number = new __nothrow char[INIT_CAPACITY];
-	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (this->number == nullptr) throw BAD_ALLOC_EXCEPTION;
 	this->number[0] = '0';
 	this->sign = 0;
 	this->uninitializedCopier = false;
@@ -44,7 +43,7 @@ BigNumber::BigNumber(const char* number)
 
 	//Copy the reversed number into this->number
 	this->number = new __nothrow char[numberSize];
-	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (this->number == nullptr) throw BAD_ALLOC_EXCEPTION;
 	size_t trueSizeOfNumber = otherNumberIsNegative ? numberSize + 1 : numberSize;
 	for (size_t i = 0; i < numberSize; i++)
 	{
@@ -72,7 +71,7 @@ BigNumber::BigNumber(long long int number)
 	this->size = numberSize;
 	this->uninitializedCopier = false;
 	this->number = new __nothrow char[this->capacity];
-	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (this->number == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	//Digits are stored in reverse. 
 	for (long long int i = numberSize - 1; i >= 0; i--)
@@ -96,7 +95,7 @@ void BigNumber::copy(const BigNumber& other)
 	this->uninitializedCopier = false;
 	if(other.uninitializedCopier == false) delete[] this->number;
 	this->number = new __nothrow char[other.capacity];
-	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (this->number == nullptr) throw BAD_ALLOC_EXCEPTION;
 	for (size_t i = 0; i < other.size; i++)
 	{
 		this->number[i] = other.number[i];
@@ -113,7 +112,7 @@ void BigNumber::changeNumber(const char* number, size_t newCapacity, size_t newS
 	this->sign = sign;
 	delete[] this->number;
 	this->number = new __nothrow char[newCapacity];
-	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (this->number == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	for (size_t i = 0; i < newSize; i++)
 	{
@@ -235,7 +234,7 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 	int carryOver = 0;
 
 	char* newNumber = new __nothrow char[biggerCapacity + 1];
-	if (newNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (newNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	for (size_t i = 0; i < biggerSize; i++)
 	{
@@ -336,7 +335,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 	size_t biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
 	size_t biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
 	char* newNumber = new __nothrow char[biggerCapacity];
-	if (newNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (newNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	int expectedResultsSign = 0;
 
@@ -415,7 +414,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 
 	size_t finalSize = biggerSize - trailingZeroesCounter;
 	char* newNumberCopy = new __nothrow char[finalSize];
-	if (newNumberCopy == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (newNumberCopy == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	for (size_t i = 0; i < finalSize; i++)
 	{
@@ -547,7 +546,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 			int sizeOfMultiplicationRes = firstDigitOfRes == 0 ? 1 : 2;
 
 			char* digitsOfNewNumber = new __nothrow char[sizeOfMultiplicationRes + zeroesPadding];
-			if (digitsOfNewNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+			if (digitsOfNewNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 			if (sizeOfMultiplicationRes == 2)
 			{
 				digitsOfNewNumber[0] = '0' + firstDigitOfRes;
@@ -571,7 +570,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 		zeroesPadding = i;
 		size_t newSize = sumOfMultiplicationDigit.size + zeroesPadding;
 		char* charsOfMultiplication = new __nothrow char[newSize];
-		if (charsOfMultiplication == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (charsOfMultiplication == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 		for (size_t y = 0; y < sumOfMultiplicationDigit.size; y++)
 		{
@@ -616,9 +615,9 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	if (this->sign == 0)
 	{
 		BigNumber* divisionQuotient = new __nothrow BigNumber();
-		if (divisionQuotient == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;// BAD_ALLOC_EXCEPTION;
+		if (divisionQuotient == nullptr) throw BAD_ALLOC_EXCEPTION;
 		BigNumber* divisionLeftover = new __nothrow BigNumber();
-		if (divisionLeftover == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (divisionLeftover == nullptr) throw BAD_ALLOC_EXCEPTION;
 		BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
 		return divisionResult;
 	}
@@ -637,9 +636,9 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	if (thisIsBiggerAbsolute == false)
 	{
 		BigNumber* divisionQuotient = new __nothrow BigNumber();
-		if (divisionQuotient == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (divisionQuotient == nullptr) throw BAD_ALLOC_EXCEPTION;
 		BigNumber* divisionLeftover = new __nothrow BigNumber(*this);
-		if (divisionLeftover == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (divisionLeftover == nullptr) throw BAD_ALLOC_EXCEPTION;
 		BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
 		return divisionResult;
 	}
@@ -651,14 +650,14 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 
 	//Unreverse the numbers of this and other
 	char* largerNumberChars = new __nothrow char[largerNumber.size];
-	if (largerNumberChars == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (largerNumberChars == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	for (size_t i = 0; i < largerNumber.size; i++)
 	{
 		largerNumberChars[i] = largerNumber.number[largerNumber.size - 1 - i];
 	}
 	char* smallerNumberChars = new __nothrow char[smallerNumber.size];
-	if (smallerNumberChars == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (smallerNumberChars == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	for (size_t i = 0; i < smallerNumber.size; i++)
 	{
@@ -666,10 +665,10 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	}
 
 	char* tempNumber = new __nothrow char[lowerSize];
-	if (tempNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (tempNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	char* resultChars = new char[upperSize];
-	if (resultChars == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (resultChars == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	size_t resultCharsCounter = 0;
 	size_t finalSize = 0;
@@ -732,7 +731,7 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 		//Change old temp char array to new temp
 		delete[] tempNumber;
 		tempNumber = new __nothrow char[lowerSize];
-		if (tempNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (tempNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 		//temp char array remains with no chars if leftover is 0
 		if (leftOverFromTemp.sign != 0)
@@ -756,7 +755,7 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	{
 		finalSize--;
 		char* copyOfResultChars = new __nothrow char[finalSize];
-		if (copyOfResultChars == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+		if (copyOfResultChars == nullptr) throw BAD_ALLOC_EXCEPTION;
 		for (size_t i = 0; i < finalSize; i++)
 		{
 			if (i + 1 > upperSize)
@@ -770,10 +769,10 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	}
 
 	BigNumber* divisionQuotient = new __nothrow BigNumber(resultChars);
-	if (divisionQuotient == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (divisionQuotient == nullptr) throw BAD_ALLOC_EXCEPTION;
 	//Check if temp number is 0
 	BigNumber* divisionLeftover = tempIsGarbage ? new __nothrow BigNumber() : new __nothrow BigNumber(tempNumber);
-	if (divisionLeftover == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (divisionLeftover == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	if (resultIsNegative)
 	{
@@ -851,7 +850,7 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 {
 	//
 	char* number = new __nothrow char[100000000];
-	if (number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (number == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	cin.getline(number, INT_MAX - 1);
 
@@ -869,7 +868,7 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 	if (numberSign < 0) sizeOfNumber--;
 
 	char* reversedNumber = new __nothrow char[sizeOfNumber];
-	if (reversedNumber == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
+	if (reversedNumber == nullptr) throw BAD_ALLOC_EXCEPTION;
 
 	int numberTrueSize = numberSign < 0 ? sizeOfNumber + 1 : sizeOfNumber;
 

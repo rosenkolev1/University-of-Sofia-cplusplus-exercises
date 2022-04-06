@@ -1542,7 +1542,7 @@ int main()
     ConstructorAndCopyAndAssignTests();
     
     // READING OPERATOR TESTS
-    //ReadingOperatorTests();
+    ReadingOperatorTests();
     
     // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
     std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
