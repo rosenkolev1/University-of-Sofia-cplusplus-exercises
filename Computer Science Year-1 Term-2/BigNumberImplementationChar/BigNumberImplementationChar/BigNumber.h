@@ -2,13 +2,15 @@
 #define BIGNUMBER_H
 #include<iostream>
 
-const long long int INIT_CAPACITY = 20;
+const int INIT_CAPACITY = 20;
+const char BAD_ALLOC_EXCEPTION[] = "Bad allocation of memory";
+
 class BigNumberDivisionResult;
 class BigNumber
 {
 private:
-	long long int capacity;
-	long long int size;
+	size_t capacity;
+	size_t size;
 	//Digits of the number
 	char* number;
 	// 1 if positive, -1 if negative, 0 if 0
@@ -17,8 +19,8 @@ private:
 	bool uninitializedCopier;
 
 	void copy(const BigNumber& other);
-	//void changeNumber(int* const number, long long int newCapacity, long long int newSize, int sign);
-	void changeNumber(const char* number, long long int newCapacity, long long int newSize, int sign);
+	//void changeNumber(int* const number, size_t newCapacity, size_t newSize, int sign);
+	void changeNumber(const char* number, size_t newCapacity, size_t newSize, int sign);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
 	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
@@ -49,7 +51,7 @@ public:
 	 */
 	BigNumber(long long int number);
 
-	BigNumber(const char* number, long long int newCapacity, long long int newSize, int sign);
+	BigNumber(const char* number, size_t newCapacity, size_t newSize, int sign);
 
 	~BigNumber();
 
