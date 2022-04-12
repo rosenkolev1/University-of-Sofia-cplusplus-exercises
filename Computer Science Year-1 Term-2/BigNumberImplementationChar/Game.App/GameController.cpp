@@ -45,7 +45,7 @@ bool registerUser()
         //}
         //else if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         //{
-        //    //return to previous screen somehow
+        //    //Return to previous screen
         //    return true;
         //}
     }
@@ -70,6 +70,8 @@ bool loginOrRegister()
         char selection[100];
         std::cin >> selection;
 
+        bool returnToScreen = false;
+
         if (selection == nullptr ||
             (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) != 0 && 
              strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) != 0 && 
@@ -84,20 +86,22 @@ bool loginOrRegister()
         else if (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) == 0)
         {
             //Start the login procedure
+
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) == 0)
         {
             //Start the register procedure
-            bool returnToScreen = registerUser();
-            if (returnToScreen)
-            {
-                loginOrRegisterScreenPrint();
-            }
+            returnToScreen = registerUser();
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
-            //return to previous screen
+            //Return to previous screen
             return true;
+        }
+
+        if (returnToScreen)
+        {
+            loginOrRegisterScreenPrint();
         }
     }
 }
@@ -120,10 +124,11 @@ void startUp()
     // Start the game/selection loop
     while (true)
     {
-        char selection[100];
-        //std::cin.clear();
-        //std::cin.getline(selection, 100);
+        char selection[100];      
         std::cin >> selection;
+
+        bool returnToScreen = false;
+
         //If user writes nonsense data
         if (selection == nullptr ||
             (strcmp(selection, GlobalConstants::COMMAND_MAINMENU_START) != 0 && strcmp(selection, GlobalConstants::COMMAND_MAINMENU_END) != 0)
@@ -144,12 +149,13 @@ void startUp()
         else if (strcmp(selection, GlobalConstants::COMMAND_MAINMENU_START) == 0)
         {
             //Start the actual game by trying to log in first
-            bool restartCycle = loginOrRegister();
-            if (restartCycle)
-            {
-                startUpScreenPrint();
-                continue;
-            }
+            returnToScreen  = loginOrRegister();
+            
+        }
+
+        if (returnToScreen)
+        {
+            startUpScreenPrint();
         }
     }
 }
