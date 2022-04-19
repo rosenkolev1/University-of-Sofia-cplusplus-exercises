@@ -1,10 +1,19 @@
 #pragma once
+
+#include "..\Project.GlobalConstants\GlobalConstants.h"
+#include <iostream>
+
 class User
 {
-private:
+public:
 	char* username;
 	char* password;
-	int* level;
+	int level;
 	char* lastExpression;
+	size_t expressionCapacity;
+
+	User();
+
+	void enlargeExpressionCapacity();
 };
 

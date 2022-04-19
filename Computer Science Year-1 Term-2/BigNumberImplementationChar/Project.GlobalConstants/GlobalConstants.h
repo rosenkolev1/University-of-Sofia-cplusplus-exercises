@@ -17,6 +17,7 @@ public:
 	static constexpr const char* LOGIN_OR_REGISTER = "Choose one of the following:\nLOGIN(log)\nREGISTER(reg)";
 	static constexpr const char* REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!";
 	static constexpr const char* REGISTER_SUCCESS = "Successfully registered user!";
+	static constexpr const char* REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
 
 	//---USER INFO CONSTANTS
 	static const int USERNAME_LENGTH_MAX = 100;
@@ -35,6 +36,7 @@ public:
 	static constexpr const char FILESYSTEM_ENTRY_DELIMITER = '~';
 	static constexpr const char FILESYSTEM_COLUMN_DELIMITER = '^';
 	static constexpr const char* FILESYSTEM_COLUMN_NULL = "COL_NULL";
+	static constexpr const int FILESYSTEM_COLUMN_COUNT = 4;
 };
 
 //#endif // !GLOBALCONSTANTS_H

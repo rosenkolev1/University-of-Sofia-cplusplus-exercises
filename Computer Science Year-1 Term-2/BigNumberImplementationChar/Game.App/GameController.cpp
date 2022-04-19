@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "GameUI.h"
-#include "..\Game.IOS\FileSystem.cpp"
+#include "..\Game.IOS\FileSystem.h"
 
 char gameState[] = "Main menu default selection";
 
@@ -25,9 +25,6 @@ bool registerUser()
     {
         char selection[100];
         std::cin >> selection;
-
-        //TODO: CHECK IF USERNAME AND PASSWORD ARE VALID
-        //TODO: MAKE ANOTHER MODULE OF THE PROGRAM THAT WORKS WITH FILES
 
         bool textValidity = true;
 
@@ -67,7 +64,7 @@ bool registerUser()
         //TODO: Add actual checks for username and password length and an already existing user and invalid symbols in the text, 
         // such as the delimiters used for the different rows and columns of the database!
 
-        textValidity = strlen(username) > 0 && strlen(password) > 0;
+        textValidity = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
 
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
@@ -83,6 +80,14 @@ bool registerUser()
         }
         else if (textValidity)
         {
+            //Check if the user hasn't been registered already
+            bool userIsRegistered = FileSystem::userIsRegistered(username);
+            if (userIsRegistered)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::REGISTER_USERNAME_TAKEN);
+                continue;
+            }
+
             //Register the user, print the successful registration text and then send the user back to the login or register screen
             FileSystem::registerUser(username, password);
 
@@ -91,16 +96,6 @@ bool registerUser()
             //Return to previous screen
             return true;
         }
-
-        //if (selection == nullptr ||
-        //    (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) != 0 && strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) != 0)
-        //    )
-        //{
-        //    // Print on a single line without screen borders
-        //    //TODO: IMPLEMENT ERROR LOOP GAME FUNCTION HERE
-        //    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
-        //    continue;
-        //}
 
     }
 }

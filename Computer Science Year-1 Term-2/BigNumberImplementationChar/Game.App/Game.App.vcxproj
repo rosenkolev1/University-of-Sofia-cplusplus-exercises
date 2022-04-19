@@ -88,10 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,8 +148,14 @@
     <ClInclude Include="GameUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BigNumberImplementationChar\BigNumberImplementationChar.vcxproj">
+      <Project>{e42c5e52-5e74-4a9c-9239-ca1da2d99b53}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Game.IOS\Game.IOS.vcxproj">
       <Project>{0eeedb1d-f298-4de2-9db5-e219d86b2879}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.GlobalConstants\Project.GlobalConstants.vcxproj">
+      <Project>{eb72b3c7-9a34-4c12-8804-ccaa55871a8f}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
