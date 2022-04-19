@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0a8e3b82-aa81-4569-8f06-ae01e773da04}</ProjectGuid>
-    <RootNamespace>GameApp</RootNamespace>
+    <ProjectGuid>{0eeedb1d-f298-4de2-9db5-e219d86b2879}</ProjectGuid>
+    <RootNamespace>GameIOS</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,15 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameController.cpp" />
-    <ClCompile Include="GameUI.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="Game.IOS.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameUI.h" />
+    <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game.IOS\Game.IOS.vcxproj">
-      <Project>{0eeedb1d-f298-4de2-9db5-e219d86b2879}</Project>
+    <ProjectReference Include="..\Project.GlobalConstants\Project.GlobalConstants.vcxproj">
+      <Project>{eb72b3c7-9a34-4c12-8804-ccaa55871a8f}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
