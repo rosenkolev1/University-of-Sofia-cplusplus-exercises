@@ -142,10 +142,12 @@
   <ItemGroup>
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Game.IOS.cpp" />
+    <ClCompile Include="SomeClass.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileSystem.h" />
+    <ClInclude Include="SomeClass.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>

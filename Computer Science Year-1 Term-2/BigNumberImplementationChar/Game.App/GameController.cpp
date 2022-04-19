@@ -1,13 +1,10 @@
 ﻿// Game.App.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
-#include "GameUI.h"
-#include "..\Game.IOS\FileSystem.h"
+#pragma once;
+#include "GameController.h"
 
-char gameState[] = "Main menu default selection";
-
-void registerUserScreenPrint()
+void GameController::registerUserScreenPrint()
 {
     const char** textArray = new const char* [2];
     textArray[0] = GlobalConstants::REGISTER;
@@ -16,7 +13,7 @@ void registerUserScreenPrint()
     GameUI::printScreenWithText(textArray, 2, 144);
 }
 
-bool registerUser()
+bool GameController::registerUser()
 {
     //Screen Print
     registerUserScreenPrint();
@@ -64,6 +61,9 @@ bool registerUser()
         //TODO: Add actual checks for username and password length and an already existing user and invalid symbols in the text, 
         // such as the delimiters used for the different rows and columns of the database!
 
+        //Guz::ne6toSi("asd");
+        //Guz guz;
+        //guz.ne6toSi("asdsadasdadasd");
         textValidity = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
 
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
@@ -100,7 +100,7 @@ bool registerUser()
     }
 }
 
-void loginOrRegisterScreenPrint()
+void GameController::loginOrRegisterScreenPrint()
 {
     const char** textArray = new const char* [2];
     textArray[0] = GlobalConstants::LOGIN_OR_REGISTER;
@@ -109,7 +109,7 @@ void loginOrRegisterScreenPrint()
     GameUI::printScreenWithText(textArray, 2, 55);
 }
 
-bool loginOrRegister()
+bool GameController::loginOrRegister()
 {
     //Screen Print
     loginOrRegisterScreenPrint();
@@ -155,7 +155,7 @@ bool loginOrRegister()
     }
 }
 
-void startUpScreenPrint()
+void GameController::startUpScreenPrint()
 {
     //Screen print
     const char** textArray = new const char* [3];
@@ -165,7 +165,7 @@ void startUpScreenPrint()
     GameUI::printScreenWithText(textArray, 3, 117);
 }
 
-void startUp()
+void GameController::startUp()
 {
     //Screen print
     startUpScreenPrint();
@@ -207,9 +207,4 @@ void startUp()
             startUpScreenPrint();
         }
     }
-}
-
-int main()
-{
-    startUp();
 }

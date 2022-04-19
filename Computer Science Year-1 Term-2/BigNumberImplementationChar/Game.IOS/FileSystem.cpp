@@ -1,3 +1,5 @@
+#pragma once
+
 #include "FileSystem.h"
 
 /*
@@ -200,7 +202,8 @@ size_t FileSystem::getUsersCount()
 		throw "Fuck this shit I'm out ";
 	}
 
-	size_t sizeOfDatabaseFile = (databaseFile.seekg(0, std::ios::end)).tellg();
+	databaseFile.seekg(0, std::ios::end);
+	size_t sizeOfDatabaseFile = databaseFile.tellg();
 	size_t countOfUsers = sizeOfDatabaseFile / (sizeof(User) + sizeof(GlobalConstants::FILESYSTEM_COLUMN_DELIMITER) * (GlobalConstants::FILESYSTEM_COLUMN_COUNT - 1) + sizeof(GlobalConstants::FILESYSTEM_ENTRY_DELIMITER));
 
 	databaseFile.close();

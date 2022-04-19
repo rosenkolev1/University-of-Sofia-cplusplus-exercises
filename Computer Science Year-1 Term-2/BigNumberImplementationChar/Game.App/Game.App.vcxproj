@@ -141,10 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.App.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="GameUI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="GameUI.h" />
   </ItemGroup>
   <ItemGroup>

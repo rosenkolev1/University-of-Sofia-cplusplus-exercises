@@ -27,10 +27,16 @@
     <ClCompile Include="GameUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Game.App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameUI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Controllers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
