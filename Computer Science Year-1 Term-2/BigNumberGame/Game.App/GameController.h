@@ -1,6 +1,6 @@
 #pragma once
 
-static class GameController
+class GameController
 {
 public:
     static void registerUserScreenPrint();
@@ -12,7 +12,7 @@ public:
     static bool loginOrRegister();
 
     static void startUpScreenPrint();
-    
+
     static void startUp();
 
 };

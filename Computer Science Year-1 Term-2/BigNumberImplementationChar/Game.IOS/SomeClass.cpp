@@ -1,4 +1,4 @@
-#include "SomeClass.h"
+#include "./SomeClass.h"
 
 bool Guz::ne6toSi(const char* text)
 {

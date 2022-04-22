@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0a8e3b82-aa81-4569-8f06-ae01e773da04}</ProjectGuid>
+    <ProjectGuid>{770c1522-bd9c-4172-bcbd-68529f83ba41}</ProjectGuid>
     <RootNamespace>GameApp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -88,12 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.IOS\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameUI.obj;FileSystem.obj;User.obj;ConsoleSystem.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,8 +119,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,21 +144,19 @@
   <ItemGroup>
     <ClCompile Include="Game.App.cpp" />
     <ClCompile Include="GameController.cpp" />
-    <ClCompile Include="GameUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameController.h" />
-    <ClInclude Include="GameUI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BigNumberImplementationChar\BigNumberImplementationChar.vcxproj">
-      <Project>{e42c5e52-5e74-4a9c-9239-ca1da2d99b53}</Project>
+    <ProjectReference Include="..\BigNumber\BigNumber.vcxproj">
+      <Project>{57c2ecd8-33db-45a9-a0e6-9578331e12cc}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Game.IOS\Game.IOS.vcxproj">
-      <Project>{0eeedb1d-f298-4de2-9db5-e219d86b2879}</Project>
+    <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">
+      <Project>{47f8c224-8c43-4bb9-a74d-54847effa488}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Project.GlobalConstants\Project.GlobalConstants.vcxproj">
-      <Project>{eb72b3c7-9a34-4c12-8804-ccaa55871a8f}</Project>
+    <ProjectReference Include="..\Game.UI\Game.UI.vcxproj">
+      <Project>{95848b7e-cfef-4721-80f7-3881d3659581}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

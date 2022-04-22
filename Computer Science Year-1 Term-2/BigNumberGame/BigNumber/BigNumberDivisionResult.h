@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef BIGNUMBERDIVISIONRESULT_H
 #define BIGNUMBERDIVISIONRESULT_H
 #include<iostream>
@@ -5,7 +7,7 @@
 class BigNumber;
 class BigNumberDivisionResult
 {
-private: 
+private:
 	//Quotient means result the result of the division
 	BigNumber& divisionQuotient;
 	//The leftover (%) part of the division

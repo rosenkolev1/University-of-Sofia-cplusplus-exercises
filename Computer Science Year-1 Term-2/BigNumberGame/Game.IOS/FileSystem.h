@@ -1,7 +1,7 @@
 //TODO: Replace pragma once with the other shit
 #pragma once
 
-#include "..\Project.GlobalConstants\GlobalConstants.h"
+#include "..\Game.GlobalConstants\GlobalConstants.h"
 #include "User.h"
 #include<fstream>
 
@@ -9,25 +9,18 @@ enum class UserFields
 {
 	Username,
 	Password,
-	Level, 
+	Level,
 	LastExpression
 };
 
 static class FileSystem
 {
-private:
-	static constexpr char FORDBIDDEN_SYMBOLS[10] = 
-	{
-		GlobalConstants::FILESYSTEM_ENTRY_DELIMITER,
-		GlobalConstants::FILESYSTEM_COLUMN_DELIMITER,
-		'\0'
-	};
 public:
 	//WRITE
 	static void registerUser(const char* username, const char* password);
 
 	//READ
-	static User* getAllUsers();
+	static User* getAllUsers(size_t usersCount = 0);
 	static size_t getUsersCount();
 
 	//Checks for validity

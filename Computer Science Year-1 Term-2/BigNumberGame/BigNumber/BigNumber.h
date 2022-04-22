@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef BIGNUMBER_H
 #define BIGNUMBER_H
 
@@ -93,3 +95,4 @@ public:
 };
 
 #endif // ! 'BigNumber.h'
+

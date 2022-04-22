@@ -1,5 +1,5 @@
 #include "GameUI.h"
-#include "../Project.GlobalConstants/GlobalConstants.h"
+#include "../Game.GlobalConstants/GlobalConstants.h"
 #include<iostream>
 
 const char* GameUI::BORDER_TOP = "--------------------------------------------------------------------------------------------------------------";
@@ -13,8 +13,6 @@ size_t GameUI::getTextLength(const char* text)
 	return sizeOfText;
 }
 
-//TODO: Scale down the length of the window dynamically based on the length of the longest line of text. More specifically, based 
-// that length % 2, i.e. if it's even or odd, so that the text is padded an equal number of spaces from the left and from the right
 void GameUI::printScreenWithText(const char* text)
 {
 	std::cout << BORDER_TOP << std::endl;
@@ -29,8 +27,8 @@ void GameUI::printScreenWithText(const char* text)
 	size_t sizeOfText = getTextLength(text);
 
 	//TODO: ADD GLOBAL CONSTANT FOR BAD ALLOC ERROR
-	char *currentLine = new __nothrow char[sizeOfText + 1];
-	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; //TODO: ADD GLOBAL CONSTANT FOR BAD ALLOC ERROR
+	char* currentLine = new __nothrow char[sizeOfText + 1];
+	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
 	int currentLineLength = 0;
 
 	int totalTextLinesCount = LINES_COUNT;
@@ -49,7 +47,7 @@ void GameUI::printScreenWithText(const char* text)
 			if (hasNewLineEnding) currentLine[currentLineLength - 1] = '\0';
 			else currentLine[currentLineLength] = '\0';
 
-			if(hasNewLineEnding) printLine(currentLine, currentLineLength);
+			if (hasNewLineEnding) printLine(currentLine, currentLineLength);
 			else printLine(currentLine, currentLineLength + 1);
 
 			//Empty currentLine
@@ -115,7 +113,7 @@ void GameUI::printLine(const char* text, size_t capacity)
 		else std::cout << text[i];
 
 	}
-	for (size_t i = 0; i < ( (LINE_LENGTH - sizeOfText - 2) % 2 == 1 ? emptySpacesCount+1 : emptySpacesCount ); i++)
+	for (size_t i = 0; i < ((LINE_LENGTH - sizeOfText - 2) % 2 == 1 ? emptySpacesCount + 1 : emptySpacesCount); i++)
 	{
 		std::cout << " ";
 	}

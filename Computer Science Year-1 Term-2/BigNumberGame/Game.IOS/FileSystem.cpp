@@ -10,7 +10,7 @@
 
 void FileSystem::registerUser(const char* username, const char* password)
 {
-	std::ofstream databaseFile("Database.bin", std::ios::binary);
+	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);
 
 	//Check if database file is open
 	if (!databaseFile.is_open())
@@ -60,32 +60,30 @@ void FileSystem::registerUser(const char* username, const char* password)
 
 	//Remove unused memory
 	delete[] dataToWriteToFile;
-	
 }
 
-User* FileSystem::getAllUsers()
+User* FileSystem::getAllUsers(size_t usersCount)
 {
 	std::ifstream databaseFile("Database.bin", std::ios::binary);
 
 	//Check if file is open
 	if (!databaseFile.is_open())
 	{
-		throw "Fuck this shit I'm out";
+		return nullptr;
 	}
 
-	//TODO: Implement separate function for returning the count of users
-	size_t countOfUsers = getUsersCount();
+	size_t countOfUsers = usersCount != 0 ? usersCount : getUsersCount();
 	User* users = new User[countOfUsers];
 	size_t currentUserIndex = 0;
 
-	//TODO: Properly read the database data and parse it to a class
+	//Read the database data and parse it to a class
 	char* dataRead = new char[1000];
 	dataRead[999] = '\0';
 	UserFields currentUserField = UserFields::Username;
 	size_t dataReadCount = 0;
 
-	while (!databaseFile.eof())
-	{	
+	while (true)
+	{
 
 		bool dataReadIsOutOfSpace = false;
 		char newSymbol = '\0';
@@ -96,18 +94,23 @@ User* FileSystem::getAllUsers()
 		}
 		else
 		{
-			
-			databaseFile.read(&newSymbol, 1);
-		}	
 
+			databaseFile.read(&newSymbol, 1);
+		}
+
+		//End of fail is reached, so break from loop
+		if (newSymbol == '\0') break;
+
+		//Check if the built up buffer data should be flushed into the user
 		bool shouldFlushData = (newSymbol == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER ||
 			newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER ||
 			dataReadIsOutOfSpace);
 
-		if (!dataReadIsOutOfSpace) dataRead[dataReadCount++] = newSymbol;
+		if (!shouldFlushData) dataRead[dataReadCount++] = newSymbol;
 
 		if (shouldFlushData)
 		{
+			dataRead[dataReadCount] = '\0';
 			if (currentUserField == UserFields::Username)
 			{
 				strcpy(users[currentUserIndex].username, dataRead);
@@ -126,18 +129,21 @@ User* FileSystem::getAllUsers()
 			}
 			else if (currentUserField == UserFields::LastExpression)
 			{
-				size_t currentExpressionLength = strlen(users[currentUserIndex].lastExpression);
-				for (size_t i = 0; i < dataReadCount; i++)
+				if (strcmp(dataRead, GlobalConstants::FILESYSTEM_COLUMN_NULL) != 0)
 				{
-					//Check if last expression hasn't run out of space
-					if (currentExpressionLength + i + 1 >= users[currentUserIndex].expressionCapacity)
+					size_t currentExpressionLength = strlen(users[currentUserIndex].lastExpression);
+					for (size_t i = 0; i < dataReadCount; i++)
 					{
-						users[currentUserIndex].enlargeExpressionCapacity();
+						//Check if last expression hasn't run out of space
+						if (currentExpressionLength + i + 1 >= users[currentUserIndex].expressionCapacity)
+						{
+							users[currentUserIndex].enlargeExpressionCapacity();
+						}
+						users[currentUserIndex].lastExpression[currentExpressionLength + i] = dataRead[i];
 					}
-					users[currentUserIndex].lastExpression[currentExpressionLength + i] = dataRead[i];
+					//Set the end of the string properly
+					users[currentUserIndex].lastExpression[currentExpressionLength + dataReadCount] = '\0';
 				}
-				//Set the end of the string properly
-				users[currentUserIndex].lastExpression[currentExpressionLength + dataReadCount] = '\0';
 			}
 
 			//Reset the dataRead
@@ -153,11 +159,14 @@ User* FileSystem::getAllUsers()
 				currentUserField = UserFields::Username;
 			}
 		}
-		
+
 	}
 
 	//Delete dataRead just in case
 	delete[] dataRead;
+
+	//Close database
+	databaseFile.close();
 
 	return users;
 }
@@ -166,10 +175,10 @@ bool FileSystem::stringContainsForbiddenSymbols(const char* text)
 {
 	for (size_t i = 0; i < strlen(text); i++)
 	{
-		for (size_t y = 0; y < strlen(FORDBIDDEN_SYMBOLS); y++)
+		for (size_t y = 0; y < strlen(GlobalConstants::FORDBIDDEN_SYMBOLS); y++)
 		{
-			if (text[i] == FORDBIDDEN_SYMBOLS[y]) return true;
-		}	
+			if (text[i] == GlobalConstants::FORDBIDDEN_SYMBOLS[y]) return true;
+		}
 	}
 	return false;
 }
@@ -179,11 +188,13 @@ bool FileSystem::userIsValid(const char* username, const char* password)
 	//Check if the formatting of the username and password is valid
 	 //Check if the username or password are already contained in the database
 
-	 return !(usernameIsValid(username) && passwordIsValid(password)) || !userIsRegistered(username);
+	return usernameIsValid(username) && passwordIsValid(password) && !userIsRegistered(username);
 }
 
 bool FileSystem::usernameIsValid(const char* username)
 {
+	if (username == nullptr) return false;
+
 	//Check if the length of the username is too large or too small
 	size_t length = strlen(username);
 	if (length > GlobalConstants::USERNAME_LENGTH_MAX || length < GlobalConstants::USERNAME_LENGTH_MIN) return false;
@@ -194,6 +205,8 @@ bool FileSystem::usernameIsValid(const char* username)
 
 bool FileSystem::passwordIsValid(const char* password)
 {
+	if (password == nullptr) return false;
+
 	//Check if the length of the username is too large or too small
 	size_t length = strlen(password);
 	if (length > GlobalConstants::PASSWORD_LENGTH_MAX || length < GlobalConstants::PASSWORD_LENGTH_MIN) return false;
@@ -209,22 +222,25 @@ size_t FileSystem::getUsersCount()
 	//Check if database file is open
 	if (!databaseFile.is_open())
 	{
-		//throw some error
-		throw "Fuck this shit I'm out ";
+		//Database file doesn't exist, i.e. there are not registered people yet!
+		return 0;
 	}
 
 	databaseFile.seekg(0, std::ios::end);
 	size_t sizeOfDatabaseFile = databaseFile.tellg();
 	size_t countOfUsers = sizeOfDatabaseFile / (sizeof(User) + sizeof(GlobalConstants::FILESYSTEM_COLUMN_DELIMITER) * (GlobalConstants::FILESYSTEM_COLUMN_COUNT - 1) + sizeof(GlobalConstants::FILESYSTEM_ENTRY_DELIMITER));
 
+	//Close database
 	databaseFile.close();
+
+	return countOfUsers;
 }
 
 bool FileSystem::userIsRegistered(const char* username)
 {
-	const User* allUsers = getAllUsers();
 	size_t allUsersCount = getUsersCount();
-	
+	const User* allUsers = getAllUsers(allUsersCount);
+
 	for (size_t i = 0; i < allUsersCount; i++)
 	{
 		const char* otherUsername = allUsers[i].username;

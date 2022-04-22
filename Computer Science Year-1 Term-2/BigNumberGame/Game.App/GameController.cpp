@@ -1,5 +1,11 @@
-﻿#pragma once
+#pragma once
+
 #include "GameController.h"
+#include <iostream>
+#include "Game.GlobalConstants\GlobalConstants.h"
+#include "Game.UI/GameUI.h"
+#include "Game.IOS/FileSystem.h"
+#include "Game.IOS\ConsoleSystem.h"
 
 void GameController::registerUserScreenPrint()
 {
@@ -7,7 +13,7 @@ void GameController::registerUserScreenPrint()
     textArray[0] = GlobalConstants::REGISTER;
     textArray[1] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 144);
+    GameUI::printScreenWithText(textArray, 2, 300); 
 }
 
 bool GameController::registerUser()
@@ -15,63 +21,39 @@ bool GameController::registerUser()
     //Screen Print
     registerUserScreenPrint();
 
+    //char* selection = nullptr;
     while (true)
     {
-        char selection[100];
-        std::cin >> selection;
+        char selection[1000];
+        char firstChar = (char)std::cin.peek();
+        if (firstChar == '\0' || firstChar == '\n') std::cin.ignore();
+        std::cin.getline(selection, 1000);
+        std::cin.clear();
 
         bool textIsValid = true;
 
-        //Check validity of name and password
-        char username[GlobalConstants::USERNAME_LENGTH_MAX] = "";
-        char password[GlobalConstants::PASSWORD_LENGTH_MAX] = "";
+        size_t splitStringsCount = 0;
+        char** splitInput = ConsoleSystem::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
+        char* username = splitStringsCount == 2 ? splitInput[0] : nullptr;
+        char* password = splitStringsCount == 2 ? splitInput[1] : nullptr;
 
-        int arrayCounter = 0;
-        bool switchToPassword = false;
-        for (size_t i = 0; i < strlen(selection); i++)
-        {
-            if (!switchToPassword && selection[i] != '|')
-            {
-                username[arrayCounter] = selection[i];
-                arrayCounter++;
-            }
-            else if (!switchToPassword && selection[i] == '|')
-            {
-                //Set terminator for username and switch to password
-                username[arrayCounter] = '\0';
-                arrayCounter = 0;
-                switchToPassword = true;
-            }
-            else if (switchToPassword && selection[i] != '|')
-            {
-                password[arrayCounter] = selection[i];
-                arrayCounter++;
-            }
-            else if(switchToPassword && selection[i] == '|')
-            {
-                textIsValid = false;
-            }
-        }
-        //Set terminator for password
-        password[arrayCounter] = '\0';
-
-        //TODO: Add actual checks for username and password length and an already existing user and invalid symbols in the text, 
-        // such as the delimiters used for the different rows and columns of the database!
-
-        //Guz::ne6toSi("asd");
-        //Guz guz;
-        //guz.ne6toSi("asdsadasdadasd");
+        // Validate if text is inputted in the correct format
         textIsValid = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
 
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
+            //Clear memory for input from console
+            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
             //Return to previous screen
             return true;
         }
         if (selection == nullptr || !textIsValid)
         {
+            //Clear memory for input from console
+            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
             // Print on a single line without screen borders
-            //TODO: IMPLEMENT ERROR LOOP GAME FUNCTION HERE
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
             continue;
         }
@@ -81,18 +63,21 @@ bool GameController::registerUser()
             bool userIsRegistered = FileSystem::userIsRegistered(username);
             if (userIsRegistered)
             {
-                GameUI::printLineNoBorders(GlobalConstants::REGISTER_USERNAME_TAKEN);
-                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
-                continue;
-            }
-
-            //Register the user, print the successful registration text and then send the user back to the login or register screen
-            FileSystem::registerUser(username, password);
-
-            GameUI::printScreenWithText(GlobalConstants::REGISTER_SUCCESS);
+                   GameUI::printLineNoBorders(GlobalConstants::REGISTER_USERNAME_TAKEN);
+                   GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                   continue;
+             }
             
-            //Return to previous screen
-            return true;
+             //Register the user, print the successful registration text and then send the user back to the login or register screen
+             FileSystem::registerUser(username, password);
+            
+             GameUI::printLineNoBorders(GlobalConstants::REGISTER_SUCCESS);
+
+             //Clear memory for input from console
+             ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+            
+             //Return to previous screen
+             return true;           
         }
 
     }
@@ -120,9 +105,9 @@ bool GameController::loginOrRegister()
         bool returnToScreen = false;
 
         if (selection == nullptr ||
-            (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) != 0 && 
-             strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) != 0 && 
-             strcmp(selection, GlobalConstants::COMMAND_RETURN) != 0) 
+            (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) != 0 &&
+                strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) != 0 &&
+                strcmp(selection, GlobalConstants::COMMAND_RETURN) != 0)
             )
         {
             // Print on a single line without screen borders
@@ -171,7 +156,7 @@ void GameController::startUp()
     // Start the game/selection loop
     while (true)
     {
-        char selection[100];      
+        char selection[100];
         std::cin >> selection;
 
         bool returnToScreen = false;
@@ -196,8 +181,8 @@ void GameController::startUp()
         else if (strcmp(selection, GlobalConstants::COMMAND_MAINMENU_START) == 0)
         {
             //Start the actual game by trying to log in first
-            returnToScreen  = loginOrRegister();
-            
+            returnToScreen = loginOrRegister();
+
         }
 
         if (returnToScreen)
