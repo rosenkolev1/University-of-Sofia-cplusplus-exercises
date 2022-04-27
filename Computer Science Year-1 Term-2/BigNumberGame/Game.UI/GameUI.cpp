@@ -26,7 +26,6 @@ void GameUI::printScreenWithText(const char* text)
 	//Seperate the text if it's too large for a single line or if it has new line characters in it
 	size_t sizeOfText = getTextLength(text);
 
-	//TODO: ADD GLOBAL CONSTANT FOR BAD ALLOC ERROR
 	char* currentLine = new __nothrow char[sizeOfText + 1];
 	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
 	int currentLineLength = 0;
@@ -53,7 +52,7 @@ void GameUI::printScreenWithText(const char* text)
 			//Empty currentLine
 			delete[] currentLine;
 			currentLine = new __nothrow char[sizeOfText];
-			if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; //TODO: ADD GLOBAL CONSTANT FOR BAD ALLOC ERROR
+			if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
 
 			currentLineLength = 0;
 

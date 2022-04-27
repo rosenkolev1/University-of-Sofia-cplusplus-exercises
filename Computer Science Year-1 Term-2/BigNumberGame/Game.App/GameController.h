@@ -1,8 +1,11 @@
 #pragma once
+#include "..\Game.IOS\User.h"
 
 class GameController
 {
 public:
+    static User* currentUser;
+
     static void playingLevelScreenPrint();
 
     static bool playingLevel();

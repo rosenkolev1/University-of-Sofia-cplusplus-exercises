@@ -2,6 +2,46 @@
 #include "..\Game.GlobalConstants\GlobalConstants.h"
 #include <iostream>
 
+char* ConsoleSystem::parseToString(int integer)
+{
+    if (integer == 0)
+    {
+        char* zeroDigit = new char[2];
+        zeroDigit[0] = '0';
+        zeroDigit[1] = '\n';
+        return zeroDigit;
+    }
+
+    bool isNegativeInt = integer < 0;
+
+    int integerCopy = integer;
+    int digitsCount = 0;
+    while (integerCopy != 0)
+    {
+        digitsCount++;
+        integerCopy /= 10;
+    }
+
+    int charsCount = digitsCount + 1;
+    if (isNegativeInt) charsCount++;
+
+    char* parsedInt = new char[charsCount];
+    parsedInt[charsCount - 1] = '\0';
+
+    int positiveInteger = abs(integer);
+
+    for (int i = charsCount - 2; i >= (isNegativeInt ? 1 : 0); i--)
+    {
+        int digit = positiveInteger % 10;
+        parsedInt[i] = (char)digit + '0';
+        positiveInteger /= 10;
+    }
+
+    if (isNegativeInt) parsedInt[0] = '-';
+
+    return parsedInt;
+}
+
 char** ConsoleSystem::splitString(const char* input, char delim, size_t& sizeOfArray)
 {
     size_t sizeOfInput = strlen(input);

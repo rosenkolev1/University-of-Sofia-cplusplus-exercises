@@ -8,7 +8,66 @@
 * ~
 */
 
-//TODO: Reorder functions in a neat way
+bool FileSystem::stringContainsForbiddenSymbols(const char* text)
+{
+	for (size_t i = 0; i < strlen(text); i++)
+	{
+		for (size_t y = 0; y < strlen(GlobalConstants::FORDBIDDEN_SYMBOLS); y++)
+		{
+			if (text[i] == GlobalConstants::FORDBIDDEN_SYMBOLS[y]) return true;
+		}
+	}
+	return false;
+}
+
+bool FileSystem::usernameIsValid(const char* username)
+{
+	if (username == nullptr) return false;
+
+	//Check if the length of the username is too large or too small
+	size_t length = strlen(username);
+	if (length > GlobalConstants::USERNAME_LENGTH_MAX || length < GlobalConstants::USERNAME_LENGTH_MIN) return false;
+
+	//Check if username contains forbidden symbols
+	return !stringContainsForbiddenSymbols(username);
+}
+
+bool FileSystem::passwordIsValid(const char* password)
+{
+	if (password == nullptr) return false;
+
+	//Check if the length of the username is too large or too small
+	size_t length = strlen(password);
+	if (length > GlobalConstants::PASSWORD_LENGTH_MAX || length < GlobalConstants::PASSWORD_LENGTH_MIN) return false;
+
+	//Check if username contains forbidden symbols
+	return !stringContainsForbiddenSymbols(password);
+}
+
+bool FileSystem::userIsValid(const char* username, const char* password)
+{
+	//Check if the formatting of the username and password is valid
+	 //Check if the username or password are already contained in the database
+
+	return usernameIsValid(username) && passwordIsValid(password) && !userIsRegistered(username);
+}
+
+bool FileSystem::userIsRegistered(const char* username)
+{
+	size_t allUsersCount = getUsersCount();
+	const User* allUsers = getAllUsers(allUsersCount);
+
+	for (size_t i = 0; i < allUsersCount; i++)
+	{
+		const char* otherUsername = allUsers[i].username;
+		if (strcmp(username, otherUsername) == 0)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 void FileSystem::registerUser(const char* username, const char* password)
 {
@@ -62,6 +121,27 @@ void FileSystem::registerUser(const char* username, const char* password)
 
 	//Remove unused memory
 	delete[] dataToWriteToFile;
+}
+
+size_t FileSystem::getUsersCount()
+{
+	std::ifstream databaseFile("Database.bin", std::ios::binary);
+
+	//Check if database file is open
+	if (!databaseFile.is_open())
+	{
+		//Database file doesn't exist, i.e. there are not registered people yet!
+		return 0;
+	}
+
+	databaseFile.seekg(0, std::ios::end);
+	size_t sizeOfDatabaseFile = databaseFile.tellg();
+	size_t countOfUsers = sizeOfDatabaseFile / (sizeof(User) + sizeof(GlobalConstants::FILESYSTEM_COLUMN_DELIMITER) * (GlobalConstants::FILESYSTEM_COLUMN_COUNT - 1) + sizeof(GlobalConstants::FILESYSTEM_ENTRY_DELIMITER));
+
+	//Close database
+	databaseFile.close();
+
+	return countOfUsers;
 }
 
 User* FileSystem::getAllUsers(size_t usersCount)
@@ -156,7 +236,6 @@ User* FileSystem::getAllUsers(size_t usersCount)
 
 			if (newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
 			{
-				//TODO: Init new user
 				currentUserIndex++;
 				currentUserField = UserFields::Username;
 			}
@@ -171,88 +250,6 @@ User* FileSystem::getAllUsers(size_t usersCount)
 	databaseFile.close();
 
 	return users;
-}
-
-bool FileSystem::stringContainsForbiddenSymbols(const char* text)
-{
-	for (size_t i = 0; i < strlen(text); i++)
-	{
-		for (size_t y = 0; y < strlen(GlobalConstants::FORDBIDDEN_SYMBOLS); y++)
-		{
-			if (text[i] == GlobalConstants::FORDBIDDEN_SYMBOLS[y]) return true;
-		}
-	}
-	return false;
-}
-
-bool FileSystem::userIsValid(const char* username, const char* password)
-{
-	//Check if the formatting of the username and password is valid
-	 //Check if the username or password are already contained in the database
-
-	return usernameIsValid(username) && passwordIsValid(password) && !userIsRegistered(username);
-}
-
-bool FileSystem::usernameIsValid(const char* username)
-{
-	if (username == nullptr) return false;
-
-	//Check if the length of the username is too large or too small
-	size_t length = strlen(username);
-	if (length > GlobalConstants::USERNAME_LENGTH_MAX || length < GlobalConstants::USERNAME_LENGTH_MIN) return false;
-
-	//Check if username contains forbidden symbols
-	return !stringContainsForbiddenSymbols(username);
-}
-
-bool FileSystem::passwordIsValid(const char* password)
-{
-	if (password == nullptr) return false;
-
-	//Check if the length of the username is too large or too small
-	size_t length = strlen(password);
-	if (length > GlobalConstants::PASSWORD_LENGTH_MAX || length < GlobalConstants::PASSWORD_LENGTH_MIN) return false;
-
-	//Check if username contains forbidden symbols
-	return !stringContainsForbiddenSymbols(password);
-}
-
-size_t FileSystem::getUsersCount()
-{
-	std::ifstream databaseFile("Database.bin", std::ios::binary);
-
-	//Check if database file is open
-	if (!databaseFile.is_open())
-	{
-		//Database file doesn't exist, i.e. there are not registered people yet!
-		return 0;
-	}
-
-	databaseFile.seekg(0, std::ios::end);
-	size_t sizeOfDatabaseFile = databaseFile.tellg();
-	size_t countOfUsers = sizeOfDatabaseFile / (sizeof(User) + sizeof(GlobalConstants::FILESYSTEM_COLUMN_DELIMITER) * (GlobalConstants::FILESYSTEM_COLUMN_COUNT - 1) + sizeof(GlobalConstants::FILESYSTEM_ENTRY_DELIMITER));
-
-	//Close database
-	databaseFile.close();
-
-	return countOfUsers;
-}
-
-bool FileSystem::userIsRegistered(const char* username)
-{
-	size_t allUsersCount = getUsersCount();
-	const User* allUsers = getAllUsers(allUsersCount);
-
-	for (size_t i = 0; i < allUsersCount; i++)
-	{
-		const char* otherUsername = allUsers[i].username;
-		if (strcmp(username, otherUsername) == 0)
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 User* FileSystem::getUser(const char* username)
@@ -274,3 +271,4 @@ User* FileSystem::getUser(const char* username)
 	//User was not found in the database, so return nullptr
 	return nullptr;
 }
+

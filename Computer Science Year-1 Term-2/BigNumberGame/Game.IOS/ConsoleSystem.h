@@ -2,6 +2,8 @@
 class ConsoleSystem
 {
 public:
+	static char* parseToString(int integer);
+
 	//Split string by delim. sizeOfArray returns the numbers of split strings. 
 	static char** splitString(const char* input, char delim, size_t& sizeOfArray);
 

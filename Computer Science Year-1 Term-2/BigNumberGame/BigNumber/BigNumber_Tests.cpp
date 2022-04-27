@@ -44,7 +44,6 @@ void ConstructorAndCopyAndAssignTests()
     std::cout << "someBigNumberInt: "; someBigNumberInt.printOutNumber();
 }
 
-//TODO: READING TEST IS INBETWEEN
 void ReadingOperatorTests()
 {
     std::cout << std::endl << "TESTS FOR READING A NUMBER FROM CONSOLE:\n" << std::endl;

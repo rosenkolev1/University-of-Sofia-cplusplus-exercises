@@ -5,6 +5,7 @@ class GlobalConstants
 public:
 	// INTERNAL CONSTANTS
 	static constexpr const char* BAD_ALLOC_EXCEPTION = "Bad allocation of memory";
+	static constexpr const char* PLACEHOLDER = "LOREM IPSUM TEXT";
 
 	//---UI AND TEXT OUTPUT CONSTANTS
 	static constexpr const char* WELCOME_STARTSCREEN_TEXT = "Welcome to the BigNumber game!!!\nHere, you will be forced to answer some equations with BigNumbers in them. Enjoy!\n\n";
@@ -19,6 +20,7 @@ public:
 	static constexpr const char* REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
 	static constexpr const char* LOGIN = "Enter your username and password ({username} | {password}).";
 	static constexpr const char* LOGIN_USERNAME_TAKEN = "Error! This user doesn't exist! Password or username is wrong!";
+	static constexpr const char* PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
 
 	//---USER INFO CONSTANTS
 	static const int USERNAME_LENGTH_MAX = 100;

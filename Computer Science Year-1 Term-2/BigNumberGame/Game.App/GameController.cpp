@@ -7,11 +7,24 @@
 #include "..\Game.IOS/FileSystem.h"
 #include "..\Game.IOS\ConsoleSystem.h"
 
-
+User* GameController::currentUser = nullptr;
 
 void GameController::playingLevelScreenPrint()
 {
-
+    size_t maxSize = 88;
+    char** textArray = new char* [3];
+    for (size_t i = 0; i < 3; i++)
+    {
+        textArray[i] = new char[maxSize];
+    }
+    char newText[100] = "Current Level: ";
+    const char* levelText = ConsoleSystem::parseToString(currentUser->level);
+    strcat(newText, levelText);
+    strcpy(textArray[0], newText);
+    textArray[1] = (char*)GlobalConstants::PLACEHOLDER;
+    textArray[2] = (char*)GlobalConstants::PLAYING_RETURN_TEXT;
+    //Screen Print
+    GameUI::printScreenWithText((const char**)textArray, 2, maxSize);
 }
 
 bool GameController::playingLevel()
@@ -20,9 +33,9 @@ bool GameController::playingLevel()
 
     while (true)
     {
+        //TODO: Make writing out the solution to the equation work
         char* selection = new char[10000];
-
-
+        std::cin >> selection;
         bool returnToScreen = false;
         
         if (returnToScreen)
@@ -179,6 +192,7 @@ bool GameController::loginUser()
             }
 
             GameUI::printLineNoBorders("Game Starting...");
+            currentUser = FileSystem::getUser(username);
             returnToScreen = playingLevel();
         }
 
@@ -218,13 +232,11 @@ bool GameController::loginOrRegister()
             )
         {
             // Print on a single line without screen borders
-            //TODO: IMPLEMENT ERROR LOOP GAME FUNCTION HERE
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
             continue;
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) == 0)
         {
-            //TODO: Start the login procedure
             returnToScreen = loginUser();
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) == 0)
@@ -274,14 +286,12 @@ void GameController::startUp()
             )
         {
             // Print on a single line without screen borders
-            //TODO: IMPLEMENT ERROR LOOP GAME FUNCTION HERE
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
             continue;
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_MAINMENU_END) == 0)
         {
             //End the game
-            //TODO: IMPLEMENT ENDING GAME FUNCTION HERE
             GameUI::printScreenWithText(GlobalConstants::GAME_END);
             break;
         }

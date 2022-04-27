@@ -1,4 +1,3 @@
-//TODO: Replace pragma once with the other shit
 #pragma once
 
 #include "..\Game.GlobalConstants\GlobalConstants.h"

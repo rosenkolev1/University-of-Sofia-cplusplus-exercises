@@ -291,7 +291,6 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 
 	if (signOfThis > signOfOther) // Substraction this - other! Change first digit of other
 	{
-		//TODO SUBTRACTION
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.sign *= -1;
 		BigNumber result = subtractAndReturn(*this, invertedOtherCopy, false);
@@ -300,7 +299,6 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	}
 	else if (signOfThis < signOfOther) // Substraction other - this! Change first digit
 	{
-		//TODO SUBTRACTION
 		BigNumber invertedThisCopy = *this;
 		invertedThisCopy.sign *= -1;
 		BigNumber result = subtractAndReturn(other, invertedThisCopy, false);
@@ -330,7 +328,6 @@ BigNumber& BigNumber::operator+=(const BigNumber& other)
 	return *this;
 }
 
-//TODO: STOP USING INT ARRAYS BECAUSE IT DEFEATS THE PURPOSE OF USING A CHAR ARRAY FOR THE DIGITS OF THE NUMBERS IN THE FIRST PLACE
 BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const
 {
 	size_t biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
