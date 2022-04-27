@@ -8,6 +8,8 @@
 * ~
 */
 
+//TODO: Reorder functions in a neat way
+
 void FileSystem::registerUser(const char* username, const char* password)
 {
 	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);
@@ -251,4 +253,24 @@ bool FileSystem::userIsRegistered(const char* username)
 	}
 
 	return false;
+}
+
+User* FileSystem::getUser(const char* username)
+{
+	size_t usersCount = getUsersCount();
+	User* allUsers = getAllUsers(usersCount);
+	User* user = nullptr;
+
+	for (size_t i = 0; i < usersCount; i++)
+	{
+		if (strcmp(allUsers[i].username, username) == 0)
+		{
+			user = new User(allUsers[i]);
+			delete[] allUsers;
+			return user;
+		}
+	}
+
+	//User was not found in the database, so return nullptr
+	return nullptr;
 }

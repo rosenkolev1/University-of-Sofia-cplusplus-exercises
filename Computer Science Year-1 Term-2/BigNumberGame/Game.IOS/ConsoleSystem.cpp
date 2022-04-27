@@ -100,7 +100,12 @@ void ConsoleSystem::deleteArrayOfStrings(char** text, size_t arrayCount)
 {
     for (size_t i = 0; i < arrayCount; i++)
     {
-        delete[] text[i];
+        if (strcmp(text[i], "") != 0)
+        {
+            delete[] text[i];
+        }
+        //If the text[i] is pointing to an empty string, then delete or delete[] on text[i] throws an error for some reason.
+        //Not sure if memory is allocated for empty strings. This may be a memory leak.
     }
     delete[] text;
 }

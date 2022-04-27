@@ -10,6 +10,7 @@ public:
 	size_t expressionCapacity;
 
 	User();
+	~User();
 
 	void enlargeExpressionCapacity();
 };

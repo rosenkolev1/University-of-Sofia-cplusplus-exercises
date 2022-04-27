@@ -3,6 +3,14 @@
 class GameController
 {
 public:
+    static void playingLevelScreenPrint();
+
+    static bool playingLevel();
+
+    static void loginUserScreenPrint();
+
+    static bool loginUser();
+
     static void registerUserScreenPrint();
 
     static bool registerUser();

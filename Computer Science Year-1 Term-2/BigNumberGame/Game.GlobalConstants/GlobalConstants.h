@@ -17,6 +17,8 @@ public:
 	static constexpr const char* REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!\nWhitespaces are not allowed!\n'|' character is not allowed as part of the username or password!";
 	static constexpr const char* REGISTER_SUCCESS = "\nSuccessfully registered user!";
 	static constexpr const char* REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
+	static constexpr const char* LOGIN = "Enter your username and password ({username} | {password}).";
+	static constexpr const char* LOGIN_USERNAME_TAKEN = "Error! This user doesn't exist! Password or username is wrong!";
 
 	//---USER INFO CONSTANTS
 	static const int USERNAME_LENGTH_MAX = 100;

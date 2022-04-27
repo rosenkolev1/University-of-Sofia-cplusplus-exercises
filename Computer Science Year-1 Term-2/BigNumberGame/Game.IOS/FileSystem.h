@@ -21,6 +21,8 @@ public:
 
 	//READ
 	static User* getAllUsers(size_t usersCount = 0);
+	//Make get functions work with predicates as parameters
+	static User* getUser(const char* username);
 	static size_t getUsersCount();
 
 	//Checks for validity

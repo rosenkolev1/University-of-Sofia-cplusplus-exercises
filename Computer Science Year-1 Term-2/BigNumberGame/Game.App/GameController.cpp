@@ -2,10 +2,38 @@
 
 #include "GameController.h"
 #include <iostream>
-#include "Game.GlobalConstants\GlobalConstants.h"
-#include "Game.UI/GameUI.h"
-#include "Game.IOS/FileSystem.h"
-#include "Game.IOS\ConsoleSystem.h"
+#include "..\Game.GlobalConstants\GlobalConstants.h"
+#include "..\Game.UI/GameUI.h"
+#include "..\Game.IOS/FileSystem.h"
+#include "..\Game.IOS\ConsoleSystem.h"
+
+
+
+void GameController::playingLevelScreenPrint()
+{
+
+}
+
+bool GameController::playingLevel()
+{
+    playingLevelScreenPrint();
+
+    while (true)
+    {
+        char* selection = new char[10000];
+
+
+        bool returnToScreen = false;
+        
+        if (returnToScreen)
+        {
+            //Return to last screen
+            return true;
+        }
+    }
+
+    return false;
+}
 
 void GameController::registerUserScreenPrint()
 {
@@ -21,7 +49,6 @@ bool GameController::registerUser()
     //Screen Print
     registerUserScreenPrint();
 
-    //char* selection = nullptr;
     while (true)
     {
         char selection[1000];
@@ -65,6 +92,10 @@ bool GameController::registerUser()
             {
                    GameUI::printLineNoBorders(GlobalConstants::REGISTER_USERNAME_TAKEN);
                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                   //Clear memory for input from console
+                   ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
                    continue;
              }
             
@@ -80,6 +111,82 @@ bool GameController::registerUser()
              return true;           
         }
 
+    }
+}
+
+void GameController::loginUserScreenPrint()
+{
+    const char** textArray = new const char* [2];
+    textArray[0] = GlobalConstants::LOGIN;
+    textArray[1] = GlobalConstants::RETURN_TEXT;
+    //Screen Print
+    GameUI::printScreenWithText(textArray, 2, 60);
+}
+
+bool GameController::loginUser()
+{
+    loginUserScreenPrint();
+
+    while (true)
+    {
+        char selection[1000];
+        char firstChar = (char)std::cin.peek();
+        if (firstChar == '\0' || firstChar == '\n') std::cin.ignore();
+        std::cin.getline(selection, 1000);
+        std::cin.clear();
+
+        bool returnToScreen = false;
+        bool textIsValid = true;
+
+        size_t splitStringsCount = 0;
+        char** splitInput = ConsoleSystem::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
+        char* username = splitStringsCount == 2 ? splitInput[0] : nullptr;
+        char* password = splitStringsCount == 2 ? splitInput[1] : nullptr;
+
+        // Validate if text is inputted in the correct format
+        textIsValid = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
+
+        if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
+        {
+            //Clear memory for input from console
+            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
+            //Return to previous screen
+            return true;
+        }
+        if (selection == nullptr || !textIsValid)
+        {
+            //Clear memory for input from console
+            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
+            // Print on a single line without screen borders
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+        else if (textIsValid)
+        {
+            bool userExists = FileSystem::userIsRegistered(username);
+
+            if (!userExists)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_TAKEN);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                //Clear memory for input from console
+                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
+                continue;
+            }
+
+            GameUI::printLineNoBorders("Game Starting...");
+            returnToScreen = playingLevel();
+        }
+
+        if (returnToScreen)
+        {
+            //Return to the last screen
+            return true;
+        }
     }
 }
 
@@ -118,7 +225,7 @@ bool GameController::loginOrRegister()
         else if (strcmp(selection, GlobalConstants::COMMAND_LOGIN_START) == 0)
         {
             //TODO: Start the login procedure
-
+            returnToScreen = loginUser();
         }
         else if (strcmp(selection, GlobalConstants::COMMAND_REGISTER_START) == 0)
         {
