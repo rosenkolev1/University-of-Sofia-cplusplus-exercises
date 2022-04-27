@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "ConsoleSystem.h"
+#include "FileSystem.h"
 
 void printOutResultsFromTest(char** strings, size_t numberOfStrings)
 {
@@ -101,14 +102,35 @@ void testInputSeven()
     std::cout << std::endl;
 }
 
+void testUserInputOne()
+{
+    char input[] = "Testing User Assignment and Copy constructor --> User b = allUsers[0]; User a(b)";
+    User* allUsers = FileSystem::getAllUsers();
+    User b = allUsers[0];
+    User a = User(b);
+    std::cout << input << std::endl;
+    std::cout << "Expected: Users are copies with the same members. ==> ";
+    std::cout << std::endl << "Level is same: " << (allUsers[0].level == b.level && b.level == a.level ? "True" : "False");
+    std::cout << std::endl << "Username is same: " << ( strcmp(allUsers[0].username, b.username) == 0 && strcmp(b.username, a.username) == 0 ? "True" : "False");
+    std::cout << std::endl << "Password is same: " << (strcmp(allUsers[0].password, b.password) == 0 && strcmp(b.password, a.password) == 0 ? "True" : "False");
+    std::cout << std::endl << "Last Expression is same: " << (strcmp(allUsers[0].lastExpression, b.lastExpression) == 0 && strcmp(b.lastExpression, a.lastExpression) == 0 ? "True" : "False");
+    std::cout << std::endl << "Username pointers are different: " << (allUsers[0].username != b.username && b.username != a.username && allUsers[0].username != a.username ? "True" : "False");
+    std::cout << std::endl << "Password pointers are different: " << (allUsers[0].password != b.password && b.password != a.password && allUsers[0].password != a.password? "True" : "False");
+    std::cout << std::endl << "Last Expression pointers are different: " << (allUsers[0].lastExpression != b.lastExpression && b.lastExpression != a.lastExpression && allUsers[0].lastExpression != a.lastExpression ? "True" : "False");
+    std::cout << std::endl;
+}
+
 int main()
 {
     //Testing split string function
-    testInputOne();
-    testInputTwo();
-    testInputThree();
-    testInputFour();
-    testInputFive();
-    testInputSix();
-    testInputSeven();
+    //testInputOne();
+    //testInputTwo();
+    //testInputThree();
+    //testInputFour();
+    //testInputFive();
+    //testInputSix();
+    //testInputSeven();
+
+    //Testing User functionality
+    testUserInputOne();
 }

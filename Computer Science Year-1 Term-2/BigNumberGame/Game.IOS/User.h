@@ -2,6 +2,8 @@
 
 class User
 {
+private:
+	void copyOther(User const& other);
 public:
 	char* username;
 	char* password;
@@ -10,7 +12,10 @@ public:
 	size_t expressionCapacity;
 
 	User();
+	User(User const& other);
 	~User();
+
+	User& operator=(User const& other);
 
 	void enlargeExpressionCapacity();
 };
