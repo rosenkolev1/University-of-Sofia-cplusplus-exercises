@@ -6,9 +6,9 @@ class GameController
 public:
     static User* currentUser;
 
-    static void playingLevelScreenPrint();
+    static void mainMenuLoggedScreenPrint();
 
-    static bool playingLevel();
+    static bool mainMenuLogged();
 
     static void loginUserScreenPrint();
 
