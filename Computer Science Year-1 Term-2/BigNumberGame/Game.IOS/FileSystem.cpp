@@ -232,6 +232,10 @@ void FileSystem::deleteUser(const char* username, const char* adminMessage)
 
 	//size_t usersCount = getUsersCount();
 	size_t databaseFileSize = strlen(databaseFileString);
+
+	//Database is empty in this case, so don't do anything;
+	if(databaseFileSize <= 0) 
+
 	char something = databaseFileString[databaseFileSize - 1];
 	char* databaseFileCopy = new char[databaseFileSize + 1];
 	strcpy(databaseFileCopy, databaseFileString);
@@ -577,8 +581,8 @@ char* FileSystem::getUserString(const char* username, const char* databaseFileCo
 		}
 	}
 
-	char* userString = new char[endPos - startPos + 1];
-	userString[endPos - startPos] = '\0';
+	char* userString = new char[endPos - startPos + 2];
+	userString[endPos - startPos + 1] = '\0';
 	for (size_t i = 0; i < strlen(userString); i++)
 	{
 		userString[i] = databaseFileCopy[i + startPos];
