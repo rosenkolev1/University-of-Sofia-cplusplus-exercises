@@ -1,7 +1,6 @@
-Roskata123^pederas^0^COL_NULL
-Rosen_Gacov^Kukata^0^COL_NULL
-Rosen_Gacov_ALT^Kukata99Kopele^0^COL_NULL
-Roskata_ALT^istinskataMiParola^0^COL_NULL
-Roskata^2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222^0^COL_NULL
-Roskata13^Treta_Parola^0^COL_NULL
-GeorgiAtanasov^NekvaGotinaIgraBace^0^COL_NULL~
+roskata123^pederas^Normal^0^3^COL_NULL^TRUE^FALSE
+Roskata123^Pederas^Normal^2^1^COL_NULL^TRUE^FALSE
+Roskata12^pederasNov^Normal^0^3^COL_NULL^TRUE^FALSE
+NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^FALSE
+SomeNewUser^NewPassword^Normal^0^3^COL_NULL^TRUE^TRUE
+SomeStupidUser^Stupid^Normal^0^3^COL_NULL^TRUE^FALSE

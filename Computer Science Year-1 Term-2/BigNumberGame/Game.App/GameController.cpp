@@ -8,14 +8,70 @@
 #include "..\Game.IOS\ConsoleSystem.h"
 
 User* GameController::currentUser = nullptr;
+bool GameController::returnToTitleScreen = false;
+
+void GameController::deleteOwnAccountConfirmationScreenPrint()
+{
+    size_t maxSize = 73;
+    char** textArray = new char* [3];
+    for (size_t i = 0; i < 3; i++)
+    {
+        textArray[i] = new char[maxSize];
+    }
+    strcpy(textArray[0], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION);
+    strcpy(textArray[1], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO);
+    strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES);
+    GameUI::printScreenWithText((const char**)textArray, 3, maxSize);
+
+    //Delete dynamic memory
+    ConsoleSystem::deleteArrayOfStrings(textArray, 3);
+}
+
+bool GameController::deleteOwnAccountConfirmation()
+{
+    deleteOwnAccountConfirmationScreenPrint();
+
+    while (true)
+    {
+        char* selection = new char[10000];
+        std::cin >> selection;
+
+        if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
+        {
+            //Return to last screen
+            return true;
+        }
+        //Delete account and return user to welcome screen
+        else if (strcmp(selection, GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM) == 0)
+        {
+            //Delete the user's account
+            FileSystem::deleteUser(currentUser->username, nullptr);
+
+            //Set the current user to nullptr because it was deleted
+            currentUser = nullptr;
+            //If the user has deleted their own account, then send them a message to inform them of the account deletion
+            GameUI::printLineNoBorders(GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS);
+
+            //Return to title screen
+            returnToTitleScreen = true;
+            return true;
+        }
+        //Invalid command
+        else 
+        {
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+    }
+}
 
 //TODO: change this screen depending on the role of the user
 void GameController::mainMenuLoggedScreenPrint()
 {
     size_t maxSize = 88;
-    char** textArray = new char* [5];
     bool continueGame = currentUser->level > 1;
-    size_t textArraySize = continueGame ? 4 : 5;
+    size_t textArraySize = continueGame ? 6 : 5;
+    char** textArray = new char* [textArraySize];
 
     for (size_t i = 0; i < textArraySize; i++)
     {
@@ -39,21 +95,27 @@ void GameController::mainMenuLoggedScreenPrint()
     strcat(currentLivesText, "\n");
     strcpy(textArray[1], currentLivesText);
 
+    //Type out the appropriate things depending on the state of the game of the user
     if (continueGame)
     {
-        textArray[2] = (char*)GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME;
-        textArray[3] = (char*)GlobalConstants::MAINMENU_LOGGED_RESTARTGAME;        
+        strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME);
+        strcpy(textArray[3], GlobalConstants::MAINMENU_LOGGED_RESTARTGAME);  
     }
     else
     {
-        textArray[2] = (char*)GlobalConstants::MAINMENU_LOGGED_STARTGAME;
-        textArray[3] = (char*)GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT;
+        strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_STARTGAME);
     }
-    textArray[textArraySize - 1] = (char*)GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT;
+    strcpy(textArray[textArraySize - 2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT);
+
+
+    //TODO: Type out the admin privileges
+
+    strcpy(textArray[textArraySize - 1], GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT);
     //Screen Print
     GameUI::printScreenWithText((const char**)textArray, textArraySize, maxSize);
 
-    //Delete dynamically allocated memory
+    //Delete dynamic memory
+    ConsoleSystem::deleteArrayOfStrings(textArray, textArraySize);
     delete[] livesText;
     delete[] levelText;
 }
@@ -73,6 +135,14 @@ bool GameController::mainMenuLogged()
         {
             //Return to last screen
             return true;
+        }
+        //User wants to delete their own account, so take them to the confirmation screen!
+        else if (strcmp(selection, GlobalConstants::COMMAND_ACCOUNT_DELETE) == 0)
+        {
+            //If the user deletes their own account, then we send them all the way back to the title screen
+            returnToScreen = deleteOwnAccountConfirmation();
+
+            if (returnToTitleScreen) return true;
         }
         //Users starts a new game
         else if (!continueGame && strcmp(selection, GlobalConstants::COMMAND_GAME_START) == 0)
@@ -106,11 +176,18 @@ bool GameController::mainMenuLogged()
 
 void GameController::loginUserScreenPrint()
 {
-    const char** textArray = new const char* [2];
-    textArray[0] = GlobalConstants::LOGIN;
-    textArray[1] = GlobalConstants::RETURN_TEXT;
+    char** textArray = new char* [2];
+    for (size_t i = 0; i < 2; i++)
+    {
+        textArray[i] = new char[60];
+    }
+    strcpy(textArray[0], GlobalConstants::LOGIN);
+    strcpy(textArray[1], GlobalConstants::RETURN_TEXT);
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 60);
+    GameUI::printScreenWithText((const char**)textArray, 2, 60);
+
+    //Delete dynamic memory
+    ConsoleSystem::deleteArrayOfStrings(textArray, 2);
 }
 
 bool GameController::loginUser()
@@ -156,6 +233,18 @@ bool GameController::loginUser()
         else if (textIsValid)
         {
             bool userExists = FileSystem::userIsRegisteredWithPassword(username, password);
+
+            if (!userExists)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_TAKEN);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                //Clear memory for input from console
+                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
+                continue;
+            }
+
             currentUser = FileSystem::getUser(username);
 
             //TODO: If this user is deleted, then print a message to them from the second table of the database
@@ -170,20 +259,12 @@ bool GameController::loginUser()
                 continue;
             }
 
-            if (!userExists)
-            {
-                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_TAKEN);
-                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
-
-                //Clear memory for input from console
-                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
-
-                continue;
-            }
-
             GameUI::printLineNoBorders("Game Starting...");
             returnToScreen = mainMenuLogged();
         }
+
+        //If the user deletes their own account, then we send them all the way back to the title screen
+        if (returnToTitleScreen) return true;
 
         if (returnToScreen)
         {
@@ -269,7 +350,6 @@ bool GameController::registerUser()
              //Return to previous screen
              return true;           
         }
-
     }
 }
 
@@ -318,6 +398,9 @@ bool GameController::loginOrRegister()
             //Return to previous screen
             return true;
         }
+
+        //If the user deletes their own account, then we send them all the way back to the title screen
+        if (returnToTitleScreen) return true;
 
         if (returnToScreen)
         {
@@ -368,8 +451,9 @@ void GameController::startUp()
         {
             //Start the actual game by trying to log in first
             returnToScreen = loginOrRegister();
-
         }
+
+        if (returnToTitleScreen) returnToTitleScreen = false;
 
         if (returnToScreen)
         {

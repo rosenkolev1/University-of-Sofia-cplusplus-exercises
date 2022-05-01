@@ -223,6 +223,101 @@ void FileSystem::registerUser(const char* username, const char* password, UserRo
 	delete[] dataToWriteToFile;
 }
 
+void FileSystem::deleteUser(const char* username, const char* adminMessage)
+{
+	//Then the admin doesn't have to write a message because the user has decided to delete their account themselves
+	if (adminMessage == nullptr);//TODO: make admin deletion work
+
+	const char* databaseFileString = getDatabaseAsString();
+
+	//size_t usersCount = getUsersCount();
+	size_t databaseFileSize = strlen(databaseFileString);
+	char something = databaseFileString[databaseFileSize - 1];
+	char* databaseFileCopy = new char[databaseFileSize + 1];
+	strcpy(databaseFileCopy, databaseFileString);
+	
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	size_t currentColumnCounter = 1;
+	bool currentColIsUsername = true;
+	char* currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+	size_t currentUsernameIndex = 0;
+	bool foundCurrentUser = false;
+	bool hasDelimBefore = false;
+	bool hasDelimAfter = false;
+	for (size_t i = 0; i < databaseFileSize; i++)
+	{
+		//We have found the index of the entry delim right after the user ends
+		if (foundCurrentUser && databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		{
+			userEndPos = i;
+			break;
+		}
+		if (databaseFileCopy[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		{
+			currentColumnCounter++;
+			if (currentColIsUsername)
+			{
+				currentUsername[currentUsernameIndex++] = '\0';
+				//if we found the username, then get the entry pos that is right at the start of the username
+				if (strcmp(currentUsername, username) == 0)
+				{
+					userStartPos = i - strlen(username);
+					/*hasDelimBefore = userStartPos > 0;
+					if (hasDelimBefore) userStartPos - 1;*/
+					foundCurrentUser = true;
+				}
+				//Reset the currentUsername
+				currentColIsUsername = false;
+				delete[] currentUsername;
+				currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+				currentUsernameIndex = 0;
+			}
+		}
+		//Check if we are currently on the first, i.e. the username colummn
+		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
+		{
+			if (!currentColIsUsername) currentColIsUsername = true;
+			currentUsername[currentUsernameIndex++] = databaseFileCopy[i];
+		}
+	}
+	//Make the changes to the newDatabaseFileString, which we then copy into the database file
+	size_t newDatabaseFileSize = databaseFileSize - (userEndPos - userStartPos);
+	char* newDatabaseFile = new char[newDatabaseFileSize + 1];
+	size_t newDatabaseFileIndex = 0;
+	newDatabaseFile[newDatabaseFileSize - 1] = '\0';
+
+	for (size_t i = 0; i < databaseFileSize; i++)
+	{
+		if (i < userStartPos || i > userEndPos)
+		{
+			newDatabaseFile[newDatabaseFileIndex++] = databaseFileCopy[i];
+		}
+	}
+
+	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::trunc);
+
+	//Check if database file is open
+	if (!databaseFile.is_open())
+	{
+		//throw some error
+		throw "Fuck this shit I'm out ";
+	}
+
+	//Truncate the old database and replace it with the next one
+	//databaseFile.write(reinterpret_cast<const char*>(newDatabaseFile), 1);
+	databaseFile.write((const char*)(newDatabaseFile), strlen(newDatabaseFile));
+
+	//Close database connection
+	databaseFile.close();
+
+	//Delete dynamic memory
+	delete[] databaseFileCopy;
+	delete[] databaseFileString;
+	delete[] newDatabaseFile;
+}
+
 size_t FileSystem::getUsersCount(const char* databaseFile)
 {
 	bool deleteDatabaseFile = databaseFile == nullptr;

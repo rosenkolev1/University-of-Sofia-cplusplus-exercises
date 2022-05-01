@@ -9,8 +9,9 @@ static class FileSystem
 private:
 	static const char* getDatabaseAsString();
 public:
-	//WRITE
+	//WRITE/UPDATE/PUT/DELETE
 	static void registerUser(const char* username, const char* password, UserRoles role = UserRoles::Normal);
+	static void deleteUser(const char* username, const char* adminMessage);
 
 	//READ
 	static User* getAllUsers(const char* databaseFile = nullptr, size_t usersCount = 0, bool includeDeleted = true);

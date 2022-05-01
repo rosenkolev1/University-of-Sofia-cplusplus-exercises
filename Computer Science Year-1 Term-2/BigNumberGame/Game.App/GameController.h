@@ -5,6 +5,11 @@ class GameController
 {
 public:
     static User* currentUser;
+    static bool returnToTitleScreen;
+
+    static void deleteOwnAccountConfirmationScreenPrint();
+
+    static bool deleteOwnAccountConfirmation();
 
     static void mainMenuLoggedScreenPrint();
 

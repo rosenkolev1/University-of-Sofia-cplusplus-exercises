@@ -142,6 +142,9 @@ void ConsoleSystem::deleteArrayOfStrings(char** text, size_t arrayCount)
     {
         if (strcmp(text[i], "") != 0)
         {
+            //Debug
+            char somethingDebug[1000];
+            strcpy(somethingDebug, text[i]);
             delete[] text[i];
         }
         //If the text[i] is pointing to an empty string, then delete or delete[] on text[i] throws an error for some reason.

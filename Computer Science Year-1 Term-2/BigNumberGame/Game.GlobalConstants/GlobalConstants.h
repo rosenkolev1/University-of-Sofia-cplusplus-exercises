@@ -27,7 +27,13 @@ public:
 	static constexpr const char* MAINMENU_LOGGED_CONTINUEGAME = "\nCONTINUE GAME(c)\n";
 	static constexpr const char* MAINMENU_LOGGED_RESTARTGAME = "\nRESTART GAME(restart)\n";
 	static constexpr const char* MAINMENU_LOGGED_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT ACCOUNT(r)";
+	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT = "\nDELETE YOUR OWN ACCOUNT(delete)\n";
+	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION = "\nWARNING: THIS ACTION WILL DELETE YOUR ACCOUNT FOREVER. PROCEED ANYWAY?\n";
+	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES = "\nDELETE ACCOUNT(delete_account)\n";
+	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO = "\nGO BACK(r)\n";
+	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS = "\nACCOUNT DELETION WAS SUCCESSFUL\n";
 	static constexpr const char* PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
+
 
 	//---USER INFO CONSTANTS
 	static const int USERNAME_LENGTH_MAX = 100;
@@ -53,6 +59,8 @@ public:
 	static constexpr const char* COMMAND_GAME_START = "s";
 	static constexpr const char* COMMAND_GAME_CONTINUE = "c";
 	static constexpr const char* COMMAND_GAME_RESTART = "restart";
+	static constexpr const char* COMMAND_ACCOUNT_DELETE = "delete";
+	static constexpr const char* COMMAND_ACCOUNT_DELETE_CONFIRM = "delete_account";
 
 	//---FILE SYSTEM CONSTANTS
 	static constexpr const char FILESYSTEM_ENTRY_DELIMITER = '\n';
