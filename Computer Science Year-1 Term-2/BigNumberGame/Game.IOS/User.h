@@ -40,6 +40,8 @@ public:
 	bool includeHighscore;
 	bool isDeleted;
 
+	void setRole(const char* role);
+
 	User();
 	User(User const& other);
 	~User();

@@ -30,6 +30,22 @@ void User::deleteDynamicMemory()
 	delete[] this->lastExpression;
 }
 
+void User::setRole(const char* role)
+{
+	for (size_t i = 0; i < GlobalConstants::USER_ROLES_COUNT; i++)
+	{
+		//If the role exists, then set it
+		if (strcmp(role, GlobalConstants::USER_ROLES[i]) == 0)
+		{
+			this->role = (UserRoles)i;
+			return;
+		}
+	}
+
+	//If role is not found, throw an exception
+	throw std::exception();
+}
+
 User::User()
 {
 	this->username = new char[GlobalConstants::USERNAME_LENGTH_MAX];

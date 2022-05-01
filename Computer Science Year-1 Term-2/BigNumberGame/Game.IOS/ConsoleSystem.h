@@ -14,6 +14,8 @@ public:
 
 	static bool stringContains(const char* text, const char* other);
 
+	static bool stringStartsWith(const char* text, const char* other);
+
 	static void deleteArrayOfStrings(char** text, size_t arrayCount);
 
 	static char* concatStrings(const char** strings, size_t stringsCount);

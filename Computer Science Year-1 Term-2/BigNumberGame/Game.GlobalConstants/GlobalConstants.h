@@ -22,7 +22,7 @@ public:
 	static constexpr const char* REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
 	static constexpr const char* LOGIN = "Enter your username and password ({username} | {password}).";
 	static constexpr const char* LOGIN_USERNAME_TAKEN = "Error! This user doesn't exist! Password or username is wrong!";
-	//------LOGGED
+	//------LOGGED_MAINMENU
 	static constexpr const char* MAINMENU_LOGGED_STARTGAME = "\nSTART GAME(s)\n";
 	static constexpr const char* MAINMENU_LOGGED_CONTINUEGAME = "\nCONTINUE GAME(c)\n";
 	static constexpr const char* MAINMENU_LOGGED_RESTARTGAME = "\nRESTART GAME(restart)\n";
@@ -32,6 +32,16 @@ public:
 	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES = "\nDELETE ACCOUNT(delete_account)\n";
 	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO = "\nGO BACK(r)\n";
 	static constexpr const char* MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS = "\nACCOUNT DELETION WAS SUCCESSFUL\n";
+	static constexpr const char* MAINMENU_LEVEL_TEXT = "Current Level: ";
+	static constexpr const char* MAINMENU_LIVES_TEXT = "Lives: ";
+	//------ADMIN_MAINMENU
+	static constexpr const char* ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo {account name})\n";
+	static constexpr const char* ADMIN_DELETEACCOUNT = "\nDELETE ACCOUNT(delete {account name})\n";
+	static constexpr const char* ADMIN_EXCLUDEFROMLEADERBOARD = "\nEXCLUDE FROM LEADERBOARD(exclude {account name})\n";
+	static constexpr const char* ADMIN_ADDHELPER = "\nADD HELPER(add {helper name})\n";
+	static constexpr const char* ADMIN_RECOVER = "\nRECOVER ACCOUNT(recover {helper name})\n";
+	static constexpr const char* ADMIN_LOGGEDASADMIN_TEXT = "\n!!!LOGGED AS ADMIN!!!\n";
+	//----------------
 	static constexpr const char* PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
 
 
@@ -42,7 +52,8 @@ public:
 	static const int PASSWORD_LENGTH_MIN = 6;
 	static constexpr const char* USER_ROLE_NORMAL = "Normal";
 	static constexpr const char* USER_ROLE_ADMIN = "Admin";
-	static constexpr const char* USER_ROLES[2]
+	static constexpr const int USER_ROLES_COUNT = 2;
+	static constexpr const char* USER_ROLES[USER_ROLES_COUNT]
 	{
 		GlobalConstants::USER_ROLE_NORMAL,
 		GlobalConstants::USER_ROLE_ADMIN
@@ -61,6 +72,11 @@ public:
 	static constexpr const char* COMMAND_GAME_RESTART = "restart";
 	static constexpr const char* COMMAND_ACCOUNT_DELETE = "delete";
 	static constexpr const char* COMMAND_ACCOUNT_DELETE_CONFIRM = "delete_account";
+	static constexpr const char* COMMAND_ADMIN_GETINFO = "getinfo ";
+	static constexpr const char* COMMAND_ADMIN_DELETE = "delete ";
+	static constexpr const char* COMMAND_ADMIN_ADD = "add ";
+	static constexpr const char* COMMAND_ADMIN_EXCLUDE = "exclude ";
+	static constexpr const char* COMMAND_ADMIN_RECOVER = "recover ";
 
 	//---FILE SYSTEM CONSTANTS
 	static constexpr const char FILESYSTEM_ENTRY_DELIMITER = '\n';

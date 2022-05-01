@@ -180,6 +180,19 @@ void ConsoleSystem::deleteArrayOfStrings(char** text, size_t arrayCount)
     delete[] text;
 }
 
+bool ConsoleSystem::stringStartsWith(const char* text, const char* other)
+{
+    if (strlen(text) < strlen(other)) return false;
+
+    for (size_t i = 0; i < strlen(other); i++)
+    {
+        if (text[i] != other[i]) return false;
+    }
+
+    //If we get to here, then the text starts with other
+    return true;
+}
+
 char* ConsoleSystem::concatStrings(const char** strings, size_t stringsCount)
 {
     size_t concatStringLength = 0;
