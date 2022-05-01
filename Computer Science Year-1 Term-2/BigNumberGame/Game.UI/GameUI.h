@@ -4,6 +4,13 @@
 //#define _CRT_SECURE_NO_WARNINGS
 //#endif
 
+enum class TextAlign
+{
+	Right,
+	Left,
+	Center
+};
+
 class GameUI
 {
 private:
@@ -22,11 +29,11 @@ private:
 
 	static size_t getTextLength(const char* text);
 public:
-	static void printScreenWithText(const char* text);
-	static void printScreenWithText(const char** textArray, size_t arraySize, size_t capacity);
-	static void printLine(const char* text, size_t capacity);
+	static void printScreenWithText(const char* text, const char* screenTitle = nullptr);
+	static void printScreenWithText(const char** textArray, size_t arraySize, size_t capacity, const char* screenTitle = nullptr);
+	static void printLine(const char* text);
 	//Print line without any screen borders
-	static void printLineNoBorders(const char* text);
+	static void printLineNoBorders(const char* text, TextAlign align = TextAlign::Left);
 	static void printEmptyLine();
 };
 

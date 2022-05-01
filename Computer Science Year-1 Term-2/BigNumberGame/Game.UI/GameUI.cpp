@@ -13,14 +13,15 @@ size_t GameUI::getTextLength(const char* text)
 	return sizeOfText;
 }
 
-void GameUI::printScreenWithText(const char* text)
+void GameUI::printScreenWithText(const char* text, const char* screenTitle)
 {
 	std::cout << BORDER_TOP << std::endl;
 
 	//Print initial empty lines
 	for (int i = 0; i < LINES_EMPTY_INITIAL_COUNT; i++)
 	{
-		printEmptyLine();
+		if (i == 1 && screenTitle != nullptr) printLine(screenTitle);
+		else printEmptyLine();
 	}
 
 	//Seperate the text if it's too large for a single line or if it has new line characters in it
@@ -46,8 +47,8 @@ void GameUI::printScreenWithText(const char* text)
 			if (hasNewLineEnding) currentLine[currentLineLength - 1] = '\0';
 			else currentLine[currentLineLength] = '\0';
 
-			if (hasNewLineEnding) printLine(currentLine, currentLineLength);
-			else printLine(currentLine, currentLineLength + 1);
+			if (hasNewLineEnding) printLine(currentLine);
+			else printLine(currentLine);
 
 			//Empty currentLine
 			delete[] currentLine;
@@ -71,7 +72,7 @@ void GameUI::printScreenWithText(const char* text)
 	std::cout << BORDER_BOTTOM << std::endl;
 }
 
-void GameUI::printScreenWithText(const char** textArray, size_t arraySize, size_t capacity)
+void GameUI::printScreenWithText(const char** textArray, size_t arraySize, size_t capacity, const char* screenTitle)
 {
 
 	char* text = new __nothrow char[arraySize * capacity];
@@ -79,7 +80,6 @@ void GameUI::printScreenWithText(const char** textArray, size_t arraySize, size_
 	int textCounter = 0;
 	for (size_t i = 0; i < arraySize; i++)
 	{
-		/*strcat(text, textArray[i]); DOESNT WORK FOR SOME REASON*/
 		size_t lengtOfText = getTextLength(textArray[i]);
 		for (size_t y = 0; y < lengtOfText; y++)
 		{
@@ -88,11 +88,11 @@ void GameUI::printScreenWithText(const char** textArray, size_t arraySize, size_
 		}
 	}
 
-	printScreenWithText(text);
+	printScreenWithText(text, screenTitle);
 	delete[] text;
 }
 
-void GameUI::printLine(const char* text, size_t capacity)
+void GameUI::printLine(const char* text)
 {
 	size_t sizeOfText = getTextLength(text);
 
@@ -121,12 +121,21 @@ void GameUI::printLine(const char* text, size_t capacity)
 	std::cout << std::endl;
 }
 
-void GameUI::printLineNoBorders(const char* text)
+void GameUI::printLineNoBorders(const char* text, TextAlign align)
 {
+	if (align == TextAlign::Center)
+	{
+		size_t textLength = strlen(text);
+		size_t paddingLeftAndRight = (110 - textLength) / 2;
+		for (size_t i = 0; i < paddingLeftAndRight; i++)
+		{
+			std::cout << " ";
+		}
+	}
 	std::cout << text << std::endl;
 }
 
 void GameUI::printEmptyLine()
 {
-	printLine("", 0);
+	printLine("");
 }

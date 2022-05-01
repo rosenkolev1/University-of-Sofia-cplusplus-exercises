@@ -22,7 +22,7 @@ void GameController::deleteOwnAccountConfirmationScreenPrint()
     strcpy(textArray[0], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION);
     strcpy(textArray[1], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO);
     strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES);
-    GameUI::printScreenWithText((const char**)textArray, 3, maxSize);
+    GameUI::printScreenWithText((const char**)textArray, 3, maxSize, GlobalConstants::DELETE_CONFIRM_TITLE);
 
     //Delete dynamic memory
     ConsoleSystem::deleteArrayOfStrings(textArray, 3);
@@ -137,7 +137,7 @@ void GameController::mainMenuLoggedScreenPrint()
 
     strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT);
     //Screen Print
-    GameUI::printScreenWithText((const char**)textArray, textArraySize, maxSize);
+    GameUI::printScreenWithText((const char**)textArray, textArraySize, maxSize, GlobalConstants::MAINMENU_TITLE);
 
     //Delete dynamic memory
     ConsoleSystem::deleteArrayOfStrings(textArray, textArraySize);
@@ -239,7 +239,7 @@ void GameController::loginUserScreenPrint()
     strcpy(textArray[0], GlobalConstants::LOGIN);
     strcpy(textArray[1], GlobalConstants::RETURN_TEXT);
     //Screen Print
-    GameUI::printScreenWithText((const char**)textArray, 2, 60);
+    GameUI::printScreenWithText((const char**)textArray, 2, 60, GlobalConstants::LOGIN_TITLE);
 
     //Delete dynamic memory
     ConsoleSystem::deleteArrayOfStrings(textArray, 2);
@@ -335,7 +335,7 @@ void GameController::registerUserScreenPrint()
     textArray[0] = GlobalConstants::REGISTER;
     textArray[1] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 300); 
+    GameUI::printScreenWithText(textArray, 2, 300, GlobalConstants::REGISTER_TITLE); 
 }
 
 bool GameController::registerUser()
@@ -413,7 +413,7 @@ void GameController::loginOrRegisterScreenPrint()
     textArray[0] = GlobalConstants::LOGIN_OR_REGISTER;
     textArray[1] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 55);
+    GameUI::printScreenWithText(textArray, 2, 55, GlobalConstants::LOGINORREGISTER_TITLE);
 }
 
 bool GameController::loginOrRegister()
@@ -466,11 +466,16 @@ bool GameController::loginOrRegister()
 void GameController::startUpScreenPrint()
 {
     //Screen print
-    const char** textArray = new const char* [3];
-    textArray[0] = GlobalConstants::WELCOME_STARTSCREEN_TEXT;
-    textArray[1] = GlobalConstants::BUTTON_START;
-    textArray[2] = GlobalConstants::BUTTON_END;
-    GameUI::printScreenWithText(textArray, 3, 117);
+   /* GameUI::printLineNoBorders("Start Up Screen", TextAlign::Center);*/
+
+    const char** textArray = new const char* [4];
+    size_t textArrayIndex = 0;
+
+    //Add the text
+    textArray[textArrayIndex++] = GlobalConstants::WELCOME_STARTSCREEN_TEXT;
+    textArray[textArrayIndex++] = GlobalConstants::BUTTON_START;
+    textArray[textArrayIndex++] = GlobalConstants::BUTTON_END;
+    GameUI::printScreenWithText(textArray, textArrayIndex - 1, 117, GlobalConstants::STARTSCREEN_TITLE);
 }
 
 void GameController::startUp()
@@ -518,3 +523,13 @@ void GameController::startUp()
         }
     }
 }
+
+//void GameController::screenPrint()
+//{
+//    //Screen print
+//    const char** textArray = new const char* [3];
+//    textArray[0] = GlobalConstants::WELCOME_STARTSCREEN_TEXT;
+//    textArray[1] = GlobalConstants::BUTTON_START;
+//    textArray[2] = GlobalConstants::BUTTON_END;
+//    GameUI::printScreenWithText(textArray, 3, 117);
+//}

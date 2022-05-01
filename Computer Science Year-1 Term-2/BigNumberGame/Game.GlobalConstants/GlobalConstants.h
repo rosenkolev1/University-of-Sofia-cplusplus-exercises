@@ -43,6 +43,13 @@ public:
 	static constexpr const char* ADMIN_LOGGEDASADMIN_TEXT = "\n!!!LOGGED AS ADMIN!!!\n";
 	//----------------
 	static constexpr const char* PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
+	//------SCREEN TITLES
+	static constexpr const char* STARTSCREEN_TITLE = "START UP SCREEN";
+	static constexpr const char* LOGINORREGISTER_TITLE = "LOGIN OR REGISTER SCREEN";
+	static constexpr const char* REGISTER_TITLE = "REGISTER SCREEN";
+	static constexpr const char* LOGIN_TITLE = "LOGIN SCREEN";
+	static constexpr const char* MAINMENU_TITLE = "MAIN MENU SCREEN";
+	static constexpr const char* DELETE_CONFIRM_TITLE = "DELETE ACCOUNT SCREEN";
 
 
 	//---USER INFO CONSTANTS
