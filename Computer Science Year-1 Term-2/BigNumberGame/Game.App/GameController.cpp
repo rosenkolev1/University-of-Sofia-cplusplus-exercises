@@ -179,6 +179,19 @@ bool GameController::loginUser()
         else if (textIsValid)
         {
             bool userExists = FileSystem::userIsRegisteredWithPassword(username, password);
+            currentUser = FileSystem::getUser(username);
+
+            //TODO: If this user is deleted, then print a message to them from the second table of the database
+            if (currentUser->isDeleted)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::USER_BANNED);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                //Clear memory for input from console
+                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+
+                continue;
+            }
 
             if (!userExists)
             {
@@ -192,7 +205,6 @@ bool GameController::loginUser()
             }
 
             GameUI::printLineNoBorders("Game Starting...");
-            currentUser = FileSystem::getUser(username);
             returnToScreen = playingLevel();
         }
 

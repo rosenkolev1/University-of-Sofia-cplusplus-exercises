@@ -34,6 +34,7 @@ public:
 		GlobalConstants::USER_ROLE_NORMAL,
 		GlobalConstants::USER_ROLE_ADMIN
 	};
+	static constexpr const char* USER_BANNED = "You have been banned for an unknown reason!";
 
 	//---COMMAND INPUT CONSTANTS
 	static constexpr const char* COMMAND_MAINMENU_START = "start";
@@ -48,7 +49,6 @@ public:
 	static constexpr const char FILESYSTEM_COLUMN_DELIMITER = '^';
 	static constexpr const char FILESYSTEM_WHITESPACE = ' ';
 	static constexpr const char* FILESYSTEM_COLUMN_NULL = "COL_NULL";
-	//static constexpr const int FILESYSTEM_COLUMN_COUNT = 8;
 	static constexpr const char* FILESYSTEM_TRUE = "TRUE";
 	static constexpr const char* FILESYSTEM_FALSE = "FALSE";
 

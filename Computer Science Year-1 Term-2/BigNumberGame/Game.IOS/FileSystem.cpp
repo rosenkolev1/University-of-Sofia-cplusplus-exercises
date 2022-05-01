@@ -223,64 +223,41 @@ void FileSystem::registerUser(const char* username, const char* password, UserRo
 	delete[] dataToWriteToFile;
 }
 
-//TODO: Make a functions whichs returns the database as a string for optimisation
-
-size_t FileSystem::getUsersCount(const char* databaseDataString)
+size_t FileSystem::getUsersCount(const char* databaseFile)
 {
-	//std::ifstream databaseFile("Database.bin", std::ios::binary);
-
-	////Check if database file is open
-	//if (!databaseFile.is_open())
-	//{
-	//	//Database file doesn't exist, i.e. there are not registered people yet!
-	//	return 0;
-	//}
-
-	//databaseFile.seekg(0, std::ios::end);
-	//size_t sizeOfDatabaseFile = databaseFile.tellg();
-	//size_t countOfUsers = sizeOfDatabaseFile / (sizeof(User) + sizeof(GlobalConstants::FILESYSTEM_COLUMN_DELIMITER) * (GlobalConstants::FILESYSTEM_COLUMN_COUNT - 1) + sizeof(GlobalConstants::FILESYSTEM_ENTRY_DELIMITER));
-
-	////Close database
-	//databaseFile.close();
-
-	//return countOfUsers;
-
-	if (databaseDataString == nullptr) databaseDataString = getDatabaseAsString();
+	bool deleteDatabaseFile = databaseFile == nullptr;
+	if (deleteDatabaseFile)
+	{
+		databaseFile = getDatabaseAsString();
+	}
 
 	size_t countOfUsers = 0;
-	for (size_t i = 0; i < strlen(databaseDataString); i++)
+	for (size_t i = 0; i < strlen(databaseFile); i++)
 	{
 		char data[1];
-		data[0] = databaseDataString[i];
+		data[0] = databaseFile[i];
 		if (*data == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
 		{
 			countOfUsers++;
 		}
 	}
-	/*while (databaseDataString)
+
+	//Delete the database file if it is allocated in dynamic memory
+	if (deleteDatabaseFile)
 	{
-		char data[1];
-		databaseFile.read(data, 1);
-		if (*data == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
-		{
-			countOfUsers++;
-		}
-	}*/
+		delete[] databaseFile;
+	}
 
 	return countOfUsers;
 }
 
 User* FileSystem::getAllUsers(const char* databaseFile, size_t usersCount, bool includeDeleted)
 {
-	//std::ifstream databaseFile("Database.bin", std::ios::binary);
-
-	////Check if file is open
-	//if (!databaseFile.is_open())
-	//{
-	//	return nullptr;
-	//}
-
-	if (databaseFile == nullptr) databaseFile = getDatabaseAsString();
+	bool deleteDatabaseFile = databaseFile == nullptr;
+	if (deleteDatabaseFile)
+	{
+		databaseFile = getDatabaseAsString();
+	}
 
 	size_t countOfUsers = usersCount != 0 ? usersCount : getUsersCount(databaseFile);
 	//return nullptr if users are 0
@@ -405,8 +382,11 @@ User* FileSystem::getAllUsers(const char* databaseFile, size_t usersCount, bool 
 	//Delete dataRead just in case
 	delete[] dataRead;
 
-	//Close database
-	//databaseFile.close();
+	//Delete the database file if it is allocated in dynamic memory
+	if (deleteDatabaseFile)
+	{
+		databaseFile = getDatabaseAsString();
+	}
 
 	//Filter out the deleted users
 	if (!includeDeleted)
