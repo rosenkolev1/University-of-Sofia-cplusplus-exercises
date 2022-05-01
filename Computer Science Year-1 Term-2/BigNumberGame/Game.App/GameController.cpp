@@ -178,7 +178,7 @@ bool GameController::loginUser()
         }
         else if (textIsValid)
         {
-            bool userExists = FileSystem::userIsRegistered(username);
+            bool userExists = FileSystem::userIsRegisteredWithPassword(username, password);
 
             if (!userExists)
             {

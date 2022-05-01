@@ -458,7 +458,6 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 
 	if (signOfThis > signOfOther) // Addition this + other! Change first digit of other
 	{
-		//TODO Make Addition
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.sign *= -1;
 		BigNumber result = addAndReturn(*this, invertedOtherCopy, false);
@@ -467,7 +466,6 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	}
 	else if (signOfThis < signOfOther) // Equivalent to -(this + other)! Change first digit of this
 	{
-		//TODO Make Addition
 		BigNumber invertedThisCopy = *this;
 		invertedThisCopy.sign *= -1;
 		BigNumber results = addAndReturn(invertedThisCopy, other, false);

@@ -8,10 +8,12 @@ void User::copyOther(User const& other)
 {
 	this->level = other.level;
 	this->expressionCapacity = other.expressionCapacity;
+	this->role = other.role;
+	this->isDeleted = other.isDeleted;
+	this->lives = other.lives;
+	this->includeHighscore = other.includeHighscore;
 
-	delete[] this->username;
-	delete[] this->password;
-	delete[] this->lastExpression;
+	deleteDynamicMemory();
 
 	this->username = new char[strlen(other.username) + 1];
 	this->password = new char[strlen(other.password) + 1];
@@ -19,6 +21,13 @@ void User::copyOther(User const& other)
 	strcpy(this->username, other.username);
 	strcpy(this->password, other.password);
 	strcpy(this->lastExpression, other.lastExpression);
+}
+
+void User::deleteDynamicMemory()
+{
+	delete[] this->username;
+	delete[] this->password;
+	delete[] this->lastExpression;
 }
 
 User::User()
@@ -31,6 +40,10 @@ User::User()
 	this->lastExpression = new char[1000];
 	this->lastExpression[0] = '\0';
 	this->expressionCapacity = 1000;
+	this->role = UserRoles::Normal;
+	this->includeHighscore = true;
+	this->isDeleted = false;
+	this->lives = 3;
 }
 
 User::User(User const& other)
@@ -43,9 +56,7 @@ User::User(User const& other)
 
 User::~User()
 {
-	delete[] this->username;
-	delete[] this->password;
-	delete[] this->lastExpression;
+	deleteDynamicMemory();
 }
 
 User& User::operator=(User const& other)

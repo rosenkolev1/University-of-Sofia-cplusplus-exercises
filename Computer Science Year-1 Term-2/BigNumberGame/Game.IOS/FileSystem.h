@@ -4,30 +4,26 @@
 #include "User.h"
 #include<fstream>
 
-enum class UserFields
-{
-	Username,
-	Password,
-	Level,
-	LastExpression
-};
-
 static class FileSystem
 {
+private:
+	static const char* getDatabaseAsString();
 public:
 	//WRITE
-	static void registerUser(const char* username, const char* password);
+	static void registerUser(const char* username, const char* password, UserRoles role = UserRoles::Normal);
 
 	//READ
-	static User* getAllUsers(size_t usersCount = 0);
+	static User* getAllUsers(const char* databaseFile = nullptr, size_t usersCount = 0, bool includeDeleted = true);
 	//Make get functions work with predicates as parameters
-	static User* getUser(const char* username);
-	static size_t getUsersCount();
+	static User* getUser(const char* username, bool includeDeleted = true);
+	static size_t getUsersCount(const char* databaseDataString = nullptr);
 
 	//Checks for validity
 	static bool stringContainsForbiddenSymbols(const char* text);
-	static bool userIsValid(const char* username, const char* password);
+	static bool userIsValid(const char* username, const char* password, const char* role);
 	static bool userIsRegistered(const char* username);
+	static bool userIsRegisteredWithPassword(const char* username, const char* password);
 	static bool usernameIsValid(const char* username);
 	static bool passwordIsValid(const char* username);
+	static bool userRoleIsValid(const char* role);
 };

@@ -27,6 +27,13 @@ public:
 	static const int USERNAME_LENGTH_MIN = 6;
 	static const int PASSWORD_LENGTH_MAX = 100;
 	static const int PASSWORD_LENGTH_MIN = 6;
+	static constexpr const char* USER_ROLE_NORMAL = "Normal";
+	static constexpr const char* USER_ROLE_ADMIN = "Admin";
+	static constexpr const char* USER_ROLES[2]
+	{
+		GlobalConstants::USER_ROLE_NORMAL,
+		GlobalConstants::USER_ROLE_ADMIN
+	};
 
 	//---COMMAND INPUT CONSTANTS
 	static constexpr const char* COMMAND_MAINMENU_START = "start";
@@ -37,11 +44,13 @@ public:
 	static constexpr const char COMMAND_DELIM = '|';
 
 	//---FILE SYSTEM CONSTANTS
-	static constexpr const char FILESYSTEM_ENTRY_DELIMITER = '~';
+	static constexpr const char FILESYSTEM_ENTRY_DELIMITER = '\n';
 	static constexpr const char FILESYSTEM_COLUMN_DELIMITER = '^';
 	static constexpr const char FILESYSTEM_WHITESPACE = ' ';
 	static constexpr const char* FILESYSTEM_COLUMN_NULL = "COL_NULL";
-	static constexpr const int FILESYSTEM_COLUMN_COUNT = 4;
+	//static constexpr const int FILESYSTEM_COLUMN_COUNT = 8;
+	static constexpr const char* FILESYSTEM_TRUE = "TRUE";
+	static constexpr const char* FILESYSTEM_FALSE = "FALSE";
 
 	//---FORBIDDEN STRING SYMBOLS
 	static constexpr char FORDBIDDEN_SYMBOLS[10] =
