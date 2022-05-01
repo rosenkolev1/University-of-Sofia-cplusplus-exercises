@@ -239,49 +239,52 @@ void FileSystem::deleteUser(const char* username, const char* adminMessage)
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
 	size_t userEndPos = 0;
-	size_t currentColumnCounter = 1;
-	bool currentColIsUsername = true;
-	char* currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
-	size_t currentUsernameIndex = 0;
-	bool foundCurrentUser = false;
-	bool hasDelimBefore = false;
-	bool hasDelimAfter = false;
-	for (size_t i = 0; i < databaseFileSize; i++)
-	{
-		//We have found the index of the entry delim right after the user ends
-		if (foundCurrentUser && databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
-		{
-			userEndPos = i;
-			break;
-		}
-		if (databaseFileCopy[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
-		{
-			currentColumnCounter++;
-			if (currentColIsUsername)
-			{
-				currentUsername[currentUsernameIndex++] = '\0';
-				//if we found the username, then get the entry pos that is right at the start of the username
-				if (strcmp(currentUsername, username) == 0)
-				{
-					userStartPos = i - strlen(username);
-					/*hasDelimBefore = userStartPos > 0;
-					if (hasDelimBefore) userStartPos - 1;*/
-					foundCurrentUser = true;
-				}
-				//Reset the currentUsername
-				currentColIsUsername = false;
-				delete[] currentUsername;
-				currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
-				currentUsernameIndex = 0;
-			}
-		}
-		//Check if we are currently on the first, i.e. the username colummn
-		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
-		{
-			if (!currentColIsUsername) currentColIsUsername = true;
-			currentUsername[currentUsernameIndex++] = databaseFileCopy[i];
-		}
-	}
+	char* userString = getUserString(username, databaseFileCopy, databaseFileSize, userStartPos, userEndPos);
+	//Delete the user string because we don't actually need it here.
+	delete[] userString;
+	//size_t currentColumnCounter = 1;
+	//bool currentColIsUsername = true;
+	//char* currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+	//size_t currentUsernameIndex = 0;
+	//bool foundCurrentUser = false;
+	//bool hasDelimBefore = false;
+	//bool hasDelimAfter = false;
+	//for (size_t i = 0; i < databaseFileSize; i++)
+	//{
+	//	//We have found the index of the entry delim right after the user ends
+	//	if (foundCurrentUser && databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+	//	{
+	//		userEndPos = i;
+	//		break;
+	//	}
+	//	if (databaseFileCopy[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+	//	{
+	//		currentColumnCounter++;
+	//		if (currentColIsUsername)
+	//		{
+	//			currentUsername[currentUsernameIndex++] = '\0';
+	//			//if we found the username, then get the entry pos that is right at the start of the username
+	//			if (strcmp(currentUsername, username) == 0)
+	//			{
+	//				userStartPos = i - strlen(username);
+	//				/*hasDelimBefore = userStartPos > 0;
+	//				if (hasDelimBefore) userStartPos - 1;*/
+	//				foundCurrentUser = true;
+	//			}
+	//			//Reset the currentUsername
+	//			currentColIsUsername = false;
+	//			delete[] currentUsername;
+	//			currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+	//			currentUsernameIndex = 0;
+	//		}
+	//	}
+	//	//Check if we are currently on the first, i.e. the username colummn
+	//	else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
+	//	{
+	//		if (!currentColIsUsername) currentColIsUsername = true;
+	//		currentUsername[currentUsernameIndex++] = databaseFileCopy[i];
+	//	}
+	//}
 	//Make the changes to the newDatabaseFileString, which we then copy into the database file
 	size_t newDatabaseFileSize = databaseFileSize - (userEndPos - userStartPos);
 	char* newDatabaseFile = new char[newDatabaseFileSize + 1];
@@ -526,5 +529,64 @@ User* FileSystem::getUser(const char* username, bool includeDeleted)
 
 	//User was not found in the database, so return nullptr
 	return nullptr;
+}
+
+char* FileSystem::getUserString(const char* username, const char* databaseFileCopy, size_t databaseFileSize, size_t& startPos, size_t& endPos)
+{
+	size_t currentColumnCounter = 1;
+	bool currentColIsUsername = true;
+	char* currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+	size_t currentUsernameIndex = 0;
+	bool foundCurrentUser = false;
+	bool hasDelimBefore = false;
+	bool hasDelimAfter = false;
+	for (size_t i = 0; i < databaseFileSize; i++)
+	{
+		//We have found the index of the entry delim right after the user ends
+		if (foundCurrentUser && databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		{
+			endPos = i;
+			break;
+		}
+		if (databaseFileCopy[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || databaseFileCopy[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		{
+			currentColumnCounter++;
+			if (currentColIsUsername)
+			{
+				currentUsername[currentUsernameIndex++] = '\0';
+				//if we found the username, then get the entry pos that is right at the start of the username
+				if (strcmp(currentUsername, username) == 0)
+				{
+					startPos = i - strlen(username);
+					/*hasDelimBefore = userStartPos > 0;
+					if (hasDelimBefore) userStartPos - 1;*/
+					foundCurrentUser = true;
+				}
+				//Reset the currentUsername
+				currentColIsUsername = false;
+				delete[] currentUsername;
+				currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
+				currentUsernameIndex = 0;
+			}
+		}
+		//Check if we are currently on the first, i.e. the username colummn
+		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
+		{
+			if (!currentColIsUsername) currentColIsUsername = true;
+			currentUsername[currentUsernameIndex++] = databaseFileCopy[i];
+		}
+	}
+
+	char* userString = new char[endPos - startPos + 1];
+	userString[endPos - startPos] = '\0';
+	for (size_t i = 0; i < strlen(userString); i++)
+	{
+		userString[i] = databaseFileCopy[i + startPos];
+	}
+
+	//Delete dynamic memory
+	delete[] currentUsername;
+
+	return userString;
 }
 

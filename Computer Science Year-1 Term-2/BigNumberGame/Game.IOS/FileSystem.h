@@ -17,6 +17,7 @@ public:
 	static User* getAllUsers(const char* databaseFile = nullptr, size_t usersCount = 0, bool includeDeleted = true);
 	//Make get functions work with predicates as parameters
 	static User* getUser(const char* username, bool includeDeleted = true);
+	static char* getUserString(const char* username, const char* databaseFileCopy, size_t databaseFileSize, size_t& startPos, size_t& endPos);
 	static size_t getUsersCount(const char* databaseFile = nullptr);
 
 	//Checks for validity
