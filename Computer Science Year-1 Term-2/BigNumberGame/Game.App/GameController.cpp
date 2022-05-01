@@ -6,6 +6,7 @@
 #include "..\Game.UI/GameUI.h"
 #include "..\Game.IOS/FileSystem.h"
 #include "..\Game.IOS\ConsoleSystem.h"
+#include "..\Game.IOS\Seeder.h"
 
 User* GameController::currentUser = nullptr;
 bool GameController::returnToTitleScreen = false;
@@ -421,6 +422,9 @@ void GameController::startUpScreenPrint()
 
 void GameController::startUp()
 {
+    //Seed database
+    Seeder::seedDatabase(false);
+
     //Screen print
     startUpScreenPrint();
 

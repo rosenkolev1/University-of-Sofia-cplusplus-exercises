@@ -125,7 +125,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\BigNumber\x64\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.GlobalConstants\x64\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.IOS\x64\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GlobalConstants.obj;FileSystem.obj;ConsoleSystem.obj;User.obj;GameUI.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GlobalConstants.obj;FileSystem.obj;ConsoleSystem.obj;User.obj;GameUI.obj;Seeder.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

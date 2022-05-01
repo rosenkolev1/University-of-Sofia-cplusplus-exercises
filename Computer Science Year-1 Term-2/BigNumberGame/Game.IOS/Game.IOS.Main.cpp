@@ -120,6 +120,16 @@ void testUserInputOne()
     std::cout << std::endl;
 }
 
+//Test the string contains function
+void testContainsInputSeven()
+{
+    char input[] = "roskata123";
+    char otherInput[] = "rrrrosenroskata123";
+    std::cout << "Testing if the string \"roskata123\" is contained within \"rrrrosenroskata123\": Expected(TRUE) ==> ";
+    std::cout << (ConsoleSystem::stringContains(otherInput, input) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+}
+
 int main()
 {
     //Testing split string function
@@ -132,5 +142,8 @@ int main()
     //testInputSeven();
 
     //Testing User functionality
-    testUserInputOne();
+    //testUserInputOne();
+
+    //Testing contains of string
+    //testContainsInputSeven();
 }

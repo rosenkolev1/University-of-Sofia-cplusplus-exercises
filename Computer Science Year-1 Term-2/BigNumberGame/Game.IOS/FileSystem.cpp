@@ -140,6 +140,38 @@ const char* FileSystem::getDatabaseAsString()
 	return databaseData;
 }
 
+void FileSystem::overwriteDatabase(const char* databaseData)
+{
+	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::trunc);
+
+	//Check if database file is open
+	if (!databaseFile.is_open())
+	{
+		//throw some error
+		throw "Fuck this shit I'm out ";
+	}
+
+	databaseFile.write(reinterpret_cast<const char*>(databaseData), strlen(databaseData));
+
+	databaseFile.close();
+}
+
+//void FileSystem::appendToDatabase(const char* data)
+//{
+//	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);
+//
+//	//Check if database file is open
+//	if (!databaseFile.is_open())
+//	{
+//		//throw some error
+//		throw "Fuck this shit I'm out ";
+//	}
+//
+//	databaseFile.write(reinterpret_cast<const char*>(data), strlen(data));
+//
+//	databaseFile.close();
+//}
+
 void FileSystem::registerUser(const char* username, const char* password, UserRoles role)
 {
 	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);

@@ -12,6 +12,10 @@ public:
 
 	static bool stringContainsChar(const char* text, const char symbol);
 
+	static bool stringContains(const char* text, const char* other);
+
 	static void deleteArrayOfStrings(char** text, size_t arrayCount);
+
+	static char* concatStrings(const char** strings, size_t stringsCount);
 };
 

@@ -6,14 +6,15 @@
 
 static class FileSystem
 {
-private:
-	static const char* getDatabaseAsString();
 public:
 	//WRITE/UPDATE/PUT/DELETE
+	static void overwriteDatabase(const char* databaseData);
+	//static void appendToDatabase(const char* data);
 	static void registerUser(const char* username, const char* password, UserRoles role = UserRoles::Normal);
 	static void deleteUser(const char* username, const char* adminMessage);
 
 	//READ
+	static const char* getDatabaseAsString();
 	static User* getAllUsers(const char* databaseFile = nullptr, size_t usersCount = 0, bool includeDeleted = true);
 	//Make get functions work with predicates as parameters
 	static User* getUser(const char* username, bool includeDeleted = true);

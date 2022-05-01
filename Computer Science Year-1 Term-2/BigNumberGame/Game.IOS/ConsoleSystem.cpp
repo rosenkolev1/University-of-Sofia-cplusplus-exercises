@@ -75,10 +75,6 @@ char** ConsoleSystem::splitString(const char* input, char delim, size_t& sizeOfA
         }
     }
 
-    //DEBUG SHIT
-    /*size_t sizeOne = sizesOfStrings[0];
-    size_t sizeTwo = sizesOfStrings[1];*/
-
     //Init all of the strings and set their null terminator
     for (size_t i = 0; i < numberOfStrings; i++)
     {
@@ -136,6 +132,37 @@ bool ConsoleSystem::stringContainsChar(const char* text, const char symbol)
     return false;
 }
 
+bool ConsoleSystem::stringContains(const char* text, const char* other)
+{
+    for (size_t i = 0; i < strlen(text); i++)
+    {
+        if (text[i] == other[0])
+        {
+            bool stringIsFound = true;
+            for (size_t y = 1; y < strlen(other); y++)
+            {
+                if (text[i + y] != other[y])
+                {
+                    stringIsFound = false;
+                    i += y;
+                    i--;
+                    break;
+                }
+                if (i + y == strlen(text) - 1 && y + 1 < strlen(other))
+                {
+                    stringIsFound = false;
+                    i += y;
+                    break;
+                }
+            }
+            if (stringIsFound) return true;
+        }
+    }
+
+    //If we get to here, then the string hasn't been found
+    return false;
+}
+
 void ConsoleSystem::deleteArrayOfStrings(char** text, size_t arrayCount)
 {
     for (size_t i = 0; i < arrayCount; i++)
@@ -151,4 +178,24 @@ void ConsoleSystem::deleteArrayOfStrings(char** text, size_t arrayCount)
         //Not sure if memory is allocated for empty strings. This may be a memory leak.
     }
     delete[] text;
+}
+
+char* ConsoleSystem::concatStrings(const char** strings, size_t stringsCount)
+{
+    size_t concatStringLength = 0;
+    for (size_t i = 0; i < stringsCount; i++)
+    {
+        concatStringLength += strlen(strings[i]);
+    }
+
+    char* concatString = new char[1];
+    concatString[0] = '\0';
+
+    for (size_t i = 0; i < stringsCount; i++)
+    {
+        
+        strcat(concatString, strings[i]);
+    }
+
+    return concatString;
 }
