@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{57c2ecd8-33db-45a9-a0e6-9578331e12cc}</ProjectGuid>
-    <RootNamespace>BigNumber</RootNamespace>
+    <ProjectGuid>{271d5c3d-fcbd-4a2c-950a-19fd44807599}</ProjectGuid>
+    <RootNamespace>ProjectStringManipulation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -93,8 +93,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Project.StringManipulation\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>StringManip.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +117,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,24 +140,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BigNumber.cpp" />
-    <ClCompile Include="BigNumberDivisionResult.cpp" />
-    <ClCompile Include="BigNumberEquation.cpp" />
-    <ClCompile Include="BigNumberTests.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Project.StringManipulation.cpp" />
+    <ClCompile Include="StringManip.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BigNumber.h" />
-    <ClInclude Include="BigNumberDivisionResult.h" />
-    <ClInclude Include="BigNumberEquation.h" />
-    <ClInclude Include="BigNumberTests.h" />
+    <ClInclude Include="StringManip.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">
       <Project>{47f8c224-8c43-4bb9-a74d-54847effa488}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Project.StringManipulation\Project.StringManipulation.vcxproj">
-      <Project>{271d5c3d-fcbd-4a2c-950a-19fd44807599}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

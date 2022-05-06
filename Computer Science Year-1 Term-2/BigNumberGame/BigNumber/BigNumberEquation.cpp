@@ -1,54 +1,63 @@
 #include "BigNumberEquation.h"
+#include "..\Project.StringManipulation\StringManip.h"
 
-void BigNumberEquation::copy(const BigNumberEquation& other)
+void BigNumberExpression::copy(const BigNumberExpression& other)
 {
-	delete[] this->equation;
+	delete[] this->expression;
 	this->capacity = other.capacity;
-	this->equation = new char[this->capacity];
-	strcpy(this->equation, other.equation);
+	this->expression = new char[this->capacity];
+	strcpy(this->expression, other.expression);
 }
 
-BigNumberEquation::BigNumberEquation()
+BigNumberExpression::BigNumberExpression()
 {
-	this->equation = nullptr;
+	this->expression = nullptr;
 	this->capacity = 0;
 }
 
-BigNumberEquation::BigNumberEquation(const BigNumberEquation& other)
-	:BigNumberEquation()
+BigNumberExpression::BigNumberExpression(const BigNumberExpression& other)
+	:BigNumberExpression()
 {
 	this->copy(other);
 }
 
-BigNumberEquation::~BigNumberEquation()
+BigNumberExpression::~BigNumberExpression()
 {
-	delete[] this->equation;
+	delete[] this->expression;
 }
 
-BigNumberEquation& BigNumberEquation::operator=(const BigNumberEquation& other)
+BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& other)
 {
 	if (this == &other) return *this;
 	this->copy(other);
 }
 
-BigNumberEquation::BigNumberEquation(const char* equation)
+BigNumberExpression::BigNumberExpression(const char* expression)
 {
-	size_t equationSize = strlen(equation) + 1;
-	this->capacity = equationSize;
-	this->equation = new char[this->capacity];
-	strcpy(this->equation, equation);
+	size_t expressionSize = strlen(expression) + 1;
+	this->capacity = expressionSize;
+	this->expression = new char[this->capacity];
+	strcpy(this->expression, expression);
 }
 
-const char* BigNumberEquation::getEquation() const
+const char* BigNumberExpression::getExpression() const
 {
-	return this->equation;
+	return this->expression;
 }
 
-BigNumber BigNumberEquation::evaluteExpression() const
+BigNumber BigNumberExpression::evaluteExpression() const
 {
-	return BigNumber(15);
+	const char* expression = this->getExpression();
+
+	//Check if expression starts with +- or -+. If it does, then it's invalid
+	bool invalidExpression = StringManip::stringStartsWith(expression, "+-") || StringManip::stringStartsWith(expression, "-+");
+	if (invalidExpression) throw "Invalid Expression";
+
+	//Next, replace all the instances of +- or -+ inside the string
+
+	return BigNumber();
 }
 
-void BigNumberEquation::generateExpression()
+void BigNumberExpression::generateExpression()
 {
 }

@@ -1,5 +1,7 @@
 #include "BigNumberTests.h"
 
+//TODO: Use the redefined << operator for bigNumbers instead of the printOutNumber function
+
 void BigNumberTests::OperatorGreaterThanTestTemplate(const char testTitle[], const char textDescription[],
     const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine)
 {

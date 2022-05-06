@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.UI", "Game.UI\Game.UI.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.IOS", "Game.IOS\Game.IOS.vcxproj", "{D4525C2F-E614-4066-A896-8D2F76F91057}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project.StringManipulation", "Project.StringManipulation\Project.StringManipulation.vcxproj", "{271D5C3D-FCBD-4A2C-950A-19FD44807599}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -64,6 +66,14 @@ Global
 		{D4525C2F-E614-4066-A896-8D2F76F91057}.Release|x64.Build.0 = Release|x64
 		{D4525C2F-E614-4066-A896-8D2F76F91057}.Release|x86.ActiveCfg = Release|Win32
 		{D4525C2F-E614-4066-A896-8D2F76F91057}.Release|x86.Build.0 = Release|Win32
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Debug|x64.ActiveCfg = Debug|x64
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Debug|x64.Build.0 = Debug|x64
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Debug|x86.ActiveCfg = Debug|Win32
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Debug|x86.Build.0 = Debug|Win32
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x64.ActiveCfg = Release|x64
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x64.Build.0 = Release|x64
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x86.ActiveCfg = Release|Win32
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

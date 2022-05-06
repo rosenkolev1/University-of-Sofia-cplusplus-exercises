@@ -1,26 +1,26 @@
 #pragma once
 #include "BigNumber.h"
 
-class BigNumberEquation
+class BigNumberExpression
 {
 
 private:
-	char* equation;
+	char* expression;
 	size_t capacity;
 
-	void copy(const BigNumberEquation& other);
+	void copy(const BigNumberExpression& other);
 public:
 
 	//Big 4
-	BigNumberEquation();
-	BigNumberEquation(const BigNumberEquation& other);
-	~BigNumberEquation();
-	BigNumberEquation& operator=(const BigNumberEquation& other);
+	BigNumberExpression();
+	BigNumberExpression(const BigNumberExpression& other);
+	~BigNumberExpression();
+	BigNumberExpression& operator=(const BigNumberExpression& other);
 
-	BigNumberEquation(const char* equation);
+	BigNumberExpression(const char* equation);
 
 	//Get the equation as read-only
-	const char* getEquation() const;
+	const char* getExpression() const;
 
 	//Return the answer to an expression
 	BigNumber evaluteExpression() const;
