@@ -14,18 +14,23 @@ bool GameController::returnToTitleScreen = false;
 void GameController::deleteOwnAccountConfirmationScreenPrint()
 {
     size_t maxSize = 73;
-    char** textArray = new char* [3];
-    for (size_t i = 0; i < 3; i++)
+    const char** textArray = new const char* [3];
+    /*for (size_t i = 0; i < 3; i++)
     {
         textArray[i] = new char[maxSize];
-    }
-    strcpy(textArray[0], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION);
-    strcpy(textArray[1], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO);
-    strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES);
+    }*/
+    //strcpy(textArray[0], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION);
+    //strcpy(textArray[1], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO);
+    //strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES);
+    textArray[0] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION;
+    textArray[1] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO;
+    textArray[2] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES;
+
     GameUI::printScreenWithText((const char**)textArray, 3, maxSize, GlobalConstants::DELETE_CONFIRM_TITLE);
 
     //Delete dynamic memory
-    ConsoleSystem::deleteArrayOfStrings(textArray, 3);
+    //ConsoleSystem::deleteArrayOfStrings(textArray, 3);
+    delete[] textArray;
 }
 
 bool GameController::deleteOwnAccountConfirmation()
@@ -77,26 +82,18 @@ void GameController::mainMenuLoggedScreenPrint()
     //Change the textArraySize and textArray based on the user being or not being an admin
     if (isAdmin) textArraySize += 5;
 
-    char** textArray = new char* [textArraySize];
+    const char** textArray = new const char* [textArraySize];
 
     size_t textArrayIndex = 0;
-
-    for (size_t i = 0; i < textArraySize; i++)
-    {
-        textArray[i] = new char[maxSize];
-    }
 
     //Type out the fact that you are in admin profile
     if (isAdmin)
     {
-        char* loggedAsAdminText = new char[100]
+        char loggedAsAdminText[100] =
         {
             "!!!LOGGED AS ADMIN!!!\n"
         };
-        /*const char* levelText = ConsoleSystem::parseToString(currentUser->level);
-        strcat(currentLevelText, levelText);
-        strcat(currentLevelText, "\n");*/
-        strcpy(textArray[textArrayIndex++], loggedAsAdminText);
+        textArray[textArrayIndex++] = loggedAsAdminText;
     }
 
     //Make text with current level
@@ -105,7 +102,7 @@ void GameController::mainMenuLoggedScreenPrint()
     const char* levelText = ConsoleSystem::parseToString(currentUser->level);
     strcat(currentLevelText, levelText);
     strcat(currentLevelText, "\n");
-    strcpy(textArray[textArrayIndex++], currentLevelText);
+    textArray[textArrayIndex++] = currentLevelText;
 
     //Make text with current lives
     char currentLivesText[100];
@@ -113,36 +110,43 @@ void GameController::mainMenuLoggedScreenPrint()
     const char* livesText = ConsoleSystem::parseToString(currentUser->lives);
     strcat(currentLivesText, livesText);
     strcat(currentLivesText, "\n");
-    strcpy(textArray[textArrayIndex++], currentLivesText);
+    textArray[textArrayIndex++] = currentLivesText;
 
     //Type out the appropriate things depending on the state of the game of the user
     if (continueGame)
     {
-        strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME);
-        strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_RESTARTGAME);
+        textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME;
+        textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_RESTARTGAME;
     }
     else
     {
-        strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_STARTGAME);
+        textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_STARTGAME;
     }
-    if(!isAdmin) strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT);
+    if(!isAdmin) textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;//strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT);
     else
     {
-        strcpy(textArray[textArrayIndex++], GlobalConstants::ADMIN_GETINFO);
-        strcpy(textArray[textArrayIndex++], GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD);
-        strcpy(textArray[textArrayIndex++], GlobalConstants::ADMIN_DELETEACCOUNT);
-        strcpy(textArray[textArrayIndex++], GlobalConstants::ADMIN_RECOVER);
-        strcpy(textArray[textArrayIndex++], GlobalConstants::ADMIN_ADDHELPER);
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_DELETEACCOUNT;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_RECOVER;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_ADDHELPER;
     }
 
-    strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT);
+    textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_RETURN_TEXT;
+
+    //If these are not equal, then there is an error in the program
+    if (textArrayIndex != textArraySize)
+    {
+        throw "The text array size and the expected size do not match";
+    }
+
     //Screen Print
-    GameUI::printScreenWithText((const char**)textArray, textArraySize, maxSize, GlobalConstants::MAINMENU_TITLE);
+    GameUI::printScreenWithText(textArray, textArrayIndex, maxSize, GlobalConstants::MAINMENU_TITLE);
 
     //Delete dynamic memory
-    ConsoleSystem::deleteArrayOfStrings(textArray, textArraySize);
     delete[] livesText;
     delete[] levelText;
+    delete[] textArray;
 }
 
 bool GameController::mainMenuLogged()
@@ -162,7 +166,7 @@ bool GameController::mainMenuLogged()
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
             //Unlog the current user
-            currentUser = nullptr;
+            //currentUser = nullptr;
             //Return to last screen
             return true;
         }
@@ -170,9 +174,12 @@ bool GameController::mainMenuLogged()
         else if (!isAdmin && strcmp(selection, GlobalConstants::COMMAND_ACCOUNT_DELETE) == 0)
         {
             //If the user deletes their own account, then we send them all the way back to the title screen
-            returnToScreen = deleteOwnAccountConfirmation();
-            currentUser = nullptr;
-            if (returnToTitleScreen) return true;
+            returnToScreen = deleteOwnAccountConfirmation();          
+            if (returnToTitleScreen)
+            {
+                currentUser = nullptr;
+                return true;
+            }
         }
         //Users starts a new game
         else if (!continueGame && strcmp(selection, GlobalConstants::COMMAND_GAME_START) == 0)
@@ -231,18 +238,15 @@ bool GameController::mainMenuLogged()
 
 void GameController::loginUserScreenPrint()
 {
-    char** textArray = new char* [2];
-    for (size_t i = 0; i < 2; i++)
-    {
-        textArray[i] = new char[60];
-    }
-    strcpy(textArray[0], GlobalConstants::LOGIN);
-    strcpy(textArray[1], GlobalConstants::RETURN_TEXT);
+    const char** textArray = new const char* [2];
+    size_t textArrayIndex = 0;
+    textArray[textArrayIndex++] = GlobalConstants::LOGIN;
+    textArray[textArrayIndex++] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText((const char**)textArray, 2, 60, GlobalConstants::LOGIN_TITLE);
+    GameUI::printScreenWithText((const char**)textArray, textArrayIndex, 60, GlobalConstants::LOGIN_TITLE);
 
     //Delete dynamic memory
-    ConsoleSystem::deleteArrayOfStrings(textArray, 2);
+    delete[] textArray;
 }
 
 bool GameController::loginUser()
@@ -332,10 +336,14 @@ bool GameController::loginUser()
 void GameController::registerUserScreenPrint()
 {
     const char** textArray = new const char* [2];
-    textArray[0] = GlobalConstants::REGISTER;
-    textArray[1] = GlobalConstants::RETURN_TEXT;
+    size_t textArrayIndex = 0;
+    textArray[textArrayIndex++] = GlobalConstants::REGISTER;
+    textArray[textArrayIndex++] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 300, GlobalConstants::REGISTER_TITLE); 
+    GameUI::printScreenWithText(textArray, textArrayIndex, 300, GlobalConstants::REGISTER_TITLE);
+
+    //Delete dynamic memory
+    delete[] textArray;
 }
 
 bool GameController::registerUser()
@@ -410,10 +418,14 @@ bool GameController::registerUser()
 void GameController::loginOrRegisterScreenPrint()
 {
     const char** textArray = new const char* [2];
-    textArray[0] = GlobalConstants::LOGIN_OR_REGISTER;
-    textArray[1] = GlobalConstants::RETURN_TEXT;
+    size_t textArrayIndex = 0;
+    textArray[textArrayIndex++] = GlobalConstants::LOGIN_OR_REGISTER;
+    textArray[textArrayIndex++] = GlobalConstants::RETURN_TEXT;
     //Screen Print
-    GameUI::printScreenWithText(textArray, 2, 55, GlobalConstants::LOGINORREGISTER_TITLE);
+    GameUI::printScreenWithText(textArray, textArrayIndex, 55, GlobalConstants::LOGINORREGISTER_TITLE);
+
+    //Delete dynamic memory
+    delete[] textArray;
 }
 
 bool GameController::loginOrRegister()
@@ -475,13 +487,16 @@ void GameController::startUpScreenPrint()
     textArray[textArrayIndex++] = GlobalConstants::WELCOME_STARTSCREEN_TEXT;
     textArray[textArrayIndex++] = GlobalConstants::BUTTON_START;
     textArray[textArrayIndex++] = GlobalConstants::BUTTON_END;
-    GameUI::printScreenWithText(textArray, textArrayIndex - 1, 117, GlobalConstants::STARTSCREEN_TITLE);
+    GameUI::printScreenWithText(textArray, textArrayIndex, 117, GlobalConstants::STARTSCREEN_TITLE);
+
+    //Delete dynamic memory
+    delete[] textArray;
 }
 
 void GameController::startUp()
 {
     //Seed database
-    //Seeder::seedDatabase(false);
+    Seeder::seedDatabase(false);
 
     //Screen print
     startUpScreenPrint();
@@ -523,13 +538,3 @@ void GameController::startUp()
         }
     }
 }
-
-//void GameController::screenPrint()
-//{
-//    //Screen print
-//    const char** textArray = new const char* [3];
-//    textArray[0] = GlobalConstants::WELCOME_STARTSCREEN_TEXT;
-//    textArray[1] = GlobalConstants::BUTTON_START;
-//    textArray[2] = GlobalConstants::BUTTON_END;
-//    GameUI::printScreenWithText(textArray, 3, 117);
-//}
