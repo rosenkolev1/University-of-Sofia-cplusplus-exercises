@@ -29,7 +29,7 @@ public:
 	static char* replaceAll(const char* text, const char* replaced, const char* replacement);
 
 	//Returns the index of the first occurance of searchText in text. Returns -1 if searchText isn't found inside text
-	static size_t findIndex(char* text, const char* searchText);
+	static int findIndex(char* text, const char* searchText);
 };
 
 //TODO: Decide what to do with the string contains invalid chars function, which doesn't belong here. Maybe make the string contains invalid chars accept the invalid chars as a parameter instead of the GlobalConstants being programmed in statically in the function

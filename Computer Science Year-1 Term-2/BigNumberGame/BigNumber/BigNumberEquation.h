@@ -9,6 +9,9 @@ private:
 	size_t capacity;
 
 	void copy(const BigNumberExpression& other);
+
+	BigNumber* replaceNumbersFromCalculation(BigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, BigNumber* resultNumber) const;
+	void replaceOperatorsFromCalculation(char* operators, size_t index) const;
 public:
 
 	//Big 4

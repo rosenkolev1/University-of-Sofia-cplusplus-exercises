@@ -394,7 +394,7 @@ char* StringManip::replaceAll(const char* text, const char* replaced, const char
     return finalText;
 }
 
-size_t StringManip::findIndex(char* text, const char* searchText)
+int StringManip::findIndex(char* text, const char* searchText)
 {
     size_t searchTextFoundIndex = 0;
     for (size_t i = 0; i < strlen(text); i++)
@@ -409,15 +409,12 @@ size_t StringManip::findIndex(char* text, const char* searchText)
                 {
                     stringIsFound = false;
                     searchTextFoundIndex = -1;
-                    i += y;
-                    i--;
                     break;
                 }
                 if (i + y == strlen(text) - 1 && y + 1 < strlen(searchText))
                 {
                     stringIsFound = false;
                     searchTextFoundIndex = -1;
-                    i += y;
                     break;
                 }
             }

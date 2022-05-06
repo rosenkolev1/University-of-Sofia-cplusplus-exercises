@@ -288,6 +288,27 @@ void testReplaceAllInputTwo()
     delete[] output;
 }
 
+//Test the findIndex function
+void testFindIndexInputOne()
+{
+    char input[] = "roskata123";
+    char otherInput[] = "rrrrosenroskata123";
+    std::cout << "Testing if the string \"roskata123\" is contained within \"rrrrosenroskata123\": Expected(8) ==> ";
+    std::cout << StringManip::findIndex(otherInput, input);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void testFindIndexInputTwo()
+{
+    char input[] = "aab";
+    char otherInput[] = "aaab";
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\": Expected(1) ==> ";
+    std::cout << StringManip::findIndex(otherInput, input);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 int main()
 {
     //Testing split string function by one char
@@ -318,7 +339,13 @@ int main()
     //testContainsInputTwo();
 
     //Testing replaceAll function of string
+    std::cout << "TESTING replaceAll STRING FUNCTION: " << std::endl;
     testReplaceAllInputOne();
     testReplaceAllInputTwo();
+
+    //Testing findIndex function of string
+    std::cout << "TESTING findIndex STRING FUNCTION: " << std::endl;
+    testFindIndexInputOne();
+    testFindIndexInputTwo();
 }
 

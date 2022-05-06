@@ -13,10 +13,10 @@ BigNumber::BigNumber()
 	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
 	this->number[0] = '0';
 	this->sign = 0;
-	this->uninitializedCopier = false;
 }
 
 BigNumber::BigNumber(const BigNumber& other)
+	:BigNumber()
 {
 	this->copy(other);
 }
@@ -35,7 +35,7 @@ BigNumber::BigNumber(const char* number)
 
 	this->capacity = numberSize;
 	this->size = numberSize;
-	this->uninitializedCopier = false;
+	//this->uninitializedCopier = false;
 
 	//Set sign
 	if (otherNumberIsNegative) this->sign = -1;
@@ -70,7 +70,7 @@ BigNumber::BigNumber(long long int number)
 
 	this->capacity = numberSize;
 	this->size = numberSize;
-	this->uninitializedCopier = false;
+	//this->uninitializedCopier = false;
 	this->number = new __nothrow char[this->capacity];
 	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
 
@@ -93,8 +93,9 @@ void BigNumber::copy(const BigNumber& other)
 	this->capacity = other.capacity;
 	this->size = other.size;
 	this->sign = other.sign;
-	this->uninitializedCopier = false;
-	if (other.uninitializedCopier == false) delete[] this->number;
+	//this->uninitializedCopier = false;
+	//if (other.uninitializedCopier == false) delete[] this->number;
+	delete[] this->number;
 	this->number = new __nothrow char[other.capacity];
 	if (this->number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
 	for (size_t i = 0; i < other.size; i++)
@@ -259,7 +260,7 @@ BigNumber BigNumber::addAndReturn(const BigNumber& thisNumber, const BigNumber& 
 	BigNumber newBigNumber = BigNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
 	//newBigNumber.changeNumber(newNumber, biggerCapacity, biggerSize, signOfNumber);
 	delete[] newNumber;
-	newBigNumber.uninitializedCopier = true;
+	//newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
 }
 
@@ -272,20 +273,20 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	if (signOfThis == 0 && signOfOther == 0)
 	{
 		BigNumber result = BigNumber();
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
 	if (signOfThis == 0 && signOfOther != 0)
 	{
 		BigNumber result = BigNumber(other);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
 		BigNumber result = BigNumber(*this);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
@@ -294,7 +295,7 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.sign *= -1;
 		BigNumber result = subtractAndReturn(*this, invertedOtherCopy, false);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis < signOfOther) // Substraction other - this! Change first digit
@@ -302,19 +303,19 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 		BigNumber invertedThisCopy = *this;
 		invertedThisCopy.sign *= -1;
 		BigNumber result = subtractAndReturn(other, invertedThisCopy, false);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
 	{
 		BigNumber result = addAndReturn(*this, other, false);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis < 0)
 	{
 		BigNumber result = addAndReturn(*this, other, true);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
@@ -425,7 +426,7 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 	BigNumber newBigNumber = BigNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
 	//newBigNumber.changeNumber(newNumber, biggerCapacity, finalSize, expectedResultsSign);
 	delete[] newNumber;
-	newBigNumber.uninitializedCopier = true;
+	//newBigNumber.uninitializedCopier = true;
 	return newBigNumber;
 }
 
@@ -438,7 +439,7 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	if (signOfThis == 0 && signOfOther == 0)
 	{
 		BigNumber result = BigNumber();
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
@@ -446,13 +447,13 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	{
 		BigNumber result = BigNumber(other);
 		result.sign *= -1;
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis != 0 && signOfOther == 0)
 	{
 		BigNumber result = *this;
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
@@ -461,7 +462,7 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.sign *= -1;
 		BigNumber result = addAndReturn(*this, invertedOtherCopy, false);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis < signOfOther) // Equivalent to -(this + other)! Change first digit of this
@@ -470,19 +471,19 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 		invertedThisCopy.sign *= -1;
 		BigNumber results = addAndReturn(invertedThisCopy, other, false);
 		results.sign *= -1;
-		results.uninitializedCopier = true;
+		//results.uninitializedCopier = true;
 		return results;
 	}
 	else if (signOfThis == signOfOther && signOfThis > 0)
 	{
 		BigNumber result = subtractAndReturn(*this, other, false);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis < 0)
 	{
 		BigNumber result = subtractAndReturn(*this, other, true);
-		result.uninitializedCopier = true;
+		//result.uninitializedCopier = true;
 		return result;
 	}
 
@@ -587,7 +588,7 @@ BigNumber BigNumber::operator*(const BigNumber& other) const
 
 	if (resultIsNegative) finalMultiplicationSum.sign *= -1;
 
-	finalMultiplicationSum.uninitializedCopier = true;
+	//finalMultiplicationSum.uninitializedCopier = true;
 	return finalMultiplicationSum;
 }
 
@@ -722,7 +723,7 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 			resultCharsCounter++;
 			finalSize++;
 		}
-		tempBigNumber.uninitializedCopier = true;
+		//tempBigNumber.uninitializedCopier = true;
 		BigNumber leftOverFromTemp = tempDividedResult == 0 ? tempBigNumber : tempBigNumber - (smallerNumber * BigNumber(tempDividedResult));
 		//Change old temp char array to new temp
 		delete[] tempNumber;
@@ -785,7 +786,7 @@ BigNumber BigNumber::operator/(const BigNumber& other) const
 {
 	BigNumberDivisionResult divisionResult = divideAndReturn(other);
 	BigNumber divisionQuotient = divisionResult.getQuotient();
-	divisionQuotient.uninitializedCopier = true;
+	//divisionQuotient.uninitializedCopier = true;
 	//MAIKO MILA KOLKO VREME MI OTNE DA UPRAVQ SHIBANIQT MEMORI LEAK BEZ DA RAZRUSHA VUTRESNITE MEMORY UDRESI. FUUUUK
 	delete& (divisionResult.getQuotient());
 	delete& (divisionResult.getLeftover());
@@ -802,7 +803,7 @@ BigNumber BigNumber::operator%(const BigNumber& other) const
 {
 	BigNumberDivisionResult divisionResult = divideAndReturn(other);
 	BigNumber divisionLeftover = divisionResult.getLeftover();
-	divisionLeftover.uninitializedCopier = true;
+	//divisionLeftover.uninitializedCopier = true;
 	//MAIKO MILA KOLKO VREME MI OTNE DA UPRAVQ SHIBANIQT MEMORI LEAK BEZ DA RAZRUSHA VUTRESNITE MEMORY UDRESI. FUUUUK
 	delete& (divisionResult.getQuotient());
 	delete& (divisionResult.getLeftover());

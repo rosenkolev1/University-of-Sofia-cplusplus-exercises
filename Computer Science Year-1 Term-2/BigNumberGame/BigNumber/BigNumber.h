@@ -17,8 +17,9 @@ private:
 	char* number;
 	// 1 if positive, -1 if negative, 0 if 0
 	int sign;
+
 	//When this object is getting copied by another, define if this other object is initialized or is not
-	bool uninitializedCopier;
+	//bool uninitializedCopier;
 
 	void copy(const BigNumber& other);
 	//void changeNumber(int* const number, size_t newCapacity, size_t newSize, int sign);

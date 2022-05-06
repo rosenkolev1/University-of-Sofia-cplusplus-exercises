@@ -50,18 +50,23 @@ void solveExpressionTests()
 
     BigNumberExpression expression1("10+5");
     std::cout << "Testing expression -> (10+5). Expected: 15: " << expression1.evaluteExpression();
+    std::cout << std::endl;
 
     BigNumberExpression expression2("57-19");
     std::cout << "Testing expression -> (57-19). Expected: 38: " << expression2.evaluteExpression();
+    std::cout << std::endl;
 
-    BigNumberExpression expression3("-57-19");
-    std::cout << "Testing expression -> (-57-19). Expected: -76: " << expression3.evaluteExpression();
-
-    BigNumberExpression expression4("-345-+15");
-    std::cout << "Testing expression -> (-345-+15). Expected: -360: " << expression4.evaluteExpression();
-
-    BigNumberExpression expression5("-345+-15");
-    std::cout << "Testing expression -> (-345+-15). Expected: -360: " << expression5.evaluteExpression();
+    //BigNumberExpression expression3("-57-19");
+    //std::cout << "Testing expression -> (-57-19). Expected: -76: " << expression3.evaluteExpression();
+    //std::cout << std::endl;
+    //
+    //BigNumberExpression expression4("-345-+15");
+    //std::cout << "Testing expression -> (-345-+15). Expected: -360: " << expression4.evaluteExpression();
+    //std::cout << std::endl;
+    //
+    //BigNumberExpression expression5("-345+-15");
+    //std::cout << "Testing expression -> (-345+-15). Expected: -360: " << expression5.evaluteExpression();
+    //std::cout << std::endl;
 
     //BigNumberEquation expression5("345/-15");
     //std::cout << "Testing expression -> (345/-15). Expected: -33: " << expression5.evaluteExpression();
@@ -71,6 +76,9 @@ void solveExpressionTests()
 
 int main()
 {
+    //BigNumber tests
+    //BigNumberTests::runTests();
+
     //Big 4 tests
     //expressionBig4Tests();
 
