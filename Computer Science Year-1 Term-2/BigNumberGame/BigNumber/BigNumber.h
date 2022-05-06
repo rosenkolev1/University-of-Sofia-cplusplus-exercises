@@ -68,6 +68,7 @@ public:
 	bool operator <= (const BigNumber& other) const;
 	bool operator > (const BigNumber& other) const;
 	bool operator >= (const BigNumber& other) const;
+	bool isZero() const;
 	/// <summary>
 	/// Compares two numbers by absolute value
 	/// </summary>
@@ -90,6 +91,7 @@ public:
 
 	//Printing shit
 	void printOutNumber() const;
+	void printOutNumberRaw() const;
 
 	// Optional
 	BigNumber& operator /= (const BigNumber& other);

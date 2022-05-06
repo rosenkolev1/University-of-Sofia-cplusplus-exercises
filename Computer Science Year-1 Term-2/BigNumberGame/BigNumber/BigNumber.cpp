@@ -222,6 +222,11 @@ bool BigNumber::operator>=(const BigNumber& other) const
 	return *this > other || *this == other;
 }
 
+bool BigNumber::isZero() const
+{
+	return this->sign == 0;
+}
+
 bool BigNumber::greaterThanOrEqualsAbsolute(const BigNumber& other) const
 {
 	return BigNumber(this->number) >= BigNumber(other.number);
@@ -840,6 +845,12 @@ void BigNumber::printOutNumber() const
 		}
 	}
 	std::cout << std::endl;
+}
+
+void BigNumber::printOutNumberRaw() const
+{
+	if (this->sign == -1) std::cout << '-';
+	std::cout << this->number;
 }
 
 std::istream& operator>>(std::istream& cin, BigNumber& other)
