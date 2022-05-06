@@ -49,11 +49,15 @@ BigNumber BigNumberExpression::evaluteExpression() const
 {
 	const char* expression = this->getExpression();
 
-	//Check if expression starts with +- or -+. If it does, then it's invalid
-	bool invalidExpression = StringManip::stringStartsWith(expression, "+-") || StringManip::stringStartsWith(expression, "-+");
+	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
+	bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
+		StringManip::stringStartsWith(expression, "-+") ||
+		StringManip::stringEndsWith(expression, "+-") ||
+		StringManip::stringEndsWith(expression, "-+");
 	if (invalidExpression) throw "Invalid Expression";
 
 	//Next, replace all the instances of +- or -+ inside the string
+	
 
 	return BigNumber();
 }

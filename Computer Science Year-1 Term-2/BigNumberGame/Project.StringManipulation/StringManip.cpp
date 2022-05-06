@@ -195,7 +195,17 @@ bool StringManip::stringStartsWith(const char* text, const char* other)
 
 bool StringManip::stringEndsWith(const char* text, const char* other)
 {
-    return false;
+    if (strlen(text) < strlen(other)) return false;
+
+    // 12345+- +-
+    size_t otherIndex = 0;
+    for (size_t i = strlen(text) - strlen(other); i < strlen(text); i++)
+    {
+        if (text[i] != other[otherIndex++]) return false;
+    }
+
+    //If we get to here, then the text starts with other
+    return true;
 }
 
 char* StringManip::concatStrings(const char** strings, size_t stringsCount)
