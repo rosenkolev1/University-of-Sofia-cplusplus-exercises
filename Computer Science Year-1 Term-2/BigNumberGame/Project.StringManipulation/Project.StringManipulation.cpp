@@ -246,6 +246,48 @@ void testContainsInputTwo()
     std::cout << std::endl;
 }
 
+void testReplaceAllInputText(char input[], char* replaced, char* replacement)
+{
+    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement <<"\"" << std::endl;
+}
+
+//Test the replaceAll function
+void testReplaceAllInputOne()
+{
+    char input[] = "15+-13-+14-16+-132+54";
+    char replaced[] = "+-";
+    char replacement[] = "REPLACED";
+    size_t numberOfStrings = 0;
+    testReplaceAllInputText(input, replaced, replacement);
+    char* output = StringManip::replaceAll(input, replaced, replacement);
+    char expectedOutput[] = "15REPLACED13-+14-16REPLACED132+54";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
+void testReplaceAllInputTwo()
+{
+    char input[] = "15+-13-+14-16+-132+54_15151351";
+    char replaced[] = "15";
+    char replacement[] = "";
+    size_t numberOfStrings = 0;
+    testReplaceAllInputText(input, replaced, replacement);
+    char* output = StringManip::replaceAll(input, replaced, replacement);
+    char expectedOutput[] = "+-13-+14-16+-132+54_1351";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
 int main()
 {
     //Testing split string function by one char
@@ -270,9 +312,13 @@ int main()
     //testSplitByStringInputEight();
     //testSplitByStringInputNine();
 
-    //Testing contains of string
-    std::cout << "TESTING CONTAINS STRING FUNCTION: " << std::endl;
-    testContainsInputOne();
-    testContainsInputTwo();
+    ////Testing contains of string
+    //std::cout << "TESTING CONTAINS STRING FUNCTION: " << std::endl;
+    //testContainsInputOne();
+    //testContainsInputTwo();
+
+    //Testing replaceAll function of string
+    testReplaceAllInputOne();
+    testReplaceAllInputTwo();
 }
 

@@ -352,8 +352,7 @@ char* StringManip::concatStrings(const char** strings, size_t stringsCount)
         concatStringLength += strlen(strings[i]);
     }
 
-    char* concatString = new char[1];
-    concatString[0] = '\0';
+    char* concatString = new char[concatStringLength + 1]{'\0'};
 
     for (size_t i = 0; i < stringsCount; i++)
     {
@@ -364,100 +363,35 @@ char* StringManip::concatStrings(const char** strings, size_t stringsCount)
     return concatString;
 }
 
-void StringManip::replaceAll(char* text, const char* replaced, const char* replacement)
+char* StringManip::replaceAll(const char* text, const char* replaced, const char* replacement)
 {
-    //size_t numberOfReplacements = 0;
-    //size_t* indexesOfOccurences = new size_t[strlen(text)];
-    //char* newText = new char[strlen(text) + 1];
-    //strcpy(newText, text);
-    //while (true)
-    //{
-    //    size_t indexOfOccurence = findIndex(newText, replaced);
-    //
-    //    //If no more instances of replacement are found, then break out of the loop
-    //    if (indexOfOccurence == -1) break;
-    //
-    //    indexesOfOccurences[numberOfReplacements++] = indexOfOccurence;
-    //
-    //    //Start looking for occurences from the position of the last found occurence
-    //    char* newTextCopy = new char[strlen(text) + 1];
-    //    size_t newTextCopyIndex = 0;
-    //    for (size_t i = indexOfOccurence + strlen(replaced); i < strlen(text); i++)
-    //    {
-    //        newTextCopy[newTextCopyIndex] = newText[i];
-    //    }
-    //    delete[] newText;
-    //    newText = newTextCopy;
-    //}    
-    //
-    //char** textStrings = new char*[numberOfReplacements + ];
-
     size_t countOfStrings = 0;
     char** textStrings = splitString(text, replaced, countOfStrings);
-    size_t textStringsCounter = 0;
-    char** finalTextStrings = new char* [countOfStrings * 2 - 1];
     size_t finalTextStringsCount = countOfStrings * 2 - 1;
-
+    char** finalTextStrings = new char*[finalTextStringsCount];
+    size_t textStringsIndex = 0;
     for (size_t i = 0; i < finalTextStringsCount; i++)
     {
-        //Here you add the part that won't be replaced
         if (i % 2 == 0)
         {
-            finalTextStrings[i] = textStrings[textStringsCounter++];
+            finalTextStrings[i] = textStrings[textStringsIndex++];
         }
-        //Here you add the replacement
         else
         {
+            finalTextStrings[i] = new char[strlen(replacement) + 1];
             strcpy(finalTextStrings[i], replacement);
         }
     }
-
     char* finalText = concatStrings((const char**)finalTextStrings, finalTextStringsCount);
-    //Delete old text and replace it with the new text
-    delete[] text;
-    text = new char[strlen(finalText) + 1];
-    strcpy(text, finalText);
 
-    //Take care of dynamic memory
+    //Delete dynamic memory
     for (size_t i = 0; i < finalTextStringsCount; i++)
     {
         delete[] finalTextStrings[i];
     }
     delete[] finalTextStrings;
-    delete[] finalText;
 
-    //char* newText = new char[strlen(text) + 1];
-    //size_t newTextLength = strlen(text);
-    //size_t replacementLength = strlen(replacement);
-    //size_t replacedLength = strlen(replaced);
-    //strcpy(newText, text);
-    //while (stringContains(newText, replaced))
-    //{
-    //    size_t newText
-    //    size_t indexOfReplaced = findIndex(newText, replaced);
-    //    size_t newTextIndex = indexOfReplaced;
-
-    //    //Replace the first occurance of replaced with the replacement
-    //    for (size_t i = 0; i < replacementLength; i++)
-    //    {
-    //        //If the capacity of the newText runs out, then increase it
-    //        if (newTextIndex == newTextLength)
-    //        {
-    //            newTextLength *= 2;
-    //            char* newTextCopy = new char[newTextLength + 1];
-    //            strcpy(newTextCopy, newText);
-    //            delete[] newText;
-    //            newText = newTextCopy;
-    //        }
-    //        newText[newTextIndex++] = replacement[i];
-    //    }
-
-    //    //Fill in the rest of the text afterwards
-    //    for (size_t i = indexOfReplaced + replacedLength; i < ; i++)
-    //    {
-
-    //    }
-    //}
+    return finalText;
 }
 
 size_t StringManip::findIndex(char* text, const char* searchText)

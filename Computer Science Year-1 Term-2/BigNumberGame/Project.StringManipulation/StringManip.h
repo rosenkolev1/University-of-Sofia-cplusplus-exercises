@@ -26,7 +26,7 @@ public:
 	static char* concatStrings(const char** strings, size_t stringsCount);
 
 	//Replaces all instances of the replaced string in the text with the replacement string
-	static void replaceAll(char* text, const char* replaced, const char* replacement);
+	static char* replaceAll(const char* text, const char* replaced, const char* replacement);
 
 	//Returns the index of the first occurance of searchText in text. Returns -1 if searchText isn't found inside text
 	static size_t findIndex(char* text, const char* searchText);
