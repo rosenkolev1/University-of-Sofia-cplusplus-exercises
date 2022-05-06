@@ -156,7 +156,6 @@ char** StringManip::splitString(const char* input, const char* delim, size_t& si
         sizesOfStrings[i] = 0;
     }
 
-    //aaab aab
     //Get the lengths of all the strings
     size_t sizeOfStringIndex = 0;
     for (size_t i = 0; i < sizeOfInput; i++)
@@ -251,14 +250,17 @@ char** StringManip::splitString(const char* input, const char* delim, size_t& si
     return arrayOfStrings;
 }
 
-bool StringManip::stringContainsInvalidChars(const char* text)
+bool StringManip::stringContainsInvalidChars(const char* text, const char* invalidChars)
 {
     for (size_t i = 0; i < strlen(text); i++)
     {
         char textChar = text[i];
         if (textChar < 0 || textChar >= 128) return true;
-        if (stringContainsChar(GlobalConstants::FORDBIDDEN_SYMBOLS, textChar)) return true;
+        if (stringContainsChar(invalidChars, textChar)) return true;
     }
+
+    //If we get to here, that means that the string passed the test and doesn't contain invalid chars.
+    return false;
 }
 
 bool StringManip::stringContainsChar(const char* text, const char symbol)
@@ -333,7 +335,6 @@ bool StringManip::stringEndsWith(const char* text, const char* other)
 {
     if (strlen(text) < strlen(other)) return false;
 
-    // 12345+- +-
     size_t otherIndex = 0;
     for (size_t i = strlen(text) - strlen(other); i < strlen(text); i++)
     {

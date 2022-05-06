@@ -36,12 +36,6 @@ void BigNumberExpression::replaceOperatorsFromCalculation(char* operators, size_
 	//Replace the operator from the operators array
 	for (size_t i = index; i < strlen(operators); i++)
 	{
-		/*
-		10 20 30 40 50
-		+  *  /  -  %
-		10 600 40 50
-		+  /   -  %
-		*/
 		if (i != strlen(operators) - 1) operators[i] = operators[i + 1];
 		else operators[i] = '\0';
 	}
@@ -116,7 +110,7 @@ BigNumber BigNumberExpression::evaluteExpression() const
 	//If parenthesis exist, then evaluate the expressions in the parentheses and then try to evaluate the whole expression again until the parentheses are removed
 	if (parenthesisExist)
 	{
-		//TODO: implement
+		//TODO: implement parenthesis logic
 	}
 	else
 	{
@@ -182,8 +176,8 @@ BigNumber BigNumberExpression::evaluteExpression() const
 
 		//Set the null terminator
 		operators[operatorsCount++] = '\0';
-
-		//TODO: Somehow differentiate the negative numbers from the rest of the numbers;
+		
+		//TODO: make the replaceAll function work on the expression argument instead of creating a new dynamically allocated string
 		
 		//Get all the numbers
 		//Replace all the *- with the delim |

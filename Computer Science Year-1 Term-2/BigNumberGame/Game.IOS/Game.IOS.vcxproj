@@ -93,6 +93,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Project.StringManipulation\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>StringManip.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,14 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleSystem.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Game.IOS.Main.cpp" />
     <ClCompile Include="Seeder.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleSystem.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Seeder.h" />
     <ClInclude Include="User.h" />

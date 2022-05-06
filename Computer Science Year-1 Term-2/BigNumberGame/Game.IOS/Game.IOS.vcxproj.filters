@@ -24,9 +24,6 @@
     <ClCompile Include="User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ConsoleSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Seeder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsoleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Seeder.h">

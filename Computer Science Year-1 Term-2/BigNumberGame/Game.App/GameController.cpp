@@ -5,7 +5,7 @@
 #include "..\Game.GlobalConstants\GlobalConstants.h"
 #include "..\Game.UI/GameUI.h"
 #include "..\Game.IOS/FileSystem.h"
-#include "..\Game.IOS\ConsoleSystem.h"
+#include "..\Project.StringManipulation\StringManip.h"
 #include "..\Game.IOS\Seeder.h"
 
 User* GameController::currentUser = nullptr;
@@ -15,13 +15,6 @@ void GameController::deleteOwnAccountConfirmationScreenPrint()
 {
     size_t maxSize = 73;
     const char** textArray = new const char* [3];
-    /*for (size_t i = 0; i < 3; i++)
-    {
-        textArray[i] = new char[maxSize];
-    }*/
-    //strcpy(textArray[0], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION);
-    //strcpy(textArray[1], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO);
-    //strcpy(textArray[2], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES);
     textArray[0] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION;
     textArray[1] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO;
     textArray[2] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_YES;
@@ -29,7 +22,6 @@ void GameController::deleteOwnAccountConfirmationScreenPrint()
     GameUI::printScreenWithText((const char**)textArray, 3, maxSize, GlobalConstants::DELETE_CONFIRM_TITLE);
 
     //Delete dynamic memory
-    //ConsoleSystem::deleteArrayOfStrings(textArray, 3);
     delete[] textArray;
 }
 
@@ -71,7 +63,6 @@ bool GameController::deleteOwnAccountConfirmation()
     }
 }
 
-//TODO: change this screen depending on the role of the user
 void GameController::mainMenuLoggedScreenPrint()
 {
     size_t maxSize = 88;
@@ -99,7 +90,7 @@ void GameController::mainMenuLoggedScreenPrint()
     //Make text with current level
     char currentLevelText[100];
     strcpy(currentLevelText, GlobalConstants::MAINMENU_LEVEL_TEXT);
-    const char* levelText = ConsoleSystem::parseToString(currentUser->level);
+    const char* levelText = StringManip::parseToString(currentUser->level);
     strcat(currentLevelText, levelText);
     strcat(currentLevelText, "\n");
     textArray[textArrayIndex++] = currentLevelText;
@@ -107,7 +98,7 @@ void GameController::mainMenuLoggedScreenPrint()
     //Make text with current lives
     char currentLivesText[100];
     strcpy(currentLivesText, GlobalConstants::MAINMENU_LIVES_TEXT);
-    const char* livesText = ConsoleSystem::parseToString(currentUser->lives);
+    const char* livesText = StringManip::parseToString(currentUser->lives);
     strcat(currentLivesText, livesText);
     strcat(currentLivesText, "\n");
     textArray[textArrayIndex++] = currentLivesText;
@@ -194,27 +185,27 @@ bool GameController::mainMenuLogged()
             std::cout << "do something";
         }
         //Get info about a user
-        else if (isAdmin && ConsoleSystem::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_GETINFO))
+        else if (isAdmin && StringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_GETINFO))
         {
             std::cout << "get info about somebody";
         }
         //Exclude user from leaderboard
-        else if (isAdmin && ConsoleSystem::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_EXCLUDE))
+        else if (isAdmin && StringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_EXCLUDE))
         {
             std::cout << "exclude somebody from leaderboards";
         }
         //Delete user
-        else if (isAdmin && ConsoleSystem::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_DELETE))
+        else if (isAdmin && StringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_DELETE))
         {
             std::cout << "delete somebody";
         }
         //Recover user
-        else if (isAdmin && ConsoleSystem::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_RECOVER))
+        else if (isAdmin && StringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_RECOVER))
         {
             std::cout << "recover somebody's account";
         }
         //Add powerup to admin
-        else if (isAdmin && ConsoleSystem::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_ADD))
+        else if (isAdmin && StringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_ADD))
         {
             std::cout << "add a helper";
         }
@@ -265,7 +256,7 @@ bool GameController::loginUser()
         bool textIsValid = true;
 
         size_t splitStringsCount = 0;
-        char** splitInput = ConsoleSystem::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
+        char** splitInput = StringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
         char* username = splitStringsCount == 2 ? splitInput[0] : nullptr;
         char* password = splitStringsCount == 2 ? splitInput[1] : nullptr;
 
@@ -275,7 +266,7 @@ bool GameController::loginUser()
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
             //Clear memory for input from console
-            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+            StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
             //Return to previous screen
             return true;
@@ -283,7 +274,7 @@ bool GameController::loginUser()
         if (selection == nullptr || !textIsValid)
         {
             //Clear memory for input from console
-            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+            StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
             // Print on a single line without screen borders
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
@@ -299,7 +290,7 @@ bool GameController::loginUser()
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
                 //Clear memory for input from console
-                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+                StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
                 continue;
             }
@@ -312,7 +303,7 @@ bool GameController::loginUser()
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
                 //Clear memory for input from console
-                ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+                StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
                 continue;
             }
@@ -362,7 +353,7 @@ bool GameController::registerUser()
         bool textIsValid = true;
 
         size_t splitStringsCount = 0;
-        char** splitInput = ConsoleSystem::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
+        char** splitInput = StringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, splitStringsCount);
         char* username = splitStringsCount == 2 ? splitInput[0] : nullptr;
         char* password = splitStringsCount == 2 ? splitInput[1] : nullptr;
 
@@ -372,7 +363,7 @@ bool GameController::registerUser()
         if (strcmp(selection, GlobalConstants::COMMAND_RETURN) == 0)
         {
             //Clear memory for input from console
-            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+            StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
             //Return to previous screen
             return true;
@@ -380,7 +371,7 @@ bool GameController::registerUser()
         if (selection == nullptr || !textIsValid)
         {
             //Clear memory for input from console
-            ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+            StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
             // Print on a single line without screen borders
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
@@ -396,7 +387,7 @@ bool GameController::registerUser()
                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
                    //Clear memory for input from console
-                   ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+                   StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
 
                    continue;
              }
@@ -407,7 +398,7 @@ bool GameController::registerUser()
              GameUI::printLineNoBorders(GlobalConstants::REGISTER_SUCCESS);
 
              //Clear memory for input from console
-             ConsoleSystem::deleteArrayOfStrings(splitInput, splitStringsCount);
+             StringManip::deleteArrayOfStrings(splitInput, splitStringsCount);
             
              //Return to previous screen
              return true;           

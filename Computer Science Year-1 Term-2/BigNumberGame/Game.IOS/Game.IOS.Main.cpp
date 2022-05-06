@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-#include "ConsoleSystem.h"
+#include "..\Project.StringManipulation\StringManip.h"
 #include "FileSystem.h"
 
 void printOutResultsFromTest(char** strings, size_t numberOfStrings)
@@ -29,7 +29,7 @@ void testInputOne()
 {
     char input[] = "Roskata123|Tupa_rabota";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(10, 11) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -40,7 +40,7 @@ void testInputTwo()
 {
     char input[] = "Roskata123|";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(10, 0) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -51,7 +51,7 @@ void testInputThree()
 {
     char input[] = "Roskata123";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(10) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -62,7 +62,7 @@ void testInputFour()
 {
     char input[] = "Roskata123||Heyyy|G";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(10, 0, 5, 1) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -73,7 +73,7 @@ void testInputFive()
 {
     char input[] = "||";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(0, 0, 0) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -84,7 +84,7 @@ void testInputSix()
 {
     char input[] = "|";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(0, 0) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -95,7 +95,7 @@ void testInputSeven()
 {
     char input[] = "";
     size_t numberOfStrings = 0;
-    char** strings = ConsoleSystem::splitString(input, '|', numberOfStrings);
+    char** strings = StringManip::splitString(input, '|', numberOfStrings);
     testInputText(input);
     std::cout << "Lengths of strings are: Expected(0) ==> ";
     printOutResultsFromTest(strings, numberOfStrings);
@@ -126,7 +126,7 @@ void testContainsInputSeven()
     char input[] = "roskata123";
     char otherInput[] = "rrrrosenroskata123";
     std::cout << "Testing if the string \"roskata123\" is contained within \"rrrrosenroskata123\": Expected(TRUE) ==> ";
-    std::cout << (ConsoleSystem::stringContains(otherInput, input) ? "TRUE" : "FALSE");
+    std::cout << (StringManip::stringContains(otherInput, input) ? "TRUE" : "FALSE");
     std::cout << std::endl;
 }
 

@@ -11,7 +11,7 @@ public:
 	static char** splitString(const char* input, const char* delim, size_t& sizeOfArray);
 
 	//Checks for validity
-	static bool stringContainsInvalidChars(const char* text);
+	static bool stringContainsInvalidChars(const char* text, const char* invalidChars);
 
 	static bool stringContainsChar(const char* text, const char symbol);
 
@@ -32,5 +32,5 @@ public:
 	static int findIndex(char* text, const char* searchText);
 };
 
-//TODO: Decide what to do with the string contains invalid chars function, which doesn't belong here. Maybe make the string contains invalid chars accept the invalid chars as a parameter instead of the GlobalConstants being programmed in statically in the function
+//TODO: Decide what to do with the string contains invalid chars function, which doesn't belong here. Maybe make the string contains invalid chars accept the invalid chars as a parameter instead of the GlobalConstants being programmed in statically inside the function
 

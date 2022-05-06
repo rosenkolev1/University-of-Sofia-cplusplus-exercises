@@ -1,5 +1,5 @@
 #include "Seeder.h"
-#include "ConsoleSystem.h"
+#include "..\Project.StringManipulation\StringManip.h"
 #include "FileSystem.h"
 
 void Seeder::seedDatabase(bool overwrite)
@@ -28,7 +28,7 @@ SomeStupidUser^Stupid^Normal^0^3^COL_NULL^TRUE^FALSE\n
 
 	if (overwrite)
 	{
-		char* concatDatabaseString = ConsoleSystem::concatStrings(users, usersCount);
+		char* concatDatabaseString = StringManip::concatStrings(users, usersCount);
 		FileSystem::overwriteDatabase(concatDatabaseString);
 	}
 	else
@@ -47,7 +47,7 @@ SomeStupidUser^Stupid^Normal^0^3^COL_NULL^TRUE^FALSE\n
 		for (size_t i = 0; i < usersCount; i++)
 		{
 			//Check if the user is already contained in the database
-			if (!ConsoleSystem::stringContains(databaseData, users[i]))
+			if (!StringManip::stringContains(databaseData, users[i]))
 			{
 				databaseFile.write(reinterpret_cast<const char*>(users[i]), strlen(users[i]));
 			}

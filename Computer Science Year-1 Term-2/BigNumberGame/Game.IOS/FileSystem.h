@@ -4,7 +4,7 @@
 #include "User.h"
 #include<fstream>
 
-static class FileSystem
+class FileSystem
 {
 public:
 	//WRITE/UPDATE/PUT/DELETE

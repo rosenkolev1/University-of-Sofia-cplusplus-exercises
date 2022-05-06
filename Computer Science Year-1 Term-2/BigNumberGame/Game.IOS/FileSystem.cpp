@@ -517,8 +517,6 @@ User* FileSystem::getUser(const char* username, bool includeDeleted)
 			{
 				user = new User(allUsers[i]);
 				delete[] allUsers;
-				//TODO: REMOVE DEBUG SHIT
-				//int thisUserRole = (int)user->role;
 				return user;
 			}
 		}

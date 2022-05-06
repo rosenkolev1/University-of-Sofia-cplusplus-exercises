@@ -94,8 +94,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.IOS\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameUI.obj;FileSystem.obj;User.obj;ConsoleSystem.obj;Seeder.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.IOS\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Project.StringManipulation\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameUI.obj;FileSystem.obj;User.obj;ConsoleSystem.obj;Seeder.obj;StringManip.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
