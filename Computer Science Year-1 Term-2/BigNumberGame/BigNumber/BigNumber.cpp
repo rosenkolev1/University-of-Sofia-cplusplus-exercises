@@ -841,7 +841,6 @@ void BigNumber::printOutNumber()
 	std::cout << std::endl;
 }
 
-
 std::istream& operator>>(std::istream& cin, BigNumber& other)
 {
 	//

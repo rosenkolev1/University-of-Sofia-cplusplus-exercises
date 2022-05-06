@@ -24,12 +24,21 @@
     <ClCompile Include="BigNumberDivisionResult.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigNumberTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigNumberDivisionResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigNumberTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
