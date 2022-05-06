@@ -816,7 +816,7 @@ BigNumber& BigNumber::operator%=(const BigNumber& other)
 }
 
 //Printing shit and reading shit
-void BigNumber::printOutNumber()
+void BigNumber::printOutNumber() const
 {
 	//Cacluclate comma spacings
 	bool addCommas = this->size >= 5;
@@ -880,6 +880,12 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 	delete[] reversedNumber;
 
 	return cin;
+}
+
+std::ostream& operator<<(std::ostream& os, const BigNumber& other) 
+{
+	other.printOutNumber();
+	return os;
 }
 
 

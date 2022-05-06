@@ -46,7 +46,7 @@ const char* BigNumberEquation::getEquation() const
 
 BigNumber BigNumberEquation::evaluteExpression() const
 {
-	return BigNumber();
+	return BigNumber(15);
 }
 
 void BigNumberEquation::generateExpression()

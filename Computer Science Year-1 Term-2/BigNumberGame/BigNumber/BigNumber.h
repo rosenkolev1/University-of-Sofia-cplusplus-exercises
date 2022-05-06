@@ -82,10 +82,13 @@ public:
 	BigNumber operator * (const BigNumber& other) const;
 
 	//Reading shit from console
-	friend std::istream& operator >> (std::istream& cin, BigNumber& other);
+	friend std::istream& operator>> (std::istream& cin, BigNumber& other);
+
+	//Outputting to console
+	friend std::ostream& operator<< (std::ostream& os, const BigNumber& other);
 
 	//Printing shit
-	void printOutNumber();
+	void printOutNumber() const;
 
 	// Optional
 	BigNumber& operator /= (const BigNumber& other);

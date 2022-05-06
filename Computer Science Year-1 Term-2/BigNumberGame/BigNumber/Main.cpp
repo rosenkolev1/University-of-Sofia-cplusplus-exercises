@@ -39,10 +39,24 @@ void equationBig4Tests()
     std::cout << "Equation 4: Expected: " << someEquation << ": " << equation4.getEquation() << std::endl;
 }
 
+void solveEquationTests()
+{
+    // Equation solving tests
+    std::cout << "Equation solving TESTS: " << std::endl << std::endl;
+
+    BigNumberEquation equation1("10 + 5");
+    std::cout << "Testing equation -> (10 + 5). Expected: 15: " << equation1.evaluteExpression();
+
+
+
+    std::cout << std::endl;
+}
+
 int main()
 {
     //Big 4 tests
-    equationBig4Tests();
+    //equationBig4Tests();
 
-
+    //Solving an equation tests
+    solveEquationTests();
 }
