@@ -47,17 +47,22 @@ const char* BigNumberExpression::getExpression() const
 
 BigNumber BigNumberExpression::evaluteExpression() const
 {
-	const char* expression = this->getExpression();
-
-	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
-	bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
-		StringManip::stringStartsWith(expression, "-+") ||
-		StringManip::stringEndsWith(expression, "+-") ||
-		StringManip::stringEndsWith(expression, "-+");
-	if (invalidExpression) throw "Invalid Expression";
-
-	//Next, replace all the instances of +- or -+ inside the string
+	char* expression = new char[this->capacity];
+	strcpy(expression, this->getExpression());
+	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
 	
+	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
+	//bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
+	//	StringManip::stringStartsWith(expression, "-+") ||
+	//	StringManip::stringEndsWith(expression, "+-") ||
+	//	StringManip::stringEndsWith(expression, "-+");
+	//if (invalidExpression) throw "Invalid Expression";
+
+	//Replace all the instances of +- or -+ inside the string
+	StringManip::replaceAll(expression, "+-", "-");
+	StringManip::replaceAll(expression, "-+", "-");
+
+	//
 
 	return BigNumber();
 }
