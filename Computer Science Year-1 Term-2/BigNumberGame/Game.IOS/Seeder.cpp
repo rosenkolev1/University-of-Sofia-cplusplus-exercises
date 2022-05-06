@@ -13,10 +13,11 @@ NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^FALSE\n
 SomeNewUser^NewPassword^Normal^0^3^COL_NULL^TRUE^TRUE\n
 SomeStupidUser^Stupid^Normal^0^3^COL_NULL^TRUE^FALSE\n
 	*/
-	size_t usersCount = 7;
+	size_t usersCount = 8;
 	const char* users[] = 
 	{
 		"Admin1^Admin1^Admin^0^3^COL_NULL^TRUE^FALSE\n",
+		"Admin2^Admin2^Admin^6^2^COL_NULL^TRUE^FALSE\n",
 		"roskata123^pederas^Normal^100^2^COL_NULL^TRUE^FALSE\n",
 		"Roskata123^Pederas^Normal^2^1^COL_NULL^TRUE^FALSE\n",
 		"Roskata12^pederasNov^Normal^0^3^COL_NULL^TRUE^FALSE\n",

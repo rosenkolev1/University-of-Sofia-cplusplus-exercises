@@ -6,13 +6,6 @@ const char* GameUI::BORDER_TOP = "----------------------------------------------
 const char* GameUI::LINE_EMPTY = "|                                                                                                           |";
 const char* GameUI::BORDER_BOTTOM = "--------------------------------------------------------------------------------------------------------------";
 
-size_t GameUI::getTextLength(const char* text)
-{
-	size_t sizeOfText = 0;
-	while (text[sizeOfText] > 0 && text[sizeOfText] <= 128) sizeOfText++;
-	return sizeOfText;
-}
-
 void GameUI::printScreenWithText(const char* text, const char* screenTitle)
 {
 	std::cout << BORDER_TOP << std::endl;
@@ -25,7 +18,7 @@ void GameUI::printScreenWithText(const char* text, const char* screenTitle)
 	}
 
 	//Seperate the text if it's too large for a single line or if it has new line characters in it
-	size_t sizeOfText = getTextLength(text);
+	size_t sizeOfText = strlen(text);
 
 	char* currentLine = new __nothrow char[sizeOfText + 1];
 	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
@@ -80,21 +73,21 @@ void GameUI::printScreenWithText(const char** textArray, size_t arraySize, size_
 	int textCounter = 0;
 	for (size_t i = 0; i < arraySize; i++)
 	{
-		size_t lengtOfText = getTextLength(textArray[i]);
+		size_t lengtOfText = strlen(textArray[i]);
 		for (size_t y = 0; y < lengtOfText; y++)
 		{
 			text[textCounter] = textArray[i][y];
 			textCounter++;
 		}
 	}
-
+	text[textCounter++] = '\0';
 	printScreenWithText(text, screenTitle);
 	delete[] text;
 }
 
 void GameUI::printLine(const char* text)
 {
-	size_t sizeOfText = getTextLength(text);
+	size_t sizeOfText = strlen(text);
 
 	int emptySpacesCount = (LINE_LENGTH - sizeOfText - 2) / 2;
 	int startTextIndex = emptySpacesCount + 1; //x + sizeOfText + x = 110

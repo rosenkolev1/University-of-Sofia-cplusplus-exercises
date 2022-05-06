@@ -6,7 +6,6 @@ class GameController
 public:
     static User* currentUser;
     static bool returnToTitleScreen;
-    //static char* currentScreen;
 
     static void deleteOwnAccountConfirmationScreenPrint();
 
@@ -31,6 +30,4 @@ public:
     static void startUpScreenPrint();
 
     static void startUp();
-
-    //static void screenPrint();
 };

@@ -26,8 +26,6 @@ private:
 	//THE NUMBER OF EMPTY LINES PRINTED BEFORE THE TEXT GETS PRINTED
 	static const int LINES_EMPTY_INITIAL_COUNT = 3;
 	static const int LINES_EMPTY_ENDING_COUNT = 3;
-
-	static size_t getTextLength(const char* text);
 public:
 	static void printScreenWithText(const char* text, const char* screenTitle = nullptr);
 	static void printScreenWithText(const char** textArray, size_t arraySize, size_t capacity, const char* screenTitle = nullptr);

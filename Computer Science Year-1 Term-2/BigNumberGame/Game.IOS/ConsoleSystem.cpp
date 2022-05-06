@@ -8,7 +8,7 @@ char* ConsoleSystem::parseToString(int integer)
     {
         char* zeroDigit = new char[2];
         zeroDigit[0] = '0';
-        zeroDigit[1] = '\n';
+        zeroDigit[1] = '\0';
         return zeroDigit;
     }
 

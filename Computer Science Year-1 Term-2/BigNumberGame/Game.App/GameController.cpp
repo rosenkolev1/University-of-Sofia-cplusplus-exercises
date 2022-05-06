@@ -477,9 +477,6 @@ bool GameController::loginOrRegister()
 
 void GameController::startUpScreenPrint()
 {
-    //Screen print
-   /* GameUI::printLineNoBorders("Start Up Screen", TextAlign::Center);*/
-
     const char** textArray = new const char* [4];
     size_t textArrayIndex = 0;
 
@@ -496,7 +493,8 @@ void GameController::startUpScreenPrint()
 void GameController::startUp()
 {
     //Seed database
-    Seeder::seedDatabase(false);
+    //Seeder::seedDatabase(false);
+    //Seeder::seedDatabase(true);
 
     //Screen print
     startUpScreenPrint();
