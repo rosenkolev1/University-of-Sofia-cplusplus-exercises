@@ -421,13 +421,60 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 
 bool BigNumberExpression::expressionIsValid(const char* expression) const
 {
-	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
-	//bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
-	//	StringManip::stringStartsWith(expression, "-+") ||
-	//	StringManip::stringEndsWith(expression, "+-") ||
-	//	StringManip::stringEndsWith(expression, "-+");
-	//if (invalidExpression) throw "Invalid Expression"; 
-	return false;
+	if (expression == nullptr) expression = this->getExpression();
+
+	//Check if the expression contains +++, ++-, +-+, +--, -++, -+-, --+, ---. If it does, then it is invalid
+	//Check if the expression contains: **, */, *%, /*, //, /%, %*, %/, %%. If it does, then it is invalid
+	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
+	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
+	//Mnogo durvarski na4in za proverka, ama vse taq. Eventualno ako resha da dobavq stepenuvane shte go opravq
+	bool expressionIsInvalid = StringManip::stringContains(expression, "+++")
+		|| StringManip::stringContains(expression, "+++")
+		|| StringManip::stringContains(expression, "++-")
+		|| StringManip::stringContains(expression, "+-+")
+		|| StringManip::stringContains(expression, "+--")
+		|| StringManip::stringContains(expression, "-++")
+		|| StringManip::stringContains(expression, "-+-")
+		|| StringManip::stringContains(expression, "--+")
+		|| StringManip::stringContains(expression, "---")
+		|| StringManip::stringContains(expression, "**")
+		|| StringManip::stringContains(expression, "*/")
+		|| StringManip::stringContains(expression, "*%")
+		|| StringManip::stringContains(expression, "/*")
+		|| StringManip::stringContains(expression, "//")
+		|| StringManip::stringContains(expression, "/%")
+		|| StringManip::stringContains(expression, "%*")
+		|| StringManip::stringContains(expression, "%/")
+		|| StringManip::stringContains(expression, "%%")
+		|| StringManip::stringContains(expression, "+*")
+		|| StringManip::stringContains(expression, "-*")
+		|| StringManip::stringContains(expression, "+/")
+		|| StringManip::stringContains(expression, "-/")
+		|| StringManip::stringContains(expression, "+%")
+		|| StringManip::stringContains(expression, "-%")
+		|| StringManip::stringContains(expression, "+)")
+		|| StringManip::stringContains(expression, "-)")
+		|| StringManip::stringContains(expression, "*)")
+		|| StringManip::stringContains(expression, "/)")
+		|| StringManip::stringContains(expression, "%)")
+		|| StringManip::stringContains(expression, "()");
+
+	if (expressionIsInvalid) return false;
+
+	//Check if all the parenthesis are closed correctly
+	int openedParenthesis = 0;
+	for (size_t i = 0; i < strlen(expression); i++)
+	{
+		if (expression[i] == '(') openedParenthesis++;
+		else if (expression[i] == ')') openedParenthesis--;
+		//If this happens, then there is a closing parenthesis which doesn't have a matching opening parenthesis. So the expression is invalid
+		if (openedParenthesis < 0) return false;
+	}
+	//If this happens, then there is an opening parenthesis which doesn't have a matching closing parenthesis. So the expression is invalid
+	if (openedParenthesis > 0) return false;
+
+	//If this happens, then the expression has passed the test and is correct
+	return true;
 }
 
 char BigNumberExpression::generateOperator(int seed)
@@ -452,10 +499,19 @@ int BigNumberExpression::generateSign(int seed)
 	else if (seed == 0) return 0;
 }
 
-//char BigNumberExpression::generateClosingParenthesis(int seed)
-//{
-//	return 0;
-//}
+size_t BigNumberExpression::generateDigitsCount(int seed)
+{
+	if (seed == 50) return 30;
+	else if (seed >= 48) return 9;
+	else if (seed >= 46) return 8;
+	else if (seed >= 43) return 7;
+	else if (seed >= 39) return 6;
+	else if (seed >= 34) return 5;
+	else if (seed >= 25) return 4;
+	else if (seed >= 16) return 3;
+	else if (seed >= 8) return 2;
+	else if (seed <= 7) return 1;
+}
 
 void BigNumberExpression::generateExpression()
 {
@@ -607,13 +663,31 @@ void BigNumberExpression::generateExpression()
 	//Replace the x in the expression with numbers
 	while (StringManip::stringContains(expression, "x"))
 	{
-		//TODO: Make random generation with strings as numbers possible, otherwise, there is no point in using BigNumber, since we just generate ints anyway
 		//Generate the sign of the number
-		int signOfNumber = rand() % 15;
-		int number = rand() % 10000 + 1;
-		if (signOfNumber == 0) number = 0;
-		else if (signOfNumber == -1) number *= -1;
-		BigNumber bigNumber = BigNumber(number);
+		BigNumber bigNumber = BigNumber();
+		int signOfNumber = generateSign(rand() % 15);
+		if (signOfNumber != 0)
+		{
+			//Randomly generate a number
+			size_t digitsCount = generateDigitsCount(rand() % 51);
+			size_t capacity = digitsCount + 1;
+			size_t digitsIndex = 0;
+
+			if (signOfNumber == -1) capacity++;
+
+			char* numberString = new char[capacity];
+			numberString[capacity - 1] = '\0';
+
+			if (signOfNumber == -1) numberString[digitsIndex++] = '-';
+
+			numberString[digitsIndex++] = rand() % 9 + 1 + '0';
+			for (size_t i = digitsIndex; i < digitsCount; i++)
+			{
+				numberString[i] = (rand() % 10) + '0';
+			}
+
+			bigNumber = BigNumber(numberString);
+		}
 		
 		//Replace the bigNumber in the expression
 		char* newExpression = StringManip::replaceFirst(expression, "x", bigNumber.getNumberRaw());

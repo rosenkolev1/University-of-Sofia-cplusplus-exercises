@@ -609,11 +609,21 @@ void generateExpressionTests()
 
     for (size_t i = 0; i < 50; i++)
     {
-        std::cout << "TEST "<< i <<": " << std::endl;
+        std::cout << "TEST "<< i + 1 <<": " << std::endl;
         BigNumberExpression expression1 = BigNumberExpression();
         std::cout << "Testing the generating of an expression --> ";
         expression1.generateExpression();
-        std::cout << ".Expected: TRUE"; //TODO: Create a function which checks if a generate expression is valid
+        std::cout << ". Expected: TRUE: "<< (expression1.expressionIsValid() ? "TRUE" : "FALSE") << std::endl; //TODO: Create a function which checks if a generate expression is valid
+        std::cout << "Answer to the expression --> ";
+        try
+        {
+             std::cout << expression1.evaluteExpression();
+        }
+        catch (...)
+        {
+            std::cout << "Exception thrown because of division or percent by 0";
+        }
+        std::cout << std::endl;
         std::cout << std::endl;
     }
 }
