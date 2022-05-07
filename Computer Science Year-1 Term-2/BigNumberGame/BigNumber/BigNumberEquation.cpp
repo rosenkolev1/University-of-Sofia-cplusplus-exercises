@@ -229,6 +229,13 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 		}
 	}
 
+	//If there are no operators, then simply return the number itself
+	if (operatorsCount == 0)
+	{
+		BigNumber result(expression);
+		return result;
+	}
+
 	//Set the null terminator
 	operators[operatorsCount++] = '\0';
 

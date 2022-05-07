@@ -43,6 +43,47 @@ void expressionBig4Tests()
     std::cout << std::endl;
 }
 
+void solveExpressionNoParenthesis_SingleNumberTests()
+{
+    std::cout << "Expression solving TESTS for single number expressions: " << std::endl << std::endl;
+
+    char expressionString1[] = "1125699";
+    BigNumberExpression expression1(expressionString1);
+    int expectedOutput1 = 1125699;
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+
+    char expressionString2[] = "-1125699";
+    BigNumberExpression expression2(expressionString2);
+    int expectedOutput2 = -1125699;
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << std::endl;
+
+    char expressionString3[] = "+-1125699";
+    BigNumberExpression expression3(expressionString3);
+    int expectedOutput3 = +-1125699;
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << std::endl;
+
+    char expressionString4[] = "-+1125699";
+    BigNumberExpression expression4(expressionString4);
+    int expectedOutput4 = -+1125699;
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << std::endl;
+
+    char expressionString5[] = "--1125699";
+    BigNumberExpression expression5(expressionString5);
+    int expectedOutput5 = 1125699;
+    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluteExpression();
+    std::cout << std::endl;
+
+    char expressionString6[] = "+1125699";
+    BigNumberExpression expression6(expressionString6);
+    int expectedOutput6 = 1125699;
+    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluteExpression();
+    std::cout << std::endl;
+}
+
 void solveExpressionNoParenthesis_AdditionAndMinusTests()
 {
     std::cout << "Expression solving TESTS for + and - operators: " << std::endl << std::endl;
@@ -94,6 +135,7 @@ void solveExpressionNoParenthesis_AdditionAndMinusTests()
     int expectedOutput8 = -(-345)-(-15) + -30;
     std::cout << "Testing expression -> (" << expressionString8 << ").Expected: "<< expectedOutput8 <<": " << expression8.evaluteExpression();
     std::cout << std::endl;
+
 }
 
 void solveExpressionNoParenthesis_MultiplyTests()
@@ -310,7 +352,9 @@ void solveExpressionNoParenthesis_PercentTests()
 void solveExpressionNoParenthesisTests()
 {
     // Expression solving tests
-    std::cout << "Expression solving TESTS: " << std::endl << std::endl;
+    std::cout << "Expression solving TESTS WITHOUT PARENTHESIS: " << std::endl << std::endl;
+
+    solveExpressionNoParenthesis_SingleNumberTests();
 
     solveExpressionNoParenthesis_AdditionAndMinusTests();
     
@@ -321,6 +365,29 @@ void solveExpressionNoParenthesisTests()
     solveExpressionNoParenthesis_PercentTests();
 }
 
+void solveExpressionParenthesis_AdditionAndMinusTests()
+{
+    char expressionString1[] = "(10 + 5) + 5";
+    BigNumberExpression expression1(expressionString1);
+    int expectedOutput1 = 10 + 5;
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: 20" << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+}
+
+void solveExpressionParenthesisTests()
+{
+    // Expression solving tests
+    std::cout << "Expression solving TESTS WITH PARENTHESIS: " << std::endl << std::endl;
+
+    solveExpressionParenthesis_AdditionAndMinusTests();
+
+    //solveExpressionNoParenthesis_MultiplyTests();
+    //
+    //solveExpressionNoParenthesis_DivideTests();
+    //
+    //solveExpressionNoParenthesis_PercentTests();
+}
+
 int main()
 {
     //BigNumber tests
@@ -329,6 +396,9 @@ int main()
     //Big 4 tests
     //expressionBig4Tests();
 
-    //Solving expression tests
+    //Solving expression tests without parenthesis
     solveExpressionNoParenthesisTests();
+
+    //Solving expression tests with parenthesis
+    //solveExpressionParenthesisTests();
 }
