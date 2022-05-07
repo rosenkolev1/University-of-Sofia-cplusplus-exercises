@@ -68,6 +68,8 @@ BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& o
 
 BigNumberExpression::BigNumberExpression(const char* expression)
 {
+	if (!expressionIsValid(expression)) throw "The expression that you are trying to set is invalid";
+
 	size_t expressionSize = strlen(expression) + 1;
 	this->capacity = expressionSize;
 	this->expression = new char[this->capacity];
@@ -77,6 +79,21 @@ BigNumberExpression::BigNumberExpression(const char* expression)
 const char* BigNumberExpression::getExpression() const
 {
 	return this->expression;
+}
+
+void BigNumberExpression::setExpression(const char* expression)
+{
+	if (!expressionIsValid(expression)) throw "The expression that you are trying to set is invalid";
+
+	size_t capacityOfNewExpression = strlen(expression) + 1;
+	//Resize expression if needed
+	if (capacityOfNewExpression> this->capacity)
+	{
+		this->capacity = capacityOfNewExpression;
+		delete[] this->expression;
+		this->expression = new char[this->capacity];
+	}
+	strcpy(this->expression, expression);
 }
 
 BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
@@ -423,6 +440,16 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 {
 	if (expression == nullptr) expression = this->getExpression();
 
+	//Check if the expression contains something other than the operators, parenthesis or digits
+	for (size_t i = 0; i < strlen(expression); i++)
+	{
+		char symbol = expression[i];
+		if (symbol != '+' && symbol != '-' && symbol != '*' && symbol != '/' && symbol != '%' && symbol != '(' && symbol != ')' && !isdigit(symbol))
+		{
+			return false;
+		}
+	}
+
 	//Check if the expression contains +++, ++-, +-+, +--, -++, -+-, --+, ---. If it does, then it is invalid
 	//Check if the expression contains: **, */, *%, /*, //, /%, %*, %/, %%. If it does, then it is invalid
 	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
@@ -701,4 +728,34 @@ void BigNumberExpression::generateExpression()
 	delete[] this->expression;
 	this->expression = expression;
 	this->capacity = strlen(expression) + 1;
+}
+
+std::istream& operator>>(std::istream& is, BigNumberExpression& expression)
+{
+	//Let's just agree that an expression larger than 10000 symbols cannot occur.
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
+
+	expression.setExpression(textLine);
+
+	return is;
+}
+
+std::ostream& operator<<(std::ostream& os, BigNumberExpression& expression)
+{
+	os << "This is the expression: " << expression.getExpression() << std::endl;
+	os << "And this is the answer: " << expression.evaluteExpression() << std::endl;
+
+	return os;
+}
+
+std::ifstream& operator>>(std::ifstream& is, BigNumberExpression& expression)
+{
+	//Let's just agree that an expression larger than 10000 symbols cannot occur.
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
+
+	expression.setExpression(textLine);
+
+	return is;
 }

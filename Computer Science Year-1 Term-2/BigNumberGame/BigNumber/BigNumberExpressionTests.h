@@ -30,6 +30,8 @@ public:
 		   
 	static void generateExpressionTests();
 		   
+	static void readFromAndWriteToConsoleTests();
+
 	static void runTests();
 };
 

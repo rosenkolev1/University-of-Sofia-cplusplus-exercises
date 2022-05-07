@@ -1,5 +1,7 @@
 #pragma once
 #include "BigNumber.h"
+#include <ostream>
+#include <fstream>
 
 class BigNumberExpression
 {
@@ -30,6 +32,9 @@ public:
 	//Get the equation as read-only
 	const char* getExpression() const;
 
+	//Set the equation
+	void setExpression(const char* expression);
+
 	//Return the answer to an expression
 	BigNumber evaluteExpression(const char* expression = nullptr) const;
 
@@ -37,5 +42,10 @@ public:
 
 	//Randomly generate a new expression
 	void generateExpression();
+
+	//Reading and outputting expressions to text file or console
+	friend std::istream& operator>> (std::istream& is, BigNumberExpression& expression);
+	friend std::ostream& operator<< (std::ostream& is, BigNumberExpression& expression);
+	friend std::ifstream& operator>> (std::ifstream& is, BigNumberExpression& expression);
 };
 

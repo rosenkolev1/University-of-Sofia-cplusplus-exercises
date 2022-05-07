@@ -624,17 +624,32 @@ void BigNumberExpressionTests::generateExpressionTests()
     }
 }
 
+void BigNumberExpressionTests::readFromAndWriteToConsoleTests()
+{
+    BigNumberExpression expression1 = BigNumberExpression();
+    BigNumberExpression expression2 = BigNumberExpression();
+    std::cout << "Enter expression1: ";
+    std::cin >> expression1;
+    std::cout << "Enter expression2: " << std::endl;;
+    std::cin >> expression2;
+    std::cout << expression1;
+    std::cout << expression2;
+}
+
 void BigNumberExpressionTests::runTests()
 {
-   //Big 4 tests
-   expressionBig4Tests();
+    ////Big 4 tests
+    //expressionBig4Tests();
+    //
+    ////Solving expression tests without parenthesis
+    //solveExpressionNoParenthesisTests();
+    //
+    ////Solving expression tests with parenthesis
+    //solveExpressionParenthesisTests();
+    //
+    ////Generating expressions tests
+    //generateExpressionTests();
 
-   //Solving expression tests without parenthesis
-   solveExpressionNoParenthesisTests();
-   
-   //Solving expression tests with parenthesis
-   solveExpressionParenthesisTests();
-
-   //Generating expressions tests
-    generateExpressionTests();
+    //Read from and Write to console tests
+    readFromAndWriteToConsoleTests();
 }
