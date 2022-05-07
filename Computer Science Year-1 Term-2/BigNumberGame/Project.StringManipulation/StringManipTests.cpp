@@ -232,7 +232,6 @@ void StringManipTests::splitByStringTests()
 
 
 }
-//TODO: DELETE DYNAMIC MEMORY DURING TESTS LOL
 
 void StringManipTests::stringContainsTests()
 {

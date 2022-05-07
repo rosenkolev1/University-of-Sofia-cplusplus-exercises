@@ -677,7 +677,7 @@ void BigNumberExpressionTests::runTests()
     //solveExpressionParenthesisTests();
     //
     ////Generating expressions tests
-    generateExpressionTests();
+    //generateExpressionTests();
 
     //Read from and Write to console tests
     //readFromAndWriteToConsoleTests();

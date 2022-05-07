@@ -1601,6 +1601,16 @@ void BigNumberTests::getNumberRawTests()
     std::cout << std::endl;
 }
 
+void BigNumberTests::getNumberMemoryLeakTest()
+{
+    std::cout << "Start...";
+    BigNumber memoryLeakExpression("10");
+    while (true)
+    {
+        const char* answer = memoryLeakExpression.getNumber();
+    }
+}
+
 void BigNumberTests::runTests()
 {
     // CONSTRUCTOR TESTS
@@ -1656,17 +1666,21 @@ void BigNumberTests::runTests()
     
     // %= Operator tests
     OperatorPercentAndEqualsTests();
-    
-    // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
-    //OperatorDivideAndPercentMemoryLeakTests();
+   
     
     // Test inputs from Pesho and Lubo
     PeshoAndLuboTests();
     
     //Special Tests
     SpecialTests();
-
+    
     //Tests for getter of number
     getNumberTests();
     getNumberRawTests();
+
+    // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
+    //OperatorDivideAndPercentMemoryLeakTests();
+
+    ////Test for getNumber memory leak. PROCEED WITH CAUTION!!!
+    ////getNumberMemoryLeakTest();
 }

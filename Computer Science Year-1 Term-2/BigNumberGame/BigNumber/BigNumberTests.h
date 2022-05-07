@@ -38,6 +38,9 @@ public:
 	static void getNumberTests();
 	static void getNumberRawTests();
 
+	//Test for getNumber memory leak
+	static void getNumberMemoryLeakTest();
+
 	static void runTests();
 };
 
