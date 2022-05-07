@@ -332,7 +332,7 @@ char* StringManip::replaceAll(const char* text, const char* replaced, const char
 
 int StringManip::findIndex(const char* text, const char* searchText)
 {
-    size_t searchTextFoundIndex = 0;
+    int searchTextFoundIndex = 0;
     for (size_t i = 0; i < strlen(text); i++)
     {
         if (text[i] == searchText[0])
@@ -362,10 +362,27 @@ int StringManip::findIndex(const char* text, const char* searchText)
     return -1;
 }
 
+int StringManip::findIndex(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
+{
+    if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
+    if (startIndex > endIndex) return -1;
+    char* textPart = new char[endIndex - startIndex + 2];
+    textPart[endIndex - startIndex + 1] = '\0';
+    for (size_t i = startIndex; i <= endIndex; i++)
+    {
+        textPart[i - startIndex] = text[i];
+    }
+
+    int firstIndex = findIndex(textPart, searchText);
+    //Delete dynamic memory
+    delete[] textPart;
+    return firstIndex > -1 ? firstIndex + startIndex : -1;
+}
+
 int StringManip::findIndexLast(const char* text, const char* searchText)
 {
-    size_t searchTextFoundIndex = 0;
-    size_t searchTextFoundLastIndex = 0;
+    int searchTextFoundIndex = 0;
+    int searchTextFoundLastIndex = 0;
     bool searchTextHasBeenFound = false;
     for (size_t i = 0; i < strlen(text); i++)
     {
@@ -395,4 +412,58 @@ int StringManip::findIndexLast(const char* text, const char* searchText)
 
     // If we get -1, then the searchText wasn't found within text
     return searchTextFoundIndex;
+}
+
+int StringManip::findIndexLast(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
+{
+    if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
+    if (startIndex > endIndex) return -1;
+
+    char* textPart = new char[endIndex - startIndex + 2];
+    textPart[endIndex - startIndex + 1] = '\0';
+    for (size_t i = startIndex; i <= endIndex; i++)
+    {
+        textPart[i - startIndex] = text[i];
+    }
+
+    int lastIndex = findIndexLast(textPart, searchText);
+    //Delete dynamic memory
+    delete[] textPart;
+    return lastIndex > -1 ? lastIndex + startIndex : -1;
+}
+
+int StringManip::countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
+{
+    if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
+    if (startIndex > endIndex) return 0;
+
+    size_t searchTextFoundCounter = 0;
+    bool searchTextHasBeenFound = false;
+
+    for (size_t i = startIndex; i <= endIndex; i++)
+    {
+        if (text[i] == searchText[0])
+        {
+            bool stringIsFound = true;
+            for (size_t y = 1; y < strlen(searchText); y++)
+            {
+                if (text[i + y] != searchText[y])
+                {
+                    stringIsFound = false;
+                    break;
+                }
+                if (i + y == strlen(text) - 1 && y + 1 < strlen(searchText))
+                {
+                    stringIsFound = false;
+                    break;
+                }
+            }
+            if (stringIsFound)
+            {
+                searchTextFoundCounter++;
+            }
+        }
+    }
+
+    return searchTextFoundCounter;
 }

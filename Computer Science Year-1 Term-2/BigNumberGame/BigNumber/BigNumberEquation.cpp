@@ -1,5 +1,7 @@
 #include "BigNumberEquation.h"
 #include "..\Project.StringManipulation\StringManip.h"
+#include <cstddef>
+#include <limits>
 
 void BigNumberExpression::copy(const BigNumberExpression& other)
 {
@@ -79,14 +81,6 @@ const char* BigNumberExpression::getExpression() const
 
 BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 {
-	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
-	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
-	//bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
-	//	StringManip::stringStartsWith(expression, "-+") ||
-	//	StringManip::stringEndsWith(expression, "+-") ||
-	//	StringManip::stringEndsWith(expression, "-+");
-	//if (invalidExpression) throw "Invalid Expression";
-
 	if (expression == nullptr)
 	{
 		expression = this->getExpression();
@@ -94,6 +88,9 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 
 	//Remove all the whitespaces
 	expression = StringManip::replaceAll(expression, " ", "");
+
+	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
+	expressionIsValid(expression); 
 
 	//Start resolving all the parenthesis in the expression until none are left
 	//If there are none, at least run the necessary in all cases things first. Hence why this is a do, while expression instead of a simple while expression
@@ -422,6 +419,178 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 	return BigNumber();
 }
 
+bool BigNumberExpression::expressionIsValid(const char* expression) const
+{
+	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
+	//bool invalidExpression = StringManip::stringStartsWith(expression, "+-") ||
+	//	StringManip::stringStartsWith(expression, "-+") ||
+	//	StringManip::stringEndsWith(expression, "+-") ||
+	//	StringManip::stringEndsWith(expression, "-+");
+	//if (invalidExpression) throw "Invalid Expression"; 
+	return false;
+}
+
+char BigNumberExpression::generateOperator(int seed)
+{
+	if (seed == 4) return '%';
+	else if (seed == 3) return '/';
+	else if (seed == 2) return '*';
+	else if (seed == 1) return '-';
+	else if (seed == 0) return '+';
+}
+
+char BigNumberExpression::generateOpeningParenthesis(int seed)
+{
+	if (seed > 7) return '(';
+	else if (seed >= 0) return '#';
+}
+
+char BigNumberExpression::generateClosingParenthesis(int seed)
+{
+	return 0;
+}
+
 void BigNumberExpression::generateExpression()
 {
+	int computerNumber = 0;
+	srand(time(NULL));
+
+	//Decide all of the operators and the parenthesis
+	//+ - * / % ( E
+	//0 1 2 3 4 5 6
+	computerNumber = rand() % 20;
+	size_t countOfOperators = -1;
+
+	//Determine the count of the operators
+	if (computerNumber >= 18) countOfOperators = 10;
+	else if(computerNumber >= 16) countOfOperators = 9;
+	else if (computerNumber >= 14) countOfOperators = 8;
+	else if (computerNumber >= 12) countOfOperators = 7;
+	else if (computerNumber >= 10) countOfOperators = 6;
+	else if (computerNumber >= 8) countOfOperators = 5;
+	else if (computerNumber >= 6) countOfOperators = 4;
+	else if (computerNumber >= 4) countOfOperators = 3;
+	else if (computerNumber >= 2) countOfOperators = 2;
+	else if (computerNumber >= 0) countOfOperators = 1;
+
+	char* operators = new char[countOfOperators + 1];
+	operators[countOfOperators] = '\0';
+	//size_t operatorIndex = 0;
+	for (size_t i = 0; i < countOfOperators; i++)
+	{
+		// Determine the operators
+		computerNumber = rand() % 5;
+
+		operators[i] = generateOperator(computerNumber);
+	}
+
+	//Generate a new expression without parenthesis
+	size_t newExpressionMaxLength = (countOfOperators * 2 + 1) * 2;
+	char* expression = new char[newExpressionMaxLength];
+	for (size_t i = 0; i < newExpressionMaxLength; i++)
+	{
+		if (i % 2 == 0)
+		{
+			expression[i] = '_';
+		}
+		else if (i % 4 == 1)
+		{
+			expression[i] = 'x';
+		}
+		else if (i % 4 == 3)
+		{
+			expression[i] = operators[i / 3 - 1];
+		}
+	}
+
+	// Opening parenthesis --> _x+_x-_x
+	// Closing parenthesis --> x_+x_-x_
+	// _x_+_x_-_x_ ---> (x_+_x_-_x_ ---> (x_+_x)-_x_
+	// (x+)x-_x
+	char* openingParenthesis = new char[countOfOperators + 2];
+	openingParenthesis[countOfOperators + 1] = '\0';
+	size_t openParenthesisCount = 0;
+
+	//Randomly generate the opening parenthesis amongst the opening parenthesis spots
+	for (size_t i = 0; i < strlen(openingParenthesis); i++)
+	{
+		computerNumber = rand() % 10;
+		openingParenthesis[i] = generateOpeningParenthesis(computerNumber);
+		if (openingParenthesis[i] == '(') openParenthesisCount++;
+	}
+
+	//Randomly generate the closing parenthesis amongst the closing parenthesis spots. Be careful to close out all opening parenthesis with closing ones.
+	char* closingParenthesis = new char[countOfOperators + 2];
+	closingParenthesis[countOfOperators + 1] = '\0';
+	for (size_t i = 0; i < strlen(closingParenthesis); i++)
+	{
+		closingParenthesis[i] = '_';
+	}
+
+	//size_t lastOpenParenthesis = strlen(openingParenthesis);
+	size_t lastOpenParenthesisIndex = strlen(openingParenthesis);
+	while (openParenthesisCount > 0)
+	{
+		lastOpenParenthesisIndex = StringManip::findIndexLast(openingParenthesis, "(", 0, lastOpenParenthesisIndex);
+		size_t firstOpenParenthesisIndex = StringManip::findIndex(openingParenthesis, "(");
+
+		//These are all of the valid closing parenthesis spots, i.e. the ones which are not before any opening parenthesis
+		size_t closingParenthesisSpotsLeft = StringManip::countOf(closingParenthesis, "_", firstOpenParenthesisIndex, strlen(closingParenthesis));
+
+		//These are all of the valid closing parenthesis spots which are located to the right of the rightmost open parenthesis
+		size_t closingParenthesisSpotsLeftForLastOpenParenthesis = StringManip::countOf(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis));
+
+		//If there are exactly as many spots left for closing parenthesis as there are opening parenthesis left unclosed, where the closing parenthesis spots
+		// are all located to the right of the leftmost opening parenthesis, then there is no room for randomisation.
+		//In that case, fill in the remaining closingParenthesis spots with closing parenthesis	
+		if (closingParenthesisSpotsLeft == openParenthesisCount)
+		{
+			for (size_t i = firstOpenParenthesisIndex; i < strlen(closingParenthesis); i++)
+			{
+				if (closingParenthesis[i] == '_')
+				{
+					closingParenthesis[i] = ')';
+					openParenthesisCount--;
+				}
+			}
+		}
+		//If there is only one available spot for a closing parenthesis to the right of the rightmost open parenthesis, then there is no room for randomisation
+		//In this case, fill the remaining spot with the closing parenthesis
+		else if (closingParenthesisSpotsLeftForLastOpenParenthesis == 1)
+		{
+			size_t remainingClosingParenthesisSpot = StringManip::findIndex(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis));
+			closingParenthesis[remainingClosingParenthesisSpot] = ')';
+			openParenthesisCount--;
+		}
+		//Otherwise, try to randomly put a closing bracket in one of the closing parenthesis spots which is to the right of the rightmost opened parenthesis
+		//Cycle the loop until the random generator finally generates a closing parenthesis on one of the available closing parenthesis spots
+		while (true)
+		{
+			computerNumber = rand() % closingParenthesisSpotsLeftForLastOpenParenthesis + lastOpenParenthesisIndex;
+			size_t closingParenthesisSpotIndex = computerNumber;
+			if (closingParenthesis[closingParenthesisSpotIndex] == '_')
+			{
+				closingParenthesis[closingParenthesisSpotIndex] = ')';
+				openParenthesisCount--;
+				break;
+			}
+		}
+	}
+
+	//Create the expression with operators and parenthesis set, but with unknown numbers
+	for (size_t i = 0; i < strlen(expression); i++)
+	{
+		//If i % 4 == 0, then this is an opening parenthesis spot
+		if (i % 4 == 0 && openingParenthesis[i / 4] == '(') expression[i] = '(';
+		//If i % 4 == 0, then this is an closing parenthesis spot
+		else if (i % 4 == 2 && closingParenthesis[i / 4] == ')') expression[i] = ')';
+	}
+
+	//Replace the remaining free parenthesis spots with empty spaces
+	char* removeWhitespaces = StringManip::replaceAll(expression, "_", "");
+	delete[] expression;
+	expression = removeWhitespaces;
+
+	//Debug shit to check if my function works properly
+	std::cout << expression;
 }

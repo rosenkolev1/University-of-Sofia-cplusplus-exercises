@@ -31,8 +31,17 @@ public:
 	//Returns the index of the first occurance of searchText in text. Returns -1 if searchText isn't found inside text
 	static int findIndex(const char* text, const char* searchText);
 
+	//Returns the index of the first occurance of searchText in text, starting from startIndex and ending in endIndex, both inclusive. Returns -1 if searchText isn't found inside text
+	static int findIndex(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
+
 	//Returns the index of the last occurance of searchText in text. Returns -1 if searchText isn't found inside text
 	static int findIndexLast(const char* text, const char* searchText);
+
+	//Returns the index of the last occurance of searchText in text, starting from startIndex and ending in endIndex, both inclusive. Returns -1 if searchText isn't found inside text
+	static int findIndexLast(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
+
+	//Returns the count of searchText in text, starting from startIndex and ending in endIndex, both inclusive
+	static int countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
 };
 
 //TODO: Decide what to do with the string contains invalid chars function, which doesn't belong here. Maybe make the string contains invalid chars accept the invalid chars as a parameter instead of the GlobalConstants being programmed in statically inside the function

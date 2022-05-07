@@ -309,6 +309,30 @@ void testFindIndexInputTwo()
     std::cout << std::endl;
 }
 
+void testFindIndexInputThree()
+{
+    char input[] = "aab";
+    char otherInput[] = "asvbraaabppab";
+    int startIndex = 3;//  |braaab|
+    int endIndex = 8;
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\" from "<< startIndex << " to " << endIndex << ": Expected(6) ==> ";
+    std::cout << StringManip::findIndex(otherInput, input, startIndex, endIndex);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void testFindIndexInputFour()
+{
+    char input[] = "aab";
+    char otherInput[] = "asvbraaabppab";
+    int startIndex = 3;//  |braaa|
+    int endIndex = 7;
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\" from " << startIndex << " to " << endIndex << ": Expected(-1) ==> ";
+    std::cout << StringManip::findIndex(otherInput, input, startIndex, endIndex);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 //Test the findIndexLast function
 void testFindIndexLastInputOne()
 {
@@ -326,6 +350,65 @@ void testFindIndexLastInputTwo()
     char otherInput[] = "abbaababcabbaaabcabccabab";
     std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\": Expected(17) ==> ";
     std::cout << StringManip::findIndexLast(otherInput, input);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void testFindIndexLastInputThree()
+{
+    char input[] = "aab";
+    char otherInput[] = "asvbraaabppabaabbbbaabaabbaab";
+    int startIndex = 6;  //   |aabppabaabbbbaab|
+    int endIndex = 21;
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\" from " << startIndex << " to " << endIndex << ": Expected(19) ==> ";
+    std::cout << StringManip::findIndexLast(otherInput, input, startIndex, endIndex);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void testFindIndexLastInputFour()
+{
+    char input[] = "aab";
+    char otherInput[] = "asvbraaabppabaabbbbaabaabbaab";
+    int startIndex = 6;  //   |aabppabaabbbbaa|
+    int endIndex = 20;
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\" from " << startIndex << " to " << endIndex << ": Expected(13) ==> ";
+    std::cout << StringManip::findIndexLast(otherInput, input, startIndex, endIndex);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void countOfTests()
+{
+    std::cout << "TESTING countOf STRING FUNCTION: " << std::endl;
+    
+    //TEST 1
+    char input1[] = "aab";
+    char otherInput1[] = "braaabppabaabbbbaabaabbaab";
+    int startIndex1 = 0;  
+    int endIndex1 = 25;
+    std::cout << "Testing how many times the string \"" << input1 << "\" is contained within \"" << otherInput1 << "\" from " << startIndex1 << " to " << endIndex1 << ": Expected(5) ==> ";
+    std::cout << StringManip::countOf(otherInput1, input1, startIndex1, endIndex1);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    char input2[] = "xx";
+    char otherInput2[] = "braaabppabaabbbbaabaabbaab";
+    int startIndex2 = 0;
+    int endIndex2 = 25;
+    std::cout << "Testing how many times the string \"" << input2 << "\" is contained within \"" << otherInput2 << "\" from " << startIndex2 << " to " << endIndex2 << ": Expected(0) ==> ";
+    std::cout << StringManip::countOf(otherInput2, input2, startIndex2, endIndex2);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    char input3[] = "(";
+    char otherInput3[] = "(())((()))";
+    int startIndex3 = 5;
+    int endIndex3 = 9;
+    std::cout << "Testing how many times the string \"" << input3 << "\" is contained within \"" << otherInput3 << "\" from " << startIndex3 << " to " << endIndex3 << ": Expected(2) ==> ";
+    std::cout << StringManip::countOf(otherInput3, input3, startIndex3, endIndex3);
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -359,19 +442,27 @@ int main()
     //testContainsInputOne();
     //testContainsInputTwo();
 
-    //Testing replaceAll function of string
-    std::cout << "TESTING replaceAll STRING FUNCTION: " << std::endl;
-    testReplaceAllInputOne();
-    testReplaceAllInputTwo();
+    ////Testing replaceAll function of string
+    //std::cout << "TESTING replaceAll STRING FUNCTION: " << std::endl;
+    //testReplaceAllInputOne();
+    //testReplaceAllInputTwo();
 
-    //Testing findIndex function of string
-    std::cout << "TESTING findIndex STRING FUNCTION: " << std::endl;
-    testFindIndexInputOne();
-    testFindIndexInputTwo();
+    ////Testing findIndex function of string
+    //std::cout << "TESTING findIndex STRING FUNCTION: " << std::endl;
+    //testFindIndexInputOne();
+    //testFindIndexInputTwo();
+    //testFindIndexInputThree();
+    //testFindIndexInputFour();
+    //
+    ////Testing findIndexLast function of string
+    //std::cout << "TESTING findIndexLast STRING FUNCTION: " << std::endl;
+    //testFindIndexLastInputOne();
+    //testFindIndexLastInputTwo();
+    //testFindIndexLastInputThree();
+    //testFindIndexLastInputFour();
 
-    //Testing findIndexLast function of string
-    std::cout << "TESTING findIndexLast STRING FUNCTION: " << std::endl;
-    testFindIndexLastInputOne();
-    testFindIndexLastInputTwo();
+    // Testing countOf function
+    countOfTests();
+
 }
 

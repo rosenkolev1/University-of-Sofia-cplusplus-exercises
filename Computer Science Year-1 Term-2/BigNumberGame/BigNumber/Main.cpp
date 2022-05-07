@@ -602,6 +602,18 @@ void solveExpressionParenthesisTests()
     solveExpressionParenthesis_PercentTests();
 }
 
+void generateExpressionTests()
+{
+    std::cout << "Generate expression TESTS" << std::endl << std::endl;
+
+    std::cout << "TEST 1: " << std::endl;
+    BigNumberExpression expression1 = BigNumberExpression();
+    std::cout << "Testing the generating of an expression -> (";
+    expression1.generateExpression();
+    std::cout << ").Expected: TRUE"; //TODO: Create a function which checks if a generate expression is valid
+    std::cout << std::endl;
+}
+
 int main()
 {
     //BigNumber tests
@@ -611,8 +623,8 @@ int main()
     //expressionBig4Tests();
 
     //Solving expression tests without parenthesis
-    solveExpressionNoParenthesisTests();
-
-    //Solving expression tests with parenthesis
-    solveExpressionParenthesisTests();
+    //solveExpressionNoParenthesisTests();
+    //
+    ////Solving expression tests with parenthesis
+    //solveExpressionParenthesisTests();
 }
