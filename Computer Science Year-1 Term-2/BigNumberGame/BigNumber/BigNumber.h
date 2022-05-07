@@ -87,6 +87,8 @@ public:
 	friend std::ostream& operator<< (std::ostream& os, const BigNumber& other);
 
 	//Printing shit
+	const char* getNumber() const;
+	const char* getNumberRaw() const;
 	void printOutNumber() const;
 	void printOutNumberRaw() const;
 

@@ -796,8 +796,7 @@ BigNumber& BigNumber::operator%=(const BigNumber& other)
 	return *this;
 }
 
-//Printing shit and reading shit
-void BigNumber::printOutNumber() const
+const char* BigNumber::getNumber() const
 {
 	//Cacluclate comma spacings
 	bool addCommas = this->size >= 5;
@@ -807,25 +806,57 @@ void BigNumber::printOutNumber() const
 	int commaCounter = leftOverDigitSpaces != 0 ? threeDigitSpaces : threeDigitSpaces - 1;
 	int commaStep = initialDigitsSpaces;
 
-	if (this->sign == -1) std::cout << '-';
+	//Get the number string size and create it
+	size_t numberStringSize = this->size + commaCounter;
+	if (this->sign == -1) numberStringSize++;
+	char* numberString = new char[numberStringSize + 1];
+	numberString[numberStringSize] = '\0';
+	size_t numberStringIndex = 0;
+
+	if (this->sign == -1) numberString[numberStringIndex++] = '-';
 	for (long long int i = this->size - 1; i >= 0; i--)
 	{
-		std::cout << this->number[i];
+		numberString[numberStringIndex++] = this->number[i];
 		commaStep--;
 		if (commaStep == 0 && commaCounter > 0 && addCommas)
 		{
-			std::cout << ",";
+			numberString[numberStringIndex++] = ',';
 			commaCounter--;
 			commaStep = 3;
 		}
 	}
-	std::cout << std::endl;
+	return numberString;
+}
+
+const char* BigNumber::getNumberRaw() const
+{
+	//Get the number string size and create it
+	size_t numberStringSize = this->size;
+	if (this->sign == -1) numberStringSize++;
+	char* numberString = new char[numberStringSize + 1];
+	numberString[numberStringSize] = '\0';
+	size_t numberStringIndex = 0;
+
+	if (this->sign == -1) numberString[numberStringIndex++] = '-';
+	for (long long int i = this->size - 1; i >= 0; i--)
+	{
+		numberString[numberStringIndex++] = this->number[i];
+	}
+
+	return numberString;
+}
+
+//Printing shit and reading shit
+void BigNumber::printOutNumber() const
+{
+	const char* numberTextVerbose = getNumber();
+	std::cout << numberTextVerbose << std::endl;
 }
 
 void BigNumber::printOutNumberRaw() const
 {
-	if (this->sign == -1) std::cout << '-';
-	std::cout << this->number;
+	const char* numberTextRaw = getNumberRaw();
+	std::cout << numberTextRaw << std::endl;
 }
 
 std::istream& operator>>(std::istream& cin, BigNumber& other)

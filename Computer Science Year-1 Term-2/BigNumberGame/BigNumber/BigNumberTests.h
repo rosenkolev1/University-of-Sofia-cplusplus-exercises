@@ -34,6 +34,10 @@ public:
 	//Tests for copying shit correctly without access violation reading exceptions or memory leaks
 	static void SpecialTests();
 
+	//Tests for getter of number
+	static void getNumberTests();
+	static void getNumberRawTests();
+
 	static void runTests();
 };
 

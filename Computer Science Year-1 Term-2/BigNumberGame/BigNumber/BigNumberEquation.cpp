@@ -77,7 +77,7 @@ const char* BigNumberExpression::getExpression() const
 	return this->expression;
 }
 
-BigNumber BigNumberExpression::evaluteExpression() const
+BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 {
 	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
 	//Check if expression starts with +- or -+ or ends with them. If it does, then it's invalid
@@ -87,10 +87,13 @@ BigNumber BigNumberExpression::evaluteExpression() const
 	//	StringManip::stringEndsWith(expression, "-+");
 	//if (invalidExpression) throw "Invalid Expression";
 
-	char* expression = nullptr;
+	if (expression == nullptr)
+	{
+		expression = this->getExpression();
+	}
 
 	//Remove all the whitespaces
-	expression = StringManip::replaceAll(this->getExpression(), " ", "");
+	expression = StringManip::replaceAll(expression, " ", "");
 
 	//Replace all the instances of +-,-+, -- inside the string
 	char* expressionOne = StringManip::replaceAll(expression, "+-", "-");
@@ -105,12 +108,39 @@ BigNumber BigNumberExpression::evaluteExpression() const
 	delete[] expressionOne;
 
 	//Check for parentheses
-	bool parenthesisExist = StringManip::findIndex(expression, "(") > -1;
+	bool parenthesisExist = StringManip::stringContains(expression, "(");
 
 	//If parenthesis exist, then evaluate the expressions in the parentheses and then try to evaluate the whole expression again until the parentheses are removed
 	if (parenthesisExist)
 	{
-		//TODO: implement parenthesis logic
+		//Find the indexes of the rightmost opening parenthesis and it's closing parenthesis
+		int lastOpeningParenthesis = StringManip::findIndexLast(expression, "(");
+		int closingParenthesis = -1;
+		for (size_t i = lastOpeningParenthesis + 1; i < strlen(expression); i++)
+		{
+			if (expression[i] == ')')
+			{
+				closingParenthesis = i;
+			}
+		}
+
+		//Get the expression inside the parenthesis
+		char* parenthesisExpression = new char[closingParenthesis - lastOpeningParenthesis + 1];
+		parenthesisExpression[closingParenthesis - lastOpeningParenthesis] = '\0';
+		for (size_t i = lastOpeningParenthesis + 1; i < closingParenthesis; i++)
+		{
+			parenthesisExpression[i - lastOpeningParenthesis - 1] = expression[i];
+		}
+
+		//Calculate the new expression
+		BigNumber expressionResult = this->evaluteExpression();
+
+		//Create the new expression
+		char* expressionPartOne = new char[lastOpeningParenthesis + 1];
+		expressionPartOne[lastOpeningParenthesis] = '\0';
+
+		char* expressionPartTwo = new char[lastOpeningParenthesis + 1];
+		expressionPartOne[lastOpeningParenthesis] = '\0';
 	}
 	else
 	{

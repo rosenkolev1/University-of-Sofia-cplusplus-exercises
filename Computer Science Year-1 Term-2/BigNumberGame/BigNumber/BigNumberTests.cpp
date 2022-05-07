@@ -1531,68 +1531,122 @@ void BigNumberTests::SpecialTests()
     std::cout << "Is copyOfOtherAnotherBigNumber2 == copyOfOtherAnotherBigNumber -> " << std::boolalpha << ((copyOfOtherBigNumber += copyOfAnotherBigNumber) == copyOfOtherAnotherBigNumber) << std::endl;
 }
 
+void BigNumberTests::getNumberTests()
+{
+    // getNumber() tests
+    std::cout << "getNumber() TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing getNumber() operator -> (0). Expected: 0: " << number1.getNumber();
+    std::cout << std::endl;
+
+    //TEST 2
+    BigNumber number2 = BigNumber("-55346");
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing getNumber() operator -> (-55346). Expected: -55,346: " << number2.getNumber();
+    std::cout << std::endl;
+
+    //TEST 3
+    BigNumber number3 = BigNumber("-123456789");
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing getNumber() operator -> (-123456789). Expected: -123,456,789: " << number3.getNumber();
+    std::cout << std::endl;
+}
+
+void BigNumberTests::getNumberRawTests()
+{
+    // getNumberRaw() tests
+    std::cout << "getNumberRaw() TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    BigNumber number1 = BigNumber();
+    std::cout << "TEST 1:" << std::endl;
+    std::cout << "Testing getNumberRaw() operator -> (0). Expected: 0: " << number1.getNumberRaw();
+    std::cout << std::endl;
+
+    //TEST 2
+    BigNumber number2 = BigNumber("-55346");
+    std::cout << "TEST 2:" << std::endl;
+    std::cout << "Testing getNumberRaw() operator -> (-55346). Expected: -55346: " << number2.getNumberRaw();
+    std::cout << std::endl;
+
+    //TEST 3
+    BigNumber number3 = BigNumber("-1234567890");
+    std::cout << "TEST 3:" << std::endl;
+    std::cout << "Testing getNumberRaw() operator -> (-1234567890). Expected: -1234567890: " << number3.getNumberRaw();
+    std::cout << std::endl;
+}
+
+
+
 void BigNumberTests::runTests()
 {
     // CONSTRUCTOR TESTS
-    ConstructorAndCopyAndAssignTests();
+    //ConstructorAndCopyAndAssignTests();
+    //
+    //// READING OPERATOR TESTS
+    ////ReadingOperatorTests();
+    //
+    //// ARITHMETIC AND COMPARATIVE OPERATORS TESTS
+    //std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
+    //
+    //// == Operator and != Operator Tests
+    //EqualsAndNotEqualsTests();
+    //
+    //// > Operator Tests
+    //OperatorGreaterThanTests();
+    //
+    //// >= Operator Tests
+    //OperatorGreaterThanOrEqualsTests();
+    //
+    //// < Operator Tests
+    //OperatorLessThanTests();
+    //
+    //// <= Operator Tests
+    //OperatorLessThanOrEqualsTests();
+    //
+    //// + Operator Tests
+    //OperatorSumTests();
+    //
+    //// += Operator Tests
+    //OperatorSumAndEqualsTests();
+    //
+    //// - Operator Tests
+    //OperatorMinusTests();
+    //
+    //// -= Operator Tests
+    //OperatorMinusAndEqualsTests();
+    //
+    //// * Operator Tests 
+    //OperatorMultiplyTests();
+    //
+    //// *= Operator Tests
+    //OperatorMultiplyAndEqualsTests();
+    //
+    //// Operator tests
+    //OperatorDivideTests();
+    //
+    ////= Operator tests
+    //OperatorDivideAndEqualsTests();
+    //
+    //// % Operator tests
+    //OperatorPercentTests();
+    //
+    //// %= Operator tests
+    //OperatorPercentAndEqualsTests();
+    //
+    //// / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
+    ////OperatorDivideAndPercentMemoryLeakTests();
+    //
+    //// Test inputs from Pesho and Lubo
+    //PeshoAndLuboTests();
+    //
+    ////Special Tests
+    //SpecialTests();
 
-    // READING OPERATOR TESTS
-    //ReadingOperatorTests();
-
-    // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
-    std::cout << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
-
-    // == Operator and != Operator Tests
-    EqualsAndNotEqualsTests();
-
-    // > Operator Tests
-    OperatorGreaterThanTests();
-
-    // >= Operator Tests
-    OperatorGreaterThanOrEqualsTests();
-
-    // < Operator Tests
-    OperatorLessThanTests();
-
-    // <= Operator Tests
-    OperatorLessThanOrEqualsTests();
-
-    // + Operator Tests
-    OperatorSumTests();
-
-    // += Operator Tests
-    OperatorSumAndEqualsTests();
-
-    // - Operator Tests
-    OperatorMinusTests();
-
-    // -= Operator Tests
-    OperatorMinusAndEqualsTests();
-
-    // * Operator Tests 
-    OperatorMultiplyTests();
-
-    // *= Operator Tests
-    OperatorMultiplyAndEqualsTests();
-
-    // Operator tests
-    OperatorDivideTests();
-
-    //= Operator tests
-    OperatorDivideAndEqualsTests();
-
-    // % Operator tests
-    OperatorPercentTests();
-
-    // %= Operator tests
-    OperatorPercentAndEqualsTests();
-
-    // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
-    //OperatorDivideAndPercentMemoryLeakTests();
-
-    // Test inputs from Pesho and Lubo
-    PeshoAndLuboTests();
-
-    //Special Tests
-    SpecialTests();
+    //Tests for getter of number
+    getNumberTests();
+    getNumberRawTests();
 }

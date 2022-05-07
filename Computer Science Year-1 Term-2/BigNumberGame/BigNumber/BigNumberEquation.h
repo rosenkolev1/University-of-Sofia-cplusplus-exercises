@@ -26,7 +26,7 @@ public:
 	const char* getExpression() const;
 
 	//Return the answer to an expression
-	BigNumber evaluteExpression() const;
+	BigNumber evaluteExpression(const char* expression = nullptr) const;
 
 	//Randomly generate a new expression
 	void generateExpression();

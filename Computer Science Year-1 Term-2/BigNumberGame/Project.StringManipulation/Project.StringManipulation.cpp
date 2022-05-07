@@ -293,7 +293,7 @@ void testFindIndexInputOne()
 {
     char input[] = "roskata123";
     char otherInput[] = "rrrrosenroskata123";
-    std::cout << "Testing if the string \"roskata123\" is contained within \"rrrrosenroskata123\": Expected(8) ==> ";
+    std::cout << "Testing if the string \""<< input <<"\" is contained within \""<< otherInput <<"\": Expected(8) ==> ";
     std::cout << StringManip::findIndex(otherInput, input);
     std::cout << std::endl;
     std::cout << std::endl;
@@ -305,6 +305,27 @@ void testFindIndexInputTwo()
     char otherInput[] = "aaab";
     std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\": Expected(1) ==> ";
     std::cout << StringManip::findIndex(otherInput, input);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+//Test the findIndexLast function
+void testFindIndexLastInputOne()
+{
+    char input[] = "(";
+    char otherInput[] = "((()))()";
+    std::cout << "Testing if the string \""<< input <<"\" is contained within \""<< otherInput <<"\": Expected(6) ==> ";
+    std::cout << StringManip::findIndexLast(otherInput, input);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void testFindIndexLastInputTwo()
+{
+    char input[] = "abc";
+    char otherInput[] = "abbaababcabbaaabcabccabab";
+    std::cout << "Testing if the string \"" << input << "\" is contained within \"" << otherInput << "\": Expected(17) ==> ";
+    std::cout << StringManip::findIndexLast(otherInput, input);
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -347,5 +368,10 @@ int main()
     std::cout << "TESTING findIndex STRING FUNCTION: " << std::endl;
     testFindIndexInputOne();
     testFindIndexInputTwo();
+
+    //Testing findIndexLast function of string
+    std::cout << "TESTING findIndexLast STRING FUNCTION: " << std::endl;
+    testFindIndexLastInputOne();
+    testFindIndexLastInputTwo();
 }
 

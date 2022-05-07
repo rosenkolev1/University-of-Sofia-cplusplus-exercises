@@ -45,71 +45,6 @@ char* StringManip::parseToString(int integer)
 char** StringManip::splitString(const char* input, char delim, size_t& sizeOfArray)
 {
     return splitString(input, &delim, sizeOfArray);
-    //size_t sizeOfInput = strlen(input);
-    //size_t numberOfStrings = 1;
-    //for (size_t i = 0; i < sizeOfInput; i++)
-    //{
-    //    if (input[i] == delim) numberOfStrings++;
-    //}
-
-    //char** arrayOfStrings = new char* [numberOfStrings];
-    //size_t* sizesOfStrings = new size_t[numberOfStrings];
-
-    ////Init sizesOfStrings
-    //for (size_t i = 0; i < numberOfStrings; i++)
-    //{
-    //    sizesOfStrings[i] = 0;
-    //}
-
-    ////Get the lengths of all the strings
-    //size_t sizeOfStringIndex = 0;
-    //for (size_t i = 0; i < sizeOfInput; i++)
-    //{
-    //    sizesOfStrings[sizeOfStringIndex]++;
-    //    if (input[i] == delim)
-    //    {
-    //        sizeOfStringIndex++;
-    //    }
-    //    else if (i == sizeOfInput - 1)
-    //    {
-    //        sizesOfStrings[sizeOfStringIndex]++;
-    //    }
-    //}
-
-    ////Init all of the strings and set their null terminator
-    //for (size_t i = 0; i < numberOfStrings; i++)
-    //{
-    //    size_t stringLength = sizesOfStrings[i];
-    //    arrayOfStrings[i] = new char[stringLength];
-    //    if (stringLength > 0)
-    //    {
-    //        arrayOfStrings[i][sizesOfStrings[i] - 1] = '\0';
-    //    }
-    //    else
-    //    {
-    //        arrayOfStrings[i][0] = '\0';
-    //    }
-    //}
-
-    //size_t currentStringIndex = 0;
-    //size_t stringCharsIndexOffset = 0;
-    //for (size_t i = 0; i < sizeOfInput; i++)
-    //{
-    //    if (input[i] == delim)
-    //    {
-    //        arrayOfStrings[currentStringIndex][i - stringCharsIndexOffset] = '\0';
-    //        stringCharsIndexOffset = i + 1;
-    //        currentStringIndex++;
-    //    }
-    //    else
-    //    {
-    //        arrayOfStrings[currentStringIndex][i - stringCharsIndexOffset] = input[i];
-    //    }
-    //}
-
-    //delete[] sizesOfStrings;
-    //sizeOfArray = numberOfStrings;
-    //return arrayOfStrings;
 }
 
 char** StringManip::splitString(const char* input, const char* delim, size_t& sizeOfArray)
@@ -395,7 +330,7 @@ char* StringManip::replaceAll(const char* text, const char* replaced, const char
     return finalText;
 }
 
-int StringManip::findIndex(char* text, const char* searchText)
+int StringManip::findIndex(const char* text, const char* searchText)
 {
     size_t searchTextFoundIndex = 0;
     for (size_t i = 0; i < strlen(text); i++)
@@ -425,4 +360,39 @@ int StringManip::findIndex(char* text, const char* searchText)
 
     //If we get to here, then the string hasn't been found
     return -1;
+}
+
+int StringManip::findIndexLast(const char* text, const char* searchText)
+{
+    size_t searchTextFoundIndex = 0;
+    size_t searchTextFoundLastIndex = 0;
+    bool searchTextHasBeenFound = false;
+    for (size_t i = 0; i < strlen(text); i++)
+    {
+        if (text[i] == searchText[0])
+        {
+            bool stringIsFound = true;
+            searchTextFoundLastIndex = searchTextFoundIndex;
+            searchTextFoundIndex = i;
+            for (size_t y = 1; y < strlen(searchText); y++)
+            {
+                if (text[i + y] != searchText[y])
+                {
+                    stringIsFound = false; 
+                    break;
+                }
+                if (i + y == strlen(text) - 1 && y + 1 < strlen(searchText))
+                {
+                    stringIsFound = false;
+                    break;
+                }
+            }
+            if (stringIsFound && !searchTextHasBeenFound) searchTextHasBeenFound = true;
+            else if (!stringIsFound && !searchTextHasBeenFound) searchTextFoundIndex = -1;
+            else if (!stringIsFound && searchTextHasBeenFound) searchTextFoundIndex = searchTextFoundLastIndex;
+        }
+    }
+
+    // If we get -1, then the searchText wasn't found within text
+    return searchTextFoundIndex;
 }
