@@ -330,5 +330,5 @@ int main()
     //expressionBig4Tests();
 
     //Solving expression tests
-    //solveExpressionNoParenthesisTests();
+    solveExpressionNoParenthesisTests();
 }

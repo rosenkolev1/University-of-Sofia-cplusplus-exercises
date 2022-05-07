@@ -33,13 +33,24 @@ BigNumber::BigNumber(const char* number)
 	}
 	if (otherNumberIsNegative) numberSize--;
 
-	this->capacity = numberSize;
-	this->size = numberSize;
-
 	//Set sign
 	if (otherNumberIsNegative) this->sign = -1;
-	else if (numberSize == 1 && number[0] == '0') this->sign = 0;
+	else if (numberSize == 1 && number[0] == '0' || numberSize == 0) this->sign = 0;
 	else this->sign = 1;
+
+	//If the number size is =0, then create the bigNumber as 0
+	if (numberSize == 0)
+	{
+		this->capacity = 2;
+		this->size = 1;
+		this->number = new char[2];
+		this->number[0] = '0';
+		this->number[1] = '\0';
+		return;
+	}
+
+	this->capacity = numberSize;
+	this->size = numberSize;
 
 	//Copy the reversed number into this->number
 	this->number = new __nothrow char[numberSize];
@@ -798,7 +809,7 @@ BigNumber& BigNumber::operator%=(const BigNumber& other)
 
 const char* BigNumber::getNumber() const
 {
-	//Cacluclate comma spacings
+	//Calculate comma spacings
 	bool addCommas = this->size >= 5;
 	int threeDigitSpaces = this->size / 3;
 	int leftOverDigitSpaces = this->size % 3;
@@ -808,6 +819,7 @@ const char* BigNumber::getNumber() const
 
 	//Get the number string size and create it
 	size_t numberStringSize = this->size + commaCounter;
+	if (!addCommas) numberStringSize -= commaCounter;
 	if (this->sign == -1) numberStringSize++;
 	char* numberString = new char[numberStringSize + 1];
 	numberString[numberStringSize] = '\0';

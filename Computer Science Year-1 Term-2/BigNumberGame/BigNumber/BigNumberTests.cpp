@@ -1553,6 +1553,12 @@ void BigNumberTests::getNumberTests()
     std::cout << "TEST 3:" << std::endl;
     std::cout << "Testing getNumber() operator -> (-123456789). Expected: -123,456,789: " << number3.getNumber();
     std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number4 = BigNumber("-1234");
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing getNumber() operator -> (-1234). Expected: -1234: " << number4.getNumber();
+    std::cout << std::endl;
 }
 
 void BigNumberTests::getNumberRawTests()
@@ -1577,13 +1583,17 @@ void BigNumberTests::getNumberRawTests()
     std::cout << "TEST 3:" << std::endl;
     std::cout << "Testing getNumberRaw() operator -> (-1234567890). Expected: -1234567890: " << number3.getNumberRaw();
     std::cout << std::endl;
+
+    //TEST 4
+    BigNumber number4 = BigNumber("-1234");
+    std::cout << "TEST 4:" << std::endl;
+    std::cout << "Testing getNumber() operator -> (-1234). Expected: -1234: " << number4.getNumberRaw();
+    std::cout << std::endl;
 }
-
-
 
 void BigNumberTests::runTests()
 {
-    // CONSTRUCTOR TESTS
+    //// CONSTRUCTOR TESTS
     //ConstructorAndCopyAndAssignTests();
     //
     //// READING OPERATOR TESTS
@@ -1646,7 +1656,7 @@ void BigNumberTests::runTests()
     ////Special Tests
     //SpecialTests();
 
-    //Tests for getter of number
-    getNumberTests();
-    getNumberRawTests();
+    ////Tests for getter of number
+    //getNumberTests();
+    //getNumberRawTests();
 }
