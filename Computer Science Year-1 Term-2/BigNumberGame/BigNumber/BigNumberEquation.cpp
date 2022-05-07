@@ -135,12 +135,13 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 			if (expression[i] == ')')
 			{
 				closingParenthesis = i;
+				break;
 			}
 		}
 
 		//Get the expression inside the parenthesis
-		char* parenthesisExpression = new char[closingParenthesis - lastOpeningParenthesis + 1];
-		parenthesisExpression[closingParenthesis - lastOpeningParenthesis] = '\0';
+		char* parenthesisExpression = new char[closingParenthesis - lastOpeningParenthesis];
+		parenthesisExpression[closingParenthesis - lastOpeningParenthesis - 1] = '\0';
 		for (size_t i = lastOpeningParenthesis + 1; i < closingParenthesis; i++)
 		{
 			parenthesisExpression[i - lastOpeningParenthesis - 1] = expression[i];
@@ -152,14 +153,20 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 		//Delete dynamic memory
 		delete[] parenthesisExpression;
 
-		//Create the new expression
+		//Create the new parts of the new expression
 		char* expressionPartOne = new char[lastOpeningParenthesis + 1];
+		strncpy(expressionPartOne, expression, lastOpeningParenthesis);
 		expressionPartOne[lastOpeningParenthesis] = '\0';
 
 		const char* expressionPartTwo = expressionResult.getNumberRaw();
+
 		//5+(7-9)+8
 		char* expressionPartThree = new char[strlen(expression) - closingParenthesis];
 		expressionPartThree[strlen(expression) - closingParenthesis - 1] = '\0';
+		for (size_t i = closingParenthesis + 1; i < strlen(expression); i++)
+		{
+			expressionPartThree[i - closingParenthesis - 1] = expression[i];
+		}
 
 		size_t newExpressionLength = strlen(expressionPartOne) + strlen(expressionPartTwo) + strlen(expressionPartThree) + 1;
 		char* newExpression = new char[newExpressionLength + 1];
@@ -178,7 +185,7 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 		delete[] expressionPartThree;
 		delete[] expressionPartTwo;
 		delete[] expressionPartOne;
-	} while (StringManip::stringContains(expression, "("));
+	} while (true);
 
 	//Get all the operators
 	size_t operatorsCapacity = 10;
