@@ -330,6 +330,53 @@ char* StringManip::replaceAll(const char* text, const char* replaced, const char
     return finalText;
 }
 
+char* StringManip::replaceFirst(const char* text, const char* replaced, const char* replacement)
+{
+    size_t countOfStrings = 0;
+    char** textStrings = splitString(text, replaced, countOfStrings);
+    size_t finalTextStringsCount = countOfStrings * 2 - 1;
+    char** finalTextStrings = new char* [finalTextStringsCount];
+    size_t textStringsIndex = 0;
+    
+    if (finalTextStringsCount >= 2)
+    {
+        finalTextStrings[0] = textStrings[textStringsIndex++];
+        finalTextStrings[1] = new char[strlen(replacement) + 1];
+        strcpy(finalTextStrings[1], replacement);
+
+        for (size_t i = 2; i < finalTextStringsCount; i++)
+        {
+            if (i % 2 == 0 )
+            {
+                finalTextStrings[i] = textStrings[textStringsIndex++];
+            }
+            else
+            {
+                finalTextStrings[i] = new char[strlen(replaced) + 1];
+                strcpy(finalTextStrings[i], replaced);
+            }
+        }
+    }
+    //If we get here, then there is nothing to replace so we return a copy of the text param
+    else
+    {
+        char* finalText = new char[strlen(text) + 1];
+        strcpy(finalText, text);
+        return finalText;
+    }
+    
+    char* finalText = concatStrings((const char**)finalTextStrings, finalTextStringsCount);
+
+    //Delete dynamic memory
+    for (size_t i = 0; i < finalTextStringsCount; i++)
+    {
+        delete[] finalTextStrings[i];
+    }
+    delete[] finalTextStrings;
+
+    return finalText;
+}
+
 int StringManip::findIndex(const char* text, const char* searchText)
 {
     int searchTextFoundIndex = 0;

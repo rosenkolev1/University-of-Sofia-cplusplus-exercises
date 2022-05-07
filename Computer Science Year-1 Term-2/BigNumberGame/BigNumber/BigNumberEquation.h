@@ -15,7 +15,7 @@ private:
 
 	char generateOperator(int seed);
 	char generateOpeningParenthesis(int seed);
-	char generateClosingParenthesis(int seed);
+	//char generateClosingParenthesis(int seed);
 public:
 
 	//Big 4

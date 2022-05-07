@@ -605,13 +605,17 @@ void solveExpressionParenthesisTests()
 void generateExpressionTests()
 {
     std::cout << "Generate expression TESTS" << std::endl << std::endl;
+    srand(time(NULL));
 
-    std::cout << "TEST 1: " << std::endl;
-    BigNumberExpression expression1 = BigNumberExpression();
-    std::cout << "Testing the generating of an expression -> (";
-    expression1.generateExpression();
-    std::cout << ").Expected: TRUE"; //TODO: Create a function which checks if a generate expression is valid
-    std::cout << std::endl;
+    for (size_t i = 0; i < 50; i++)
+    {
+        std::cout << "TEST "<< i <<": " << std::endl;
+        BigNumberExpression expression1 = BigNumberExpression();
+        std::cout << "Testing the generating of an expression --> ";
+        expression1.generateExpression();
+        std::cout << ".Expected: TRUE"; //TODO: Create a function which checks if a generate expression is valid
+        std::cout << std::endl;
+    }
 }
 
 int main()
@@ -627,4 +631,7 @@ int main()
     //
     ////Solving expression tests with parenthesis
     //solveExpressionParenthesisTests();
+
+    //Generating expressions tests
+    generateExpressionTests();
 }

@@ -248,7 +248,7 @@ void testContainsInputTwo()
 
 void testReplaceAllInputText(char input[], char* replaced, char* replacement)
 {
-    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement <<"\"" << std::endl;
+    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement << "\"" << std::endl;
 }
 
 //Test the replaceAll function
@@ -279,6 +279,75 @@ void testReplaceAllInputTwo()
     testReplaceAllInputText(input, replaced, replacement);
     char* output = StringManip::replaceAll(input, replaced, replacement);
     char expectedOutput[] = "+-13-+14-16+-132+54_1351";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
+void testReplaceAllInputThree()
+{
+    char input[] = "15+-13-+14-16+-132+54_15151351";
+    char replaced[] = "as";
+    char replacement[] = "";
+    size_t numberOfStrings = 0;
+    testReplaceAllInputText(input, replaced, replacement);
+    char* output = StringManip::replaceAll(input, replaced, replacement);
+    char expectedOutput[] = "15+-13-+14-16+-132+54_15151351";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
+void testReplaceFirstInputOne()
+{
+    char input[] = "15+-13-+14-16+-132+54";
+    char replaced[] = "+-";
+    char replacement[] = "REPLACED";
+    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement << "\" for the first occurance only" << std::endl;
+    char* output = StringManip::replaceFirst(input, replaced, replacement);
+    char expectedOutput[] = "15REPLACED13-+14-16+-132+54";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
+void testReplaceFirstInputTwo()
+{
+    char input[] = "15+-13-+14-16+-132+54_15151351";
+    char replaced[] = "15";
+    char replacement[] = "";
+    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement << "\" for the first occurance only" << std::endl;
+    char* output = StringManip::replaceFirst(input, replaced, replacement);
+    char expectedOutput[] = "+-13-+14-16+-132+54_15151351";
+    std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] output;
+}
+
+void testReplaceFirstInputThree()
+{
+    char input[] = "15+-13-+14-16+-132+54_15151351";
+    char replaced[] = "as";
+    char replacement[] = "";
+    std::cout << "Testing input -> \"" << input << "\" where \"" << replaced << "\"" << " is replaced by \"" << replacement << "\" for the first occurance only" << std::endl;
+    char* output = StringManip::replaceFirst(input, replaced, replacement);
+    char expectedOutput[] = "15+-13-+14-16+-132+54_15151351";
     std::cout << "String is: Expected(" << expectedOutput << ") ==> " << output << (strcmp(output, expectedOutput) == 0 ? " --> TRUE" : " --> FALSE");
 
     std::cout << std::endl;
@@ -442,10 +511,17 @@ int main()
     //testContainsInputOne();
     //testContainsInputTwo();
 
-    ////Testing replaceAll function of string
-    //std::cout << "TESTING replaceAll STRING FUNCTION: " << std::endl;
-    //testReplaceAllInputOne();
-    //testReplaceAllInputTwo();
+    //Testing replaceAll function of string
+    std::cout << "TESTING replaceAll STRING FUNCTION: " << std::endl;
+    testReplaceAllInputOne();
+    testReplaceAllInputTwo();
+    testReplaceAllInputThree();
+
+    //Testing replaceFirst function of string
+    std::cout << "TESTING replaceFirst STRING FUNCTION: " << std::endl;
+    testReplaceFirstInputOne();
+    testReplaceFirstInputTwo();
+    testReplaceFirstInputThree();
 
     ////Testing findIndex function of string
     //std::cout << "TESTING findIndex STRING FUNCTION: " << std::endl;

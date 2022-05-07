@@ -90,7 +90,7 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 	expression = StringManip::replaceAll(expression, " ", "");
 
 	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
-	expressionIsValid(expression); 
+	//expressionIsValid(expression); 
 
 	//Start resolving all the parenthesis in the expression until none are left
 	//If there are none, at least run the necessary in all cases things first. Hence why this is a do, while expression instead of a simple while expression
@@ -445,15 +445,14 @@ char BigNumberExpression::generateOpeningParenthesis(int seed)
 	else if (seed >= 0) return '#';
 }
 
-char BigNumberExpression::generateClosingParenthesis(int seed)
-{
-	return 0;
-}
+//char BigNumberExpression::generateClosingParenthesis(int seed)
+//{
+//	return 0;
+//}
 
 void BigNumberExpression::generateExpression()
 {
 	int computerNumber = 0;
-	srand(time(NULL));
 
 	//Decide all of the operators and the parenthesis
 	//+ - * / % ( E
@@ -475,7 +474,6 @@ void BigNumberExpression::generateExpression()
 
 	char* operators = new char[countOfOperators + 1];
 	operators[countOfOperators] = '\0';
-	//size_t operatorIndex = 0;
 	for (size_t i = 0; i < countOfOperators; i++)
 	{
 		// Determine the operators
@@ -485,8 +483,10 @@ void BigNumberExpression::generateExpression()
 	}
 
 	//Generate a new expression without parenthesis
-	size_t newExpressionMaxLength = (countOfOperators * 2 + 1) * 2;
-	char* expression = new char[newExpressionMaxLength];
+	size_t newExpressionMaxLength = (countOfOperators * 2 + 1) * 2 + 1;
+	char* expression = new char[newExpressionMaxLength + 1];
+	expression[newExpressionMaxLength] = '\0';
+	size_t operatorsIndexer = 0;
 	for (size_t i = 0; i < newExpressionMaxLength; i++)
 	{
 		if (i % 2 == 0)
@@ -499,7 +499,7 @@ void BigNumberExpression::generateExpression()
 		}
 		else if (i % 4 == 3)
 		{
-			expression[i] = operators[i / 3 - 1];
+			expression[i] = operators[operatorsIndexer++];
 		}
 	}
 
@@ -531,14 +531,14 @@ void BigNumberExpression::generateExpression()
 	size_t lastOpenParenthesisIndex = strlen(openingParenthesis);
 	while (openParenthesisCount > 0)
 	{
-		lastOpenParenthesisIndex = StringManip::findIndexLast(openingParenthesis, "(", 0, lastOpenParenthesisIndex);
+		lastOpenParenthesisIndex = StringManip::findIndexLast(openingParenthesis, "(", 0, lastOpenParenthesisIndex - 1);
 		size_t firstOpenParenthesisIndex = StringManip::findIndex(openingParenthesis, "(");
 
 		//These are all of the valid closing parenthesis spots, i.e. the ones which are not before any opening parenthesis
-		size_t closingParenthesisSpotsLeft = StringManip::countOf(closingParenthesis, "_", firstOpenParenthesisIndex, strlen(closingParenthesis));
+		size_t closingParenthesisSpotsLeft = StringManip::countOf(closingParenthesis, "_", firstOpenParenthesisIndex, strlen(closingParenthesis) - 1);
 
 		//These are all of the valid closing parenthesis spots which are located to the right of the rightmost open parenthesis
-		size_t closingParenthesisSpotsLeftForLastOpenParenthesis = StringManip::countOf(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis));
+		size_t closingParenthesisSpotsLeftForLastOpenParenthesis = StringManip::countOf(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis) - 1);
 
 		//If there are exactly as many spots left for closing parenthesis as there are opening parenthesis left unclosed, where the closing parenthesis spots
 		// are all located to the right of the leftmost opening parenthesis, then there is no room for randomisation.
@@ -558,21 +558,24 @@ void BigNumberExpression::generateExpression()
 		//In this case, fill the remaining spot with the closing parenthesis
 		else if (closingParenthesisSpotsLeftForLastOpenParenthesis == 1)
 		{
-			size_t remainingClosingParenthesisSpot = StringManip::findIndex(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis));
+			size_t remainingClosingParenthesisSpot = StringManip::findIndex(closingParenthesis, "_", lastOpenParenthesisIndex, strlen(closingParenthesis) - 1);
 			closingParenthesis[remainingClosingParenthesisSpot] = ')';
 			openParenthesisCount--;
 		}
 		//Otherwise, try to randomly put a closing bracket in one of the closing parenthesis spots which is to the right of the rightmost opened parenthesis
 		//Cycle the loop until the random generator finally generates a closing parenthesis on one of the available closing parenthesis spots
-		while (true)
+		else
 		{
-			computerNumber = rand() % closingParenthesisSpotsLeftForLastOpenParenthesis + lastOpenParenthesisIndex;
-			size_t closingParenthesisSpotIndex = computerNumber;
-			if (closingParenthesis[closingParenthesisSpotIndex] == '_')
+			while (true)
 			{
-				closingParenthesis[closingParenthesisSpotIndex] = ')';
-				openParenthesisCount--;
-				break;
+				computerNumber = rand() % closingParenthesisSpotsLeftForLastOpenParenthesis + lastOpenParenthesisIndex;
+				size_t closingParenthesisSpotIndex = computerNumber;
+				if (closingParenthesis[closingParenthesisSpotIndex] == '_')
+				{
+					closingParenthesis[closingParenthesisSpotIndex] = ')';
+					openParenthesisCount--;
+					break;
+				}
 			}
 		}
 	}
