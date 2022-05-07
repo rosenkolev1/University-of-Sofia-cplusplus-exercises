@@ -445,6 +445,13 @@ char BigNumberExpression::generateOpeningParenthesis(int seed)
 	else if (seed >= 0) return '#';
 }
 
+int BigNumberExpression::generateSign(int seed)
+{
+	if (seed >= 12) return -1;
+	else if (seed >= 1) return 1;
+	else if (seed == 0) return 0;
+}
+
 //char BigNumberExpression::generateClosingParenthesis(int seed)
 //{
 //	return 0;
@@ -595,5 +602,29 @@ void BigNumberExpression::generateExpression()
 	expression = removeWhitespaces;
 
 	//Debug shit to check if my function works properly
-	std::cout << expression;
+	std::cout << "Expression template: " << expression << " ---> ";
+
+	//Replace the x in the expression with numbers
+	while (StringManip::stringContains(expression, "x"))
+	{
+		//TODO: Make random generation with strings as numbers possible, otherwise, there is no point in using BigNumber, since we just generate ints anyway
+		//Generate the sign of the number
+		int signOfNumber = rand() % 15;
+		int number = rand() % 10000 + 1;
+		if (signOfNumber == 0) number = 0;
+		else if (signOfNumber == -1) number *= -1;
+		BigNumber bigNumber = BigNumber(number);
+		
+		//Replace the bigNumber in the expression
+		char* newExpression = StringManip::replaceFirst(expression, "x", bigNumber.getNumberRaw());
+		delete[] expression;
+		expression = newExpression;
+	}
+
+	std::cout << "Expression: " << expression;
+
+	//Finally, set the expression of the object to the new expression
+	delete[] this->expression;
+	this->expression = expression;
+	this->capacity = strlen(expression) + 1;
 }

@@ -15,6 +15,7 @@ private:
 
 	char generateOperator(int seed);
 	char generateOpeningParenthesis(int seed);
+	int generateSign(int seed);
 	//char generateClosingParenthesis(int seed);
 public:
 
