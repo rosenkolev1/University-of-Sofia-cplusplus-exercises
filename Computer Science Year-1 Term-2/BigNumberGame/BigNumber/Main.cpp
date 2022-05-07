@@ -268,6 +268,12 @@ void solveExpressionNoParenthesis_DivideTests()
     int expectedOutput26 = -125 + -3 / 5 * 5 / -3 - +3;
     std::cout << "Testing expression -> (" << expressionString26 << ").Expected: "<< expectedOutput26 <<": " << expression26.evaluteExpression();
     std::cout << std::endl;
+
+    char expressionString27[] = "100/500*500";
+    BigNumberExpression expression27(expressionString27);
+    int expectedOutput27 = 100 / 500 * 500;
+    std::cout << "Testing expression -> (" << expressionString27 << ").Expected: " << expectedOutput27 << ": " << expression27.evaluteExpression();
+    std::cout << std::endl;
 }
 
 void solveExpressionNoParenthesis_PercentTests()
@@ -355,7 +361,7 @@ void solveExpressionNoParenthesisTests()
     std::cout << "Expression solving TESTS WITHOUT PARENTHESIS: " << std::endl << std::endl;
 
     solveExpressionNoParenthesis_SingleNumberTests();
-
+    
     solveExpressionNoParenthesis_AdditionAndMinusTests();
     
     solveExpressionNoParenthesis_MultiplyTests();
@@ -449,10 +455,134 @@ void solveExpressionParenthesis_SingleNumberTests()
 
 void solveExpressionParenthesis_AdditionAndMinusTests()
 {
+    std::cout << "Expression solving TESTS for + and - operators: " << std::endl << std::endl;
+
+    std::cout << "TEST 1: " << std::endl;
     char expressionString1[] = "(10 + 5) + 5";
     BigNumberExpression expression1(expressionString1);
-    int expectedOutput1 = 10 + 5;
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: 20" << expectedOutput1 << ": " << expression1.evaluteExpression();
+    int expectedOutput1 = (10 + 5) + 5;
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString2[] = "(10 + -5) + -(5 - 6)-(-(-(14--(10+5-4- -3))))";
+    BigNumberExpression expression2(expressionString2);
+    int expectedOutput2 = (10 + -5) + -(5 - 6) - (-(-(14+(10 + 5 - 4 - -3)))); //Expected: 6 - 28 = -22
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 3: " << std::endl;
+    char expressionString3[] = "(-(10 + -5 + -5 - 6-(--(14--10+5-4- -3))))";
+    BigNumberExpression expression3(expressionString3);
+    int expectedOutput3 = (-(10 + -5 + -5 - 6 - ((14+10 + 5 - 4 - -3)))); //Expected: -(-6 - 28) = 34
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << std::endl;
+}
+
+void solveExpressionParenthesis_DivideTests()
+{
+    std::cout << "Expression solving TESTS for / operator: " << std::endl << std::endl;
+
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString1[] = "(125/5)";
+    BigNumberExpression expression1(expressionString1);
+    int expectedOutput1 = (125 / 5);
+    std::cout << "Testing expression -> (" << expressionString1 << ").Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString2[] = "100/(2+3)";
+    BigNumberExpression expression2(expressionString2);
+    int expectedOutput2 = 100 / (2 + 3);
+    std::cout << "Testing expression -> (" << expressionString2 << ").Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 3: " << std::endl;
+    char expressionString3[] = "-(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3))";
+    BigNumberExpression expression3(expressionString3);
+    //int expectedOutput3 = -(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3)); Expected -(100/0) -> Exception thrown
+    std::cout << "Testing expression -> (" << expressionString3 << ").Expected: Exception thrown: ";
+    try
+    {
+        std::cout << expression3.evaluteExpression();
+    }
+    catch (...)
+    {
+        std::cout << "Exception thrown\n";
+    }
+    std::cout << std::endl;
+
+    std::cout << "TEST 4: " << std::endl;
+    char expressionString4[] = "-(100/(576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3)";
+    BigNumberExpression expression4(expressionString4);
+    int expectedOutput4 = -(100/(576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3); //Expected -(-3) -> 3
+    std::cout << "Testing expression -> (" << expressionString4 << ").Expected: "<< expectedOutput4 <<": " << expression4.evaluteExpression();;
+    std::cout << std::endl;
+}
+
+void solveExpressionParenthesis_MultiplyTests()
+{
+    std::cout << "Expression solving TESTS for * operator: " << std::endl << std::endl;
+
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString1[] = "(4*3)";
+    BigNumberExpression expression1(expressionString1);
+    int expectedOutput1 = (4 * 3);
+    std::cout << "Testing expression -> (" << expressionString1 << ").Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString2[] = "4*(3-2)";
+    BigNumberExpression expression2(expressionString2);
+    int expectedOutput2 = 4 * (3 - 2);
+    std::cout << "Testing expression -> (" << expressionString2 << ").Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 3: " << std::endl;
+    char expressionString3[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))";
+    BigNumberExpression expression3(expressionString3);
+    int expectedOutput3 = (10 + -5) * 7 + -2 * 3 * (5 - 3 * 6) - (-(-2 * (14+(10 + 5 - 4 - -3)))); //Expected: 57
+    std::cout << "Testing expression -> (" << expressionString3 << ").Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 4: " << std::endl;
+    char expressionString4[] = "(-1*(2*(-2*((10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))))))";
+    BigNumberExpression expression4(expressionString4);
+    int expectedOutput4 = (-1 * (2 * (-2 * ((10 + -5) * 7 + -2 * 3 * (5 - 3 * 6) - (-(-2 * (14+(10 + 5 - 4 - -3)))))))); //Expected: 228
+    std::cout << "Testing expression -> (" << expressionString4 << ").Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << std::endl;
+}
+
+void solveExpressionParenthesis_PercentTests()
+{
+    std::cout << "Expression solving TESTS for % operator: " << std::endl << std::endl;
+
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString1[] = "(125%5)";
+    BigNumberExpression expression1(expressionString1);
+    int expectedOuput1 = (125 % 5);
+    std::cout << "Testing expression -> (" << expressionString1 << ").Expected: " << expectedOuput1 << ": " << expression1.evaluteExpression();
+    std::cout << std::endl;
+
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString2[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; 
+    BigNumberExpression expression2(expressionString2);
+    int expectedOuput2 = ((1000 - 1001) - (((100 - 15 % (5 * 4)) / 2 - 42) % 5 + 1000) % (200 + 100 * (3 - 1))) % -7; //Expected: -5 //-201%-7=28(-5)
+    std::cout << "Testing expression -> (" << expressionString2 << ").Expected: " << expectedOuput2 << ": " << expression2.evaluteExpression();;
+    std::cout << std::endl;
+
+    std::cout << "TEST 3: " << std::endl;
+    char expressionString3[] = "5%((100 - 15%(5*4))/2 - 42) + 1000"; //Expected 5%0 + 1000 --> Exception thrown
+    BigNumberExpression expression3(expressionString3);
+    std::cout << "Testing expression -> (" << expressionString3 << ").Expected: Exception thrown: ";
+    try
+    {
+        std::cout << expression3.evaluteExpression();
+    }
+    catch (...)
+    {
+        std::cout << "Exception thrown\n";
+    }
     std::cout << std::endl;
 }
 
@@ -463,13 +593,13 @@ void solveExpressionParenthesisTests()
 
     solveExpressionParenthesis_SingleNumberTests();
 
-    //solveExpressionParenthesis_AdditionAndMinusTests();
+    solveExpressionParenthesis_AdditionAndMinusTests();
 
-    //solveExpressionParenthesis_MultiplyTests();
-    //
-    //solveExpressionParenthesis_DivideTests();
-    //
-    //solveExpressionParenthesis_PercentTests();
+    solveExpressionParenthesis_MultiplyTests();
+    
+    solveExpressionParenthesis_DivideTests();
+    
+    solveExpressionParenthesis_PercentTests();
 }
 
 int main()
@@ -481,7 +611,7 @@ int main()
     //expressionBig4Tests();
 
     //Solving expression tests without parenthesis
-    //solveExpressionNoParenthesisTests();
+    solveExpressionNoParenthesisTests();
 
     //Solving expression tests with parenthesis
     solveExpressionParenthesisTests();
