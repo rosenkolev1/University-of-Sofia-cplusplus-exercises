@@ -45,8 +45,10 @@ void BigNumberExpression::replaceOperatorsFromCalculation(char* operators, size_
 
 BigNumberExpression::BigNumberExpression()
 {
-	this->expression = nullptr;
-	this->capacity = 0;
+	this->expression = new char[2];
+	this->expression[0] = '0';
+	this->expression[1] = '\0';
+	this->capacity = 2;
 }
 
 BigNumberExpression::BigNumberExpression(const BigNumberExpression& other)
@@ -68,12 +70,7 @@ BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& o
 
 BigNumberExpression::BigNumberExpression(const char* expression)
 {
-	if (!expressionIsValid(expression)) throw "The expression that you are trying to set is invalid";
-
-	size_t expressionSize = strlen(expression) + 1;
-	this->capacity = expressionSize;
-	this->expression = new char[this->capacity];
-	strcpy(this->expression, expression);
+	this->setExpression(expression);
 }
 
 const char* BigNumberExpression::getExpression() const
@@ -85,7 +82,10 @@ void BigNumberExpression::setExpression(const char* expression)
 {
 	if (!expressionIsValid(expression)) throw "The expression that you are trying to set is invalid";
 
-	size_t capacityOfNewExpression = strlen(expression) + 1;
+	//Remove all the whitespaces
+	char* expressionCopy = StringManip::replaceAll(expression, " ", "");
+
+	size_t capacityOfNewExpression = strlen(expressionCopy) + 1;
 	//Resize expression if needed
 	if (capacityOfNewExpression> this->capacity)
 	{
@@ -93,7 +93,10 @@ void BigNumberExpression::setExpression(const char* expression)
 		delete[] this->expression;
 		this->expression = new char[this->capacity];
 	}
-	strcpy(this->expression, expression);
+	strcpy(this->expression, expressionCopy);
+
+	//Delete dynamic memory
+	delete[] expressionCopy;
 }
 
 BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
@@ -440,12 +443,27 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 {
 	if (expression == nullptr) expression = this->getExpression();
 
-	//Check if the expression contains something other than the operators, parenthesis or digits
-	for (size_t i = 0; i < strlen(expression); i++)
+	//Replace the whitespaces in the expression before checks for it's validity
+	const char* expressionCopy = StringManip::replaceAll(expression, " ", "");
+
+	//Check if the expression's length is 0. If it is, then return false
+	if (strlen(expressionCopy) == 0)
 	{
-		char symbol = expression[i];
+		//Delete dynamic memory
+		delete[] expressionCopy;
+
+		return false;
+	}
+
+	//Check if the expression contains something other than the operators, parenthesis or digits
+	for (size_t i = 0; i < strlen(expressionCopy); i++)
+	{
+		char symbol = expressionCopy[i];
 		if (symbol != '+' && symbol != '-' && symbol != '*' && symbol != '/' && symbol != '%' && symbol != '(' && symbol != ')' && !isdigit(symbol))
 		{
+			//Delete dynamic memory
+			delete[] expressionCopy;
+
 			return false;
 		}
 	}
@@ -455,52 +473,73 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
 	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
 	//Mnogo durvarski na4in za proverka, ama vse taq. Eventualno ako resha da dobavq stepenuvane shte go opravq
-	bool expressionIsInvalid = StringManip::stringContains(expression, "+++")
-		|| StringManip::stringContains(expression, "+++")
-		|| StringManip::stringContains(expression, "++-")
-		|| StringManip::stringContains(expression, "+-+")
-		|| StringManip::stringContains(expression, "+--")
-		|| StringManip::stringContains(expression, "-++")
-		|| StringManip::stringContains(expression, "-+-")
-		|| StringManip::stringContains(expression, "--+")
-		|| StringManip::stringContains(expression, "---")
-		|| StringManip::stringContains(expression, "**")
-		|| StringManip::stringContains(expression, "*/")
-		|| StringManip::stringContains(expression, "*%")
-		|| StringManip::stringContains(expression, "/*")
-		|| StringManip::stringContains(expression, "//")
-		|| StringManip::stringContains(expression, "/%")
-		|| StringManip::stringContains(expression, "%*")
-		|| StringManip::stringContains(expression, "%/")
-		|| StringManip::stringContains(expression, "%%")
-		|| StringManip::stringContains(expression, "+*")
-		|| StringManip::stringContains(expression, "-*")
-		|| StringManip::stringContains(expression, "+/")
-		|| StringManip::stringContains(expression, "-/")
-		|| StringManip::stringContains(expression, "+%")
-		|| StringManip::stringContains(expression, "-%")
-		|| StringManip::stringContains(expression, "+)")
-		|| StringManip::stringContains(expression, "-)")
-		|| StringManip::stringContains(expression, "*)")
-		|| StringManip::stringContains(expression, "/)")
-		|| StringManip::stringContains(expression, "%)")
-		|| StringManip::stringContains(expression, "()");
+	bool expressionIsInvalid = StringManip::stringContains(expressionCopy, "+++")
+		|| StringManip::stringContains(expressionCopy, "+++")
+		|| StringManip::stringContains(expressionCopy, "++-")
+		|| StringManip::stringContains(expressionCopy, "+-+")
+		|| StringManip::stringContains(expressionCopy, "+--")
+		|| StringManip::stringContains(expressionCopy, "-++")
+		|| StringManip::stringContains(expressionCopy, "-+-")
+		|| StringManip::stringContains(expressionCopy, "--+")
+		|| StringManip::stringContains(expressionCopy, "---")
+		|| StringManip::stringContains(expressionCopy, "**")
+		|| StringManip::stringContains(expressionCopy, "*/")
+		|| StringManip::stringContains(expressionCopy, "*%")
+		|| StringManip::stringContains(expressionCopy, "/*")
+		|| StringManip::stringContains(expressionCopy, "//")
+		|| StringManip::stringContains(expressionCopy, "/%")
+		|| StringManip::stringContains(expressionCopy, "%*")
+		|| StringManip::stringContains(expressionCopy, "%/")
+		|| StringManip::stringContains(expressionCopy, "%%")
+		|| StringManip::stringContains(expressionCopy, "+*")
+		|| StringManip::stringContains(expressionCopy, "-*")
+		|| StringManip::stringContains(expressionCopy, "+/")
+		|| StringManip::stringContains(expressionCopy, "-/")
+		|| StringManip::stringContains(expressionCopy, "+%")
+		|| StringManip::stringContains(expressionCopy, "-%")
+		|| StringManip::stringContains(expressionCopy, "+)")
+		|| StringManip::stringContains(expressionCopy, "-)")
+		|| StringManip::stringContains(expressionCopy, "*)")
+		|| StringManip::stringContains(expressionCopy, "/)")
+		|| StringManip::stringContains(expressionCopy, "%)")
+		|| StringManip::stringContains(expressionCopy, "()");
 
-	if (expressionIsInvalid) return false;
+	if (expressionIsInvalid)
+	{
+		//Delete dynamic memory
+		delete[] expressionCopy;
+
+		return false;
+	}
 
 	//Check if all the parenthesis are closed correctly
 	int openedParenthesis = 0;
-	for (size_t i = 0; i < strlen(expression); i++)
+	for (size_t i = 0; i < strlen(expressionCopy); i++)
 	{
-		if (expression[i] == '(') openedParenthesis++;
-		else if (expression[i] == ')') openedParenthesis--;
+		if (expressionCopy[i] == '(') openedParenthesis++;
+		else if (expressionCopy[i] == ')') openedParenthesis--;
 		//If this happens, then there is a closing parenthesis which doesn't have a matching opening parenthesis. So the expression is invalid
-		if (openedParenthesis < 0) return false;
+		if (openedParenthesis < 0)
+		{
+			//Delete dynamic memory
+			delete[] expressionCopy;
+
+			return false;
+		}
 	}
 	//If this happens, then there is an opening parenthesis which doesn't have a matching closing parenthesis. So the expression is invalid
-	if (openedParenthesis > 0) return false;
+	if (openedParenthesis > 0)
+	{
+		//Delete dynamic memory
+		delete[] expressionCopy;
+
+		return false;
+	}
 
 	//If this happens, then the expression has passed the test and is correct
+	//Delete dynamic memory
+	delete[] expressionCopy;
+
 	return true;
 }
 
@@ -758,4 +797,30 @@ std::ifstream& operator>>(std::ifstream& is, BigNumberExpression& expression)
 	expression.setExpression(textLine);
 
 	return is;
+}
+
+std::ofstream& operator<<(std::ofstream& os, BigNumberExpression& expression)
+{
+	const char* expressionString = expression.getExpression();
+	const char* equals = "=";
+	BigNumber resultFromExpression = expression.evaluteExpression();
+	const char* answer = resultFromExpression.getNumber();
+
+	size_t textLineCapacity = strlen(expressionString) + 1 + strlen(answer) + 1;
+	char* textLine = new char[textLineCapacity];
+	textLine[0] = '\0';
+
+	strcat(textLine, expressionString);
+	strcat(textLine, equals);
+	strcat(textLine, answer);
+	textLine[textLineCapacity - 1] = '\n';
+
+	os.write(textLine, textLineCapacity);
+
+	//Delete dynamic memory
+	delete[] textLine;
+	//delete[] expressionString;
+	delete[] answer;
+
+	return os;
 }

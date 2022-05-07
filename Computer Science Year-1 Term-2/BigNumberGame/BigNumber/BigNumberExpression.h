@@ -46,6 +46,8 @@ public:
 	//Reading and outputting expressions to text file or console
 	friend std::istream& operator>> (std::istream& is, BigNumberExpression& expression);
 	friend std::ostream& operator<< (std::ostream& is, BigNumberExpression& expression);
+
 	friend std::ifstream& operator>> (std::ifstream& is, BigNumberExpression& expression);
+	friend std::ofstream& operator<< (std::ofstream& os, BigNumberExpression& expression);
 };
 

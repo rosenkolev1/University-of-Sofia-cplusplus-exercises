@@ -32,6 +32,8 @@ public:
 		   
 	static void readFromAndWriteToConsoleTests();
 
+	static void readFromAndWriteToFileTests();
+
 	static void runTests();
 };
 

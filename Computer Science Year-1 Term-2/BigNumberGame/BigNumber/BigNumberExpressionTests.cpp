@@ -3,18 +3,19 @@
 #include <iostream>
 #include "BigNumber.h"
 #include "BigNumberDivisionResult.h"
+#include <fstream>
 
 void BigNumberExpressionTests::expressionBig4Tests()
 {
     //BigNumberTests::runTests();
     std::cout << "BIG 4 OF BigNumberExpression TESTS: " << std::endl << std::endl;
     BigNumberExpression expression1 = BigNumberExpression();
-    char someExpression[] = "Some equation";
-    char anotherExpression[] = "anotherEquation";
+    char someExpression[] = " 10 + 5";
+    char anotherExpression[] = "15/3";
     BigNumberExpression expression2(someExpression);
     BigNumberExpression expression3(anotherExpression);
 
-    std::cout << "Expression 1: Expected: " << "{empty}" << ": " << (expression1.getExpression() == nullptr ? "{empty}" : "WRONG") << std::endl;
+    std::cout << "Expression 1: Expected: " << "{empty}" << ": " << (strcmp(expression1.getExpression(), "0") == 0 ? "{empty}" : "WRONG") << std::endl;
     std::cout << "Expression 2: Expected: " << someExpression << ": " << expression2.getExpression() << std::endl;
     std::cout << "Expression 3: Expected: " << anotherExpression << ": " << expression3.getExpression() << std::endl;
 
@@ -626,6 +627,10 @@ void BigNumberExpressionTests::generateExpressionTests()
 
 void BigNumberExpressionTests::readFromAndWriteToConsoleTests()
 {
+    std::cout << "READ AND WRITE FROM AND TO CONSOLE TESTS" << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
     BigNumberExpression expression1 = BigNumberExpression();
     BigNumberExpression expression2 = BigNumberExpression();
     std::cout << "Enter expression1: ";
@@ -634,6 +639,30 @@ void BigNumberExpressionTests::readFromAndWriteToConsoleTests()
     std::cin >> expression2;
     std::cout << expression1;
     std::cout << expression2;
+}
+
+void BigNumberExpressionTests::readFromAndWriteToFileTests()
+{
+    std::cout << "READ AND WRITE FROM AND TO FILE TESTS" << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+
+    std::ifstream is("Equations.txt");
+    int somethingDebug = (15 - (3 * 156 / 343 % (6 / 2 * 4 % 10 + 43))) + 10;
+    BigNumberExpression expression1 = BigNumberExpression();
+    BigNumberExpression expression2 = BigNumberExpression();
+    is >> expression1;
+    is >> expression2;
+
+    is.close();
+
+    std::ofstream os("EquationsAnswers.txt");
+
+    os << expression1;
+    os << expression2;
+
+    os.close();
 }
 
 void BigNumberExpressionTests::runTests()
@@ -648,8 +677,11 @@ void BigNumberExpressionTests::runTests()
     //solveExpressionParenthesisTests();
     //
     ////Generating expressions tests
-    //generateExpressionTests();
+    generateExpressionTests();
 
     //Read from and Write to console tests
-    readFromAndWriteToConsoleTests();
+    //readFromAndWriteToConsoleTests();
+
+    //Read from and Write to console tests
+    //readFromAndWriteToFileTests();
 }
