@@ -46,6 +46,3 @@ public:
 	//Returns the count of searchText in text, starting from startIndex and ending in endIndex, both inclusive
 	static int countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
 };
-
-//TODO: Decide what to do with the string contains invalid chars function, which doesn't belong here. Maybe make the string contains invalid chars accept the invalid chars as a parameter instead of the GlobalConstants being programmed in statically inside the function
-

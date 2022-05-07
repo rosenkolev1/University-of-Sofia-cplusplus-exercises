@@ -145,14 +145,16 @@
   <ItemGroup>
     <ClCompile Include="BigNumber.cpp" />
     <ClCompile Include="BigNumberDivisionResult.cpp" />
-    <ClCompile Include="BigNumberEquation.cpp" />
+    <ClCompile Include="BigNumberExpression.cpp" />
+    <ClCompile Include="BigNumberExpressionTests.cpp" />
     <ClCompile Include="BigNumberTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h" />
     <ClInclude Include="BigNumberDivisionResult.h" />
-    <ClInclude Include="BigNumberEquation.h" />
+    <ClInclude Include="BigNumberExpression.h" />
+    <ClInclude Include="BigNumberExpressionTests.h" />
     <ClInclude Include="BigNumberTests.h" />
   </ItemGroup>
   <ItemGroup>

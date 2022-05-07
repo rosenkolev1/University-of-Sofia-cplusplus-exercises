@@ -27,7 +27,10 @@
     <ClCompile Include="BigNumberTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BigNumberEquation.cpp">
+    <ClCompile Include="BigNumberExpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigNumberExpressionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +44,10 @@
     <ClInclude Include="BigNumberTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BigNumberEquation.h">
+    <ClInclude Include="BigNumberExpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigNumberExpressionTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

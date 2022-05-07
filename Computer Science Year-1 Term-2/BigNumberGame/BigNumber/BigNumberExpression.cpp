@@ -1,4 +1,4 @@
-#include "BigNumberEquation.h"
+#include "BigNumberExpression.h"
 #include "..\Project.StringManipulation\StringManip.h"
 #include <cstddef>
 #include <limits>
@@ -89,8 +89,8 @@ BigNumber BigNumberExpression::evaluteExpression(const char* expression) const
 	//Remove all the whitespaces
 	expression = StringManip::replaceAll(expression, " ", "");
 
-	//TODO: For now, I am assuming that the expression is valid by default. Make a function which checks if the expression is valid!
-	//expressionIsValid(expression); 
+	bool isValidExpression = expressionIsValid(expression); 
+	if (!isValidExpression) throw "This expression isn't valid";
 
 	//Start resolving all the parenthesis in the expression until none are left
 	//If there are none, at least run the necessary in all cases things first. Hence why this is a do, while expression instead of a simple while expression
