@@ -142,9 +142,11 @@
   <ItemGroup>
     <ClCompile Include="Project.StringManipulation.cpp" />
     <ClCompile Include="StringManip.cpp" />
+    <ClCompile Include="StringManipTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringManip.h" />
+    <ClInclude Include="StringManipTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">
