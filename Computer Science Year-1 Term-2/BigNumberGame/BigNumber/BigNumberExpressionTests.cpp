@@ -798,6 +798,336 @@ void BigNumberExpressionTests::generateExpressionTests()
     }
 }
 
+void BigNumberExpressionTests::operatorSumTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"+\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    BigNumberExpression expression13 = expression11 + expression12;
+    char expectedOuput1[] = "(125/5)+((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " + "<< expressionString12 <<" ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 50: " << expression13.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    BigNumberExpression expression23 = expression21 + expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)+((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " + " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 52: " << expression23.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorSumAndEqualsTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"+=\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    expression11 += expression12;
+    char expectedOuput1[] = "(125/5)+((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " += " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 50: " << expression11.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    expression21 += expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)+((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " += " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 52: " << expression21.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorMinusTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"-\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    BigNumberExpression expression13 = expression11 - expression12;
+    char expectedOuput1[] = "(125/5)-((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " - " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    BigNumberExpression expression23 = expression21 - expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)-((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " - " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -62: " << expression23.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorMinusAndEqualsTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"-=\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    expression11 -= expression12;
+    char expectedOuput1[] = "(125/5)-((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " -= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    expression21 -= expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)-((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " -= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -62: " << expression21.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorMultiplyTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"*\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    BigNumberExpression expression13 = expression11 * expression12;
+    char expectedOuput1[] = "(125/5)*((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " * " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 625: " << expression13.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    BigNumberExpression expression23 = expression21 * expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)*((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " * " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -285: " << expression23.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorMultiplyAndEqualsTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"*=\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    expression11 *= expression12;
+    char expectedOuput1[] = "(125/5)*((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " *= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 625: " << expression11.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    expression21 *= expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)*((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " *= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -285: " << expression21.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorDivideTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"/\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    BigNumberExpression expression13 = expression11 / expression12;
+    char expectedOuput1[] = "(125/5)/((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " / " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 1: " << expression13.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    BigNumberExpression expression23 = expression21 / expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)/((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " / " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression23.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorDivideAndEqualsTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"/=\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    expression11 /= expression12;
+    char expectedOuput1[] = "(125/5)/((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " /= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 1: " << expression11.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    expression21 /= expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)/((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " /= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression21.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorPercentTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"%\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    BigNumberExpression expression13 = expression11 % expression12;
+    char expectedOuput1[] = "(125/5)%((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " % " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    BigNumberExpression expression23 = expression21 % expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)%((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " % " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -5: " << expression23.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void BigNumberExpressionTests::operatorPercentAndEqualsTests()
+{
+    std::cout << "EXPRESSION TESTS FOR \"%=\" OPERATOR: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "(25)";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+    expression11 %= expression12;
+    char expectedOuput1[] = "(125/5)%((25))";
+    std::cout << "Testing expression -> [ " << expressionString11 << " % " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7"; //-5
+    char expressionString22[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))"; //57
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+    expression21 %= expression22;
+    char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)%((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
+    std::cout << "Testing expression -> [ " << expressionString21 << " %= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
+    std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
+    std::cout << "The answer to the expression: Expected: -5: " << expression21.evaluteExpression();
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void BigNumberExpressionTests::readFromAndWriteToConsoleTests()
 {
     std::cout << "READ AND WRITE FROM AND TO CONSOLE TESTS" << std::endl << std::endl;
@@ -860,4 +1190,34 @@ void BigNumberExpressionTests::runTests()
     //
     //////Read from and Write to console tests
     //readFromAndWriteToFileTests();
+
+    //Operator + tests
+    operatorSumTests();
+
+    //Operator += tests
+    operatorSumAndEqualsTests();
+
+    //Operator - tests
+    operatorMinusTests();
+
+    //Operator -= tests
+    operatorMinusAndEqualsTests();
+
+    //Operator * tests
+    operatorMultiplyTests();
+
+    //Operator *= tests
+    operatorMultiplyAndEqualsTests();
+
+    //Operator / tests
+    operatorDivideTests();
+
+    //Operator /= tests
+    operatorDivideAndEqualsTests();
+
+    //Operator % tests
+    operatorPercentTests();
+
+    //Operator %= tests
+    operatorPercentAndEqualsTests();
 }

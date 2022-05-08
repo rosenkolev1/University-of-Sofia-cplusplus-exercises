@@ -84,6 +84,26 @@ public:
 	//Randomly generate a new expression
 	void generateExpression();
 
+	char* concatExpressionsWithOperator(const char* thisExpression, const char* otherExpression, const char* concatOperator) const;
+
+	//Comparative operators
+
+	//Operator arithmetic
+	BigNumberExpression operator+(const BigNumberExpression& other) const;
+	BigNumberExpression& operator+=(const BigNumberExpression& other);
+
+	BigNumberExpression operator-(const BigNumberExpression& other) const;
+	BigNumberExpression& operator-=(const BigNumberExpression& other);
+
+	BigNumberExpression operator*(const BigNumberExpression& other) const;
+	BigNumberExpression& operator*=(const BigNumberExpression& other);
+
+	BigNumberExpression operator/(const BigNumberExpression& other) const;
+	BigNumberExpression& operator/=(const BigNumberExpression& other);
+
+	BigNumberExpression operator%(const BigNumberExpression& other) const;
+	BigNumberExpression& operator%=(const BigNumberExpression& other);
+
 	//Reading and outputting expressions to text file or console
 	friend std::istream& operator>> (std::istream& is, BigNumberExpression& expression);
 	friend std::ostream& operator<< (std::ostream& is, BigNumberExpression& expression);

@@ -69,6 +69,7 @@ BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& o
 }
 
 BigNumberExpression::BigNumberExpression(const char* expression)
+	:BigNumberExpression()
 {
 	this->setExpression(expression);
 }
@@ -744,6 +745,111 @@ void BigNumberExpression::generateExpression()
 	delete[] this->expression;
 	this->expression = expression;
 	this->capacity = strlen(expression) + 1;
+}
+
+char* BigNumberExpression::concatExpressionsWithOperator(const char* thisExpression, const char* otherExpression, const char* concatOperator) const
+{
+	char parenthesisOpening[] = "(";
+	char parenthesisClosing[] = ")";
+
+	size_t newExpressionStringCapacity = strlen(thisExpression) + strlen(otherExpression) + strlen(concatOperator) + 5;
+	char* newExpressionString = new char[newExpressionStringCapacity];
+	newExpressionString[0] = '\0';
+
+	strcat(newExpressionString, parenthesisOpening);
+	strcat(newExpressionString, thisExpression);
+	strcat(newExpressionString, parenthesisClosing);
+	strcat(newExpressionString, concatOperator);
+	strcat(newExpressionString, parenthesisOpening);
+	strcat(newExpressionString, otherExpression);
+	strcat(newExpressionString, parenthesisClosing);
+
+	return newExpressionString;
+}
+
+BigNumberExpression BigNumberExpression::operator+(const BigNumberExpression& other) const
+{
+	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "+");
+	BigNumberExpression newExpression(newExpressionString); 
+
+	//Delete dynamic memory
+	delete[] newExpressionString;
+
+	return newExpression;
+}
+
+BigNumberExpression& BigNumberExpression::operator+=(const BigNumberExpression& other)
+{
+	*this = *this + other;
+	return *this;
+}
+
+BigNumberExpression BigNumberExpression::operator-(const BigNumberExpression& other) const
+{
+	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "-");
+	BigNumberExpression newExpression(newExpressionString);
+
+	//Delete dynamic memory
+	delete[] newExpressionString;
+
+	return newExpression;
+}
+
+BigNumberExpression& BigNumberExpression::operator-=(const BigNumberExpression& other)
+{
+	*this = *this - other;
+	return *this;
+}
+
+BigNumberExpression BigNumberExpression::operator*(const BigNumberExpression& other) const
+{
+	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "*");
+	BigNumberExpression newExpression(newExpressionString);
+
+	//Delete dynamic memory
+	delete[] newExpressionString;
+
+	return newExpression;
+}
+
+BigNumberExpression& BigNumberExpression::operator*=(const BigNumberExpression& other)
+{
+	*this = *this * other;
+	return *this;
+}
+
+BigNumberExpression BigNumberExpression::operator/(const BigNumberExpression& other) const
+{
+	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "/");
+	BigNumberExpression newExpression(newExpressionString);
+
+	//Delete dynamic memory
+	delete[] newExpressionString;
+
+	return newExpression;
+}
+
+BigNumberExpression& BigNumberExpression::operator/=(const BigNumberExpression& other)
+{
+	*this = *this / other;
+	return *this;
+}
+
+BigNumberExpression BigNumberExpression::operator%(const BigNumberExpression& other) const
+{
+	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "%");
+	BigNumberExpression newExpression(newExpressionString);
+
+	//Delete dynamic memory
+	delete[] newExpressionString;
+
+	return newExpression;
+}
+
+BigNumberExpression& BigNumberExpression::operator%=(const BigNumberExpression& other)
+{
+	*this = *this % other;
+	return *this;
 }
 
 std::istream& operator>>(std::istream& is, BigNumberExpression& expression)

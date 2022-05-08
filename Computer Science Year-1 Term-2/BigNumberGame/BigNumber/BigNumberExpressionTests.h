@@ -32,6 +32,27 @@ public:
 		   
 	static void generateExpressionTests();
 		   
+	//Operator tests
+	static void operatorSumTests();
+
+	static void operatorSumAndEqualsTests();
+
+	static void operatorMinusTests();
+
+	static void operatorMinusAndEqualsTests();
+
+	static void operatorMultiplyTests();
+
+	static void operatorMultiplyAndEqualsTests();
+
+	static void operatorDivideTests();
+
+	static void operatorDivideAndEqualsTests();
+
+	static void operatorPercentTests();
+
+	static void operatorPercentAndEqualsTests();
+
 	static void readFromAndWriteToConsoleTests();
 
 	static void readFromAndWriteToFileTests();
