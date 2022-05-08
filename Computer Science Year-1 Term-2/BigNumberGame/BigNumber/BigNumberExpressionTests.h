@@ -3,6 +3,8 @@ class BigNumberExpressionTests
 {
 public:
 	static void expressionBig4Tests();
+
+	static void expressionIsValidTests();
 		   
 	static void solveExpressionNoParenthesis_SingleNumberTests();
 		   

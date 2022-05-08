@@ -468,41 +468,18 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 		}
 	}
 
-	//Check if the expression contains +++, ++-, +-+, +--, -++, -+-, --+, ---. If it does, then it is invalid
-	//Check if the expression contains: **, */, *%, /*, //, /%, %*, %/, %%. If it does, then it is invalid
-	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
-	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
-	//Mnogo durvarski na4in za proverka, ama vse taq. Eventualno ako resha da dobavq stepenuvane shte go opravq
-	bool expressionIsInvalid = StringManip::stringContains(expressionCopy, "+++")
-		|| StringManip::stringContains(expressionCopy, "+++")
-		|| StringManip::stringContains(expressionCopy, "++-")
-		|| StringManip::stringContains(expressionCopy, "+-+")
-		|| StringManip::stringContains(expressionCopy, "+--")
-		|| StringManip::stringContains(expressionCopy, "-++")
-		|| StringManip::stringContains(expressionCopy, "-+-")
-		|| StringManip::stringContains(expressionCopy, "--+")
-		|| StringManip::stringContains(expressionCopy, "---")
-		|| StringManip::stringContains(expressionCopy, "**")
-		|| StringManip::stringContains(expressionCopy, "*/")
-		|| StringManip::stringContains(expressionCopy, "*%")
-		|| StringManip::stringContains(expressionCopy, "/*")
-		|| StringManip::stringContains(expressionCopy, "//")
-		|| StringManip::stringContains(expressionCopy, "/%")
-		|| StringManip::stringContains(expressionCopy, "%*")
-		|| StringManip::stringContains(expressionCopy, "%/")
-		|| StringManip::stringContains(expressionCopy, "%%")
-		|| StringManip::stringContains(expressionCopy, "+*")
-		|| StringManip::stringContains(expressionCopy, "-*")
-		|| StringManip::stringContains(expressionCopy, "+/")
-		|| StringManip::stringContains(expressionCopy, "-/")
-		|| StringManip::stringContains(expressionCopy, "+%")
-		|| StringManip::stringContains(expressionCopy, "-%")
-		|| StringManip::stringContains(expressionCopy, "+)")
-		|| StringManip::stringContains(expressionCopy, "-)")
-		|| StringManip::stringContains(expressionCopy, "*)")
-		|| StringManip::stringContains(expressionCopy, "/)")
-		|| StringManip::stringContains(expressionCopy, "%)")
-		|| StringManip::stringContains(expressionCopy, "()");
+	bool expressionIsInvalid = false;
+
+	for (size_t i = 0; i < EXPRESSION_FORBIDDEN_STRINGS_COUNT; i++)
+	{
+		if (StringManip::stringContains(expressionCopy, EXPRESSION_FORBIDDEN_STRINGS[i]))
+		{
+			//Delete dynamic memory
+			delete[] expressionCopy;
+
+			return false;
+		}
+	}
 
 	if (expressionIsInvalid)
 	{

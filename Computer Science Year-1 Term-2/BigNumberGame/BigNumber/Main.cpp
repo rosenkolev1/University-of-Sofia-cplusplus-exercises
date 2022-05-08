@@ -11,8 +11,8 @@
 int main()
 {
     //BigNumber tests
-    BigNumberTests::runTests();
+    //BigNumberTests::runTests();
 
     //BigNumberExpression tests
-    //BigNumberExpressionTests::runTests();
+    BigNumberExpressionTests::runTests();
 }
