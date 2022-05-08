@@ -8,6 +8,8 @@
 #include "BigNumberExpression.h"
 #include "BigNumberExpressionTests.h"
 
+//TODO: create equations with BigNumber(medium) and make an equation solver with BigNumber(hard)
+
 int main()
 {
     //BigNumber tests
