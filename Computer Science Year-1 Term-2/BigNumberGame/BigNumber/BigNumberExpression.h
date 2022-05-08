@@ -87,6 +87,12 @@ public:
 	char* concatExpressionsWithOperator(const char* thisExpression, const char* otherExpression, const char* concatOperator) const;
 
 	//Comparative operators
+	bool operator == (const BigNumberExpression& other) const;
+	bool operator != (const BigNumberExpression& other) const;
+	bool operator < (const BigNumberExpression& other) const;
+	bool operator <= (const BigNumberExpression& other) const;
+	bool operator > (const BigNumberExpression& other) const;
+	bool operator >= (const BigNumberExpression& other) const;
 
 	//Operator arithmetic
 	BigNumberExpression operator+(const BigNumberExpression& other) const;

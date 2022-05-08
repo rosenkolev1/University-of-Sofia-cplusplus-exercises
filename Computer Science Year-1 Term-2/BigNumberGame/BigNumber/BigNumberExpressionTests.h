@@ -31,7 +31,9 @@ public:
 	static void solveExpressionParenthesisTests();
 		   
 	static void generateExpressionTests();
-		   
+
+	static void comparativeOperatorsTests();
+
 	//Operator tests
 	static void operatorSumTests();
 

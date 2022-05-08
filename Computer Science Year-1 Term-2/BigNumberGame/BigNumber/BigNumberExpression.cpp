@@ -767,6 +767,36 @@ char* BigNumberExpression::concatExpressionsWithOperator(const char* thisExpress
 	return newExpressionString;
 }
 
+bool BigNumberExpression::operator==(const BigNumberExpression& other) const
+{
+	return this->evaluteExpression() == other.evaluteExpression();
+}
+
+bool BigNumberExpression::operator!=(const BigNumberExpression& other) const
+{
+	return !(*this==other);
+}
+
+bool BigNumberExpression::operator<(const BigNumberExpression& other) const
+{
+	return *this <= other && *this != other;
+}
+
+bool BigNumberExpression::operator<=(const BigNumberExpression& other) const
+{
+	return this->evaluteExpression() <= other.evaluteExpression();
+}
+
+bool BigNumberExpression::operator>(const BigNumberExpression& other) const
+{
+	return !(*this<=other);
+}
+
+bool BigNumberExpression::operator>=(const BigNumberExpression& other) const
+{
+	return !(*this < other);
+}
+
 BigNumberExpression BigNumberExpression::operator+(const BigNumberExpression& other) const
 {
 	char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "+");

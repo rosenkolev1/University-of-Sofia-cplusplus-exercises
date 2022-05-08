@@ -798,6 +798,77 @@ void BigNumberExpressionTests::generateExpressionTests()
     }
 }
 
+void BigNumberExpressionTests::comparativeOperatorsTests()
+{
+    std::cout << "COMPARATIVE OPERATORS TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1: " << std::endl;
+    char expressionString11[] = "125/5";
+    char expressionString12[] = "25";
+    BigNumberExpression expression11(expressionString11);
+    BigNumberExpression expression12(expressionString12);
+   
+    std::cout << "Testing if [" << expressionString11 << "] == [" << expressionString12 << "] -> Expected: TRUE: " << (expression11 == expression12 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2: " << std::endl;
+    char expressionString21[] = "125/25";
+    char expressionString22[] = "25";
+    BigNumberExpression expression21(expressionString21);
+    BigNumberExpression expression22(expressionString22);
+
+    std::cout << "Testing if [" << expressionString21 << "] != [" << expressionString22 << "] -> Expected: TRUE: " << (expression21 != expression22 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3: " << std::endl;
+    char expressionString31[] = "24/3";
+    char expressionString32[] = "4+3";
+    BigNumberExpression expression31(expressionString31);
+    BigNumberExpression expression32(expressionString32);
+
+    std::cout << "Testing if [" << expressionString31 << "] > [" << expressionString32 << "] -> Expected: TRUE: " << (expression31 > expression32 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4: " << std::endl;
+    char expressionString41[] = "100%23";
+    char expressionString42[] = "1000/(50 + 25*2)";
+    BigNumberExpression expression41(expressionString41);
+    BigNumberExpression expression42(expressionString42);
+
+    std::cout << "Testing if [" << expressionString41 << "] < [" << expressionString42 << "] -> Expected: TRUE: " << (expression41 < expression42 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5: " << std::endl;
+    char expressionString51[] = "24/3";
+    char expressionString52[] = "4+4";
+    BigNumberExpression expression51(expressionString51);
+    BigNumberExpression expression52(expressionString52);
+
+    std::cout << "Testing if [" << expressionString51 << "] >= [" << expressionString52 << "] -> Expected: TRUE: " << (expression51 >= expression52 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 6
+    std::cout << "TEST 6: " << std::endl;
+    char expressionString61[] = "100%(23+2)+10";
+    char expressionString62[] = "1000/(50 + 25*2)";
+    BigNumberExpression expression61(expressionString61);
+    BigNumberExpression expression62(expressionString62);
+
+    std::cout << "Testing if [" << expressionString61 << "] <= [" << expressionString62 << "] -> Expected: TRUE: " << (expression61 <= expression62 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void BigNumberExpressionTests::operatorSumTests()
 {
     std::cout << "EXPRESSION TESTS FOR \"+\" OPERATOR: " << std::endl << std::endl;
@@ -1190,6 +1261,9 @@ void BigNumberExpressionTests::runTests()
     //
     //////Read from and Write to console tests
     //readFromAndWriteToFileTests();
+
+    //Comparative operators tests
+    comparativeOperatorsTests();
 
     //Operator + tests
     operatorSumTests();
