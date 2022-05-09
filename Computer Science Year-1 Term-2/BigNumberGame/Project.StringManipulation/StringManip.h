@@ -39,7 +39,7 @@ public:
 	static char* replaceFirst(const char* text, const char* replaced, const char* replacement);
 
 	//Replaces a part of the string, starting from startIndex, inclusive, with the replacement.
-	static char* replaceFrom(const char* text, const char* replacement, size_t from);
+	static char* replaceFrom(const char* text, const char* replacement, size_t startIndex);
 
 	//Replaces a part of the string, starting from startIndex and ending in endIndex, both inclusive, with the replacement.
 	static char* replaceFrom(const char* text, const char* replacement, size_t startIndex, size_t endIndex);

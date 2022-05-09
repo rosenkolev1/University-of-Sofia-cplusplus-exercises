@@ -376,6 +376,150 @@ void StringManipTests::replaceFirstTests()
     delete[] output3;
 }
 
+void StringManipTests::replaceFromTests()
+{
+    //replaceFrom TESTS
+    std::cout << "replaceFrom TESTS" << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "rrrrosenroskata123";
+    char otherInput1[] = "roskata123";
+    char expectedOutput1[] = "roskata123roskata123";
+    size_t startIndex = 0;
+    size_t endIndex = 7;
+    std::cout << "Trying to replace \"" << input1 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput1 
+        << "\": Expected: "<< expectedOutput1 <<", TRUE ==> ";
+    char* output1 = StringManip::replaceFrom(input1, otherInput1, startIndex, endIndex);
+    std::cout << output1 << ", " << (strcmp(output1, expectedOutput1) == 0 ? "TRUE" : "FALSE");
+
+    //Delete dynamic memory
+    delete[] output1;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "rrrrosenroskata123";
+    char otherInput2[] = "roskata123";
+    char expectedOutput2[] = "roskata123";
+    startIndex = 0;
+    std::cout << "Trying to replace \"" << input2 << "\" from index " << startIndex << " to the end index with the string \"" << otherInput2
+        << "\": Expected: " << expectedOutput2 << ", TRUE ==> ";
+    char* output2 = StringManip::replaceFrom(input2, otherInput2, startIndex);
+    std::cout << output2 << ", " << (strcmp(output2, expectedOutput2) == 0 ? "TRUE" : "FALSE");
+
+    //Delete dynamic memory
+    delete[] output2;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "rrrrosenroskata123";
+    char otherInput3[] = "";
+    char expectedOutput3[] = "123";
+    startIndex = 0;
+    endIndex = 14;
+    std::cout << "Trying to replace \"" << input3 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput3
+        << "\": Expected: " << expectedOutput3 << ", TRUE ==> ";
+    char* output3 = StringManip::replaceFrom(input3, otherInput3, startIndex, endIndex);
+    std::cout << output3 << ", " << (strcmp(output3, expectedOutput3) == 0 ? "TRUE" : "FALSE");
+
+    //Delete dynamic memory
+    delete[] output3;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4[] = "";
+    char otherInput4[] = "rrrrosenroskata123";
+    char expectedOutput4[] = "rrrrosenroskata123";
+    startIndex = 0;
+    std::cout << "Trying to replace \"" << input4 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput4
+        << "\": Expected: " << expectedOutput4 << ", TRUE ==> ";
+    char* output4 = StringManip::replaceFrom(input4, otherInput4, startIndex);
+    std::cout << output4 << ", " << (strcmp(output4, expectedOutput4) == 0 ? "TRUE" : "FALSE");
+
+    //Delete dynamic memory
+    delete[] output4;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char input5[] = "aaxaa";
+    char otherInput5[] = "bbbbbb";
+    char expectedOutput5[] = "aabbbbbbaa";
+    startIndex = 2;
+    endIndex = 2;
+    std::cout << "Trying to replace \"" << input5 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput5
+        << "\": Expected: " << expectedOutput5 << ", TRUE ==> ";
+    char* output5 = StringManip::replaceFrom(input5, otherInput5, startIndex, endIndex);
+    std::cout << output5 << ", " << (strcmp(output5, expectedOutput5) == 0 ? "TRUE" : "FALSE");
+
+    //Delete dynamic memory
+    delete[] output5;
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    char input6[] = "aaxaa";
+    char otherInput6[] = "bbbbbb";
+    char expectedOutput6[] = "aabbbbbbaa";
+    startIndex = 3;
+    endIndex = 1;
+    std::cout << "Trying to replace \"" << input6 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput6
+        << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        char* output6 = StringManip::replaceFrom(input6, otherInput6, startIndex, endIndex);
+        std::cout << output6 << ", " << (strcmp(output6, expectedOutput6) == 0 ? "TRUE" : "FALSE");
+
+        //Delete dynamic memory
+        delete[] output6;
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    char input7[] = "aaxaa";
+    char otherInput7[] = "bbbbbb";
+    char expectedOutput7[] = "aabbbbbbaa";
+    startIndex = 5;
+    endIndex = 7;
+    std::cout << "Trying to replace \"" << input7 << "\" from index " << startIndex << " to index " << endIndex << " with the string \"" << otherInput7
+        << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        char* output7 = StringManip::replaceFrom(input7, otherInput7, startIndex, startIndex);
+        std::cout << output7 << ", " << (strcmp(output7, expectedOutput7) == 0 ? "TRUE" : "FALSE");
+
+        //Delete dynamic memory
+        delete[] output7;
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void StringManipTests::findIndexTests()
 {
     //findIndex TESTS
@@ -957,6 +1101,9 @@ void StringManipTests::runTests()
     //
     ////replaceFirst TESTS
     //replaceFirstTests();
+    // 
+    //replaceFrom TESTS
+    //replaceFromTests();
     //
     ////findIndex TESTS
     //findIndexTests();
@@ -964,15 +1111,15 @@ void StringManipTests::runTests()
     ////findIndexLast TESTS
     //findIndexLastTests();
 
-    //arraysOfStringsAreEqualTests TESTS
-    arraysOfStringsAreEqualTests();
-    
-    //getUnique TESTS
-    getUniqueTests();
-    
-    //countOf TESTS
-    countOfTests();
-
-    //countOfMany TESTS
-    countOfManyTests();
+    ////arraysOfStringsAreEqualTests TESTS
+    //arraysOfStringsAreEqualTests();
+    //
+    ////getUnique TESTS
+    //getUniqueTests();
+    //
+    ////countOf TESTS
+    //countOfTests();
+    //
+    ////countOfMany TESTS
+    //countOfManyTests();
 }

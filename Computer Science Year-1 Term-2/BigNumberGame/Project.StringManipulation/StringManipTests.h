@@ -18,6 +18,8 @@ public:
 
 	static void replaceFirstTests();
 
+	static void replaceFromTests();
+
 	static void findIndexTests();
 
 	static void findIndexLastTests();

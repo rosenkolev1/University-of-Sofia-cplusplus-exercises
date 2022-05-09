@@ -377,6 +377,37 @@ char* StringManip::replaceFirst(const char* text, const char* replaced, const ch
     return finalText;
 }
 
+char* StringManip::replaceFrom(const char* text, const char* replacement, size_t startIndex)
+{
+    return replaceFrom(text, replacement, startIndex, strlen(text) - 1);
+}
+
+char* StringManip::replaceFrom(const char* text, const char* replacement, size_t startIndex, size_t endIndex)
+{
+    if (startIndex > endIndex) throw "Start index is higher than end index loool!";
+    if (startIndex > strlen(text) - 1) throw "Start index is higher than the length of the text";
+
+    size_t newTextSize = strlen(text) - (endIndex - startIndex + 1) + strlen(replacement);
+    char* newText = new char[newTextSize + 1];
+    newText[newTextSize] = '\0';
+    size_t newTextIndex = 0;
+
+    for (size_t i = 0; i < startIndex; i++)
+    {
+        newText[newTextIndex++] = text[i];
+    }
+    for (size_t i = 0; i < strlen(replacement); i++)
+    {
+        newText[newTextIndex++] = replacement[i];
+    }
+    for (size_t i = endIndex + 1; i < strlen(text); i++)
+    {
+        newText[newTextIndex++] = text[i];
+    }
+
+    return newText;
+}
+
 int StringManip::findIndex(const char* text, const char* searchText)
 {
     int searchTextFoundIndex = 0;
