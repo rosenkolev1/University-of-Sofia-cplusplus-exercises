@@ -2,8 +2,12 @@
 class StringManipTests
 {
 public:
+	//Helper functions for doing tests
     static void printOutResultStringsFromSplitStringTest(char** strings, size_t numberOfStrings);
 
+	static void printOutStringsFromArray(char** strings, size_t numberOfStrings);
+
+	//Actual tests functions
 	static void splitByCharTests();
 
 	static void splitByStringTests();
@@ -18,7 +22,13 @@ public:
 
 	static void findIndexLastTests();
 
+	static void arraysOfStringsAreEqualTests();
+
+	static void getUniqueTests();
+
 	static void countOfTests();
+
+	static void countOfManyTests();
 
 	static void runTests();
 };

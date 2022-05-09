@@ -91,6 +91,9 @@ BigNumber& BigNumberEquation::solveEquation(const char* equation)
 char* BigNumberEquation::generateEquation()
 {
 	//TODO: Will do once I can generate an expression with given flags set.
+	//Generate the left expression template
+	
+
 	return nullptr;
 }
 

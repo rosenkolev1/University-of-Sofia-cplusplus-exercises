@@ -191,27 +191,21 @@ bool StringManip::stringContainsInvalidChars(const char* text, const char* inval
     {
         char textChar = text[i];
         if (textChar < 0 || textChar >= 128) return true;
-        if (stringContainsChar(invalidChars, textChar)) return true;
+        if (stringContains(invalidChars, textChar)) return true;
     }
 
     //If we get to here, that means that the string passed the test and doesn't contain invalid chars.
     return false;
 }
 
-bool StringManip::stringContainsChar(const char* text, const char symbol)
+bool StringManip::stringContains(const char* text, const char other)
 {
     for (size_t i = 0; i < strlen(text); i++)
     {
         char textChar = text[i];
-        if (textChar == symbol) return true;
+        if (textChar == other) return true;
     }
     return false;
-}
-
-bool StringManip::stringContains(const char* text, char other)
-{
-    char otherString[]{other, '\0' };
-    return stringContains(text, otherString);
 }
 
 bool StringManip::stringContains(const char* text, const char* other)
@@ -485,12 +479,28 @@ int StringManip::findIndexLast(const char* text, const char* searchText, size_t 
     return lastIndex > -1 ? lastIndex + startIndex : -1;
 }
 
-int StringManip::countOf(const char* text, const char* searchText)
+size_t StringManip::countOf(const char* text, char symbol)
 {
-    return countOf(text, searchText, 0, strlen(text - 1));
+    return countOf(text, symbol, 0, strlen(text) - 1);
 }
 
-int StringManip::countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
+size_t StringManip::countOf(const char* text, char symbol, size_t startIndex, size_t endIndex)
+{
+    size_t countOfSymbol = 0;
+    for (size_t i = startIndex; i <= endIndex; i++)
+    {
+        char textChar = text[i];
+        if (textChar == symbol) countOfSymbol++;
+    }
+    return countOfSymbol;
+}
+
+size_t StringManip::countOf(const char* text, const char* searchText)
+{
+    return countOf(text, searchText, 0, strlen(text) - 1);
+}
+
+size_t StringManip::countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
 {
     if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
     if (startIndex > endIndex) return 0;
@@ -524,4 +534,138 @@ int StringManip::countOf(const char* text, const char* searchText, size_t startI
     }
 
     return searchTextFoundCounter;
+}
+
+size_t StringManip::countOfMany(const char* text, const char* searchText)
+{
+    return countOfMany(text, searchText, 0, strlen(text) - 1);
+}
+
+size_t StringManip::countOfMany(const char* text, const char* searchText, size_t startIndex, size_t endIndex)
+{
+    if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
+    if (strlen(searchText) == 0) throw "The search text is empty";
+
+    //Get the unique symbols of searchText.
+    char* uniqueSymbolsFromSearchText = getUnique(searchText);
+
+    size_t countOfAllSymbols = 0;
+    
+    for (size_t i = 0; i < strlen(uniqueSymbolsFromSearchText); i++)
+    {
+        char searchTextSymbol = uniqueSymbolsFromSearchText[i];
+        size_t countOfSymbol = countOf(text, searchTextSymbol, startIndex, endIndex);
+        countOfAllSymbols += countOfSymbol;
+    }
+
+    //Delete dynamic memory
+    delete[] uniqueSymbolsFromSearchText;
+
+    return countOfAllSymbols;
+}
+
+size_t StringManip::countOfMany(const char* text, char** searchStrings, size_t searchStringsSize)
+{
+    return countOfMany(text, searchStrings, searchStringsSize, 0, strlen(text) - 1);
+}
+
+size_t StringManip::countOfMany(const char* text, char** searchStrings, size_t searchStringsSize, size_t startIndex, size_t endIndex)
+{
+    if (endIndex >= strlen(text)) throw "The end index is outside the range of the text";
+
+    //Get the unique string of searchStrings.
+    size_t uniqueStringsCount = searchStringsSize;
+    char** uniqueStringsFromSearchText = getUnique(searchStrings, uniqueStringsCount);
+
+    size_t countOfAllStrings = 0;
+
+    for (size_t i = 0; i < uniqueStringsCount; i++)
+    {
+        const char* searchString = uniqueStringsFromSearchText[i];
+        size_t countOfString = countOf(text, searchString, startIndex, endIndex);
+        countOfAllStrings += countOfString;
+    }
+
+    //Delete dynamic memory
+    deleteArrayOfStrings(uniqueStringsFromSearchText, uniqueStringsCount);
+
+    return countOfAllStrings;
+}
+
+char* StringManip::getUnique(const char* text)
+{
+    char* uniqueSymbols = new char[strlen(text) + 1];
+    
+    //Init contained symbols with terminating char
+    for (size_t i = 0; i < strlen(text) + 1; i++)
+    {
+        uniqueSymbols[i] = '\0';
+    }
+
+    size_t uniqueSymbolsIndex = 0;
+
+    for (size_t i = 0; i < strlen(text); i++)
+    {
+        if (!stringContains(uniqueSymbols, text[i])) uniqueSymbols[uniqueSymbolsIndex++] = text[i];
+    }
+    uniqueSymbols[uniqueSymbolsIndex++] = '\0';
+
+    return uniqueSymbols;
+}
+
+char** StringManip::getUnique(char** strings, size_t& arraySize)
+{
+    if (arraySize == 0) throw "Array size is 0 looool";
+
+    char** uniqueStrings = new char* [arraySize];
+
+    //Init the unique strings
+    for (size_t i = 0; i < arraySize; i++)
+    {
+        uniqueStrings[i] = new char[1]{ '\0' };
+    }
+
+    size_t uniqueStringsIndex = 0;
+
+    for (size_t i = 0; i < arraySize; i++)
+    {
+        const char* stringToCompare = strings[i];
+
+        bool stringIsUnique = true;
+        for (size_t y = 0; y < uniqueStringsIndex; y++)
+        {
+            if (strcmp(stringToCompare, uniqueStrings[y]) == 0)
+            {
+                stringIsUnique = false;
+                break;
+            }
+        }
+
+        if (stringIsUnique)
+        {
+            //Add the new string to uniqueStrings
+            delete[] uniqueStrings[uniqueStringsIndex];
+            uniqueStrings[uniqueStringsIndex] = new char[strlen(stringToCompare) + 1];
+            strcpy(uniqueStrings[uniqueStringsIndex], stringToCompare);
+            uniqueStringsIndex++;
+        }
+    }
+
+    //Set array size
+    arraySize = uniqueStringsIndex;
+
+    return uniqueStrings;
+}
+
+bool StringManip::arraysOfStringsAreEqual(char** stringsOne, char** stringsTwo, size_t stringsOneSize, size_t stringsTwoSize)
+{
+    if (stringsOneSize != stringsTwoSize) return false;
+    for (size_t i = 0; i < stringsOneSize; i++)
+    {
+        const char* stringOne = stringsOne[i];
+        const char* stringTwo = stringsTwo[i];
+        if (strcmp(stringOne, stringTwo) != 0) return false;
+    }
+
+    return true;
 }

@@ -56,10 +56,10 @@ private:
 	BigNumber* replaceNumbersFromCalculation(BigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, BigNumber* resultNumber) const;
 	void replaceOperatorsFromCalculation(char* operators, size_t index) const;
 
-	char generateOperator(int seed);
-	char generateOpeningParenthesis(int seed);
-	int generateSign(int seed);
-	size_t generateDigitsCount(int seed);
+	char generateOperator(int seed) const;
+	char generateOpeningParenthesis(int seed) const;
+	int generateSign(int seed) const;
+	size_t generateDigitsCount(int seed) const;
 public:
 
 	//Big 4
@@ -81,6 +81,18 @@ public:
 
 	//Check if expression is valid
 	bool expressionIsValid(const char* expression = nullptr) const;
+
+	//Randomly generate a new expression template
+	char* generateExpressionTemplate() const;
+
+	//Randomly generate a new expression template with certain conditions
+	char* generateExpressionTemplate(const char* allowedOperators) const;
+
+	//Get the expression template for an expression
+	char* getExpressionTemplate(const char* expression = nullptr) const;
+
+	//Get the expression template for an expression
+	char* getExpressionTemplate(const BigNumberExpression& expression) const;
 
 	//Randomly generate a new expression
 	void generateExpression();

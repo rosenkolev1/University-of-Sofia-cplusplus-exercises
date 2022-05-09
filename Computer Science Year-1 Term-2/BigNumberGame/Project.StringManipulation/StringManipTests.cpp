@@ -17,6 +17,14 @@ void StringManipTests::printOutResultStringsFromSplitStringTest(char** strings, 
     std::cout << std::endl;
 }
 
+void StringManipTests::printOutStringsFromArray(char** strings, size_t numberOfStrings)
+{
+    for (size_t i = 0; i < numberOfStrings; i++)
+    {
+        std::cout << strings[i] << (i != numberOfStrings - 1 ? ", " : "");
+    }
+}
+
 void StringManipTests::splitByCharTests()
 {
     //splitByChar TESTS
@@ -460,20 +468,271 @@ void StringManipTests::findIndexLastTests()
     std::cout << std::endl;
 }
 
+void StringManipTests::arraysOfStringsAreEqualTests()
+{
+    //arraysOfStringsAreEqualTests TESTS
+    std::cout << "arraysOfStringsAreEqualTests TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    const char** input11 = new const char* []
+    {
+        "Something",
+        "Anything",
+        "something",
+        "Something",
+        "Anything",
+        "",
+        "  ",
+        "",
+        " ",
+        "Anything"
+    };
+    size_t arraySizeInput11 = 10;
+
+    const char** input12 = new const char* []
+    {
+        "Something",
+        "Anything",
+        "something",
+        "",
+        "  ",
+        " ",
+    };
+    size_t arraySizeInput12 = 6;
+
+    std::cout << "Testing if the string arrays {";
+    printOutStringsFromArray((char**)input11, arraySizeInput11);
+    std::cout << "} and {";
+    printOutStringsFromArray((char**)input12, arraySizeInput12);
+    std::cout << "} are equal: Expected(FALSE) ==> " << (StringManip::arraysOfStringsAreEqual((char**)input11, (char**)input12, arraySizeInput11, arraySizeInput12) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input11;
+    delete[] input12;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    const char** input21 = new const char* []
+    {
+        "Something",
+            "Anything",
+            "something",
+            "Something",
+            "Anything",
+            "",
+            "  ",
+            "",
+            " ",
+            "Anything"
+    };
+    size_t arraySizeInput21 = 10;
+
+    const char** input22 = new const char* []
+    {
+        "Something",
+            "Anything",
+            "something",
+            "Something",
+            "Anything",
+            "",
+            "  ",
+            "",
+            " ",
+            "Anything"
+    };
+    size_t arraySizeInput22 = 10;
+
+    std::cout << "Testing if the string arrays {";
+    printOutStringsFromArray((char**)input21, arraySizeInput21);
+    std::cout << "} and {";
+    printOutStringsFromArray((char**)input22, arraySizeInput22);
+    std::cout << "} are equal: Expected(TRUE) ==> " << (StringManip::arraysOfStringsAreEqual((char**)input21, (char**)input22, arraySizeInput21, arraySizeInput22) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input21;
+    delete[] input22;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    const char** input31 = new const char* []
+    {
+        "",
+    };
+    size_t arraySizeInput31 = 1;
+
+    const char** input32 = new const char* []
+    {
+        "",
+    };
+    size_t arraySizeInput32 = 1;
+
+    std::cout << "Testing if the string arrays {";
+    printOutStringsFromArray((char**)input31, arraySizeInput31);
+    std::cout << "} and {";
+    printOutStringsFromArray((char**)input32, arraySizeInput32);
+    std::cout << "} are equal: Expected(TRUE) ==> " << (StringManip::arraysOfStringsAreEqual((char**)input31, (char**)input32, arraySizeInput31, arraySizeInput32) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input31;
+    delete[] input32;
+}
+
+void StringManipTests::getUniqueTests()
+{
+    //getUnique TESTS
+    std::cout << "getUnique TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "bbbcddfagbbcde";
+    char expectedOuput1[] = "bcdfage";
+    char* output1 = StringManip::getUnique(input1);
+    std::cout << "Testing what the unique symbols of \"" << input1 << "\" are: Expected("<< expectedOuput1 <<", TRUE) ==> " << output1 << ", "
+        << (strcmp(expectedOuput1, output1) == 0 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output1;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "      ";
+    char expectedOuput2[] = " ";
+    char* output2 = StringManip::getUnique(input2);
+    std::cout << "Testing what the unique symbols of \"" << input2 << "\" are: Expected(" << expectedOuput2 << ", TRUE) ==> " << output2 << ", "
+        << (strcmp(expectedOuput2, output2) == 0 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output2;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "";
+    char expectedOuput3[] = "";
+    char* output3 = StringManip::getUnique(input3);
+    std::cout << "Testing what the unique symbols of \"" << input3 << "\" are: Expected(" << expectedOuput3 << ", TRUE) ==> " << output3 << ", "
+        << (strcmp(expectedOuput3, output3) == 0 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output3;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4[] = "ccccccccccccccccccccccccxcccccccccccccccc";
+    char expectedOuput4[] = "cx";
+    char* output4 = StringManip::getUnique(input4);
+    std::cout << "Testing what the unique symbols of \"" << input4 << " are: Expected(" << expectedOuput4 << ", TRUE) ==> " << output4 << ", "
+        << (strcmp(expectedOuput4, output4) == 0 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output4;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    const char** input5 = new const char*[]
+    {
+        "Something",
+        "Anything",
+        "something",
+        "Something",
+        "Anything",
+        "",
+        "  ",
+        "",
+        " ",
+        "Anything"
+    };
+    size_t arraySizeInput = 10;
+
+    const char** expectedOutput5 = new const char*[]
+    {
+        "Something",
+        "Anything",
+        "something",
+        "",
+        "  ",
+        " ",
+    };
+    size_t arraySizeExpectedOutput = 6;
+
+    size_t arraySizeOutput = arraySizeInput;
+    char** output5 = StringManip::getUnique((char**)input5, arraySizeOutput);
+    std::cout << "Testing what the unique strings of \"";
+    printOutStringsFromArray((char**)input5, arraySizeInput);
+    std::cout << " are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput5, arraySizeExpectedOutput);
+    std::cout << ", TRUE) ==> "; 
+    printOutStringsFromArray((char**)output5, arraySizeOutput);
+    std::cout << ", ";
+    std::cout << (StringManip::arraysOfStringsAreEqual((char**)output5, (char**)expectedOutput5, arraySizeOutput, arraySizeExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output5, arraySizeOutput);
+    delete[] expectedOutput5;
+    delete[] input5;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    const char** input6 = new const char* [0];
+    arraySizeInput = 0;
+
+    const char** expectedOutput6 = new const char* []
+    {
+        "Something",
+            "Anything",
+            "something",
+            "",
+            "  ",
+            " ",
+    };
+    arraySizeExpectedOutput = 6;
+
+    arraySizeOutput = arraySizeInput;
+    std::cout << "Testing what the unique strings of \"";
+    printOutStringsFromArray((char**)input6, arraySizeInput);
+    std::cout << " are: Expected(Throw Error) ==> ";    
+    try
+    {
+        char** output6 = StringManip::getUnique((char**)input6, arraySizeOutput);
+        printOutStringsFromArray((char**)output6, arraySizeOutput);
+        std::cout << ", ";
+        std::cout << (StringManip::arraysOfStringsAreEqual((char**)output6, (char**)expectedOutput6, arraySizeOutput, arraySizeExpectedOutput) ? "TRUE" : "FALSE");
+
+        //Delete dynamic memory
+        StringManip::deleteArrayOfStrings(output6, arraySizeOutput);
+    }
+    catch (...)
+    {
+        std::cout << "Throw Error";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    delete[] expectedOutput6;
+    delete[] input6;
+}
+
 void StringManipTests::countOfTests()
 {
     //countOf TESTS
     std::cout << "countOf TESTS: " << std::endl << std::endl;
 
-
     //TEST 1
     std::cout << "TEST 1" << std::endl;
     char input1[] = "aab";
     char otherInput1[] = "braaabppabaabbbbaabaabbaab";
-    int startIndex1 = 0;
-    int endIndex1 = 25;
-    std::cout << "Testing how many times the string \"" << input1 << "\" is contained within \"" << otherInput1 << "\" from " << startIndex1 << " to " << endIndex1 << ": Expected(5) ==> ";
-    std::cout << StringManip::countOf(otherInput1, input1, startIndex1, endIndex1);
+    std::cout << "Testing how many times the string \"" << input1 << "\" is contained within \"" << otherInput1 << "\": Expected(5) ==> ";
+    std::cout << StringManip::countOf(otherInput1, input1);
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -498,31 +757,222 @@ void StringManipTests::countOfTests()
     std::cout << StringManip::countOf(otherInput3, input3, startIndex3, endIndex3);
     std::cout << std::endl;
     std::cout << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4 = '(';
+    char otherInput4[] = "(())((()))";
+    int startIndex4 = 5;
+    int endIndex4 = 9;
+    std::cout << "Testing how many times the char \'" << input4 << "\" is contained within \'" << otherInput4 << "\" from " << startIndex4 << " to " << endIndex4 << ": Expected(2) ==> ";
+    std::cout << StringManip::countOf(otherInput4, input4, startIndex4, endIndex4);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char input5 = '(';
+    char otherInput5[] = "(())((()))xxxx";
+    int startIndex5 = 10;
+    int endIndex5 = 13;
+    std::cout << "Testing how many times the char \'" << input5 << "\" is contained within \'" << otherInput5 << "\" from " << startIndex5 << " to " << endIndex5 << ": Expected(0) ==> ";
+    std::cout << StringManip::countOf(otherInput5, input5, startIndex5, endIndex5);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    char input6 = '(';
+    char otherInput6[] = "(())((()))xxxx";
+    std::cout << "Testing how many times the char \'" << input6 << "\" is contained within \'" << otherInput6 << "\": Expected(5) ==> ";
+    std::cout << StringManip::countOf(otherInput6, input6);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    char input7[] = "";
+    char otherInput7[] = "(())((()))";
+    std::cout << "Testing how many times the string \"" << input7 << "\" is contained within \"" << otherInput7 << "\": Expected(0) ==> ";
+    std::cout << StringManip::countOf(otherInput7, input7);
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
+void StringManipTests::countOfManyTests()
+{
+    //countOfMany TESTS
+    std::cout << "countOfMany TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "aab";
+    char otherInput1[] = "braaabppabaabbbbaabaabbaab";
+    std::cout << "Testing how many times the symbols of the strings \"" << input1 << "\" are contained within \"" << otherInput1 << "\": Expected(23) ==> ";
+    std::cout << StringManip::countOfMany(otherInput1, input1);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "";
+    char otherInput2[] = "braaabppabaabbbbaabaabbaab";
+    std::cout << "Testing how many times the symbols of the strings \"" << otherInput2 << "\" is contained within \"" << input2 << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        std::cout << StringManip::countOfMany(input2, otherInput2);
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "";
+    char otherInput3[] = "braaabppabaabbbbaabaabbaab";
+    std::cout << "Testing how many times the symbols of the strings \"" << input3 << "\" is contained within \"" << otherInput3 << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        std::cout << StringManip::countOfMany(otherInput3, input3);
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4[] = "br";
+    char otherInput4[] = "braaabppabaabbbbaabaabbaabssx";
+    std::cout << "Testing how many times the symbols of the strings \"" << input4 << "\" is contained within \"" << otherInput4 << "\": Expected: 12 ==> "
+        << StringManip::countOfMany(otherInput4, input4);;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    const char** input5 = new const char* []
+    {
+        "bro",
+        "orb",
+        "bro"
+    };
+    size_t arraySizeInput = 3;
+    char otherInput5[] = "brorbbrooorbrrborroorbro";
+    std::cout << "Testing how many times the strings of the array of strings \"";
+    printOutStringsFromArray((char**)input5, arraySizeInput);
+    std::cout << "\" is contained within \"" << otherInput5 << "\": Expected: 6 ==> "
+        << StringManip::countOfMany(otherInput5, (char**)input5, arraySizeInput);;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input5;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    const char** input6 = new const char* []
+    {
+        "bro",
+        "",
+    };
+    arraySizeInput = 2;
+    char otherInput6[] = "brorbbrooorbrrborroorbro";
+    std::cout << "Testing how many times the strings of the array of strings \"";
+    printOutStringsFromArray((char**)input6, arraySizeInput);
+    std::cout << "\" is contained within \"" << otherInput6 << "\": Expected: 3 ==> "
+        << StringManip::countOfMany(otherInput6, (char**)input6, arraySizeInput);;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input6;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    const char** input7 = new const char* [0];
+    arraySizeInput = 0;
+    char otherInput7[] = "brorbbrooorbrrborroorbro";
+    std::cout << "Testing how many times the strings of the array of strings \"";
+    printOutStringsFromArray((char**)input7, arraySizeInput);
+    std::cout << "\" is contained within \"" << otherInput7 << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        std::cout << StringManip::countOfMany(otherInput7, (char**)input7, arraySizeInput);
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] input7;
+
+    //TEST 8
+    std::cout << "TEST 8" << std::endl;
+    const char** input8 = new const char* []
+    {
+        "Something",
+            "Anything"
+    };
+    arraySizeInput = 2;
+    char otherInput8[] = "";
+    std::cout << "Testing how many times the strings of the array of strings \"";
+    printOutStringsFromArray((char**)input8, arraySizeInput);
+    std::cout << "\" is contained within \"" << otherInput8 << "\": Expected: Throw Exception ==> ";
+    try
+    {
+        
+        std::cout << StringManip::countOfMany(otherInput8, (char**)input8, arraySizeInput);;
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
+    catch (...)
+    {
+        std::cout << "Throw Exception";
+    }
+    //Delete dynamic memory
+    delete[] input8;
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 void StringManipTests::runTests()
 {
-    //splitByChar TESTS
-    splitByCharTests();
+    ////splitByChar TESTS
+    //splitByCharTests();
+    //
+    ////splitByString TESTS
+    //splitByStringTests();
+    //
+    ////stringContains TESTS
+    //stringContainsTests();
+    //
+    ////replaceAll TESTS
+    //replaceAllTests();
+    //
+    ////replaceFirst TESTS
+    //replaceFirstTests();
+    //
+    ////findIndex TESTS
+    //findIndexTests();
+    //
+    ////findIndexLast TESTS
+    //findIndexLastTests();
 
-    //splitByString TESTS
-    splitByStringTests();
-
-    //stringContains TESTS
-    stringContainsTests();
-
-    //replaceAll TESTS
-    replaceAllTests();
-
-    //replaceFirst TESTS
-    replaceFirstTests();
-
-    //findIndex TESTS
-    findIndexTests();
-
-    //findIndexLast TESTS
-    findIndexLastTests();
-
+    //arraysOfStringsAreEqualTests TESTS
+    arraysOfStringsAreEqualTests();
+    
+    //getUnique TESTS
+    getUniqueTests();
+    
     //countOf TESTS
     countOfTests();
+
+    //countOfMany TESTS
+    countOfManyTests();
 }
