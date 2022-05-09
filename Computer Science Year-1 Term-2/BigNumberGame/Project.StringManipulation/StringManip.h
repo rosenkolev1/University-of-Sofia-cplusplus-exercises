@@ -12,10 +12,10 @@ public:
 	static char** splitString(const char* input, const char* delim, size_t& sizeOfArray);
 
 	//Split string by many char delims. sizeOfArray returns the numbers of split strings. 
-	static char** splitStringMany(const char* input, const char* delim, size_t& sizeOfArray);
+	static char** splitStringMany(const char* input, const char* delims, size_t& sizeOfArray);
 
 	//Split string by many string delims. sizeOfArray returns the numbers of split strings. 
-	static char** splitStringMany(const char* input, const char** delims, size_t& sizeOfArray);
+	static char** splitStringMany(const char* input, const char** delims, size_t sizeOfDelimsArrays, size_t& sizeOfArray);
 
 	//Checks for validity
 	static bool stringContainsInvalidChars(const char* text, const char* invalidChars);

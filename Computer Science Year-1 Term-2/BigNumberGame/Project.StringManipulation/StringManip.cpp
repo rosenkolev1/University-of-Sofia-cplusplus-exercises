@@ -185,6 +185,110 @@ char** StringManip::splitString(const char* input, const char* delim, size_t& si
     return arrayOfStrings;
 }
 
+char** StringManip::splitStringMany(const char* input, const char* delims, size_t& sizeOfArray)
+{
+    char** delimsStringArray = new char* [strlen(delims)];
+   
+    for (size_t i = 0; i < strlen(delims); i++)
+    {
+        delimsStringArray[i] = new char[2];
+        delimsStringArray[i][0] = delims[i];
+        delimsStringArray[i][1] = '\0';
+    }
+     
+    char** splitInput = splitStringMany(input, (const char**)delimsStringArray, strlen(delims), sizeOfArray);
+
+    //Delete dynamic memory. We don't use the StringManip::deleteArrayOfStrings function because we don't want to delete the delims parameter
+    delete[] delimsStringArray;
+
+    return splitInput;
+}
+
+char** StringManip::splitStringMany(const char* input, const char** delims, size_t sizeOfDelimsArrays, size_t& sizeOfArray)
+{
+    //If the sizeOfDelimsArray == 0 or if the input is an empty string, then just return the input
+    if (sizeOfDelimsArrays == 0 || strlen(input) == 0)
+    {
+        char** splitInput = new char* [1];
+        splitInput[0] = new char[strlen(input) + 1];
+        strcpy(splitInput[0], input);
+        sizeOfArray = 1;
+        return splitInput;
+    }
+
+    sizeOfArray = StringManip::countOfMany(input, (char**)delims, sizeOfDelimsArrays) + 1;
+    char** finalSplitInput = new char* [sizeOfArray];
+    size_t finalSplitInputIndex = 0;
+
+    //For each word in delims, check where it's first occurance is. Split by the earliest occurance, then jump in the iteration by the length of the delim string.
+    size_t startIndexSearch = 0;
+    size_t endIndexSearch = strlen(input) - 1;
+
+    while (true)
+    {
+        const char* earliestOccuranceWord = delims[0];
+        int earliestOccuranceIndex = StringManip::findIndex(input, earliestOccuranceWord, startIndexSearch, endIndexSearch);
+
+        for (size_t i = 1; i < sizeOfDelimsArrays; i++)
+        {
+            const char* delim = delims[i];
+            int earliestOccuranceIndexOfDelim = StringManip::findIndex(input, delim, startIndexSearch, endIndexSearch);
+
+            if ( (earliestOccuranceIndexOfDelim < earliestOccuranceIndex && earliestOccuranceIndex > -1 && earliestOccuranceIndexOfDelim > -1) 
+                || (earliestOccuranceIndex == -1 && earliestOccuranceIndexOfDelim > -1))
+            {
+                earliestOccuranceIndex = earliestOccuranceIndexOfDelim;
+                earliestOccuranceWord = delim;
+            }
+        }
+
+        //If we run out of splitters, then get the last remaining split part of the string and break out of the loop
+        if (earliestOccuranceIndex == -1)
+        {
+            //If there are no characters left to take after the last delim, then take an empty string
+            size_t lastSplitPartIndex = startIndexSearch;
+            if (lastSplitPartIndex > strlen(input) - 1 && lastSplitPartIndex > 0)
+            {
+                finalSplitInput[finalSplitInputIndex] = new char[1];
+                finalSplitInput[finalSplitInputIndex][0] = '\0';
+                finalSplitInputIndex++;
+
+                break;
+            }
+
+            //Get the split part of the input and store it in the final split string array
+            char* splitInput = new char[strlen(input) - lastSplitPartIndex + 1];
+            for (size_t i = 0; i < strlen(input) - lastSplitPartIndex; i++)
+            {
+                splitInput[i] = input[i + lastSplitPartIndex];
+            }
+
+            splitInput[strlen(input) - lastSplitPartIndex] = '\0';
+
+            finalSplitInput[finalSplitInputIndex++] = splitInput;
+
+            break;
+        }
+        
+        //Get the split part of the input and store it in the final split string array
+        char* splitInput = new char[earliestOccuranceIndex - startIndexSearch + 1];
+        for (size_t i = 0; i < earliestOccuranceIndex - startIndexSearch; i++)
+        {
+            splitInput[i] = input[i + startIndexSearch];
+        }
+
+        splitInput[earliestOccuranceIndex - startIndexSearch] = '\0';
+
+        finalSplitInput[finalSplitInputIndex++] = splitInput;
+
+        //Change the starting point of the search in input for splitters
+        startIndexSearch = earliestOccuranceIndex + strlen(earliestOccuranceWord);
+    }
+
+    sizeOfArray = finalSplitInputIndex;
+    return finalSplitInput;
+}
+
 bool StringManip::stringContainsInvalidChars(const char* text, const char* invalidChars)
 {
     for (size_t i = 0; i < strlen(text); i++)

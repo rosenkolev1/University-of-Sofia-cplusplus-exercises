@@ -12,6 +12,8 @@ public:
 
 	static void splitByStringTests();
 
+	static void splitStringManyTests();
+
 	static void stringContainsTests();
 
 	static void replaceAllTests();

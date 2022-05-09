@@ -241,6 +241,403 @@ void StringManipTests::splitByStringTests()
 
 }
 
+void StringManipTests::splitStringManyTests()
+{
+    //splitStringMany TESTS
+    std::cout << "splitStringMany TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
+    const char** delims1 = new const char* []
+    {
+        "|||",
+        "^^^",
+        "_"
+    };
+    size_t delims1Count = 3;
+
+    size_t sizeOfExpectedOutput = 7;
+    const char** expectedOutput1 = new const char* []
+    {
+        "Roskata123",
+            "Tupa",
+            "rabota",
+            "Egati",
+            "Tupoto||^^",
+            " ",
+            ""
+    };
+
+    std::cout << "Testing input -> \"" << input1 << "\" split by { ";
+    printOutStringsFromArray((char**)delims1, delims1Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput1, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput1 = 0;
+    char** output1 = StringManip::splitStringMany(input1, delims1, delims1Count, sizeOfOutput1);
+
+    printOutStringsFromArray(output1, sizeOfOutput1);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output1, (char**)expectedOutput1, sizeOfOutput1, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output1, sizeOfOutput1);
+    delete[] delims1;
+    delete[] expectedOutput1;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on";
+    const char** delims2 = new const char* []
+    {
+        "|||",
+            "^^^",
+            "_"
+    };
+    size_t delims2Count = 3;
+
+    sizeOfExpectedOutput = 8;
+    const char** expectedOutput2 = new const char* []
+    {
+        "",
+        "Roskata123",
+            "Tupa",
+            "rabota",
+            "Egati",
+            "Tupoto||^^",
+            " ",
+            "something to end on"
+    };
+
+    std::cout << "Testing input -> \"" << input2 << "\" split by { ";
+    printOutStringsFromArray((char**)delims2, delims2Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput2, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput2 = 0;
+    char** output2 = StringManip::splitStringMany(input2, delims2, delims2Count, sizeOfOutput2);
+
+    printOutStringsFromArray(output2, sizeOfOutput2);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output2, (char**)expectedOutput2, sizeOfOutput2, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output2, sizeOfOutput2);
+    delete[] delims2;
+    delete[] expectedOutput2;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on";
+    const char** delims3 = new const char* [0];
+    size_t delims3Count = 0;
+
+    sizeOfExpectedOutput = 1;
+    const char** expectedOutput3 = new const char* []
+    {
+        "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on",
+    };
+
+    std::cout << "Testing input -> \"" << input3 << "\" split by { ";
+    printOutStringsFromArray((char**)delims3, delims3Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput3, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput3 = 0;
+    char** output3 = StringManip::splitStringMany(input3, delims3, delims3Count, sizeOfOutput3);
+
+    printOutStringsFromArray(output3, sizeOfOutput3);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output3, (char**)expectedOutput3, sizeOfOutput3, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output3, sizeOfOutput3);
+    delete[] delims3;
+    delete[] expectedOutput3;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4[] = "";
+    const char** delims4 = new const char* [3]
+    {
+        "|||",
+            "^^^",
+            "_"
+    };
+    size_t delims4Count = 3;
+
+    sizeOfExpectedOutput = 1;
+    const char** expectedOutput4 = new const char* []
+    {
+        "",
+    };
+
+    std::cout << "Testing input -> \"" << input4 << "\" split by { ";
+    printOutStringsFromArray((char**)delims4, delims4Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput4, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput4 = 0;
+    char** output4 = StringManip::splitStringMany(input4, delims4, delims4Count, sizeOfOutput4);
+
+    printOutStringsFromArray(output4, sizeOfOutput4);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output4, (char**)expectedOutput4, sizeOfOutput4, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output4, sizeOfOutput4);
+    delete[] delims4;
+    delete[] expectedOutput4;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char input5[] = "|||";
+    const char** delims5 = new const char* [3]
+    {
+        "|||",
+            "^^^",
+            "_"
+    };
+    size_t delims5Count = 3;
+
+    sizeOfExpectedOutput = 2;
+    const char** expectedOutput5 = new const char* []
+    {
+        "",
+        ""
+    };
+
+    std::cout << "Testing input -> \"" << input5 << "\" split by { ";
+    printOutStringsFromArray((char**)delims5, delims5Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput5, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput5 = 0;
+    char** output5 = StringManip::splitStringMany(input5, delims5, delims5Count, sizeOfOutput5);
+
+    printOutStringsFromArray(output5, sizeOfOutput5);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output5, (char**)expectedOutput5, sizeOfOutput5, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output5, sizeOfOutput5);
+    delete[] delims5;
+    delete[] expectedOutput5;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    char input6[] = "Rosen4o";
+    const char** delims6 = new const char* [3]
+    {
+        "|||",
+            "^^^",
+            "_"
+    };
+    size_t delims6Count = 3;
+
+    sizeOfExpectedOutput = 1;
+    const char** expectedOutput6 = new const char* []
+    {
+        "Rosen4o"
+    };
+
+    std::cout << "Testing input -> \"" << input6 << "\" split by { ";
+    printOutStringsFromArray((char**)delims6, delims6Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput6, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput6 = 0;
+    char** output6 = StringManip::splitStringMany(input6, delims6, delims6Count, sizeOfOutput6);
+
+    printOutStringsFromArray(output6, sizeOfOutput6);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output6, (char**)expectedOutput6, sizeOfOutput6, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output6, sizeOfOutput6);
+    delete[] delims6;
+    delete[] expectedOutput6;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    char input7[] = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
+    const char** delims7 = new const char* []
+    {
+        "|||",
+            "^^^",
+            "_",
+            "|||",
+            "_",
+            "||"
+    };
+    size_t delims7Count = 6;
+
+    sizeOfExpectedOutput = 8;
+    const char** expectedOutput7 = new const char* []
+    {
+        "Roskata123",
+            "Tupa",
+            "rabota",
+            "Egati",
+            "Tupoto",
+            "^^",
+            " ",
+            ""
+    };
+
+    std::cout << "Testing input -> \"" << input7 << "\" split by { ";
+    printOutStringsFromArray((char**)delims7, delims1Count);
+    std::cout << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput7, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput7 = 0;
+    char** output7 = StringManip::splitStringMany(input7, delims7, delims7Count, sizeOfOutput7);
+
+    printOutStringsFromArray(output7, sizeOfOutput7);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output7, (char**)expectedOutput7, sizeOfOutput7, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output7, sizeOfOutput7);
+    delete[] delims7;
+    delete[] expectedOutput7;
+
+    //TEST 8
+    std::cout << "TEST 8" << std::endl;
+    char input8[] = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
+    const char delims8[] = "_|";
+    
+    sizeOfExpectedOutput = 12;
+    const char** expectedOutput8 = new const char* []
+    {
+        "Roskata123",
+            "",
+            "",
+            "Tupa",
+            "rabota^^^Egati",
+            "Tupoto",
+            "",
+            "^^",
+            " ",
+            "",
+            "",
+            ""
+    };
+    
+    std::cout << "Testing input -> \"" << input8 << "\" split by the symbols of { " << delims8 << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput8, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+    
+    size_t sizeOfOutput8 = 0;
+    char** output8 = StringManip::splitStringMany(input8, delims8, sizeOfOutput8);
+    
+    printOutStringsFromArray(output8, sizeOfOutput8);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output8, (char**)expectedOutput8, sizeOfOutput8, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+    
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output8, sizeOfOutput8);
+    delete[] expectedOutput8;
+
+    //TEST 9
+    std::cout << "TEST 9" << std::endl;
+    char input9[] = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
+    const char delims9[] = "|";
+
+    sizeOfExpectedOutput = 9;
+    const char** expectedOutput9 = new const char* []
+    {
+        "Roskata123",
+            "",
+            "",
+            "Tupa_rabota^^^Egati_Tupoto",
+            "",
+            "^^_ ",
+            "",
+            "",
+            "",
+    };
+
+    std::cout << "Testing input -> \"" << input9 << "\" split by the symbols of { " << delims9 << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput9, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput9 = 0;
+    char** output9 = StringManip::splitStringMany(input9, delims9, sizeOfOutput9);
+
+    printOutStringsFromArray(output9, sizeOfOutput9);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output9, (char**)expectedOutput9, sizeOfOutput9, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output9, sizeOfOutput9);
+    delete[] expectedOutput9;
+
+    //TEST 10
+    std::cout << "TEST 10" << std::endl;
+    char input10[] = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
+    const char delims10[] = "";
+
+    sizeOfExpectedOutput = 1;
+    const char** expectedOutput10 = new const char* []
+    {
+        "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||",         
+    };
+
+    std::cout << "Testing input -> \"" << input10 << "\" split by the symbols of { " << delims10 << " }. " << std::endl;
+    std::cout << "Strings are: Expected(";
+    printOutStringsFromArray((char**)expectedOutput10, sizeOfExpectedOutput);
+    std::cout << ") ==> ";
+
+    size_t sizeOfOutput10 = 0;
+    char** output10 = StringManip::splitStringMany(input10, delims10, sizeOfOutput10);
+
+    printOutStringsFromArray(output10, sizeOfOutput10);
+    std::cout << std::endl << "Are the expected output and the output the same: Expected: TRUE ==> "
+        << (StringManip::arraysOfStringsAreEqual(output10, (char**)expectedOutput10, sizeOfOutput10, sizeOfExpectedOutput) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //Delete dynamic memory
+    StringManip::deleteArrayOfStrings(output10, sizeOfOutput10);
+    delete[] expectedOutput10;
+}
+
 void StringManipTests::stringContainsTests()
 {
     //stringContains TESTS
@@ -1092,7 +1489,10 @@ void StringManipTests::runTests()
     //
     ////splitByString TESTS
     //splitByStringTests();
-    //
+    
+    //splitStringMany TESTS
+    splitStringManyTests();
+
     ////stringContains TESTS
     //stringContainsTests();
     //
