@@ -77,12 +77,16 @@ public:
 	void setExpression(const char* expression);
 
 	//Return the answer to an expression
-	BigNumber evaluteExpression(const char* expression = nullptr) const;
+	BigNumber evaluateExpression(const char* expression = nullptr) const;
 
+	//Check if expression is valid
 	bool expressionIsValid(const char* expression = nullptr) const;
 
 	//Randomly generate a new expression
 	void generateExpression();
+
+	//Generate a new expression with certain conditions
+	void generateExpression(const char* allowedOperators);
 
 	char* concatExpressionsWithOperator(const char* thisExpression, const char* otherExpression, const char* concatOperator) const;
 

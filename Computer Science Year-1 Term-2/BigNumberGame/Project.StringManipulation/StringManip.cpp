@@ -208,6 +208,12 @@ bool StringManip::stringContainsChar(const char* text, const char symbol)
     return false;
 }
 
+bool StringManip::stringContains(const char* text, char other)
+{
+    char otherString[]{other, '\0' };
+    return stringContains(text, otherString);
+}
+
 bool StringManip::stringContains(const char* text, const char* other)
 {
     for (size_t i = 0; i < strlen(text); i++)
@@ -477,6 +483,11 @@ int StringManip::findIndexLast(const char* text, const char* searchText, size_t 
     //Delete dynamic memory
     delete[] textPart;
     return lastIndex > -1 ? lastIndex + startIndex : -1;
+}
+
+int StringManip::countOf(const char* text, const char* searchText)
+{
+    return countOf(text, searchText, 0, strlen(text - 1));
 }
 
 int StringManip::countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex)

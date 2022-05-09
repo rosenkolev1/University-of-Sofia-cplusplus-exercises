@@ -17,4 +17,7 @@ int main()
 
     //BigNumberExpression tests
     BigNumberExpressionTests::runTests();
+
+    //BigNumberEquations tests
+    //BigNumberEquationTests();
 }

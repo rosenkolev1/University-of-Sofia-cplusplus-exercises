@@ -3,6 +3,7 @@
 #include <iostream>
 #include "BigNumber.h"
 #include "BigNumberDivisionResult.h"
+#include "..\Project.StringManipulation\StringManip.h"
 #include <fstream>
 
 void BigNumberExpressionTests::expressionBig4Tests()
@@ -111,7 +112,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString1[] = "1125699";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -119,7 +120,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString2[] = "-1125699";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = -1125699;
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -127,7 +128,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString3[] = "+-1125699";
     BigNumberExpression expression3(expressionString3);
     int expectedOutput3 = +-1125699;
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 4
@@ -135,7 +136,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString4[] = "-+1125699";
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -+1125699;
-    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 5
@@ -143,7 +144,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString5[] = "--1125699";
     BigNumberExpression expression5(expressionString5);
     int expectedOutput5 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -151,7 +152,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
     char expressionString6[] = "+1125699";
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -164,7 +165,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString1[] = "10+5";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = 10 + 5;
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -172,7 +173,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString2[] = "57-19";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = 57 - 19;
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -180,7 +181,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString3[] = "-57-19";
     BigNumberExpression expression3(expressionString3);
     int expectedOutput3 = -57 - 19;
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 4
@@ -188,7 +189,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString4[] = "-345-+15";
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -345 - +15;
-    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 5
@@ -196,7 +197,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString5[] = "-345+-15";
     BigNumberExpression expression5(expressionString5);
     int expectedOutput5 = -345 + -15;
-    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -204,7 +205,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString6[] = "-345--15";
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = -345 - (-15);
-    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 7
@@ -212,7 +213,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString7[] = "-345--15+30";
     BigNumberExpression expression7(expressionString7);
     int expectedOutput7 = -345 - (-15) + 30;
-    std::cout << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 8
@@ -220,7 +221,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     char expressionString8[] = "--345--15+-30";
     BigNumberExpression expression8(expressionString8);
     int expectedOutput8 = -(-345) - (-15) + -30;
-    std::cout << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluateExpression();
     std::cout << std::endl;
 
 }
@@ -234,7 +235,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString9[] = "4*3";
     BigNumberExpression expression9(expressionString9);
     int expectedOutput9 = 4 * 3;
-    std::cout << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -242,7 +243,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString10[] = "-4*3";
     BigNumberExpression expression10(expressionString10);
     int expectedOutput10 = -4 * 3;
-    std::cout << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -250,7 +251,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString11[] = "4*-3";
     BigNumberExpression expression11(expressionString11);
     int expectedOutput11 = 4 * -3;
-    std::cout << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 4
@@ -258,7 +259,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString12[] = "4*0";
     BigNumberExpression expression12(expressionString12);
     int expectedOutput12 = 4 * 0;
-    std::cout << "Testing expression -> (" << expressionString12 << "). Expected: " << expectedOutput12 << ": " << expression12.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString12 << "). Expected: " << expectedOutput12 << ": " << expression12.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 5
@@ -266,7 +267,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString13[] = "-0*3";
     BigNumberExpression expression13(expressionString13);
     int expectedOutput13 = -0 * 3;
-    std::cout << "Testing expression -> (" << expressionString13 << "). Expected: " << expectedOutput13 << ": " << expression13.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString13 << "). Expected: " << expectedOutput13 << ": " << expression13.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -274,7 +275,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString14[] = "-0*-0";
     BigNumberExpression expression14(expressionString14);
     int expectedOutput14 = -0 * -0;
-    std::cout << "Testing expression -> (" << expressionString14 << "). Expected: " << expectedOutput14 << ": " << expression14.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString14 << "). Expected: " << expectedOutput14 << ": " << expression14.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 7
@@ -282,7 +283,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString15[] = "125-5*5 + 1";
     BigNumberExpression expression15(expressionString15);
     int expectedOutput15 = 125 - 5 * 5 + 1;
-    std::cout << "Testing expression -> (" << expressionString15 << "). Expected: " << expectedOutput15 << ": " << expression15.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString15 << "). Expected: " << expectedOutput15 << ": " << expression15.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 8
@@ -290,7 +291,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString16[] = "125+-5*5-1*-9";
     BigNumberExpression expression16(expressionString16);
     int expectedOutput16 = 125 + -5 * 5 - 1 * -9;
-    std::cout << "Testing expression -> (" << expressionString16 << "). Expected: " << expectedOutput16 << ": " << expression16.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString16 << "). Expected: " << expectedOutput16 << ": " << expression16.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 9
@@ -298,7 +299,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests()
     char expressionString17[] = "-125+-5*5-+1*-9";
     BigNumberExpression expression17(expressionString17);
     int expectedOutput17 = -125 + -5 * 5 - +1 * -9;
-    std::cout << "Testing expression -> (" << expressionString17 << "). Expected: " << expectedOutput17 << ": " << expression17.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString17 << "). Expected: " << expectedOutput17 << ": " << expression17.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -311,7 +312,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString18[] = "125/5";
     BigNumberExpression expression18(expressionString18);
     int expectedOutput18 = 125 / 5;
-    std::cout << "Testing expression -> (" << expressionString18 << "). Expected: " << expectedOutput18 << ": " << expression18.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString18 << "). Expected: " << expectedOutput18 << ": " << expression18.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -319,7 +320,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString19[] = "0/5";
     int expectedOutput19 = 0 / 5;
     BigNumberExpression expression19(expressionString19);
-    std::cout << "Testing expression -> (" << expressionString19 << "). Expected: " << expectedOutput19 << ": " << expression19.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString19 << "). Expected: " << expectedOutput19 << ": " << expression19.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -329,7 +330,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     std::cout << "Testing expression -> (" << expressionString20 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression20.evaluteExpression();
+        std::cout << expression20.evaluateExpression();
     }
     catch (...)
     {
@@ -344,7 +345,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     std::cout << "Testing expression -> (" << expressionString21 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression20.evaluteExpression();
+        std::cout << expression20.evaluateExpression();
     }
     catch (...)
     {
@@ -357,7 +358,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString22[] = "-125/3";
     BigNumberExpression expression22(expressionString22);
     int expectedOutput22 = -125 / 3;
-    std::cout << "Testing expression -> (" << expressionString22 << "). Expected: " << expectedOutput22 << ": " << expression22.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString22 << "). Expected: " << expectedOutput22 << ": " << expression22.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -365,7 +366,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString23[] = "125/-3";
     BigNumberExpression expression23(expressionString23);
     int expectedOutput23 = 125 / -3;
-    std::cout << "Testing expression -> (" << expressionString23 << "). Expected: " << expectedOutput23 << ": " << expression23.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString23 << "). Expected: " << expectedOutput23 << ": " << expression23.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 7
@@ -373,7 +374,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString24[] = "-125/-3";
     BigNumberExpression expression24(expressionString24);
     int expectedOutput24 = -125 / -3;
-    std::cout << "Testing expression -> (" << expressionString24 << "). Expected: " << expectedOutput24 << ": " << expression24.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString24 << "). Expected: " << expectedOutput24 << ": " << expression24.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 8
@@ -381,7 +382,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString25[] = "-125+-5*5/-3-+3";
     BigNumberExpression expression25(expressionString25);
     int expectedOutput25 = -125 + -5 * 5 / -3 - +3;
-    std::cout << "Testing expression -> (" << expressionString25 << "). Expected: " << expectedOutput25 << ": " << expression25.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString25 << "). Expected: " << expectedOutput25 << ": " << expression25.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 9
@@ -389,7 +390,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString26[] = "-125+-3/5*5/-3-+3";
     BigNumberExpression expression26(expressionString26);
     int expectedOutput26 = -125 + -3 / 5 * 5 / -3 - +3;
-    std::cout << "Testing expression -> (" << expressionString26 << "). Expected: " << expectedOutput26 << ": " << expression26.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString26 << "). Expected: " << expectedOutput26 << ": " << expression26.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 10
@@ -397,7 +398,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     char expressionString27[] = "100/500*500";
     BigNumberExpression expression27(expressionString27);
     int expectedOutput27 = 100 / 500 * 500;
-    std::cout << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOutput27 << ": " << expression27.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOutput27 << ": " << expression27.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -410,7 +411,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString27[] = "125%5";
     BigNumberExpression expression27(expressionString27);
     int expectedOuput27 = 125 % 5;
-    std::cout << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOuput27 << ": " << expression27.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOuput27 << ": " << expression27.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -418,7 +419,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString28[] = "0%5";
     BigNumberExpression expression28(expressionString28);
     int expectedOuput28 = 0 % 5;
-    std::cout << "Testing expression -> (" << expressionString28 << "). Expected: " << expectedOuput28 << ": " << expression28.evaluteExpression();;
+    std::cout << "Testing expression -> (" << expressionString28 << "). Expected: " << expectedOuput28 << ": " << expression28.evaluateExpression();;
     std::cout << std::endl;
 
     //TEST 3
@@ -428,7 +429,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     std::cout << "Testing expression -> (" << expressionString29 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression29.evaluteExpression();
+        std::cout << expression29.evaluateExpression();
     }
     catch (...)
     {
@@ -443,7 +444,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     std::cout << "Testing expression -> (" << expressionString30 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression30.evaluteExpression();
+        std::cout << expression30.evaluateExpression();
     }
     catch (...)
     {
@@ -456,7 +457,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString31[] = "125%3";
     BigNumberExpression expression31(expressionString31);
     int expectedOuput31 = 125 % 3;
-    std::cout << "Testing expression -> (" << expressionString31 << "). Expected: " << expectedOuput31 << ": " << expression31.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString31 << "). Expected: " << expectedOuput31 << ": " << expression31.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -464,7 +465,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString32[] = "125%-3";
     BigNumberExpression expression32(expressionString32);
     int expectedOuput32 = 125 % -3;
-    std::cout << "Testing expression -> (" << expressionString32 << "). Expected: " << expectedOuput32 << ": " << expression32.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString32 << "). Expected: " << expectedOuput32 << ": " << expression32.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 7
@@ -472,7 +473,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString33[] = "-125%3";
     BigNumberExpression expression33(expressionString33);
     int expectedOuput33 = -125 % 3;
-    std::cout << "Testing expression -> (" << expressionString33 << "). Expected: " << expectedOuput33 << ": " << expression33.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString33 << "). Expected: " << expectedOuput33 << ": " << expression33.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 8
@@ -480,7 +481,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString34[] = "+-125%-3";
     BigNumberExpression expression34(expressionString34);
     int expectedOuput34 = +-125 % -3;
-    std::cout << "Testing expression -> (" << expressionString34 << "). Expected: " << expectedOuput34 << ": " << expression34.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString34 << "). Expected: " << expectedOuput34 << ": " << expression34.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 9
@@ -488,7 +489,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString35[] = "25-125%-3*5";
     BigNumberExpression expression35(expressionString35);
     int expectedOuput35 = 25 - 125 % -3 * 5;
-    std::cout << "Testing expression -> (" << expressionString35 << "). Expected: " << expectedOuput35 << ": " << expression35.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString35 << "). Expected: " << expectedOuput35 << ": " << expression35.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 10
@@ -496,7 +497,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     char expressionString36[] = "25-125/-3%5";
     BigNumberExpression expression36(expressionString36);
     int expectedOuput36 = 25 - 125 / -3 % 5;
-    std::cout << "Testing expression -> (" << expressionString36 << "). Expected: " << expectedOuput36 << ": " << expression36.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString36 << "). Expected: " << expectedOuput36 << ": " << expression36.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -525,7 +526,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString1[] = "(1125699)";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -533,7 +534,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString2[] = "(-1125699)";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = -1125699;
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -541,7 +542,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString3[] = "(+-1125699)";
     BigNumberExpression expression3(expressionString3);
     int expectedOutput3 = +-1125699;
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 4
@@ -549,7 +550,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString4[] = "(-+1125699)";
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -+1125699;
-    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 5
@@ -557,7 +558,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString5[] = "(--1125699)";
     BigNumberExpression expression5(expressionString5);
     int expectedOutput5 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 6
@@ -565,7 +566,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString6[] = "(+1125699)";
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = 1125699;
-    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 7
@@ -573,7 +574,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString7[] = "-(1125699)";
     BigNumberExpression expression7(expressionString7);
     int expectedOutput7 = -(1125699);
-    std::cout << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 8
@@ -581,7 +582,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString8[] = "-(+-1125699)";
     BigNumberExpression expression8(expressionString8);
     int expectedOutput8 = -(+-1125699);
-    std::cout << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 9
@@ -589,7 +590,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString9[] = "-(--1125699)";
     BigNumberExpression expression9(expressionString9);
     int expectedOutput9 = -(1125699);
-    std::cout << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 10
@@ -597,7 +598,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString10[] = "-+(--(-1125699))";
     BigNumberExpression expression10(expressionString10);
     int expectedOutput10 = -+((-1125699));
-    std::cout << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 11
@@ -605,7 +606,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests()
     char expressionString11[] = "(-(-((1125699))))";
     BigNumberExpression expression11(expressionString11);
     int expectedOutput11 = (-(-((1125699))));
-    std::cout << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -618,7 +619,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_AdditionAndMinusTests(
     char expressionString1[] = "(10 + 5) + 5";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = (10 + 5) + 5;
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -626,7 +627,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_AdditionAndMinusTests(
     char expressionString2[] = "(10 + -5) + -(5 - 6)-(-(-(14--(10+5-4- -3))))";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = (10 + -5) + -(5 - 6) - (-(-(14 + (10 + 5 - 4 - -3)))); //Expected: 6 - 28 = -22
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -634,7 +635,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_AdditionAndMinusTests(
     char expressionString3[] = "(-(10 + -5 + -5 - 6-(--(14--10+5-4- -3))))";
     BigNumberExpression expression3(expressionString3);
     int expectedOutput3 = (-(10 + -5 + -5 - 6 - ((14 + 10 + 5 - 4 - -3)))); //Expected: -(-6 - 28) = 34
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -647,7 +648,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_DivideTests()
     char expressionString1[] = "(125/5)";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = (125 / 5);
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -655,7 +656,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_DivideTests()
     char expressionString2[] = "100/(2+3)";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = 100 / (2 + 3);
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -666,7 +667,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_DivideTests()
     std::cout << "Testing expression -> (" << expressionString3 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression3.evaluteExpression();
+        std::cout << expression3.evaluateExpression();
     }
     catch (...)
     {
@@ -679,7 +680,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_DivideTests()
     char expressionString4[] = "-(100/(576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3)";
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -(100 / (576 - 35 / (9 - 2) * 2 / (12 - 4 / 2)) / 575 * 6 / (3 + 4 - 1) * 3 - 3); //Expected -(-3) -> 3
-    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();;
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();;
     std::cout << std::endl;
 }
      
@@ -692,7 +693,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_MultiplyTests()
     char expressionString1[] = "(4*3)";
     BigNumberExpression expression1(expressionString1);
     int expectedOutput1 = (4 * 3);
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -700,7 +701,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_MultiplyTests()
     char expressionString2[] = "4*(3-2)";
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = 4 * (3 - 2);
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 3
@@ -708,7 +709,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_MultiplyTests()
     char expressionString3[] = "(10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))";
     BigNumberExpression expression3(expressionString3);
     int expectedOutput3 = (10 + -5) * 7 + -2 * 3 * (5 - 3 * 6) - (-(-2 * (14 + (10 + 5 - 4 - -3)))); //Expected: 57
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 4
@@ -716,7 +717,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_MultiplyTests()
     char expressionString4[] = "(-1*(2*(-2*((10 + -5)*7 + -2*3*(5 - 3*6)-(-(-2*(14--(10+5-4- -3))))))))";
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = (-1 * (2 * (-2 * ((10 + -5) * 7 + -2 * 3 * (5 - 3 * 6) - (-(-2 * (14 + (10 + 5 - 4 - -3)))))))); //Expected: 228
-    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
     std::cout << std::endl;
 }
      
@@ -729,7 +730,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_PercentTests()
     char expressionString1[] = "(125%5)";
     BigNumberExpression expression1(expressionString1);
     int expectedOuput1 = (125 % 5);
-    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOuput1 << ": " << expression1.evaluteExpression();
+    std::cout << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOuput1 << ": " << expression1.evaluateExpression();
     std::cout << std::endl;
 
     //TEST 2
@@ -737,7 +738,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_PercentTests()
     char expressionString2[] = "((1000-1001) - (((100 - 15%(5*4))/2 - 42)%5 + 1000) % (200 + 100*(3-1)))%-7";
     BigNumberExpression expression2(expressionString2);
     int expectedOuput2 = ((1000 - 1001) - (((100 - 15 % (5 * 4)) / 2 - 42) % 5 + 1000) % (200 + 100 * (3 - 1))) % -7; //Expected: -5 //-201%-7=28(-5)
-    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOuput2 << ": " << expression2.evaluteExpression();;
+    std::cout << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOuput2 << ": " << expression2.evaluateExpression();;
     std::cout << std::endl;
 
     //TEST 3
@@ -747,7 +748,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_PercentTests()
     std::cout << "Testing expression -> (" << expressionString3 << "). Expected: Exception thrown: ";
     try
     {
-        std::cout << expression3.evaluteExpression();
+        std::cout << expression3.evaluateExpression();
     }
     catch (...)
     {
@@ -787,7 +788,27 @@ void BigNumberExpressionTests::generateExpressionTests()
         std::cout << "Answer to the expression --> ";
         try
         {
-            std::cout << expression1.evaluteExpression();
+            std::cout << expression1.evaluateExpression();
+        }
+        catch (...)
+        {
+            std::cout << "Exception thrown because of division or percent by 0";
+        }
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
+
+    for (size_t i = 50; i < 99; i++)
+    {
+        std::cout << "TEST " << i + 1 << ": " << std::endl;
+        BigNumberExpression expression1 = BigNumberExpression();
+        std::cout << "Testing the generating of an expression without a '%' operator --> ";
+        expression1.generateExpression("+-*/");
+        std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() && !StringManip::stringContains(expression1.getExpression(), "%") ? "TRUE" : "FALSE") << std::endl;
+        std::cout << "Answer to the expression --> ";
+        try
+        {
+            std::cout << expression1.evaluateExpression();
         }
         catch (...)
         {
@@ -883,7 +904,7 @@ void BigNumberExpressionTests::operatorSumTests()
     char expectedOuput1[] = "(125/5)+((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " + "<< expressionString12 <<" ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 50: " << expression13.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 50: " << expression13.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -897,7 +918,7 @@ void BigNumberExpressionTests::operatorSumTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)+((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " + " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 52: " << expression23.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 52: " << expression23.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -916,7 +937,7 @@ void BigNumberExpressionTests::operatorSumAndEqualsTests()
     char expectedOuput1[] = "(125/5)+((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " += " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 50: " << expression11.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 50: " << expression11.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -930,7 +951,7 @@ void BigNumberExpressionTests::operatorSumAndEqualsTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)+((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " += " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 52: " << expression21.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 52: " << expression21.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -949,7 +970,7 @@ void BigNumberExpressionTests::operatorMinusTests()
     char expectedOuput1[] = "(125/5)-((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " - " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -963,7 +984,7 @@ void BigNumberExpressionTests::operatorMinusTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)-((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " - " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -62: " << expression23.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -62: " << expression23.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -982,7 +1003,7 @@ void BigNumberExpressionTests::operatorMinusAndEqualsTests()
     char expectedOuput1[] = "(125/5)-((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " -= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -996,7 +1017,7 @@ void BigNumberExpressionTests::operatorMinusAndEqualsTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)-((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " -= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -62: " << expression21.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -62: " << expression21.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1015,7 +1036,7 @@ void BigNumberExpressionTests::operatorMultiplyTests()
     char expectedOuput1[] = "(125/5)*((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " * " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 625: " << expression13.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 625: " << expression13.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1029,7 +1050,7 @@ void BigNumberExpressionTests::operatorMultiplyTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)*((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " * " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -285: " << expression23.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -285: " << expression23.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1048,7 +1069,7 @@ void BigNumberExpressionTests::operatorMultiplyAndEqualsTests()
     char expectedOuput1[] = "(125/5)*((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " *= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 625: " << expression11.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 625: " << expression11.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1062,7 +1083,7 @@ void BigNumberExpressionTests::operatorMultiplyAndEqualsTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)*((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " *= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -285: " << expression21.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -285: " << expression21.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1081,7 +1102,7 @@ void BigNumberExpressionTests::operatorDivideTests()
     char expectedOuput1[] = "(125/5)/((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " / " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 1: " << expression13.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 1: " << expression13.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1095,7 +1116,7 @@ void BigNumberExpressionTests::operatorDivideTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)/((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " / " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression23.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression23.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1114,7 +1135,7 @@ void BigNumberExpressionTests::operatorDivideAndEqualsTests()
     char expectedOuput1[] = "(125/5)/((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " /= " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 1: " << expression11.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 1: " << expression11.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1128,7 +1149,7 @@ void BigNumberExpressionTests::operatorDivideAndEqualsTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)/((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " /= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression21.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression21.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1147,7 +1168,7 @@ void BigNumberExpressionTests::operatorPercentTests()
     char expectedOuput1[] = "(125/5)%((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " % " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression13.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression13.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression13.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1161,7 +1182,7 @@ void BigNumberExpressionTests::operatorPercentTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)%((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " % " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression23.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression23.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -5: " << expression23.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -5: " << expression23.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1180,7 +1201,7 @@ void BigNumberExpressionTests::operatorPercentAndEqualsTests()
     char expectedOuput1[] = "(125/5)%((25))";
     std::cout << "Testing expression -> [ " << expressionString11 << " % " << expressionString12 << " ]. Expected: " << expectedOuput1 << ": " << expression11.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput1, expression11.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: 0: " << expression11.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 
@@ -1194,7 +1215,7 @@ void BigNumberExpressionTests::operatorPercentAndEqualsTests()
     char expectedOuput2[] = "(((1000-1001)-(((100-15%(5*4))/2-42)%5+1000)%(200+100*(3-1)))%-7)%((10+-5)*7+-2*3*(5-3*6)-(-(-2*(14--(10+5-4--3)))))";
     std::cout << "Testing expression -> [ " << expressionString21 << " %= " << expressionString22 << " ]. Expected: " << expectedOuput2 << ": " << expression21.getExpression() << std::endl;
     std::cout << "Are these expressions the same: " << (strcmp(expectedOuput2, expression21.getExpression()) == 0 ? "TRUE" : "FALSE") << std::endl;
-    std::cout << "The answer to the expression: Expected: -5: " << expression21.evaluteExpression();
+    std::cout << "The answer to the expression: Expected: -5: " << expression21.evaluateExpression();
     std::cout << std::endl;
     std::cout << std::endl;
 }
@@ -1222,7 +1243,7 @@ void BigNumberExpressionTests::readFromAndWriteToFileTests()
     //TEST 1
     std::cout << "TEST 1" << std::endl;
 
-    std::ifstream is("Equations.txt");
+    std::ifstream is("Expressions.txt");
     int somethingDebug = (15 - (3 * 156 / 343 % (6 / 2 * 4 % 10 + 43))) + 10;
     BigNumberExpression expression1 = BigNumberExpression();
     BigNumberExpression expression2 = BigNumberExpression();
@@ -1231,7 +1252,7 @@ void BigNumberExpressionTests::readFromAndWriteToFileTests()
 
     is.close();
 
-    std::ofstream os("EquationsAnswers.txt");
+    std::ofstream os("ExpressionsAnswers.txt");
 
     os << expression1;
     os << expression2;
@@ -1253,8 +1274,8 @@ void BigNumberExpressionTests::runTests()
     ////Solving expression tests with parenthesis
     //solveExpressionParenthesisTests();
     //
-    ////Generating expressions tests
-    //generateExpressionTests();
+    //Generating expressions tests
+    generateExpressionTests();
     //
     ////Read from and Write to console tests
     //readFromAndWriteToConsoleTests();
@@ -1262,36 +1283,36 @@ void BigNumberExpressionTests::runTests()
     //////Read from and Write to console tests
     //readFromAndWriteToFileTests();
 
-    //Comparative operators tests
-    comparativeOperatorsTests();
-
-    //Operator + tests
-    operatorSumTests();
-
-    //Operator += tests
-    operatorSumAndEqualsTests();
-
-    //Operator - tests
-    operatorMinusTests();
-
-    //Operator -= tests
-    operatorMinusAndEqualsTests();
-
-    //Operator * tests
-    operatorMultiplyTests();
-
-    //Operator *= tests
-    operatorMultiplyAndEqualsTests();
-
-    //Operator / tests
-    operatorDivideTests();
-
-    //Operator /= tests
-    operatorDivideAndEqualsTests();
-
-    //Operator % tests
-    operatorPercentTests();
-
-    //Operator %= tests
-    operatorPercentAndEqualsTests();
+    ////Comparative operators tests
+    //comparativeOperatorsTests();
+    //
+    ////Operator + tests
+    //operatorSumTests();
+    //
+    ////Operator += tests
+    //operatorSumAndEqualsTests();
+    //
+    ////Operator - tests
+    //operatorMinusTests();
+    //
+    ////Operator -= tests
+    //operatorMinusAndEqualsTests();
+    //
+    ////Operator * tests
+    //operatorMultiplyTests();
+    //
+    ////Operator *= tests
+    //operatorMultiplyAndEqualsTests();
+    //
+    ////Operator / tests
+    //operatorDivideTests();
+    //
+    ////Operator /= tests
+    //operatorDivideAndEqualsTests();
+    //
+    ////Operator % tests
+    //operatorPercentTests();
+    //
+    ////Operator %= tests
+    //operatorPercentAndEqualsTests();
 }

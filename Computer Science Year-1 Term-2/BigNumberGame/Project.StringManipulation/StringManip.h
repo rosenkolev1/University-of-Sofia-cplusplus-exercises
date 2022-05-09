@@ -15,6 +15,8 @@ public:
 
 	static bool stringContainsChar(const char* text, const char symbol);
 
+	static bool stringContains(const char* text, char other);
+
 	static bool stringContains(const char* text, const char* other);
 
 	static bool stringStartsWith(const char* text, const char* other);
@@ -42,6 +44,9 @@ public:
 
 	//Returns the index of the last occurance of searchText in text, starting from startIndex and ending in endIndex, both inclusive. Returns -1 if searchText isn't found inside text
 	static int findIndexLast(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
+
+	//Returns the count of searchText in text
+	static int countOf(const char* text, const char* searchText);
 
 	//Returns the count of searchText in text, starting from startIndex and ending in endIndex, both inclusive
 	static int countOf(const char* text, const char* searchText, size_t startIndex, size_t endIndex);
