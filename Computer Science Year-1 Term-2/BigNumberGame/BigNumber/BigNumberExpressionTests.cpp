@@ -772,6 +772,25 @@ void BigNumberExpressionTests::solveExpressionParenthesisTests()
 
     solveExpressionParenthesis_PercentTests();
 }
+
+void BigNumberExpressionTests::generateExpressionTemplateTests()
+{
+    //Generating expressions templates tests
+    std::cout << "GENERATE EXPRESSION TEMPLATES TESTS" << std::endl << std::endl;
+
+    srand(time(NULL));
+    for (size_t i = 0; i < 50; i++)
+    {
+        std::cout << "TEST " << i + 1 << ": " << std::endl;
+        BigNumberExpression expression1 = BigNumberExpression();
+        std::cout << "Testing the generating of an expression template --> "
+            << expression1.generateExpressionTemplate()
+            << ". Is the expression template valid? Expect: TRUE: "; /*TODO: make a templateIsValid func? << (expression1.expressionIsValid() ? "TRUE" : "FALSE") */
+
+        std::cout << std::endl;
+        std::cout << std::endl;
+    }
+}
      
 void BigNumberExpressionTests::generateExpressionTests()
 {
@@ -782,8 +801,8 @@ void BigNumberExpressionTests::generateExpressionTests()
     {
         std::cout << "TEST " << i + 1 << ": " << std::endl;
         BigNumberExpression expression1 = BigNumberExpression();
-        std::cout << "Testing the generating of an expression --> ";
         expression1.generateExpression();
+        std::cout << "Testing the generating of an expression --> " << expression1.getExpressionTemplate() << " --> " << expression1.getExpression();
         std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
@@ -802,8 +821,8 @@ void BigNumberExpressionTests::generateExpressionTests()
     {
         std::cout << "TEST " << i + 1 << ": " << std::endl;
         BigNumberExpression expression1 = BigNumberExpression();
-        std::cout << "Testing the generating of an expression without a '%' operator --> ";
         expression1.generateExpression("+-*/");
+        std::cout << "Testing the generating of an expression --> " << expression1.getExpressionTemplate() << " --> " << expression1.getExpression();
         std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() && !StringManip::stringContains(expression1.getExpression(), "%") ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
@@ -1273,16 +1292,19 @@ void BigNumberExpressionTests::runTests()
     //
     ////Solving expression tests with parenthesis
     //solveExpressionParenthesisTests();
-    //
+    
+    //Generating expressions templates tests
+    //generateExpressionTemplateTests();
+
     //Generating expressions tests
-    generateExpressionTests();
+    //generateExpressionTests();
     //
     ////Read from and Write to console tests
     //readFromAndWriteToConsoleTests();
     //
     //////Read from and Write to console tests
     //readFromAndWriteToFileTests();
-
+    //
     ////Comparative operators tests
     //comparativeOperatorsTests();
     //

@@ -1,3 +1,5 @@
+--TODO: create equations with BigNumber(medium) and make an equation solver with BigNumber(hard)
+
 --Make the getinfo command for admin work
 --Make the exclude command for admin work
 --Make the delete command for admin work (requires making another database table and a whole lot of refactoring work)

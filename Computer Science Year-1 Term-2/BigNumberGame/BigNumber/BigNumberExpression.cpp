@@ -521,41 +521,41 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 	return true;
 }
 
-char BigNumberExpression::generateOperator(int seed) const
-{
-	if (seed == 4) return '%';
-	else if (seed == 3) return '/';
-	else if (seed == 2) return '*';
-	else if (seed == 1) return '-';
-	else if (seed == 0) return '+';
-}
-
-char BigNumberExpression::generateOpeningParenthesis(int seed) const
-{
-	if (seed > 7) return '(';
-	else if (seed >= 0) return '#';
-}
-
-int BigNumberExpression::generateSign(int seed) const
-{
-	if (seed >= 12) return -1;
-	else if (seed >= 1) return 1;
-	else if (seed == 0) return 0;
-}
-
-size_t BigNumberExpression::generateDigitsCount(int seed) const
-{
-	if (seed == 50) return 30;
-	else if (seed >= 48) return 9;
-	else if (seed >= 46) return 8;
-	else if (seed >= 43) return 7;
-	else if (seed >= 39) return 6;
-	else if (seed >= 34) return 5;
-	else if (seed >= 25) return 4;
-	else if (seed >= 16) return 3;
-	else if (seed >= 8) return 2;
-	else if (seed <= 7) return 1;
-}
+//char BigNumberExpression::generateOperator(int seed) const
+//{
+//	if (seed == 4) return '%';
+//	else if (seed == 3) return '/';
+//	else if (seed == 2) return '*';
+//	else if (seed == 1) return '-';
+//	else if (seed == 0) return '+';
+//}
+//
+//char BigNumberExpression::generateOpeningParenthesis(int seed) const
+//{
+//	if (seed > 7) return '(';
+//	else if (seed >= 0) return '#';
+//}
+//
+//int BigNumberExpression::generateSign(int seed) const
+//{
+//	if (seed >= 12) return -1;
+//	else if (seed >= 1) return 1;
+//	else if (seed == 0) return 0;
+//}
+//
+//size_t BigNumberExpression::generateDigitsCount(int seed) const
+//{
+//	if (seed == 50) return 30;
+//	else if (seed >= 48) return 9;
+//	else if (seed >= 46) return 8;
+//	else if (seed >= 43) return 7;
+//	else if (seed >= 39) return 6;
+//	else if (seed >= 34) return 5;
+//	else if (seed >= 25) return 4;
+//	else if (seed >= 16) return 3;
+//	else if (seed >= 8) return 2;
+//	else if (seed <= 7) return 1;
+//}
 
 char* BigNumberExpression::generateExpressionTemplate() const
 {
@@ -707,9 +707,6 @@ char* BigNumberExpression::generateExpressionTemplate(const char* allowedOperato
 	delete[] expression;
 	expression = removeWhitespaces;
 
-	//TODO: Remove when I add an "Get expression template" function! Debug shit to check if my function works properly
-	std::cout << "Expression template: " << expression << " ---> ";
-
 	return expression;
 }
 
@@ -717,14 +714,17 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 {
 	if (expression == nullptr) expression = this->getExpression();
 
-	//Remove all the whitespaces
-	expression = StringManip::replaceAll(expression, " ", "");
+	char* newExpression = new char[strlen(expression) + 1];
+	strcpy(newExpression, expression);
 
-	bool isValidExpression = expressionIsValid(expression);
+	//Remove all the whitespaces
+	newExpression = StringManip::replaceAll(newExpression, " ", "");
+
+	bool isValidExpression = expressionIsValid(newExpression);
 	if (!isValidExpression) throw "This expression isn't valid";
 
 	//Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
-	char* expression1 = StringManip::replaceAll(expression, "+-", "+");
+	char* expression1 = StringManip::replaceAll(newExpression, "+-", "+");
 	char* expression2 = StringManip::replaceAll(expression1, "--", "-");
 	char* expression3 = StringManip::replaceAll(expression2, "-+", "-");
 	char* expression4 = StringManip::replaceAll(expression3, "*+", "*");
@@ -734,8 +734,8 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	char* expression8 = StringManip::replaceAll(expression7, "/-", "/");
 	char* expression9 = StringManip::replaceAll(expression8, "%-", "%");
 
-	delete[] expression;
-	expression = expression9;
+	delete[] newExpression;
+	newExpression = expression9;
 
 	//Delete dynamic memory
 	delete[] expression8;
@@ -747,22 +747,52 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	delete[] expression2;
 	delete[] expression1;
 
-	//Check if the first char of the expression is + or -. If it is, then add remove it entirely
-	//TODO: Implement replace function in StringManip, which replaces everything from start index to end index with something else
-	if (expression[0] == '-' || expression[0] == '+')
+	//Check if the first char of the expression is + or -. If it is, then remove it entirely
+	if (newExpression[0] == '-' || newExpression[0] == '+')
 	{
-		char* expressionCopy = new char[strlen(expression)];
-		expressionCopy[strlen(expression) - 1] = '\0';
-		for (size_t i = 0; i < strlen(expression) - 1; i++)
-		{
-			expressionCopy[i] = expression[i + 1];
-		}
-		delete[] expression;
-		expression = expressionCopy;
+		const char* expressionCopy = newExpression;
+		newExpression = StringManip::replaceFrom(newExpression, "", 0);
+		delete[] expressionCopy;
 	}
 
-	//Get the operators
-	//TODO: CREATE LATER
+	//Replace all of the numbers in the expression with an x
+	
+	bool isOnNumber = false;
+	size_t currentNumberStartIndex = 0;
+	/*char* newExpressionCopy = new char[strlen(newExpression) + 1];
+	strcpy(newExpressionCopy, newExpression);*/
+	for (size_t i = 0; i < strlen(newExpression); i++)
+	{
+		char symbol = newExpression[i];
+
+		if (isdigit(symbol) && isOnNumber == false)
+		{
+			isOnNumber = true;
+			currentNumberStartIndex = i;
+		}
+		else if (!isdigit(symbol) && isOnNumber)
+		{
+			isOnNumber = false;
+
+			//Replace the digit with an x
+			char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, i-1);
+			delete[] newExpression;
+			newExpression = expressionCopy;
+
+			//Now move back the counter because you have just deleted a very important number;
+			i -= (i - 1 - currentNumberStartIndex + 1 - 1);
+		}
+	}
+
+	//If the expression ends on a number, then replace that number with x
+	if (isOnNumber)
+	{
+		char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, strlen(newExpression) - 1);
+		delete[] newExpression;
+		newExpression = expressionCopy;
+	}
+
+	return newExpression;
 }
 
 char* BigNumberExpression::getExpressionTemplate(const BigNumberExpression& expression) const
@@ -770,17 +800,13 @@ char* BigNumberExpression::getExpressionTemplate(const BigNumberExpression& expr
 	return getExpressionTemplate(expression.getExpression());
 }
 
-void BigNumberExpression::generateExpression()
+char* BigNumberExpression::generateExpressionFromTemplate(const char* expressionTemplate) const
 {
-	generateExpression("+-*/%");
-}
+	char* expressionFilled = new char[strlen(expressionTemplate) + 1];
+	strcpy(expressionFilled, expressionTemplate);
 
-void BigNumberExpression::generateExpression(const char* allowedOperators)
-{
-	char* expression = generateExpressionTemplate(allowedOperators);
-
-	//Replace the x in the expression with numbers
-	while (StringManip::stringContains(expression, "x"))
+	//Replace the x in the expression template with numbers
+	while (StringManip::stringContains(expressionFilled, "x"))
 	{
 		//Generate the sign of the number
 		BigNumber bigNumber = BigNumber();
@@ -808,13 +834,30 @@ void BigNumberExpression::generateExpression(const char* allowedOperators)
 			bigNumber = BigNumber(numberString);
 		}
 
-		//Replace the bigNumber in the expression
-		char* newExpression = StringManip::replaceFirst(expression, "x", bigNumber.getNumberRaw());
-		delete[] expression;
-		expression = newExpression;
+		//Replace the bigNumber in the expressionTemplate
+		char* newExpressionTemplate = StringManip::replaceFirst(expressionFilled, "x", bigNumber.getNumberRaw());
+		delete[] expressionFilled;
+		expressionFilled = newExpressionTemplate;
 	}
 
-	std::cout << "Expression: " << expression;
+	return expressionFilled;
+}
+
+void BigNumberExpression::generateExpression()
+{
+	generateExpression(EXPRESSION_OPERATORS);
+}
+
+void BigNumberExpression::generateExpression(const char* allowedOperators)
+{
+	char* expressionTemplate = generateExpressionTemplate(allowedOperators);
+
+	char* expression = generateExpressionFromTemplate(expressionTemplate);
+
+	//Delete dynamic memory
+	delete[] expressionTemplate;
+
+	//std::cout << "Expression: " << expression;
 
 	//Finally, set the expression of the object to the new expression
 	delete[] this->expression;

@@ -7,8 +7,11 @@
 #include "BigNumberTests.h"
 #include "BigNumberExpression.h"
 #include "BigNumberExpressionTests.h"
+#include "BigNumberEquationTests.h"
 
 //TODO: create equations with BigNumber(medium) and make an equation solver with BigNumber(hard)
+
+
 
 int main()
 {
@@ -16,8 +19,8 @@ int main()
     //BigNumberTests::runTests();
 
     //BigNumberExpression tests
-    BigNumberExpressionTests::runTests();
+    //BigNumberExpressionTests::runTests();
 
     //BigNumberEquations tests
-    //BigNumberEquationTests();
+    BigNumberEquationTests::runTests();
 }

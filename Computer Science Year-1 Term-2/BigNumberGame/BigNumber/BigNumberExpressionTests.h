@@ -30,11 +30,13 @@ public:
 		   
 	static void solveExpressionParenthesisTests();
 		   
+	static void generateExpressionTemplateTests();
+
 	static void generateExpressionTests();
 
+	//Operator tests
 	static void comparativeOperatorsTests();
 
-	//Operator tests
 	static void operatorSumTests();
 
 	static void operatorSumAndEqualsTests();

@@ -1,9 +1,11 @@
 #pragma once
 #include "BigNumber.h"
+#include "BigNumberRandom.h"
 #include <ostream>
 #include <fstream>
 
 class BigNumberExpression
+	:public BigNumberRandom
 {
 public:
 	//Check if the expression contains +++, ++-, +-+, +--, -++, -+-, --+, ---. If it does, then it is invalid
@@ -13,6 +15,8 @@ public:
 	//Mnogo durvarski na4in za proverka, ama vse taq. Eventualno ako resha da dobavq stepenuvane shte go opravq
 	//FORBIDDEN SYMBOLS CONSTANT
 	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 29;
+	static constexpr const char* EXPRESSION_OPERATORS = "+-*/%";
+	static constexpr const char* EXPRESSION_NOTDIGIT = "+-*/%()";
 	static const constexpr char* EXPRESSION_FORBIDDEN_STRINGS[29] =
 	{
 		"+++",
@@ -56,10 +60,10 @@ private:
 	BigNumber* replaceNumbersFromCalculation(BigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, BigNumber* resultNumber) const;
 	void replaceOperatorsFromCalculation(char* operators, size_t index) const;
 
-	char generateOperator(int seed) const;
+	/*char generateOperator(int seed) const;
 	char generateOpeningParenthesis(int seed) const;
 	int generateSign(int seed) const;
-	size_t generateDigitsCount(int seed) const;
+	size_t generateDigitsCount(int seed) const;*/
 public:
 
 	//Big 4
@@ -93,6 +97,8 @@ public:
 
 	//Get the expression template for an expression
 	char* getExpressionTemplate(const BigNumberExpression& expression) const;
+
+	char* generateExpressionFromTemplate(const char* expressionTemplate) const;
 
 	//Randomly generate a new expression
 	void generateExpression();

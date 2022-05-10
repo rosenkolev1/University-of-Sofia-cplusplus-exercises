@@ -36,6 +36,12 @@
     <ClCompile Include="BigNumberEquation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigNumberRandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigNumberEquationTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigNumberEquation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigNumberRandom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigNumberEquationTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

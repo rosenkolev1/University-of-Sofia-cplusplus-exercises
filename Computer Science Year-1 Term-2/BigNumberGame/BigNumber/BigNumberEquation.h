@@ -3,12 +3,17 @@
 #include "BigNumberExpression.h"
 
 class BigNumberEquation
+	:public BigNumberRandom
 {
 private:
+	static constexpr const char* EQUATION_OPERATORS = "+-*/";
+
 	char* equation;
 	size_t capacity;
 
 	void copy(const BigNumberEquation& other);
+
+	int generateCountOfX(int seed);
 public:
 
 	//Big 4
@@ -25,10 +30,13 @@ public:
 	bool isValidEquation(const char* equation = nullptr) const;
 
 	//Get the answer to an equation
-	BigNumber& solveEquation(const char* equation);
+	BigNumber& solveEquation(const char* equation = nullptr);
+
+	//Fill the numbers in an equation template
+	char* generateFromTemplate(const char* expressionTemplate);
 
 	//Generate a random equation
-	char* generateEquation();
+	void generateEquation();
 
 	//Generate equation from an expression
 	char* generateEquation(const char* expression);
