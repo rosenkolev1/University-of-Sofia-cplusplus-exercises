@@ -3,6 +3,44 @@
 #include <iostream>
 #include "..\Project.StringManipulation\StringManip.h"
 
+void BigNumberEquationTests::equationBig4Tests()
+{
+    //BIG4 TESTS
+    std::cout << "EQUATION IS VALID TESTS" << std::endl << std::endl;
+
+    //SETUP
+    BigNumberEquation equation1 = BigNumberEquation();
+    char someEquation[] = " 5 + 5*x = 30/x";
+    char anotherEquation[] = "15/3*x = 20";
+    BigNumberEquation equation2(someEquation);
+    BigNumberEquation equation3(anotherEquation);
+
+    std::cout << "Equation 1: Expected: " << "x=0" << ": " << equation1.getEquation() << std::endl;
+    std::cout << "Equation 2: Expected: " << someEquation << ": " << equation2.getEquation() << std::endl;
+    std::cout << "Equation 3: Expected: " << anotherEquation << ": " << equation3.getEquation() << std::endl;
+
+    std::cout << std::endl;
+
+    equation1 = equation2;
+    std::cout << "Testing \"equation1 = equation2;\" \n";
+    std::cout << "Equation 1: Expected: " << someEquation << ": " << equation1.getEquation() << std::endl;
+
+    std::cout << std::endl;
+
+    equation2 = equation3;
+    std::cout << "Testing \"equation2 = equation3;\" \n";
+    std::cout << "Equation 2: Expected: " << anotherEquation << ": " << equation2.getEquation() << std::endl;
+
+    std::cout << std::endl;
+
+    BigNumberEquation equation4(equation1);
+    std::cout << "Testing \"BigNumberEquation equation4(equation1);\" \n";
+    std::cout << "Equation 4: Expected: " << someEquation << ": " << equation4.getEquation() << std::endl;
+
+    std::cout << std::endl;
+    
+}
+
 void BigNumberEquationTests::equationIsValidTests()
 {
     //EQUATION IS VALID TESTS
@@ -142,8 +180,11 @@ void BigNumberEquationTests::generateEquationTests()
 
 void BigNumberEquationTests::runTests()
 {
+    //Big4 tests
+    equationBig4Tests();
+
     //Equation is valid tests
-    equationIsValidTests();
+    //equationIsValidTests();
 
 	//Generate equations from expression templates tests
 	//generateFromTemplateTests();
