@@ -758,42 +758,6 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	delete[] newExpression;
 	newExpression = newExpressionCopy;
 
-	//
-	//
-	//bool isOnNumber = false;
-	//size_t currentNumberStartIndex = 0;
-
-	//for (size_t i = 0; i < strlen(newExpression); i++)
-	//{
-	//	char symbol = newExpression[i];
-
-	//	if (isdigit(symbol) && isOnNumber == false)
-	//	{
-	//		isOnNumber = true;
-	//		currentNumberStartIndex = i;
-	//	}
-	//	else if (!isdigit(symbol) && isOnNumber)
-	//	{
-	//		isOnNumber = false;
-
-	//		//Replace the digit with an x
-	//		char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, i-1);
-	//		delete[] newExpression;
-	//		newExpression = expressionCopy;
-
-	//		//Now move back the counter because you have just deleted a very important number;
-	//		i -= (i - 1 - currentNumberStartIndex + 1 - 1);
-	//	}
-	//}
-
-	////If the expression ends on a number, then replace that number with x
-	//if (isOnNumber)
-	//{
-	//	char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, strlen(newExpression) - 1);
-	//	delete[] newExpression;
-	//	newExpression = expressionCopy;
-	//}
-
 	return newExpression;
 }
 

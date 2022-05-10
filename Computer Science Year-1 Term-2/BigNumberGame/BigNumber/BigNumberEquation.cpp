@@ -134,11 +134,356 @@ bool BigNumberEquation::isValidEquation(const char* equation) const
 	return true;
 }
 
-BigNumber& BigNumberEquation::solveEquation(const char* equation)
+void BigNumberEquation::movePlusAndMinus(char* unknownSide, char* knownSide, bool leftOfUnknown, size_t indexOfUnknown)
 {
-	// TODO: insert return statement here
-	BigNumber DEBUG(10);
-	return DEBUG;
+	//Move everything that is 'not connected' to the unknown via *, /, *-, /- to the right hand side with the opposite operator
+	//Left operator is the leftmost operator to the left of the unknown. leftExpressionEnd is the index of the end of the left expression
+	char lastOperator = '\0';
+	int expressionEnd = -1;
+	
+	//If we are looking to the left of unknown, then search the string to the left
+	if (leftOfUnknown)
+	{
+		for (int i = indexOfUnknown - 1; i >= 0; i--)
+		{
+			char symbol = unknownSide[i];
+			//Checks if the left operator has been set, and if it has, then get the equation to the left of that operator
+			if (lastOperator == '\0' || lastOperator == '/' || lastOperator == '*')
+			{
+				if (StringManip::stringContains(EQUATION_OPERATORS, symbol))
+				{
+					lastOperator = symbol;
+				}
+			}
+			if ((lastOperator == '-' || lastOperator == '+') && !isdigit(symbol))
+			{
+				expressionEnd = i;
+				break;
+			}
+			else if ((lastOperator == '-' || lastOperator == '+') && (symbol == '*' || symbol == '/'))
+			{
+				lastOperator = symbol;
+			}
+		}
+	}
+	//If we are looking to the right of unknown, then search the string to the right
+	else
+	{
+		for (int i = indexOfUnknown + 1; i < strlen(unknownSide); i++)
+		{
+			char symbol = unknownSide[i];
+
+			if ((symbol == '+' || symbol == '-') && (isdigit(unknownSide[i - 1]) || i - 1 == indexOfUnknown))
+			{
+				expressionEnd = i;
+				break;
+			}
+
+			/*if (lastOperator == '\0' || lastOperator == '/' || lastOperator == '*')
+			{
+				if (StringManip::stringContains(EQUATION_OPERATORS, symbol))
+				{
+					lastOperator = symbol;
+				}
+			}
+			if ((lastOperator == '-' || lastOperator == '+') && !isdigit(symbol))
+			{
+				expressionEnd = i;
+				break;
+			}
+			else if ((lastOperator == '-' || lastOperator == '+') && (symbol == '*' || symbol == '/'))
+			{
+				lastOperator = symbol;
+			}*/
+		}
+	}
+
+	//If the expression doesn't exist, then don't do anything
+	if (expressionEnd == -1) return;
+
+	//Copy expression
+	char* expressionString = nullptr;
+	if (leftOfUnknown)
+	{
+		expressionString = new char[expressionEnd + 2];
+		expressionString[expressionEnd + 1] = '\0';
+		for (size_t i = 0; i < expressionEnd + 1; i++)
+		{
+			expressionString[i] = unknownSide[i];
+		}
+	}
+	else
+	{
+		expressionString = new char[strlen(unknownSide) - expressionEnd];
+		expressionString[strlen(unknownSide) - expressionEnd - 1] = '\0';
+		for (size_t i = expressionEnd; i < strlen(unknownSide); i++)
+		{
+			expressionString[i - expressionEnd] = unknownSide[i];
+		}
+
+		//Check if the expression string starts with +-, -+ or --. If it does, then replace those with the appropriate single operator
+		//Otherwise, you can get an error when you try to transfer the expression to the other side with a -
+		/*if (StringManip::stringStartsWith(expressionString, "+-") || StringManip::stringStartsWith(expressionString, "-+"))
+		{
+			char* expressionStringCopy = StringManip::replaceFrom(expressionString, "-", 0, 1);
+			delete[] expressionString;
+			expressionString = expressionStringCopy;
+		}
+		else if (StringManip::stringStartsWith(expressionString, "--"))
+		{
+			char* expressionStringCopy = StringManip::replaceFrom(expressionString, "+", 0, 1);
+			delete[] expressionString;
+			expressionString = expressionStringCopy;
+		}*/
+	}
+
+	BigNumberExpression expression(expressionString);
+
+	//This is the expression of the knownSide
+	BigNumberExpression knownSideExpression(knownSide);
+
+	//Minus the expression from the knownSideExpression
+	BigNumberExpression newKnownSideExpression = knownSideExpression - expression;
+
+	//Set the new unknown and known sides
+	size_t newUnknownSideCapacity = strlen(unknownSide) - strlen(expressionString) + 1;
+	char* newUnknownSide = new char[newUnknownSideCapacity];
+	newUnknownSide[newUnknownSideCapacity - 1] = '\0';
+	
+	if (leftOfUnknown)
+	{
+		delete[] newUnknownSide;
+		newUnknownSide = StringManip::replaceFrom(unknownSide, "", 0, expressionEnd);
+
+		/*for (size_t i = expressionEnd + 1; i < strlen(unknownSide); i++)
+		{
+			newUnknownSide[i - expressionEnd - 1] = unknownSide[i];
+		}*/
+	}
+	else
+	{
+		delete[] newUnknownSide;
+		newUnknownSide = StringManip::replaceFrom(unknownSide, "", expressionEnd);
+		/*for (size_t i = indexOfUnknown; i < expressionEnd; i++)
+		{
+			newUnknownSide[i - indexOfUnknown] = unknownSide[i];
+		}*/
+	}
+
+	//Delete dynamic memory
+	delete[] expressionString;
+
+	//Replace with the new unknownSide and knownSide
+	delete[] unknownSide;
+	unknownSide = newUnknownSide;
+	delete[] knownSide;
+	knownSide = new char[strlen(knownSideExpression.getExpression()) + 1];
+	strcpy(knownSide, knownSideExpression.getExpression());
+}
+
+void BigNumberEquation::moveMultiplyAndDivide(char* unknownSide, char* knownSide, bool leftOfUnknown, size_t indexOfUnknown)
+{
+	int indexOfMultiply = -1;
+	int indexOfDivide = -1;
+
+	if (leftOfUnknown && indexOfUnknown > 0)
+	{
+		indexOfMultiply = StringManip::findIndex(unknownSide, "*", 0, indexOfUnknown - 1);
+		indexOfDivide = StringManip::findIndex(unknownSide, "/", 0, indexOfUnknown - 1);
+	}
+	else if(!leftOfUnknown && indexOfUnknown < strlen(unknownSide) - 1)
+	{
+		indexOfMultiply = StringManip::findIndex(unknownSide, "*", indexOfUnknown + 1, strlen(unknownSide));
+		indexOfDivide = StringManip::findIndex(unknownSide, "/", indexOfUnknown + 1, strlen(unknownSide));
+	}
+
+	//If there is no expression, then do not do anything
+	if (indexOfDivide == -1 && indexOfMultiply == -1) return;
+
+	char* expressionString = nullptr;
+	//If this is true, then this is A/x = B, so we make it x = A/B
+	if (indexOfDivide > indexOfMultiply && indexOfDivide != -1 && leftOfUnknown)
+	{
+		expressionString = new char[indexOfDivide + 1];
+		strncpy(expressionString, unknownSide, indexOfDivide);
+		expressionString[indexOfDivide] = '\0';
+
+		BigNumberExpression expression(expressionString);
+		BigNumberExpression knownExpression(knownSide);
+		BigNumberExpression newKnownExpression = expression / knownExpression;
+
+		char* newUnknownSide = StringManip::replaceFrom(unknownSide, "", 0, indexOfDivide);
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
+
+		delete[] knownSide;
+		knownSide = new char[strlen(newKnownExpression.getExpression()) + 1];
+		strcpy(knownSide, newKnownExpression.getExpression());
+	}
+	//If this is true, then this is A*x = B, so we make it x = B/A
+	else if (indexOfMultiply > indexOfDivide && indexOfMultiply != -1 && leftOfUnknown)
+	{
+		expressionString = new char[indexOfMultiply + 1];
+		strncpy(expressionString, unknownSide, indexOfMultiply);
+		expressionString[indexOfMultiply] = '\0';
+
+		BigNumberExpression expression(expressionString);
+		BigNumberExpression knownExpression(knownSide);
+		BigNumberExpression newKnownExpression = knownExpression / expression;
+
+		char* newUnknownSide = StringManip::replaceFrom(unknownSide, "", 0, indexOfMultiply);
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
+
+		delete[] knownSide;
+		knownSide = new char[strlen(newKnownExpression.getExpression()) + 1];
+		strcpy(knownSide, newKnownExpression.getExpression());
+	}
+	//If this is true, then this is x/A = B, so we make it x = B*A
+	else if 
+		(!leftOfUnknown && 
+			( 
+				(indexOfDivide < indexOfMultiply && indexOfMultiply != -1 && indexOfDivide != -1) ||
+			    (indexOfMultiply == -1 && indexOfDivide != -1)
+			) 
+		)
+	{
+		expressionString = StringManip::replaceFrom(unknownSide, "", 0, indexOfDivide - 1);
+		/*new char[strlen(unknownSide) - indexOfUnknown - 1];
+		strncpy(expressionString, unknownSide, indexOfUnknown);
+		expressionString[indexOfUnknown] = '\0';*/
+
+		BigNumberExpression expression(expressionString);
+		BigNumberExpression knownExpression(knownSide);
+		BigNumberExpression newKnownExpression = knownExpression * expression;
+
+		char* newUnknownSide = StringManip::replaceFrom(unknownSide, "", indexOfDivide);
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
+
+		delete[] knownSide;
+		knownSide = new char[strlen(newKnownExpression.getExpression()) + 1];
+		strcpy(knownSide, newKnownExpression.getExpression());
+	}
+	//If this is true, then this is x*A = B, so we make it x = B/A
+	else if
+		(!leftOfUnknown &&
+			(
+				(indexOfMultiply < indexOfDivide && indexOfDivide != -1 && indexOfMultiply != -1) ||
+				(indexOfDivide == -1 && indexOfMultiply != -1)
+				)
+			)
+	{
+		expressionString = StringManip::replaceFrom(unknownSide, "", 0, indexOfMultiply - 1);
+		/*new char[strlen(unknownSide) - indexOfUnknown - 1];
+		strncpy(expressionString, unknownSide, indexOfUnknown);
+		expressionString[indexOfUnknown] = '\0';*/
+
+		BigNumberExpression expression(expressionString);
+		BigNumberExpression knownExpression(knownSide);
+		BigNumberExpression newKnownExpression = knownExpression / expression;
+
+		char* newUnknownSide = StringManip::replaceFrom(unknownSide, "", indexOfMultiply);
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
+
+		delete[] knownSide;
+		knownSide = new char[strlen(newKnownExpression.getExpression()) + 1];
+		strcpy(knownSide, newKnownExpression.getExpression());
+	}
+
+	delete[] expressionString;
+}
+
+BigNumber BigNumberEquation::solveEquation(const char* equation)
+{
+	//Check if the belongs to the object caller
+	if (equation == nullptr) equation = this->getEquation();
+
+	//Remove the whitespaces
+	char* equationCopy = StringManip::replaceAll(equation, " ", "");
+
+	//Check if the equation is valid
+	if (!isValidEquation(equationCopy)) throw "Invalid Equation";
+
+	//Check if the equation has only one unknown. If it doesn't, then throw an exception because I am not that smart to want to code that looooool...
+	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
+	if (countOfUnknowns != 1) throw "Equation is too complex for me to solve";
+
+	//Replace all the instances of +-,-+, -- inside the equation
+	char* equationOne = StringManip::replaceAll(equationCopy, "+-", "-");
+	char* equationTwo = StringManip::replaceAll(equationOne, "-+", "-");
+	char* equationThree = StringManip::replaceAll(equationTwo, "--", "+");
+
+	equationCopy = equationThree;
+
+	//Delete dynamic memory
+	delete[] equationTwo;
+	delete[] equationOne;
+
+	//Split the equation by the unknown side and the known side
+	size_t sidesCount = 0;
+	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
+	char* unknownSide = sides[0];
+	char* knownSide = sides[1];
+
+	//If the right side is the one with the unknown, then swap the sides
+	if (StringManip::stringContains(knownSide, "x"))
+	{
+		char* copy = unknownSide;
+		unknownSide = knownSide;
+		knownSide = unknownSide;
+	}
+
+	//Check if the unknown is inside brackets
+	size_t indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+	int openingBracketBeforeUnknown = -1;
+	int closingBracketBeforeUnknown = -1;
+	if (indexOfUnknown != 0)
+	{
+		openingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, "(", 0, indexOfUnknown - 1);
+		closingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, ")", 0, indexOfUnknown - 1);
+	}	
+
+	//If this is true, then the unknown is in brackets
+	if (openingBracketBeforeUnknown > -1 && closingBracketBeforeUnknown == -1)
+	{
+		//Do shit to resolve the brackets
+	}
+
+	//Now there is no brackets
+	//Move everything that is 'not connected' to the unknown via *, /, *-, /- to the right hand side with the opposite operator
+	movePlusAndMinus(unknownSide, knownSide, true, indexOfUnknown);
+
+	//Get the new index of unknown
+	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+
+	//Now do the same thing for everything that is to the right of the unknown
+	movePlusAndMinus(unknownSide, knownSide, false, indexOfUnknown);
+
+	//Get the new index of unknown
+	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+	
+	//Now do the same thing for the divide and multiply operators	
+	//Move the left side over first
+	moveMultiplyAndDivide(unknownSide, knownSide, true, indexOfUnknown);
+
+	//Get the new index of unknown
+	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+
+	//Now move the right side over 
+	moveMultiplyAndDivide(unknownSide, knownSide, false, indexOfUnknown);
+
+	//By this point, the equation should look like this --> x = A or -x = A. 	
+	//TODO: FIGURE OUT WHAT TO DO IF THE EVALUATED EXPRESSION CANNOT BE SOLVED BECAUSE IT HAS A DIVISION BY 0 SOMEWHERE IN IT. FOR NOW, WE ASSUME THAT WON'T HAPPEN
+	BigNumber equationAnswer = BigNumberExpression(knownSide).evaluateExpression();
+	
+	//Now check if the unknown has a minus sign before it;
+	bool invertSign = StringManip::stringStartsWith(unknownSide, "-");
+
+	if (invertSign) equationAnswer *= -1;
+
+	return equationAnswer;
 }
 
 char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate, size_t maxUnknown)

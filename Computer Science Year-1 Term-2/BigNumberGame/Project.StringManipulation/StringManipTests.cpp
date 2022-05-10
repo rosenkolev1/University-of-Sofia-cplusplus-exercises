@@ -1007,6 +1007,17 @@ void StringManipTests::findIndexLastTests()
     std::cout << StringManip::findIndexLast(otherInput4, input4, startIndex4, endIndex4);
     std::cout << std::endl;
     std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char input5[] = "xxx";
+    char otherInput5[] = "asvbraaabppabaabbbbaabaabbaab";
+    int startIndex5 = 6;  //   |aabppabaabbbbaa|
+    int endIndex5 = 20;
+    std::cout << "Testing if the string \"" << input5 << "\" is contained within \"" << otherInput5 << "\" from " << startIndex5 << " to " << endIndex5 << ": Expected(-1) ==> ";
+    std::cout << StringManip::findIndexLast(otherInput5, input5, startIndex5, endIndex5);
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 void StringManipTests::arraysOfStringsAreEqualTests()
@@ -1491,7 +1502,7 @@ void StringManipTests::runTests()
     //splitByStringTests();
     
     //splitStringMany TESTS
-    splitStringManyTests();
+    //splitStringManyTests();
 
     ////stringContains TESTS
     //stringContainsTests();
@@ -1509,7 +1520,7 @@ void StringManipTests::runTests()
     //findIndexTests();
     //
     ////findIndexLast TESTS
-    //findIndexLastTests();
+    findIndexLastTests();
 
     ////arraysOfStringsAreEqualTests TESTS
     //arraysOfStringsAreEqualTests();

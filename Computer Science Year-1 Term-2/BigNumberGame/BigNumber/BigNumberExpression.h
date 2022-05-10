@@ -72,7 +72,7 @@ public:
 	~BigNumberExpression();
 	BigNumberExpression& operator=(const BigNumberExpression& other);
 
-	BigNumberExpression(const char* equation);
+	BigNumberExpression(const char* expression);
 
 	//Get the equation as read-only
 	const char* getExpression() const;

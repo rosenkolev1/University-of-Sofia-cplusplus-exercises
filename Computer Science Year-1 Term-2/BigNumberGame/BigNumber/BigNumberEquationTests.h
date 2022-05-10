@@ -6,6 +6,8 @@ public:
 
 	static void equationIsValidTests();
 
+	static void solveEquationWithoutParenthesisTests();
+
 	static void generateEquationTests();
 
 	static void readFromAndWriteToConsoleTests();

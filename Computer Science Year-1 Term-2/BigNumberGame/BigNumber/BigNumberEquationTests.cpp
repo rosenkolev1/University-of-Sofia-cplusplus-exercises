@@ -6,7 +6,7 @@
 void BigNumberEquationTests::equationBig4Tests()
 {
     //BIG4 TESTS
-    std::cout << "EQUATION IS VALID TESTS" << std::endl << std::endl;
+    std::cout << "EQUATION BIG4 TESTS" << std::endl << std::endl;
 
     //SETUP
     BigNumberEquation equation1 = BigNumberEquation();
@@ -96,6 +96,87 @@ void BigNumberEquationTests::equationIsValidTests()
     BigNumber result = somethingExpression.evaluateExpression();
     char equation8[] = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890"; //Expected: 10890 = 10890
     std::cout << "Testing if the equation | " << equation8 << " | is valid: Expected: TRUE ==> " << (equation.isValidEquation(equation8) ? "TRUE" : "FALSE");
+    std::cout << std::endl << std::endl;
+}
+
+void BigNumberEquationTests::solveEquationWithoutParenthesisTests()
+{
+    //SOLVE EQUATIONS WITH NO PARENTHESIS TESTS
+    std::cout << "SOLVE EQUATIONS WITH NO PARENTHESIS TESTS" << std::endl << std::endl;
+
+    //TEST PREP
+    BigNumberEquation equation;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char equation1[] = "x=5";
+    std::cout << "Testing the answer to the equation | " << equation1 << " |: Expected: 5 ==> " << equation.solveEquation(equation1);
+    std::cout << std::endl << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char equation2[] = "3+x=5";
+    std::cout << "Testing the answer to the equation | " << equation2 << " |: Expected: 2 ==> " << equation.solveEquation(equation2);
+    std::cout << std::endl << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char equation3[] = "5-3+x=5";
+    std::cout << "Testing the answer to the equation | " << equation3 << " |: Expected: 3 ==> " << equation.solveEquation(equation3);
+    std::cout << std::endl << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char equation4[] = "5-3-x=5";
+    std::cout << "Testing the answer to the equation | " << equation4 << " |: Expected: -3 ==> " << equation.solveEquation(equation4);
+    std::cout << std::endl << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char equation5[] = "--5+-3-x=5";
+    std::cout << "Testing the answer to the equation | " << equation5 << " |: Expected: -3 ==> " << equation.solveEquation(equation5);
+    std::cout << std::endl << std::endl;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    char equation6[] = "-x+9=5";
+    std::cout << "Testing the answer to the equation | " << equation6 << " |: Expected: 4 ==> " << equation.solveEquation(equation6);
+    std::cout << std::endl << std::endl;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    char equation7[] = "-x-+9=5";
+    std::cout << "Testing the answer to the equation | " << equation7 << " |: Expected: -14 ==> " << equation.solveEquation(equation7);
+    std::cout << std::endl << std::endl;
+
+    //TEST 8
+    std::cout << "TEST 8" << std::endl;
+    char equation8[] = "-x--9=5";
+    std::cout << "Testing the answer to the equation | " << equation8 << " |: Expected: 4 ==> " << equation.solveEquation(equation8);
+    std::cout << std::endl << std::endl;
+
+    //TEST 9
+    std::cout << "TEST 9" << std::endl;
+    char equation9[] = "-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x+9-24=3+10*2-13 ==> -x-15=10 ==> x=-25 
+    std::cout << "Testing the answer to the equation | " << equation9 << " |: Expected: -25 ==> " << equation.solveEquation(equation9);
+    std::cout << std::endl << std::endl;
+
+    //TEST 10
+    std::cout << "TEST 10" << std::endl;
+    char equation10[] = "50+74+-69-+69--22-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-15-15=10 ==> x=-40
+    std::cout << "Testing the answer to the equation | " << equation10 << " |: Expected: -40 ==> " << equation.solveEquation(equation10);
+    std::cout << std::endl << std::endl;
+
+    //TEST 11
+    std::cout << "TEST 11" << std::endl;
+    char equation11[] = "+-50+74+-69-+69--21-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-30-100=10 ==> x=-140
+    std::cout << "Testing the answer to the equation | " << equation11 << " |: Expected: -140 ==> " << equation.solveEquation(equation11);
+    std::cout << std::endl << std::endl;
+
+    //TEST 12
+    std::cout << "TEST 12" << std::endl;
+    char equation12[] = "5*3/4+10*(5/3+1)-13=+-50+74+-69-+69--21-x--9+-10-+14"; //-x-30-100=10 ==> x=-140
+    std::cout << "Testing the answer to the equation | " << equation12 << " |: Expected: -140 ==> " << equation.solveEquation(equation12);
     std::cout << std::endl << std::endl;
 }
 
@@ -232,6 +313,9 @@ void BigNumberEquationTests::runTests()
     //Equation is valid tests
     //equationIsValidTests();
 
+    //Solve equations with no parenthesis Tests
+    solveEquationWithoutParenthesisTests();
+
 	//Generate equations from expression templates tests
 	//generateFromTemplateTests();
 
@@ -239,8 +323,8 @@ void BigNumberEquationTests::runTests()
 	//generateEquationTests();
 
     //Read from and Write to console tests
-    readFromAndWriteToFileTests();
+    //readFromAndWriteToFileTests();
     
     //Read from and Write to console tests
-    readFromAndWriteToConsoleTests();
+    //readFromAndWriteToConsoleTests();
 }

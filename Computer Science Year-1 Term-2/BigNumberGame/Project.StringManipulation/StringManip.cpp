@@ -563,8 +563,8 @@ int StringManip::findIndex(const char* text, const char* searchText, size_t star
 
 int StringManip::findIndexLast(const char* text, const char* searchText)
 {
-    int searchTextFoundIndex = 0;
-    int searchTextFoundLastIndex = 0;
+    int searchTextFoundIndex = -1;
+    int searchTextFoundLastIndex = -1;
     bool searchTextHasBeenFound = false;
     for (size_t i = 0; i < strlen(text); i++)
     {
