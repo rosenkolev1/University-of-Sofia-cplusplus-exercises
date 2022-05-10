@@ -122,10 +122,18 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 		char* expressionTwo = StringManip::replaceAll(expressionOne, "-+", "-");
 		char* expressionThree = StringManip::replaceAll(expressionTwo, "--", "+");
 
+		//Replace all the instances of *+,/+, %- inside the string
+		char* expressioFour = StringManip::replaceAll(expressionThree, "*+", "*");
+		char* expressionFive = StringManip::replaceAll(expressioFour, "/+", "/");
+		char* expressionSix = StringManip::replaceAll(expressionFive, "%+", "%");
+
 		delete[] expression;
-		expression = expressionThree;
+		expression = expressionSix;
 
 		//Delete dynamic memory
+		delete[] expressionFive;
+		delete[] expressioFour;
+		delete[] expressionThree;
 		delete[] expressionTwo;
 		delete[] expressionOne;
 
@@ -213,7 +221,6 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 	size_t negativeOperatorsCapacity = 10;
 	size_t* negativeOperatorsIndexes = new size_t[operatorsCapacity + 1];
 	size_t negativeOperatorsCount = 0;
-
 
 	for (size_t i = 0; i < strlen(expression); i++)
 	{

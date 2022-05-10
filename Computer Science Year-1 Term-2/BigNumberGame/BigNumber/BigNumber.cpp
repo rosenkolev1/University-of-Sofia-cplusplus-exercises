@@ -134,6 +134,11 @@ BigNumber::~BigNumber()
 	delete[] this->number;
 }
 
+int BigNumber::getSign()
+{
+	return this->sign;
+}
+
 BigNumber& BigNumber::operator=(const BigNumber& other)
 {
 	if (this != &other)

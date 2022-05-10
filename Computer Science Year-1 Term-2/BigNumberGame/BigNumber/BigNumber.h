@@ -55,6 +55,9 @@ public:
 
 	~BigNumber();
 
+	//Get the sign of the number
+	int getSign();
+
 	//Assigment operator
 	BigNumber& operator = (const BigNumber& other);
 

@@ -16,10 +16,10 @@ private:
 	int generateCountOfX(int seed);
 
 	//Move everything that is not tied to the unknown with a * or / to the other side 
-	void movePlusAndMinus(char* unknownSide, char* knownSide, bool leftOfUnknown, size_t indexOfUnknown);
+	void movePlusAndMinus(char*& unknownSide, char*& knownSide, bool leftOfUnknown, size_t indexOfUnknown);
 
 	//Move everything that is tied to the unknown via * or / to the other side
-	void moveMultiplyAndDivide(char* unknownSide, char* knownSide, bool leftOfUnknown, size_t indexOfUnknown);
+	void moveMultiplyAndDivide(char*& unknownSide, char*& knownSide, bool leftOfUnknown, size_t indexOfUnknown);
 public:
 
 	//Big 4
@@ -37,6 +37,9 @@ public:
 
 	//Get the answer to an equation
 	BigNumber solveEquation(const char* equation = nullptr);
+
+	//Get the answer to an equation
+	BigNumber solveEquationVersion2(const char* equation = nullptr);
 
 	//Fill the numbers in an equation template
 	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);

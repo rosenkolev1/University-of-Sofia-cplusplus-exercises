@@ -8,6 +8,8 @@ public:
 
 	static void solveEquationWithoutParenthesisTests();
 
+	static void solveEquationVersion2WithoutParenthesisTests();
+
 	static void generateEquationTests();
 
 	static void readFromAndWriteToConsoleTests();
