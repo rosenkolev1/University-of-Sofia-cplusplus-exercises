@@ -43,9 +43,14 @@ public:
 
 	//Get equation as read-only
 	const char* getEquation() const;
+
 	//Get the right expression as read-only
 	const char* getRightExpression() const;
+
 	//Get the left expression, with the 'x', as read-only
 	const char* getLeftExpression() const;
+
+	//Get equation template
+	char* getEquationTemlpate() const;
 };
 

@@ -9,6 +9,7 @@ void BigNumberEquation::copy(const BigNumberEquation& other)
 	strcpy(this->equation, other.getEquation());
 }
 
+//0-49
 int BigNumberEquation::generateCountOfX(int seed)
 {
 	if (seed > 47) return 3;
@@ -105,7 +106,7 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 	int countOfX = -1;
 	while (countOfX < 0 || countOfX > countOfNumbers)
 	{
-		countOfX = generateCountOfX(rand());
+		countOfX = generateCountOfX(rand() % 50);
 	}
 
 	//Generate the positions for the x. The positions are NOT the indexes. 1 + x + 3 + y ---> x is position 1, y is position 2
@@ -122,7 +123,7 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 		int position = -1;
 		while (true)
 		{
-			position = rand() % countOfX + 1;
+			position = rand() % countOfNumbers + 1;
 
 			//Check if the x position is already taken. If it is, then reroll
 			bool isTaken = false;
@@ -165,14 +166,33 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 			//Replace with U
 			if (isTargeted)
 			{
-				char* expressionFilledCopy = StringManip::replaceFrom(expressionFilled, "U", i, i);
-				delete[] expressionFilled;
-				expressionFilled = expressionFilledCopy;
+				//Decide randomly whether or not the x is going to have a - in front of it
+				int signOfX = generateSign(rand() % 15);
+
+				//If signOfX is 0, then reroll until it isn't
+				while (true)
+				{
+					if (signOfX > 0)
+					{
+						char* expressionFilledCopy = StringManip::replaceFrom(expressionFilled, "U", i, i);
+						delete[] expressionFilled;
+						expressionFilled = expressionFilledCopy;
+						break;
+					}
+					else if (signOfX < 0)
+					{
+						char* expressionFilledCopy = StringManip::replaceFrom(expressionFilled, "-U", i, i);
+						delete[] expressionFilled;
+						expressionFilled = expressionFilledCopy;
+						break;
+					}
+					else signOfX = signOfX = generateSign(rand() % 15);
+				}
 			}
 		}	
 	}
 
-	//Replace the x in the expression template with numbers, except for the targeted x numbers, which are now U
+	//Replace the x in the expression template with numbers, except for the targeted x numbers, which are now U or -U
 	while (StringManip::stringContains(expressionFilled, "x"))
 	{
 		//Generate the sign of the number
@@ -217,7 +237,6 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 
 void BigNumberEquation::generateEquation()
 {
-	//TODO: Will do once I can generate an expression with given flags set.
 	//Generate the left expression template
 	BigNumberExpression expression;
 

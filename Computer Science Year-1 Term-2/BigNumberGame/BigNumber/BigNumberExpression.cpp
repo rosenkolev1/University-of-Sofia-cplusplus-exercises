@@ -759,8 +759,7 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	
 	bool isOnNumber = false;
 	size_t currentNumberStartIndex = 0;
-	/*char* newExpressionCopy = new char[strlen(newExpression) + 1];
-	strcpy(newExpressionCopy, newExpression);*/
+
 	for (size_t i = 0; i < strlen(newExpression); i++)
 	{
 		char symbol = newExpression[i];
