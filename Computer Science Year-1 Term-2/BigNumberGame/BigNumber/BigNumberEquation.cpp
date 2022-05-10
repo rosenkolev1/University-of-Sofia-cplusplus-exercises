@@ -297,3 +297,100 @@ const char* BigNumberEquation::getLeftExpression() const
 
 	return leftExpression;
 }
+
+char* BigNumberEquation::getEquationTemplate(const char* equation) const
+{
+	if (equation == nullptr) equation = this->getEquation();
+
+	char* equationCopy = new char[strlen(equation) + 1];
+	strcpy(equationCopy, equation);
+
+	//Remove all the whitespaces
+	char* equationCopyCopy = StringManip::replaceAll(equationCopy, " ", "");
+	delete[] equationCopy;
+	equationCopy = equationCopyCopy;
+
+	size_t sidesCount = 0;
+	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
+
+	for (size_t i = 0; i < 2; i++)
+	{
+		char* newSide = new char[strlen(sides[i]) + 1];
+		strcpy(newSide, sides[i]);
+
+		//TODO: Check if the equation side is valid. If it isn't, throw an exception 
+
+
+		//Replace all the *-x, +-x, --x, /-x with *N, +N, -N, /N
+		char* side1 = StringManip::replaceAll(newSide, "*-x", "*N");
+		char* side2 = StringManip::replaceAll(side1, "+-x", "+N");
+		char* side3 = StringManip::replaceAll(side2, "--x", "-N");
+		char* side4 = StringManip::replaceAll(side3, "/+x", "/N");
+
+		//Replace all the x's with U's
+		char* side5 = StringManip::replaceAll(side4, "x", "U");
+
+		delete[] newSide;
+		newSide = side5;
+
+		//Delete dynamic memory
+		delete[] side5;
+		delete[] side4;
+		delete[] side3;
+		delete[] side2;
+		delete[] side1;
+
+		//Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
+		side1 = StringManip::replaceAll(newSide, "+-", "+");
+		side2 = StringManip::replaceAll(side1, "--", "-");
+		side3 = StringManip::replaceAll(side2, "-+", "-");
+		side4 = StringManip::replaceAll(side3, "*+", "*");
+		side5 = StringManip::replaceAll(side4, "/+", "/");
+		char* side6 = StringManip::replaceAll(side5, "%+", "%");
+		char* side7 = StringManip::replaceAll(side6, "*-", "*");
+		char* side8 = StringManip::replaceAll(side7, "/-", "/");
+		char* side9 = StringManip::replaceAll(side8, "%-", "%");
+
+		delete[] newSide;
+		newSide = side9;
+
+		//Delete dynamic memory
+		delete[] side8;
+		delete[] side7;
+		delete[] side6;
+		delete[] side5;
+		delete[] side4;
+		delete[] side3;
+		delete[] side2;
+		delete[] side1;
+
+		//Check if the first char of the expression is + or - and if the first number is known. If this is true, then remove the sign entirely
+		if (newSide[0] == '-' || newSide[0] == '+' && newSide[1] != 'U' && newSide[1] != 'N')
+		{
+			const char* sideCopy = newSide;
+			newSide = StringManip::replaceFrom(newSide, "", 0, 0);
+			delete[] sideCopy;
+		}
+
+		//Replace the numbers with x's
+		char* newSideCopy = replaceNumbers(newSide, "x");
+		delete[] newSide;
+		newSide = newSideCopy;
+
+		//Return the side template to the sides array
+		delete[] sides[i];
+		sides[i] = newSide;
+	}
+
+	// Concat the sides array into the equation
+	char* equationTemplate = new char[strlen(sides[0]) + strlen(sides[1]) + 2];
+	equationTemplate[0] = '\0';
+	strcat(equationTemplate, sides[0]);
+	strcat(equationTemplate, "=");
+	strcat(equationTemplate, sides[1]);
+
+	//Delete dynamic memory
+	StringManip::deleteArrayOfStrings(sides, 2);
+
+	return equationTemplate;
+}

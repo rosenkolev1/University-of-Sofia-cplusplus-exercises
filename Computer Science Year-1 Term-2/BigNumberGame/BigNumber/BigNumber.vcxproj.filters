@@ -36,7 +36,7 @@
     <ClCompile Include="BigNumberEquation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BigNumberRandom.cpp">
+    <ClCompile Include="BigNumberExpressionCommon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BigNumberEquationTests.cpp">
@@ -62,7 +62,7 @@
     <ClInclude Include="BigNumberEquation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BigNumberRandom.h">
+    <ClInclude Include="BigNumberExpressionCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigNumberEquationTests.h">

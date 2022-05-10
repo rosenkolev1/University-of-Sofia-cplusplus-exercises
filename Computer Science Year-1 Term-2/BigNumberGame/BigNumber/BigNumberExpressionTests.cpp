@@ -802,7 +802,13 @@ void BigNumberExpressionTests::generateExpressionTests()
         std::cout << "TEST " << i + 1 << ": " << std::endl;
         BigNumberExpression expression1 = BigNumberExpression();
         expression1.generateExpression();
-        std::cout << "Testing the generating of an expression --> " << expression1.getExpressionTemplate() << " --> " << expression1.getExpression();
+        char* expressionTemplate = expression1.getExpressionTemplate();
+        //TODO: THIS IS DEBUG SHIT. REMOVE LATER
+        if (strlen(expressionTemplate) == 0)
+        {
+            expressionTemplate = expression1.getExpressionTemplate();
+        }
+        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression1.getExpression();
         std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
@@ -813,6 +819,10 @@ void BigNumberExpressionTests::generateExpressionTests()
         {
             std::cout << "Exception thrown because of division or percent by 0";
         }
+
+        //Delete dynamic memory
+        delete[] expressionTemplate;
+
         std::cout << std::endl;
         std::cout << std::endl;
     }
@@ -822,7 +832,8 @@ void BigNumberExpressionTests::generateExpressionTests()
         std::cout << "TEST " << i + 1 << ": " << std::endl;
         BigNumberExpression expression1 = BigNumberExpression();
         expression1.generateExpression("+-*/");
-        std::cout << "Testing the generating of an expression --> " << expression1.getExpressionTemplate() << " --> " << expression1.getExpression();
+        char* expressionTemplate = expression1.getExpressionTemplate();
+        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression1.getExpression();
         std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() && !StringManip::stringContains(expression1.getExpression(), "%") ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
@@ -833,6 +844,10 @@ void BigNumberExpressionTests::generateExpressionTests()
         {
             std::cout << "Exception thrown because of division or percent by 0";
         }
+
+        //Delete dynamic memory
+        delete[] expressionTemplate;
+
         std::cout << std::endl;
         std::cout << std::endl;
     }
@@ -1294,10 +1309,10 @@ void BigNumberExpressionTests::runTests()
     //solveExpressionParenthesisTests();
     
     //Generating expressions templates tests
-    //generateExpressionTemplateTests();
+    generateExpressionTemplateTests();
 
     //Generating expressions tests
-    //generateExpressionTests();
+    generateExpressionTests();
     //
     ////Read from and Write to console tests
     //readFromAndWriteToConsoleTests();

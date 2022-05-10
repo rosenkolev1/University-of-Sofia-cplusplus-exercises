@@ -149,7 +149,7 @@
     <ClCompile Include="BigNumberEquationTests.cpp" />
     <ClCompile Include="BigNumberExpression.cpp" />
     <ClCompile Include="BigNumberExpressionTests.cpp" />
-    <ClCompile Include="BigNumberRandom.cpp" />
+    <ClCompile Include="BigNumberExpressionCommon.cpp" />
     <ClCompile Include="BigNumberTests.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -160,7 +160,7 @@
     <ClInclude Include="BigNumberEquationTests.h" />
     <ClInclude Include="BigNumberExpression.h" />
     <ClInclude Include="BigNumberExpressionTests.h" />
-    <ClInclude Include="BigNumberRandom.h" />
+    <ClInclude Include="BigNumberExpressionCommon.h" />
     <ClInclude Include="BigNumberTests.h" />
   </ItemGroup>
   <ItemGroup>

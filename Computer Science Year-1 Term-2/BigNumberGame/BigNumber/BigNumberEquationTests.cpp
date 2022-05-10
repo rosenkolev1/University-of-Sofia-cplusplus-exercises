@@ -15,7 +15,7 @@ void BigNumberEquationTests::generateEquationTests()
         std::cout << "TEST " << i + 1 << ": " << std::endl;
         BigNumberEquation equation1 = BigNumberEquation();
         equation1.generateEquation();                                   //TODO: make this get the equation template, like in expressions
-        std::cout << "Testing the generating of an equation --> " << equation1.getEquation() << " --> " << equation1.getEquation();
+        std::cout << "Testing the generating of an equation --> " << equation1.getEquationTemplate() << " --> " << equation1.getEquation();
         std::cout << ". Is the equation valid? Expect: TRUE: " << (equation1.isValidEquation() ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the equation --> ";
         try

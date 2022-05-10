@@ -751,45 +751,50 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	if (newExpression[0] == '-' || newExpression[0] == '+')
 	{
 		const char* expressionCopy = newExpression;
-		newExpression = StringManip::replaceFrom(newExpression, "", 0);
+		newExpression = StringManip::replaceFrom(newExpression, "", 0, 0);
 		delete[] expressionCopy;
 	}
 
 	//Replace all of the numbers in the expression with an x
-	
-	bool isOnNumber = false;
-	size_t currentNumberStartIndex = 0;
+	char* newExpressionCopy= replaceNumbers(newExpression, "x");
+	delete[] newExpression;
+	newExpression = newExpressionCopy;
 
-	for (size_t i = 0; i < strlen(newExpression); i++)
-	{
-		char symbol = newExpression[i];
+	//
+	//
+	//bool isOnNumber = false;
+	//size_t currentNumberStartIndex = 0;
 
-		if (isdigit(symbol) && isOnNumber == false)
-		{
-			isOnNumber = true;
-			currentNumberStartIndex = i;
-		}
-		else if (!isdigit(symbol) && isOnNumber)
-		{
-			isOnNumber = false;
+	//for (size_t i = 0; i < strlen(newExpression); i++)
+	//{
+	//	char symbol = newExpression[i];
 
-			//Replace the digit with an x
-			char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, i-1);
-			delete[] newExpression;
-			newExpression = expressionCopy;
+	//	if (isdigit(symbol) && isOnNumber == false)
+	//	{
+	//		isOnNumber = true;
+	//		currentNumberStartIndex = i;
+	//	}
+	//	else if (!isdigit(symbol) && isOnNumber)
+	//	{
+	//		isOnNumber = false;
 
-			//Now move back the counter because you have just deleted a very important number;
-			i -= (i - 1 - currentNumberStartIndex + 1 - 1);
-		}
-	}
+	//		//Replace the digit with an x
+	//		char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, i-1);
+	//		delete[] newExpression;
+	//		newExpression = expressionCopy;
 
-	//If the expression ends on a number, then replace that number with x
-	if (isOnNumber)
-	{
-		char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, strlen(newExpression) - 1);
-		delete[] newExpression;
-		newExpression = expressionCopy;
-	}
+	//		//Now move back the counter because you have just deleted a very important number;
+	//		i -= (i - 1 - currentNumberStartIndex + 1 - 1);
+	//	}
+	//}
+
+	////If the expression ends on a number, then replace that number with x
+	//if (isOnNumber)
+	//{
+	//	char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, strlen(newExpression) - 1);
+	//	delete[] newExpression;
+	//	newExpression = expressionCopy;
+	//}
 
 	return newExpression;
 }

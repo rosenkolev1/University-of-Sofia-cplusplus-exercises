@@ -1,5 +1,5 @@
 #pragma once
-class BigNumberRandom
+class BigNumberExpressionCommon
 {
 protected:
 	//0-4 for expression
@@ -13,6 +13,9 @@ protected:
 
 	//0-50 for expression
 	virtual size_t generateDigitsCount(int seed) const;
+
+	//Replace all the numbers in the expression with something else
+	virtual char* replaceNumbers(const char* expression, const char* replacement) const;
 
 	//Initialize srand so that the user doesn't have to do that himself
 	//BigNumberRandom();

@@ -3,7 +3,7 @@
 #include "BigNumberExpression.h"
 
 class BigNumberEquation
-	:public BigNumberRandom
+	:public BigNumberExpressionCommon
 {
 private:
 	static constexpr const char* EQUATION_OPERATORS = "+-*/";
@@ -51,6 +51,6 @@ public:
 	const char* getLeftExpression() const;
 
 	//Get equation template
-	char* getEquationTemlpate() const;
+	char* getEquationTemplate(const char* equation = nullptr) const;
 };
 

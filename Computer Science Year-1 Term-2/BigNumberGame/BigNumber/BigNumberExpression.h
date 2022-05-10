@@ -1,11 +1,11 @@
 #pragma once
 #include "BigNumber.h"
-#include "BigNumberRandom.h"
+#include "BigNumberExpressionCommon.h"
 #include <ostream>
 #include <fstream>
 
 class BigNumberExpression
-	:public BigNumberRandom
+	:public BigNumberExpressionCommon
 {
 public:
 	//Check if the expression contains +++, ++-, +-+, +--, -++, -+-, --+, ---. If it does, then it is invalid
