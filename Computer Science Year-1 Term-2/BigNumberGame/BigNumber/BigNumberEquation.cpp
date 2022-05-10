@@ -339,6 +339,27 @@ const char* BigNumberEquation::getEquation() const
 	return this->equation;
 }
 
+void BigNumberEquation::setEquation(const char* equation)
+{
+	if (!isValidEquation(equation)) throw "The expression that you are trying to set is invalid";
+
+	//Remove all the whitespaces
+	char* equationCopy = StringManip::replaceAll(equation, " ", "");
+
+	size_t capacityOfNewEquation = strlen(equationCopy) + 1;
+	//Resize expression if needed
+	if (capacityOfNewEquation > this->capacity)
+	{
+		this->capacity = capacityOfNewEquation;
+		delete[] this->equation;
+		this->equation = new char[this->capacity];
+	}
+	strcpy(this->equation, equationCopy);
+
+	//Delete dynamic memory
+	delete[] equationCopy;
+}
+
 const char* BigNumberEquation::getRightExpression() const
 {
 	size_t arraySize = 0;
@@ -459,4 +480,26 @@ char* BigNumberEquation::getEquationTemplate(const char* equation) const
 	StringManip::deleteArrayOfStrings(sides, 2);
 
 	return equationTemplate;
+}
+
+std::istream& operator>>(std::istream& is, BigNumberEquation& equation)
+{
+	//Let's just agree that an equation larger than 10000 symbols cannot occur.
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
+
+	equation.setEquation(textLine);
+
+	return is;
+}
+
+std::ifstream& operator>>(std::ifstream& is, BigNumberEquation& equation)
+{
+	//Let's just agree that an expression larger than 10000 symbols cannot occur.
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
+
+	equation.setEquation(textLine);
+
+	return is;
 }

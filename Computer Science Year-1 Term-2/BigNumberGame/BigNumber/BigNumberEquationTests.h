@@ -8,6 +8,10 @@ public:
 
 	static void generateEquationTests();
 
+	static void readFromAndWriteToConsoleTests();
+
+	static void readFromAndWriteToFileTests();
+
 	static void runTests();
 };
 

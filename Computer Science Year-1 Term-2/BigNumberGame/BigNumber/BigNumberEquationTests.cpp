@@ -178,10 +178,56 @@ void BigNumberEquationTests::generateEquationTests()
     }
 }
 
+void BigNumberEquationTests::readFromAndWriteToConsoleTests()
+{
+    std::cout << "READ AND WRITE FROM AND TO CONSOLE TESTS" << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    BigNumberEquation equation1;
+    BigNumberEquation equation2;
+    std::cout << "Enter expression1: ";
+    std::cin >> equation1;
+    std::cout << "Enter expression2: ";
+    std::cin >> equation2;
+    //TODO: fix when I can solve an equation
+    std::cout << "Equation 1: " << equation1.getEquation() << std::endl;
+    std::cout << "Equation 2: " << equation2.getEquation();
+    std::cout << std::endl << std::endl;
+}
+
+void BigNumberEquationTests::readFromAndWriteToFileTests()
+{
+    std::cout << "READ AND WRITE FROM AND TO FILE TESTS" << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+
+    std::ifstream is("Equations.txt");
+    int somethingDebug = (15 - (3 * 156 / 343 % (6 / 2 * 4 % 10 + 43))) + 10;
+    BigNumberEquation equation1 = BigNumberExpression();
+    BigNumberEquation equation2 = BigNumberExpression();
+    is >> equation1;
+    is >> equation2;
+
+    is.close();
+
+    //TODO: fix when I can solve an equation
+    std::cout << "Equation 1: " << equation1.getEquation() << std::endl;
+    std::cout << "Equation 2: " << equation2.getEquation();
+    std::cout << std::endl << std::endl;
+    //std::ofstream os("ExpressionsAnswers.txt");
+    //
+    //os << expression1;
+    //os << expression2;
+    //
+    //os.close();
+}
+
 void BigNumberEquationTests::runTests()
 {
     //Big4 tests
-    equationBig4Tests();
+    //equationBig4Tests();
 
     //Equation is valid tests
     //equationIsValidTests();
@@ -191,4 +237,10 @@ void BigNumberEquationTests::runTests()
 
 	//Generate equation tests
 	//generateEquationTests();
+
+    //Read from and Write to console tests
+    readFromAndWriteToFileTests();
+    
+    //Read from and Write to console tests
+    readFromAndWriteToConsoleTests();
 }
