@@ -514,7 +514,7 @@ char* StringManip::replaceFrom(const char* text, const char* replacement, size_t
 
 int StringManip::findIndex(const char* text, const char* searchText)
 {
-    int searchTextFoundIndex = 0;
+    int searchTextFoundIndex = -1;
     for (size_t i = 0; i < strlen(text); i++)
     {
         if (text[i] == searchText[0])
@@ -541,7 +541,7 @@ int StringManip::findIndex(const char* text, const char* searchText)
     }
 
     //If we get to here, then the string hasn't been found
-    return -1;
+    return searchTextFoundIndex;
 }
 
 int StringManip::findIndex(const char* text, const char* searchText, size_t startIndex, size_t endIndex)

@@ -457,7 +457,7 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 	for (size_t i = 0; i < strlen(expressionCopy); i++)
 	{
 		char symbol = expressionCopy[i];
-		if (symbol != '+' && symbol != '-' && symbol != '*' && symbol != '/' && symbol != '%' && symbol != '(' && symbol != ')' && !isdigit(symbol))
+		if (!StringManip::stringContains(EXPRESSION_NOTDIGIT, symbol) && !isdigit(symbol) )
 		{
 			//Delete dynamic memory
 			delete[] expressionCopy;
@@ -486,6 +486,31 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 		delete[] expressionCopy;
 
 		return false;
+	}
+
+	//Check if the expression finishes on an operator or start with an invalid operator. If it does, then it's invalid
+	for (size_t i = 0; i < strlen(EXPRESSION_OPERATORS); i++)
+	{
+		char symbolString[2] = { EXPRESSION_OPERATORS[i] };
+		if (StringManip::stringEndsWith(expressionCopy, symbolString))
+		{
+			//Delete dynamic memory
+			delete[] expressionCopy;
+
+			return false;
+		}
+	}
+
+	for (size_t i = 0; i < strlen(EXPRESSION_OPERATORS); i++)
+	{
+		char symbolString[2] = { EXPRESSION_OPERATORS[i] };
+		if (EXPRESSION_OPERATORS[i] != '+' && EXPRESSION_OPERATORS[i] != '-' && StringManip::stringStartsWith(expressionCopy, symbolString))
+		{
+			//Delete dynamic memory
+			delete[] expressionCopy;
+
+			return false;
+		}
 	}
 
 	//Check if all the parenthesis are closed correctly

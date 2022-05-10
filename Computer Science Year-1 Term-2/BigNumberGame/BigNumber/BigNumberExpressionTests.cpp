@@ -101,6 +101,82 @@ void BigNumberExpressionTests::expressionIsValidTests()
         delete[] finalExpression;
     }
 
+    //TEST 35
+    std::cout << "TEST 35" << std::endl;
+    char expressionString35[] = "15+10+";
+    std::cout << "Testing if expression is valid-> " << expressionString35 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString35) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 36
+    std::cout << "TEST 36" << std::endl;
+    char expressionString36[] = "15+10-";
+    std::cout << "Testing if expression is valid-> " << expressionString36 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString36) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 37
+    std::cout << "TEST 37" << std::endl;
+    char expressionString37[] = "15+10*";
+    std::cout << "Testing if expression is valid-> " << expressionString37 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString37) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 38
+    std::cout << "TEST 38" << std::endl;
+    char expressionString38[] = "15+10/";
+    std::cout << "Testing if expression is valid-> " << expressionString38 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString38) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 39
+    std::cout << "TEST 39" << std::endl;
+    char expressionString39[] = "15+10%";
+    std::cout << "Testing if expression is valid-> " << expressionString39 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString39) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 40
+    std::cout << "TEST 40" << std::endl;
+    char expressionString40[] = "*15+10";
+    std::cout << "Testing if expression is valid-> " << expressionString40 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString40) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 41
+    std::cout << "TEST 41" << std::endl;
+    char expressionString41[] = "/15+10";
+    std::cout << "Testing if expression is valid-> " << expressionString41 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString41) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 42
+    std::cout << "TEST 42" << std::endl;
+    char expressionString42[] = "%15+10";
+    std::cout << "Testing if expression is valid-> " << expressionString42 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString42) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 43
+    std::cout << "TEST 43" << std::endl;
+    char expressionString43[] = "(10-15)*(*15+10)";
+    std::cout << "Testing if expression is valid-> " << expressionString43 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString43) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 44
+    std::cout << "TEST 44" << std::endl;
+    char expressionString44[] = "(10-15)*(/15+10)";
+    std::cout << "Testing if expression is valid-> " << expressionString44 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString44) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 45
+    std::cout << "TEST 45" << std::endl;
+    char expressionString45[] = "(10-15)*(%15+10)";
+    std::cout << "Testing if expression is valid-> " << expressionString45 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString45) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
      
 void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests()
@@ -1296,18 +1372,18 @@ void BigNumberExpressionTests::runTests()
     //
     //// Expression is valid tests
     //expressionIsValidTests();
-    //
+    
     ////Solving expression tests without parenthesis
     //solveExpressionNoParenthesisTests();
-    //
+    
     ////Solving expression tests with parenthesis
     //solveExpressionParenthesisTests();
     
-    //Generating expressions templates tests
-    generateExpressionTemplateTests();
+    ////Generating expressions templates tests
+    //generateExpressionTemplateTests();
 
     //Generating expressions tests
-    generateExpressionTests();
+    //enerateExpressionTests();
     //
     ////Read from and Write to console tests
     //readFromAndWriteToConsoleTests();

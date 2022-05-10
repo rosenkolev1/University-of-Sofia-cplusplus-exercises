@@ -155,7 +155,7 @@ void BigNumberEquation::movePlusAndMinus(char* unknownSide, char* knownSide, boo
 					lastOperator = symbol;
 				}
 			}
-			if ((lastOperator == '-' || lastOperator == '+') && !isdigit(symbol))
+			else if ((lastOperator == '-' || lastOperator == '+') && !isdigit(symbol))
 			{
 				expressionEnd = i;
 				break;
@@ -207,19 +207,21 @@ void BigNumberEquation::movePlusAndMinus(char* unknownSide, char* knownSide, boo
 	{
 		expressionString = new char[expressionEnd + 2];
 		expressionString[expressionEnd + 1] = '\0';
-		for (size_t i = 0; i < expressionEnd + 1; i++)
+		strncpy(expressionString, unknownSide, expressionEnd + 1);
+		/*for (size_t i = 0; i < expressionEnd + 1; i++)
 		{
 			expressionString[i] = unknownSide[i];
-		}
+		}*/
 	}
 	else
 	{
-		expressionString = new char[strlen(unknownSide) - expressionEnd];
+		expressionString = StringManip::replaceFrom(unknownSide, "", 0, expressionEnd - 1);
+		/*expressionString = new char[strlen(unknownSide) - expressionEnd];
 		expressionString[strlen(unknownSide) - expressionEnd - 1] = '\0';
 		for (size_t i = expressionEnd; i < strlen(unknownSide); i++)
 		{
 			expressionString[i - expressionEnd] = unknownSide[i];
-		}
+		}*/
 
 		//Check if the expression string starts with +-, -+ or --. If it does, then replace those with the appropriate single operator
 		//Otherwise, you can get an error when you try to transfer the expression to the other side with a -

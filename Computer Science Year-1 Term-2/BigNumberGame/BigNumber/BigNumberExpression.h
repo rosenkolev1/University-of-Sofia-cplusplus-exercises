@@ -14,10 +14,10 @@ public:
 	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
 	//Mnogo durvarski na4in za proverka, ama vse taq. Eventualno ako resha da dobavq stepenuvane shte go opravq
 	//FORBIDDEN SYMBOLS CONSTANT
-	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 29;
+	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 32;
 	static constexpr const char* EXPRESSION_OPERATORS = "+-*/%";
 	static constexpr const char* EXPRESSION_NOTDIGIT = "+-*/%()";
-	static const constexpr char* EXPRESSION_FORBIDDEN_STRINGS[29] =
+	static const constexpr char* EXPRESSION_FORBIDDEN_STRINGS[32] =
 	{
 		"+++",
 		"++-",
@@ -47,6 +47,9 @@ public:
 		"*)",
 		"/)",
 		"%)",
+		"(*",
+		"(/",
+		"(%",
 		"()"
 	};
 private:

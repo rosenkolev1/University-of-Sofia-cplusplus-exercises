@@ -107,11 +107,11 @@ void BigNumberEquationTests::solveEquationWithoutParenthesisTests()
     //TEST PREP
     BigNumberEquation equation;
 
-    //TEST 1
-    std::cout << "TEST 1" << std::endl;
-    char equation1[] = "x=5";
-    std::cout << "Testing the answer to the equation | " << equation1 << " |: Expected: 5 ==> " << equation.solveEquation(equation1);
-    std::cout << std::endl << std::endl;
+    ////TEST 1
+    //std::cout << "TEST 1" << std::endl;
+    //char equation1[] = "x=5";
+    //std::cout << "Testing the answer to the equation | " << equation1 << " |: Expected: 5 ==> " << equation.solveEquation(equation1);
+    //std::cout << std::endl << std::endl;
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
