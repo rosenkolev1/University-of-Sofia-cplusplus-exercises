@@ -435,9 +435,6 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 	//The only number left in the numbers array should be the end result
 	BigNumber& resultNumber = numbers[0];
 	return resultNumber;
-
-	//This is an error state
-	return BigNumber();
 }
 
 bool BigNumberExpression::expressionIsValid(const char* expression) const
@@ -471,6 +468,7 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 
 	bool expressionIsInvalid = false;
 
+	//Check if the expression contains forbidden strings
 	for (size_t i = 0; i < EXPRESSION_FORBIDDEN_STRINGS_COUNT; i++)
 	{
 		if (StringManip::stringContains(expressionCopy, EXPRESSION_FORBIDDEN_STRINGS[i]))

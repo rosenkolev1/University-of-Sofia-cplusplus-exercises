@@ -803,11 +803,6 @@ void BigNumberExpressionTests::generateExpressionTests()
         BigNumberExpression expression1 = BigNumberExpression();
         expression1.generateExpression();
         char* expressionTemplate = expression1.getExpressionTemplate();
-        //TODO: THIS IS DEBUG SHIT. REMOVE LATER
-        if (strlen(expressionTemplate) == 0)
-        {
-            expressionTemplate = expression1.getExpressionTemplate();
-        }
         std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression1.getExpression();
         std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";

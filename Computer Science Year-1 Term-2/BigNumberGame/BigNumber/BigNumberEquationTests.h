@@ -2,7 +2,7 @@
 class BigNumberEquationTests
 {
 public:
-	static void generateFromTemplateTests();
+	static void equationIsValidTests();
 
 	static void generateEquationTests();
 

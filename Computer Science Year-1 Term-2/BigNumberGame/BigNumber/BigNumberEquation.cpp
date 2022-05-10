@@ -58,34 +58,79 @@ BigNumberEquation::BigNumberEquation(const BigNumberExpression& expression)
 
 bool BigNumberEquation::isValidEquation(const char* equation) const
 {
-	////Decide if the function is checking the object caller's own validity
-	//bool checkOwn = false;
-	//if (equation == nullptr)
-	//{
-	//	equation = this->equation;
-	//	checkOwn = true;
-	//}
-	//
-	////Check if there is not exactly 1 '=' in the equation. If there are, then it's invalid.
-	//int countOfEquals = StringManip::countOf(equation, "=");
-	//if (countOfEquals != 1) return false;
-	//
-	//
-	//
-	//if (!checkOwn)
-	//{
-	//	//Get the left and right expressions and check their validity
-	//	
-	//}
-	//else
-	//{
-	//	//Percents are not allowed in equations
-	//	//Check the validity of the 2 expressions of the object caller. Also check them for perecents
-	//	return this->leftExpression.expressionIsValid() && 
-	//		this->rightExpression.expressionIsValid() && 
-	//		StringManip::stringContains(this->leftExpression.getExpression(), "%")  &&
-	//		StringManip::stringContains(this->rightExpression.getExpression(), "%");
-	//}
+	//Decided if we are checking the object caller's own equation
+	if (equation == nullptr)
+	{
+		equation = this->getEquation();		
+	}
+
+	//Replace all of the whitespaces
+	char* newEquation = StringManip::replaceAll(equation, " ", "");
+
+	//Check if the equation contains exactly 1 equals symbol
+	bool isValidEquation = StringManip::countOf(newEquation, "=");
+	if (isValidEquation == false) return false;
+
+	//Check if the equation contains percent operator, which is invalid for equations.
+	size_t countOfPercents = StringManip::countOf(newEquation, "%");
+	if (countOfPercents > 0) return false;
+
+	//Check if the equation contains at least one unknown. 
+	//If it doesn't, then solve the left and right sides and compare their answer. If they are equal, then the equation is valid. Otherwise, it's not
+	size_t countOfUnknowns = StringManip::countOf(newEquation, "x");
+
+	//Split by equals and decided if the sides are invalid
+	size_t countOfSides = 0;
+	char** sides = StringManip::splitString(newEquation, "=", countOfSides);
+
+	if (countOfUnknowns == 0)
+	{
+		BigNumberExpression leftSide(sides[0]);
+		BigNumberExpression rightSide(sides[1]);
+
+		try
+		{
+			return leftSide.evaluateExpression() == rightSide.evaluateExpression();
+		}
+		//If we get here, then the evaluation of one of the expressions failed because of division by /. So return false
+		catch (...)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < 2; i++)
+		{
+			char* side = sides[i];
+
+			//Check if side is valid by replacing the unknowns with -1 and checking if the expression is valid
+
+			//Replace the unknowns with -1
+			char* sideWithoutUnknowns = StringManip::replaceAll(side, "x", "-1");
+
+			//Check if expression is valid
+			BigNumberExpression sideExpression;
+			bool sideIsValid = sideExpression.expressionIsValid(sideWithoutUnknowns);
+
+			if (!sideIsValid)
+			{
+				//Delete dynamic memory
+				delete[] sideWithoutUnknowns;
+				StringManip::deleteArrayOfStrings(sides, 2);
+
+				return false;
+			}
+
+			//Delete dynamic memory
+			delete[] sideWithoutUnknowns;
+		}
+	}
+	
+	//Delete dynamic memory
+	StringManip::deleteArrayOfStrings(sides, 2);
+
+	//If we get to here, then the equation passed all tests and is true
 	return true;
 }
 
@@ -96,7 +141,7 @@ BigNumber& BigNumberEquation::solveEquation(const char* equation)
 	return DEBUG;
 }
 
-char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
+char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate, size_t maxUnknown)
 {
 	char* expressionFilled = new char[strlen(expressionTemplate) + 1];
 	strcpy(expressionFilled, expressionTemplate);
@@ -104,10 +149,14 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 	size_t countOfNumbers = StringManip::countOf(expressionFilled, "x");
 
 	int countOfX = -1;
-	while (countOfX < 0 || countOfX > countOfNumbers)
+	if (maxUnknown > 0)
 	{
-		countOfX = generateCountOfX(rand() % 50);
+		while (countOfX < 0 || countOfX > countOfNumbers || countOfX > maxUnknown)
+		{
+			countOfX = generateCountOfX(rand() % 50);
+		}
 	}
+	else countOfX = 0;
 
 	//Generate the positions for the x. The positions are NOT the indexes. 1 + x + 3 + y ---> x is position 1, y is position 2
 	int* positionsX = new int[countOfX];
@@ -232,32 +281,50 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate)
 	delete[] expressionFilled;
 	expressionFilled = expressionFilledCopy;
 
+	//Replace all the instances of +-x,-+x, --x inside the string. Otherwise, when you try to replace x with a negative number, it will be an invalid expression!
+	char* expressionOne = StringManip::replaceAll(expressionFilled, "+-x", "-x");
+	char* expressionTwo = StringManip::replaceAll(expressionOne, "-+x", "-x");
+	char* expressionThree = StringManip::replaceAll(expressionTwo, "--x", "+x");
+
+	delete[] expressionFilled;
+	expressionFilled = expressionThree;
+
+	//Delete dynamic memory
+	delete[] expressionTwo;
+	delete[] expressionOne;
+
 	return expressionFilled;
 }
 
-void BigNumberEquation::generateEquation()
+void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalUnknown)
 {
+	//If maxUnknownPerSide > totalUnknown, throw an error
+	if (maxUnknownPerSide > totalUnknown) throw "The unknown counts are all wrong";
+
 	//Generate the left expression template
 	BigNumberExpression expression;
 
-	char* leftExpression = expression.generateExpressionTemplate(EQUATION_OPERATORS);
-	char* rightExpression = expression.generateExpressionTemplate(EQUATION_OPERATORS);
+	char* leftSideTemplate = expression.generateExpressionTemplate(EQUATION_OPERATORS);
+	char* rightSideTemplate = expression.generateExpressionTemplate(EQUATION_OPERATORS);
 
-	//Replace the x in the templates with numbers, except for the targeted x's
-	char* leftExpressionFilled = generateFromTemplate(leftExpression);
-	char* rightExpressionFilled = generateFromTemplate(rightExpression);
+	//Replace the x in the templates with numbers, except for the targeted x's. Conform to the totalUnknown and maxUnknownPerSide values
+	char* leftSideFilled = generateFromTemplate(leftSideTemplate, maxUnknownPerSide);
+	size_t countOfUnknownInLeftSide = StringManip::countOf(leftSideFilled, "x");
+	char* rightSideFilled = generateFromTemplate(rightSideTemplate, totalUnknown - countOfUnknownInLeftSide);
 
-	char* equation = new char[strlen(leftExpressionFilled) + strlen(rightExpressionFilled) + 2];
+	//TODO: get the answer to the equation
+
+	char* equation = new char[strlen(leftSideFilled) + strlen(rightSideFilled) + 2];
 	equation[0] = '\0';
-	strcat(equation, leftExpressionFilled);
+	strcat(equation, leftSideFilled);
 	strcat(equation, "=");
-	strcat(equation, rightExpressionFilled);
+	strcat(equation, rightSideFilled);
 
 	//Delete dynamic memory
-	delete[] rightExpressionFilled;
-	delete[] leftExpressionFilled;
-	delete[] rightExpression;
-	delete[] leftExpression;
+	delete[] rightSideFilled;
+	delete[] leftSideFilled;
+	delete[] rightSideTemplate;
+	delete[] leftSideTemplate;
 
 	this->equation = equation;
 }
@@ -302,7 +369,10 @@ char* BigNumberEquation::getEquationTemplate(const char* equation) const
 {
 	if (equation == nullptr) equation = this->getEquation();
 
+	//Check if the equation is valid. If it isn't, throw an exception 
+	if (this->isValidEquation(equation) == false) throw "This equation isn't valid";
 	char* equationCopy = new char[strlen(equation) + 1];
+
 	strcpy(equationCopy, equation);
 
 	//Remove all the whitespaces
@@ -318,9 +388,6 @@ char* BigNumberEquation::getEquationTemplate(const char* equation) const
 		char* newSide = new char[strlen(sides[i]) + 1];
 		strcpy(newSide, sides[i]);
 
-		//TODO: Check if the equation side is valid. If it isn't, throw an exception 
-
-
 		//Replace all the *-x, +-x, --x, /-x with *N, +N, -N, /N
 		char* side1 = StringManip::replaceAll(newSide, "*-x", "*N");
 		char* side2 = StringManip::replaceAll(side1, "+-x", "+N");
@@ -334,7 +401,6 @@ char* BigNumberEquation::getEquationTemplate(const char* equation) const
 		newSide = side5;
 
 		//Delete dynamic memory
-		delete[] side5;
 		delete[] side4;
 		delete[] side3;
 		delete[] side2;

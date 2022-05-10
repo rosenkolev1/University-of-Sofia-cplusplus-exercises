@@ -33,10 +33,10 @@ public:
 	BigNumber& solveEquation(const char* equation = nullptr);
 
 	//Fill the numbers in an equation template
-	char* generateFromTemplate(const char* expressionTemplate);
+	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);
 
-	//Generate a random equation
-	void generateEquation();
+	//Generate a random equation. totalUnknown should be at most =maxUnknownPerSide, otherwise, throw error!
+	void generateEquation(size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
 
 	//Generate equation from an expression
 	char* generateEquation(const char* expression);
