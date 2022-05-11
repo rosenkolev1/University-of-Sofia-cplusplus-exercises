@@ -16,7 +16,7 @@ public:
 
 	static void readFromAndWriteToConsoleTests();
 
-	static void readFromAndWriteToFileTests();
+	static void readFromAndWriteToFileTests(std::ostream& os);
 
 	static void runTests(std::ostream& os);
 };

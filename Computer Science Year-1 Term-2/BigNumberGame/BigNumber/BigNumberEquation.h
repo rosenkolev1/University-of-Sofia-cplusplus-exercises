@@ -72,9 +72,9 @@ public:
 
 	//Reading and outputting expressions to text file or console
 	friend std::istream& operator>> (std::istream& is, BigNumberEquation& equation);
-	//friend std::ostream& operator<< (std::ostream& is, BigNumberExpression& expression);
+	friend std::ostream& operator<< (std::ostream& os, BigNumberEquation& equation);
 
-	friend std::ifstream& operator>> (std::ifstream& is, BigNumberEquation& expression);
-	//friend std::ofstream& operator<< (std::ofstream& os, BigNumberExpression& expression);
+	friend std::ifstream& operator>> (std::ifstream& is, BigNumberEquation& equation);
+	friend std::ofstream& operator<< (std::ofstream& os, BigNumberEquation& equation);
 };
 

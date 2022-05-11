@@ -1159,6 +1159,21 @@ std::istream& operator>>(std::istream& is, BigNumberEquation& equation)
 	return is;
 }
 
+std::ostream& operator<<(std::ostream& os, BigNumberEquation& equation)
+{
+	os << equation.getEquation() << "\n";
+	os << "The answer to the equation: ";
+	try
+	{
+		os << equation.solveEquation();
+	}
+	catch (const char* e)
+	{
+		os << e;
+	}
+	return os;
+}
+
 std::ifstream& operator>>(std::ifstream& is, BigNumberEquation& equation)
 {
 	//Let's just agree that an expression larger than 10000 symbols cannot occur.
@@ -1168,4 +1183,19 @@ std::ifstream& operator>>(std::ifstream& is, BigNumberEquation& equation)
 	equation.setEquation(textLine);
 
 	return is;
+}
+
+std::ofstream& operator<<(std::ofstream& os, BigNumberEquation& equation)
+{
+	os << equation.getEquation() << "\n";
+	os << "The answer to the equation: ";
+	try
+	{
+		os << equation.solveEquation();
+	}
+	catch (const char* e)
+	{
+		os << e;
+	}
+	return os;
 }

@@ -1,0 +1,4 @@
+5+5*x=30/x
+The answer to the equation: Equation is too complex for me to solve
+15/3*x=20
+The answer to the equation: 4
