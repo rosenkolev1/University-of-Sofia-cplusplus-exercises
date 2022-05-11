@@ -39,7 +39,7 @@ public:
 	BigNumber solveEquation(const char* equation = nullptr);
 
 	//Get the answer to an equation
-	BigNumber solveEquationVersion2(const char* equation = nullptr);
+	//BigNumber solveEquationVersion2(const char* equation = nullptr);
 
 	//Fill the numbers in an equation template
 	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);

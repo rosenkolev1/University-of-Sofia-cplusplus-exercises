@@ -6,9 +6,7 @@ public:
 
 	static void equationIsValidTests();
 
-	static void solveEquationWithoutParenthesisTests();
-
-	static void solveEquationVersion2WithoutParenthesisTests();
+	static void solveEquationTests();
 
 	static void generateEquationTests();
 

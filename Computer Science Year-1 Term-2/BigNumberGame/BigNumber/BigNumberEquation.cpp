@@ -178,23 +178,6 @@ void BigNumberEquation::movePlusAndMinus(char*& unknownSide, char*& knownSide, b
 				expressionEnd = i;
 				break;
 			}
-
-			/*if (lastOperator == '\0' || lastOperator == '/' || lastOperator == '*')
-			{
-				if (StringManip::stringContains(EQUATION_OPERATORS, symbol))
-				{
-					lastOperator = symbol;
-				}
-			}
-			if ((lastOperator == '-' || lastOperator == '+') && !isdigit(symbol))
-			{
-				expressionEnd = i;
-				break;
-			}
-			else if ((lastOperator == '-' || lastOperator == '+') && (symbol == '*' || symbol == '/'))
-			{
-				lastOperator = symbol;
-			}*/
 		}
 	}
 
@@ -553,6 +536,104 @@ void BigNumberEquation::moveMultiplyAndDivide(char*& unknownSide, char*& knownSi
 	delete[] expressionString;
 }
 
+//BigNumber BigNumberEquation::solveEquation(const char* equation)
+//{
+//	//Check if the belongs to the object caller
+//	if (equation == nullptr) equation = this->getEquation();
+//
+//	//Remove the whitespaces
+//	char* equationCopy = StringManip::replaceAll(equation, " ", "");
+//
+//	//Check if the equation is valid
+//	if (!isValidEquation(equationCopy)) throw "Invalid Equation";
+//
+//	//Check if the equation has only one unknown. If it doesn't, then throw an exception because I am not that smart to want to code that looooool...
+//	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
+//	if (countOfUnknowns != 1) throw "Equation is too complex for me to solve";
+//
+//	//Replace all the instances of +-,-+, -- inside the equation
+//	char* equationOne = StringManip::replaceAll(equationCopy, "+-", "-");
+//	char* equationTwo = StringManip::replaceAll(equationOne, "-+", "-");
+//	char* equationThree = StringManip::replaceAll(equationTwo, "--", "+");
+//
+//	equationCopy = equationThree;
+//
+//	//Delete dynamic memory
+//	delete[] equationTwo;
+//	delete[] equationOne;
+//
+//	//Split the equation by the unknown side and the known side
+//	size_t sidesCount = 0;
+//	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
+//	char* unknownSide = sides[0];
+//	char* knownSide = sides[1];
+//	char* adressCopyFirstSide = sides[0];
+//	char* adressCopySecondSide = sides[1];
+//
+//	//If the right side is the one with the unknown, then swap the sides
+//	if (StringManip::stringContains(knownSide, "x"))
+//	{
+//		char* copy = unknownSide;
+//		unknownSide = knownSide;
+//		knownSide = copy;
+//	}
+//
+//	//Check if the unknown is inside brackets
+//	size_t indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+//	int openingBracketBeforeUnknown = -1;
+//	int closingBracketBeforeUnknown = -1;
+//	if (indexOfUnknown != 0)
+//	{
+//		openingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, "(", 0, indexOfUnknown - 1);
+//		closingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, ")", 0, indexOfUnknown - 1);
+//	}	
+//
+//	//If this is true, then the unknown is in brackets
+//	if (openingBracketBeforeUnknown > -1 && closingBracketBeforeUnknown == -1)
+//	{
+//		//Do shit to resolve the brackets
+//	}
+//
+//	//Now there is no brackets
+//	//Move everything that is 'not connected' to the unknown via *, /, *-, /- to the right hand side with the opposite operator
+//	movePlusAndMinus(unknownSide, knownSide, true, indexOfUnknown);
+//
+//	//Get the new index of unknown
+//	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+//
+//	//Now do the same thing for everything that is to the right of the unknown
+//	movePlusAndMinus(unknownSide, knownSide, false, indexOfUnknown);
+//
+//	//Get the new index of unknown
+//	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+//	
+//	//Now do the same thing for the divide and multiply operators	
+//	//Move the left side over first
+//	moveMultiplyAndDivide(unknownSide, knownSide, true, indexOfUnknown);
+//
+//	//Get the new index of unknown
+//	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+//
+//	//Now move the right side over 
+//	moveMultiplyAndDivide(unknownSide, knownSide, false, indexOfUnknown);
+//
+//	//By this point, the equation should look like this --> x = A or -x = A. 	
+//	//TODO: FIGURE OUT WHAT TO DO IF THE EVALUATED EXPRESSION CANNOT BE SOLVED BECAUSE IT HAS A DIVISION BY 0 SOMEWHERE IN IT. FOR NOW, WE ASSUME THAT WON'T HAPPEN
+//	BigNumber equationAnswer = BigNumberExpression(knownSide).evaluateExpression();
+//	
+//	//Now check if the unknown has a minus sign before it;
+//	bool invertSign = StringManip::stringStartsWith(unknownSide, "-");
+//
+//	if (invertSign) equationAnswer *= -1;
+//
+//	//Delete dynamic memory
+//
+//	delete[] sides;
+//	delete[] equationCopy;
+//
+//	return equationAnswer;
+//}
+
 BigNumber BigNumberEquation::solveEquation(const char* equation)
 {
 	//Check if the belongs to the object caller
@@ -568,104 +649,6 @@ BigNumber BigNumberEquation::solveEquation(const char* equation)
 	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
 	if (countOfUnknowns != 1) throw "Equation is too complex for me to solve";
 
-	//Replace all the instances of +-,-+, -- inside the equation
-	char* equationOne = StringManip::replaceAll(equationCopy, "+-", "-");
-	char* equationTwo = StringManip::replaceAll(equationOne, "-+", "-");
-	char* equationThree = StringManip::replaceAll(equationTwo, "--", "+");
-
-	equationCopy = equationThree;
-
-	//Delete dynamic memory
-	delete[] equationTwo;
-	delete[] equationOne;
-
-	//Split the equation by the unknown side and the known side
-	size_t sidesCount = 0;
-	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
-	char* unknownSide = sides[0];
-	char* knownSide = sides[1];
-	char* adressCopyFirstSide = sides[0];
-	char* adressCopySecondSide = sides[1];
-
-	//If the right side is the one with the unknown, then swap the sides
-	if (StringManip::stringContains(knownSide, "x"))
-	{
-		char* copy = unknownSide;
-		unknownSide = knownSide;
-		knownSide = copy;
-	}
-
-	//Check if the unknown is inside brackets
-	size_t indexOfUnknown = StringManip::findIndex(unknownSide, "x");
-	int openingBracketBeforeUnknown = -1;
-	int closingBracketBeforeUnknown = -1;
-	if (indexOfUnknown != 0)
-	{
-		openingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, "(", 0, indexOfUnknown - 1);
-		closingBracketBeforeUnknown = StringManip::findIndexLast(unknownSide, ")", 0, indexOfUnknown - 1);
-	}	
-
-	//If this is true, then the unknown is in brackets
-	if (openingBracketBeforeUnknown > -1 && closingBracketBeforeUnknown == -1)
-	{
-		//Do shit to resolve the brackets
-	}
-
-	//Now there is no brackets
-	//Move everything that is 'not connected' to the unknown via *, /, *-, /- to the right hand side with the opposite operator
-	movePlusAndMinus(unknownSide, knownSide, true, indexOfUnknown);
-
-	//Get the new index of unknown
-	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
-
-	//Now do the same thing for everything that is to the right of the unknown
-	movePlusAndMinus(unknownSide, knownSide, false, indexOfUnknown);
-
-	//Get the new index of unknown
-	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
-	
-	//Now do the same thing for the divide and multiply operators	
-	//Move the left side over first
-	moveMultiplyAndDivide(unknownSide, knownSide, true, indexOfUnknown);
-
-	//Get the new index of unknown
-	indexOfUnknown = StringManip::findIndex(unknownSide, "x");
-
-	//Now move the right side over 
-	moveMultiplyAndDivide(unknownSide, knownSide, false, indexOfUnknown);
-
-	//By this point, the equation should look like this --> x = A or -x = A. 	
-	//TODO: FIGURE OUT WHAT TO DO IF THE EVALUATED EXPRESSION CANNOT BE SOLVED BECAUSE IT HAS A DIVISION BY 0 SOMEWHERE IN IT. FOR NOW, WE ASSUME THAT WON'T HAPPEN
-	BigNumber equationAnswer = BigNumberExpression(knownSide).evaluateExpression();
-	
-	//Now check if the unknown has a minus sign before it;
-	bool invertSign = StringManip::stringStartsWith(unknownSide, "-");
-
-	if (invertSign) equationAnswer *= -1;
-
-	//Delete dynamic memory
-
-	delete[] sides;
-	delete[] equationCopy;
-
-	return equationAnswer;
-}
-
-BigNumber BigNumberEquation::solveEquationVersion2(const char* equation)
-{
-	//Check if the belongs to the object caller
-	if (equation == nullptr) equation = this->getEquation();
-
-	//Remove the whitespaces
-	char* equationCopy = StringManip::replaceAll(equation, " ", "");
-
-	//Check if the equation is valid
-	if (!isValidEquation(equationCopy)) throw "Invalid Equation";
-
-	//Check if the equation has only one unknown. If it doesn't, then throw an exception because I am not that smart to want to code that looooool...
-	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
-	if (countOfUnknowns != 1) throw "Equation is too complex for me to solve";
-
 	//Split the equation by the unknown side and the known side
 	size_t sidesCount = 0;
 	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
@@ -680,8 +663,121 @@ BigNumber BigNumberEquation::solveEquationVersion2(const char* equation)
 		knownSide = copy;
 	}
 
-	//TODO: Check if the graph of the function is broken. I.e, if there is a value of x where the expression breaks because you get a divide by 0 exception;
+	size_t bracketedExpressionsWithUnknownIndex = 0;
+	char** bracketedExpressionsWithUnknown = new char* [StringManip::countOf(unknownSide, "(")];
 
+	size_t indexOfUnknown = 0; 
+
+	while (true)
+	{
+		//Update the index of unknown
+		indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+
+		//Check if the unknown is inside brackets
+		int openingBracketBeforeUnknown = -1;
+		int closingBracketAfterUnknown = -1;
+		int unclosedBrackets = 0;
+		bool isInsideBrackets = false;
+		for (int i = indexOfUnknown - 1; i >= 0; i--)
+		{
+			if (unknownSide[i] == ')') unclosedBrackets++;
+			else if (unknownSide[i] == '(')
+			{
+				unclosedBrackets--;
+				if (unclosedBrackets < 0)
+				{
+					openingBracketBeforeUnknown = i;
+					isInsideBrackets = true;
+					break;
+				}
+			}
+		}
+
+		//If this is true, then the unknown isn't in brackets anymore
+		if (!isInsideBrackets) break;
+		unclosedBrackets = 1;
+		//Get the index of the closing bracket
+		for (size_t i = indexOfUnknown + 1; i < strlen(unknownSide); i++)
+		{
+			if (unknownSide[i] == '(') unclosedBrackets++;
+			else if (unknownSide[i] == ')')
+			{
+				unclosedBrackets--;
+				if (unclosedBrackets == 0)
+				{
+					closingBracketAfterUnknown = i;
+					break;
+				}
+			}
+		}
+		char* storedExpression = new char[closingBracketAfterUnknown - openingBracketBeforeUnknown + 2];
+		storedExpression[closingBracketAfterUnknown - openingBracketBeforeUnknown + 1] = '\0';
+		for (size_t i = openingBracketBeforeUnknown; i <= closingBracketAfterUnknown; i++)
+		{
+			storedExpression[i - openingBracketBeforeUnknown] = unknownSide[i];
+		}
+
+		char* newUnknownSide = StringManip::replaceFirst(unknownSide, storedExpression, "x");
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
+
+		bracketedExpressionsWithUnknown[bracketedExpressionsWithUnknownIndex++] = storedExpression;
+	}
+
+	//Now check if the unknown is tied to a division
+	while (true)
+	{
+		//Update the index of unknown
+		indexOfUnknown = StringManip::findIndex(unknownSide, "x");
+
+		//Check if the unknown is tied to a division to the left
+		int indexOfLastLeftDivide = -1;
+		int indexOfLastLeftDivideMinus = -1;
+		int indexOfLastLeftDividePlus = -1;
+		if (indexOfUnknown != 0)
+		{
+			indexOfLastLeftDivide = StringManip::findIndexLast(unknownSide, "/", 0, indexOfUnknown - 1);
+			indexOfLastLeftDivideMinus = StringManip::findIndexLast(unknownSide, "/-", 0, indexOfUnknown - 1);
+			indexOfLastLeftDividePlus = StringManip::findIndexLast(unknownSide, "/+", 0, indexOfUnknown - 1);
+		}
+
+		bool tiedToDivision = false;
+
+		if (indexOfLastLeftDivide != -1 && indexOfLastLeftDivide == indexOfUnknown - 1) tiedToDivision = true;
+		else if (indexOfLastLeftDivideMinus != -1 && indexOfLastLeftDivideMinus == indexOfUnknown - 2) tiedToDivision = true;
+		else if (indexOfLastLeftDividePlus != -1 && indexOfLastLeftDividePlus == indexOfUnknown - 2) tiedToDivision = true;
+
+		//Check if the unknown is tied to a division from the right
+		bool divideInBrackets = false;
+		int bracketsNested = 0;
+		for (size_t i = indexOfUnknown + 1; i < strlen(unknownSide); i++)
+		{
+			if (unknownSide[i] == '(') bracketsNested++;
+			else if (unknownSide[i] == ')') bracketsNested--;
+			else if (unknownSide[i] == '-' || unknownSide[i] == '+' && bracketsNested == 0) break;
+			else if (unknownSide[i] == '/' && bracketsNested == 0)
+			{
+				tiedToDivision = true;
+				break;
+			}
+		}
+
+		if (tiedToDivision)
+		{
+			throw "The unknown is tied to division, so I can't solve this expression, sorry!";
+		}
+		//In this case, the unknown isn't tied to any division
+		else if (!tiedToDivision && bracketedExpressionsWithUnknownIndex < 1) break;
+		//In this case, the replace the unknown with the next stored bracketed expression
+		else 
+		{
+			char* newUnknownSide = StringManip::replaceFirst(unknownSide, "x", bracketedExpressionsWithUnknown[--bracketedExpressionsWithUnknownIndex]);
+			delete[] unknownSide;
+			unknownSide = newUnknownSide;
+		}
+	}
+
+	//If we get to here, then there is no division tied to the unknown, so we can solve the equation easily
 	//Calculate the linear increase between increasing the value of x by 1 and use that to calculate whether or not the equation has a solution
 	BigNumber testValue1(1);
 	BigNumber testValue2(2);
@@ -705,8 +801,9 @@ BigNumber BigNumberEquation::solveEquationVersion2(const char* equation)
 	if (deltaResult.getSign() != 0)
 	{
 		BigNumber decreaseOfX = testValue1Result / deltaResult;
-		//if (decreaseOfX.getSign() == -1) decreaseOfX *= 1;
+
 		BigNumber decreaseOfXLeftover = testValue1Result % deltaResult;
+
 		//If this is true, then the equation doesn't have a solution that is a whole number;
 		//TODO: MAKE SOMETHING GOOD WITH THIS
 		if (decreaseOfXLeftover.getSign() != 0) throw "Not whole number solution";
@@ -719,8 +816,7 @@ BigNumber BigNumberEquation::solveEquationVersion2(const char* equation)
 			char* expressionPotenialAnswerString = StringManip::replaceFirst(unknownSide, "x", potentialAnswer.getNumberRaw());
 			BigNumberExpression expressionPotenialAnswer(expressionPotenialAnswerString);
 
-			//If it throws an error for dividing by 0, then the answer is wrong.
-			//TODO: Do something about this
+			//By presumption, this should not throw an error for dividing by 0, because I made it so that the unknown isn't tied to a division in the first place
 			BigNumber potentialAnswerResult = (expressionPotenialAnswer - knownSideExpression).evaluateExpression();
 
 			//In this case, we got the correct answer
@@ -734,7 +830,18 @@ BigNumber BigNumberEquation::solveEquationVersion2(const char* equation)
 
 				return potentialAnswer;
 			}
+			//In this case, there is no correct answer to the equation that is a whole number
+			else
+			{
+				throw "Not whole number solution";
+			}
 		}
+	}
+	else
+	{
+		//In this case, every x that is a whole number is an answer to the equation
+		if (testValue1Result.getSign() == 0) throw "Every x is an answer to the equation";
+		else throw "No answer for this equation";
 	}
 
 	return BigNumber();
