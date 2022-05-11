@@ -5,6 +5,15 @@
 class BigNumberEquation
 	:public BigNumberExpressionCommon
 {
+public:
+	//Exception messages
+	static constexpr const char* EQUATION_INVALID_EXCEPTION = "Invalid Equation!";
+	static constexpr const char* EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION = "Equation is too complex for me to solve";
+	static constexpr const char* EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION = "The unknown is tied to division, so I can't solve this equation, sorry!";
+	static constexpr const char* EQUATION__SOLVE_NOTWHOLE_EXCEPTION = "Not whole number solution";
+	static constexpr const char* EQUATION__SOLVE_EVERYANSWER_EXCEPTION = "Every x is an answer to the equation";
+	static constexpr const char* EQUATION__SOLVE_NOANSWER_EXCEPTION = "No answer for this equation";
+
 private:
 	static constexpr const char* EQUATION_OPERATORS = "+-*/";
 
@@ -37,9 +46,6 @@ public:
 
 	//Get the answer to an equation
 	BigNumber solveEquation(const char* equation = nullptr);
-
-	//Get the answer to an equation
-	//BigNumber solveEquationVersion2(const char* equation = nullptr);
 
 	//Fill the numbers in an equation template
 	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);

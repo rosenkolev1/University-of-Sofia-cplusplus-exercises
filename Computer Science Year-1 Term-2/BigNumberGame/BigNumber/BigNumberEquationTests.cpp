@@ -181,88 +181,6 @@ void BigNumberEquationTests::solveEquationTests()
     std::cout << "Testing the answer to the equation | " << equation12 << " |: Expected: -118 ==> " << equation.solveEquation(equation12);
     std::cout << std::endl << std::endl;
     
-    /*
-    *	x*2/3 = 3;
-    *	x*2 = 9;
-    *	x = 4;
-    *	x = 5
-    *
-    *	x*5/7 = 13;
-    *	x*5 = 91;
-    *   x = 18(1); ==> 19
-    *
-    *	18*5/7=90/7=12(6);
-    *   19*5/7=95/7=13(4);
-    *
-    *
-    *	x*5/7*11/13 = 17;
-    *   x*5/7*11 = 221;
-    *	x*5/7 = 20(1);
-    *	x*5 = 140;
-    *	x = 28;
-    *
-    *	28*5/7*11/13=140/7*11/13=20*11/13=220/13=16(12);
-    *
-    *	x*5/7*11/13 = 17;
-        x*5/7*11 = 221;
-        x*5/7 = 20(1); ==> 21
-        x*5 = 147;
-        x = 29(2);
-    
-        29*5/7*11/13=145/7*11/13=20*11/13=220/13=16(12);
-    
-        x*5/7*11/13 = 17;
-        x*5/7*11 = 221;
-        x*5/7 = 20(1); ==> 21
-        x*5 = 147;
-        x = 29(2); ==> 30
-    
-        30*5/7*11/13=150/7*11/13=21*11/13=231/13=17(10);
-    
-        x*3/5*7/11*13/17*19/23 = 29;
-        x*3/5*7/11*13/17*19 = 667;
-        x*3/5*7/11*13/17 = 35(2); ==> 36
-        x*3/5*7/11*13 = 612;
-        x*3/5*7/11 = 47(1); ==> 48
-        x*3/5*7 = 528;
-        x*3/5 = 75(3); ==> 76
-        x*3 = 380;
-        x = 126(2); ==> 127
-    
-        127*3/5*7/11*13/17*19/23 =
-        = 381/5*7/11*13/17*19/23 =
-        = 76*7/11*13/17*19/23 =
-        = 532/11*13/17*19/23 =
-        = 48*13/17*19/23 =
-        = 624/17*19/23 =
-        = 36*19/23 =
-        = 684/23 =
-        = 29;
-    
-        x/4*3 = 12;
-        x/4 = 4;
-        x = 16;
-    
-        x/4*3/8*6 = 36;
-        x = 36*4/3*8/6;
-        x = 48*8/6 = 104
-        104/4*3/8*6 = 26
-    
-        x/4*3/8*6 = 36;
-        x/4*3/8 = 6;
-        x/4*3 = 48;
-        x/4 = 16;
-        x = 64;
-    */
-    //If this is true, then this is x/A = B, so we make a lot of bullshit to have this work properly.
-    //Basically, from the end of the unknownSide, start moving everything to the right with the opposite sign.
-    //If it is x/A*B=C, then that means we first do x/A=C/B;
-    //For C/B, we first do the percent operator. D = C%B;
-    //Then we do the division C/B = E;
-    //If D != 0, then E = E+1;
-    //Then we return E as the new knownSide and are left with x/A=E;
-    //Then it x=E*A;
-    
     //TEST 13
     std::cout << "TEST 13" << std::endl;
     char equation13[] = "x*5=25"; 
@@ -338,16 +256,152 @@ void BigNumberEquationTests::solveEquationTests()
     //TEST 23
     std::cout << "TEST 23" << std::endl;
     char equation23[] = "(23*18-457)*35-(17/(20-5*3))*x*345/(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
-    std::cout << "Testing the answer to the equation | " << equation23 << " |: Expected: Throw Exception ==> ";
+    std::cout << "Testing the answer to the equation | " << equation23 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         std::cout << equation.solveEquation(equation23);
     }
-    catch(std::exception& e)
+    catch(const char* e)
     {
-        std::cout << "Throw Exception";
+        std::cout << e;
     }
-    std::cout << std::endl << std::endl;   
+    std::cout << std::endl << std::endl;  
+
+    //TEST 24
+    std::cout << "TEST 24" << std::endl;
+    char equation24[] = "(23*18-457)*35-(17/(20-5*3))/x*345*(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
+    std::cout << "Testing the answer to the equation | " << equation24 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation24);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 25
+    std::cout << "TEST 25" << std::endl;
+    char equation25[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8))/(15+10) = (15+(25*(7/2+3+5))/6) + 88";
+    std::cout << "Testing the answer to the equation | " << equation25 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation25);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 26
+    std::cout << "TEST 26" << std::endl;
+    char equation26[] = "(23*18-457)*35-172222/(17/(20-5*3))/-x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    std::cout << "Testing the answer to the equation | " << equation26 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation26);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 27
+    std::cout << "TEST 27" << std::endl;
+    char equation27[] = "(23*18-457)*35-172222/(17/(20-5*3))/+x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    std::cout << "Testing the answer to the equation | " << equation27 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation27);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 28
+    std::cout << "TEST 28" << std::endl;
+    char equation28[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    std::cout << "Testing the answer to the equation | " << equation28 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_NOTWHOLE_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation28);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 29
+    std::cout << "TEST 29" << std::endl;
+    char equation29[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88*x";
+    std::cout << "Testing the answer to the equation | " << equation29 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation29);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 30
+    std::cout << "TEST 30" << std::endl;
+    char equation30[] = "x*0 + 10 = 10";
+    std::cout << "Testing the answer to the equation | " << equation30 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_EVERYANSWER_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation30);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 31
+    std::cout << "TEST 31" << std::endl;
+    char equation31[] = "x*0 = 10";
+    std::cout << "Testing the answer to the equation | " << equation31 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_NOANSWER_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation31);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
+
+    //TEST 32
+    std::cout << "TEST 32" << std::endl;
+    char equation32[] = "x*(25/0) = 10";
+    std::cout << "Testing the answer to the equation | " << equation32 << " |:" << std::endl 
+        << "Expected: " << BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << " ==> ";
+    try
+    {
+        std::cout << equation.solveEquation(equation32);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl << std::endl;
 }
 
 void BigNumberEquationTests::generateEquationTests()
@@ -383,9 +437,9 @@ void BigNumberEquationTests::generateEquationTests()
         {
             std::cout << equation1.solveEquation();
         }
-        catch (...)
+        catch (const char* e)
         {
-            std::cout << "Exception thrown because of division by 0 or some other shit";
+            std::cout << e;
         }
         std::cout << std::endl;
         std::cout << std::endl;
@@ -420,9 +474,9 @@ void BigNumberEquationTests::generateEquationTests()
         {
             std::cout << equation1.solveEquation();
         }
-        catch (...)
+        catch (const char* e)
         {
-            std::cout << "Exception thrown because of division by 0 or some other shit";
+            std::cout << e;
         }
         std::cout << std::endl;
         std::cout << std::endl;
@@ -478,22 +532,16 @@ void BigNumberEquationTests::readFromAndWriteToFileTests()
 void BigNumberEquationTests::runTests()
 {
     //Big4 tests
-    //equationBig4Tests();
+    equationBig4Tests();
 
     //Equation is valid tests
-    //equationIsValidTests();
-
-    //Solve equations with no parenthesis Tests
-    //solveEquationWithoutParenthesisTests();
+    equationIsValidTests();
 
     //SOLVE EQUATIONS TESTS
     solveEquationTests();
 
-	//Generate equations from expression templates tests
-	//generateFromTemplateTests();
-
 	//Generate equation tests
-	//generateEquationTests();
+	generateEquationTests();
 
     //Read from and Write to console tests
     //readFromAndWriteToFileTests();

@@ -81,7 +81,7 @@ const char* BigNumberExpression::getExpression() const
 
 void BigNumberExpression::setExpression(const char* expression)
 {
-	if (!expressionIsValid(expression)) throw "The expression that you are trying to set is invalid";
+	if (!expressionIsValid(expression)) throw EXPRESSION_INVALID_EXCEPTION;
 
 	//Remove all the whitespaces
 	char* expressionCopy = StringManip::replaceAll(expression, " ", "");
@@ -111,7 +111,7 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 	expression = StringManip::replaceAll(expression, " ", "");
 
 	bool isValidExpression = expressionIsValid(expression); 
-	if (!isValidExpression) throw "This expression isn't valid";
+	if (!isValidExpression) throw EXPRESSION_INVALID_EXCEPTION;
 
 	//Start resolving all the parenthesis in the expression until none are left
 	//If there are none, at least run the necessary in all cases things first. Hence why this is a do, while expression instead of a simple while expression
@@ -386,7 +386,7 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 				}
 				else
 				{
-					throw "IDIOT!";
+					throw EXPRESSION_DIVIDEBYZERO_EXCEPTION;
 				}
 			}
 			else if (firstOperator == '%')
@@ -398,10 +398,11 @@ BigNumber BigNumberExpression::evaluateExpression(const char* expression) const
 				}
 				else
 				{
-					throw "IDIOT!";
+					throw EXPRESSION_PERCENTBYZERO_EXCEPTION;
 				}
 			}
 
+			//This should never be the case if the program runs properly
 			if (!resultNumberIsCalculated) throw "This isn't supposed to happen lol";
 
 			//Replace the 2 numbers in the numbers array with the result number
@@ -751,7 +752,7 @@ char* BigNumberExpression::getExpressionTemplate(const char* expression) const
 	newExpression = StringManip::replaceAll(newExpression, " ", "");
 
 	bool isValidExpression = expressionIsValid(newExpression);
-	if (!isValidExpression) throw "This expression isn't valid";
+	if (!isValidExpression) throw EXPRESSION_INVALID_EXCEPTION;
 
 	//Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
 	char* expression1 = StringManip::replaceAll(newExpression, "+-", "+");
