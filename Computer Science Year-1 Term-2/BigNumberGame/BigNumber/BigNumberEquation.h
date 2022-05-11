@@ -24,11 +24,6 @@ private:
 
 	int generateCountOfX(int seed);
 
-	//Move everything that is not tied to the unknown with a * or / to the other side 
-	void movePlusAndMinus(char*& unknownSide, char*& knownSide, bool leftOfUnknown, size_t indexOfUnknown);
-
-	//Move everything that is tied to the unknown via * or / to the other side
-	void moveMultiplyAndDivide(char*& unknownSide, char*& knownSide, bool leftOfUnknown, size_t indexOfUnknown);
 public:
 
 	//Big 4
@@ -39,7 +34,6 @@ public:
 
 	//Other constructors
 	BigNumberEquation(const char* equation);
-	BigNumberEquation(const BigNumberExpression& expression);
 
 	//Check for equation validity. Excluding if the equation has a solution or not, or if it throws a divide by zero exception
 	bool isValidEquation(const char* equation = nullptr) const;

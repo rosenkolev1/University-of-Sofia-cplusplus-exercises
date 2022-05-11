@@ -92,11 +92,14 @@ void BigNumberEquationTests::equationIsValidTests(std::ostream& os)
 
     //TEST 8
     os << "TEST 8" << std::endl;
-    int something = (35 / 5 * (40 + -36 / -5 * (9 - 5) + 38) - 16) * (5 * 5 / -(5 + 34) + 15);
-    BigNumberExpression somethingExpression("(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)");
-    BigNumber result = somethingExpression.evaluateExpression();
     char equation8[] = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890"; //Expected: 10890 = 10890
     os << "Testing if the equation | " << equation8 << " | is valid: Expected: TRUE ==> " << (equation.isValidEquation(equation8) ? "TRUE" : "FALSE");
+    os << std::endl << std::endl;
+
+    //TEST 9
+    os << "TEST 9" << std::endl;
+    char equation9[] = "5/(10*3-30)=5";
+    os << "Testing if the equation | " << equation9 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation9) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 }
 
@@ -560,8 +563,8 @@ void BigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 
     std::ifstream is("Equations.txt");
     int somethingDebug = (15 - (3 * 156 / 343 % (6 / 2 * 4 % 10 + 43))) + 10;
-    BigNumberEquation equation1 = BigNumberExpression();
-    BigNumberEquation equation2 = BigNumberExpression();
+    BigNumberEquation equation1 = BigNumberEquation();
+    BigNumberEquation equation2 = BigNumberEquation();
     is >> equation1;
     is >> equation2;
 
@@ -598,13 +601,13 @@ void BigNumberEquationTests::runTests(std::ostream& os)
     //equationBig4Tests(os);
     //
     ////Equation is valid tests
-    //equationIsValidTests(os);
+    equationIsValidTests(os);
     //
     ////SOLVE EQUATIONS TESTS
-    //solveEquationTests(os);
+    solveEquationTests(os);
     
 	//Generate equation tests
-	generateEquationTests(os);
+	//generateEquationTests(os);
 
     //Read from and Write to console tests
     //readFromAndWriteToFileTests(os);

@@ -32,6 +32,8 @@ public:
 
 	static void getFromTests();
 
+	static void getReversedTests();
+
 	static void countOfTests();
 
 	static void countOfManyTests();

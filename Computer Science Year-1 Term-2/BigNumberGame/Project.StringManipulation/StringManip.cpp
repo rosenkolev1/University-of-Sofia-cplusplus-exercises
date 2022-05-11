@@ -809,6 +809,18 @@ char* StringManip::getFrom(const char* source, size_t startIndex, size_t endInde
     return returnString;
 }
 
+char* StringManip::getReverse(const char* source)
+{
+    char* reversedSource = new char[strlen(source) + 1];
+    reversedSource[strlen(source)] = '\0';
+    for (size_t i = 0; i < strlen(source); i++)
+    {
+        reversedSource[i] = source[strlen(source) - 1 - i];
+    }
+
+    return reversedSource;
+}
+
 bool StringManip::arraysOfStringsAreEqual(char** stringsOne, char** stringsTwo, size_t stringsOneSize, size_t stringsTwoSize)
 {
     if (stringsOneSize != stringsTwoSize) return false;

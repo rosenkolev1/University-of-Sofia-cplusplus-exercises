@@ -10,8 +10,6 @@
 #include "BigNumberExpressionTests.h"
 #include "BigNumberEquationTests.h"
 
-//TODO: create equations with BigNumber(medium) and make an equation solver with BigNumber(hard)
-
 int main()
 {
     std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::app);

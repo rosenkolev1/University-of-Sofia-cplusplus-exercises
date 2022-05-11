@@ -433,7 +433,7 @@ void BigNumberTests::OperatorSumTests(std::ostream& os)
     BigNumber number22 = BigNumber(-991);
     BigNumber number23 = BigNumber(-99);
     BigNumber number24 = number22 + number23;
-    os << "TEST 7:" << std::endl;
+    os << "TEST 8:" << std::endl;
     os << "Testing \"+\" operator -> ((-991) + (-99)). Expected: -1090: " << number24 << std::endl;
     os << std::endl;
 
@@ -1397,6 +1397,7 @@ void BigNumberTests::PeshoAndLuboTests(std::ostream& os)
     os << std::boolalpha << ((BigNumber("12345678901234567890") % BigNumber("4354678097643135")) == BigNumber("166494416280165")) << std::endl;
 
     //DEBUG SHIT
+    BigNumber DebugShit = BigNumber("-12345678901234567890") + BigNumber("4354678097643135");
     os << std::boolalpha << ((BigNumber("-12345678901234567890") + BigNumber("4354678097643135")) == BigNumber("-12341324223136924755")) << std::endl;
     os << std::boolalpha << ((BigNumber("-12345678901234567890") * BigNumber("4354678097643135")) == BigNumber("-53761457511741137249987999149935150")) << std::endl;
 

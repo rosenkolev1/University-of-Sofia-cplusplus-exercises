@@ -1428,6 +1428,45 @@ void StringManipTests::getFromTests()
     std::cout << std::endl;
 }
 
+void StringManipTests::getReversedTests()
+{
+    //getReversed TESTS
+    std::cout << "getReversed TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "abcdef";
+    char expectedOuput1[] = "fedcba";
+    char* output1 = StringManip::getReverse(input1);
+    std::cout << "Testing getting the reverse of \"" << input1 << "\". Expected: " << expectedOuput1 << " ==> " << output1;
+    //Delete dynamic memory
+    delete[] output1;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "a";
+    char expectedOuput2[] = "a";
+    char* output2 = StringManip::getReverse(input2);
+    std::cout << "Testing getting the reverse of \"" << input2 << "\". Expected: " << expectedOuput2 << " ==> " << output2;
+    //Delete dynamic memory
+    delete[] output2;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "";
+    char expectedOuput3[] = "";
+    char* output3 = StringManip::getReverse(input3);
+    std::cout << "Testing getting the reverse of \"" << input3 << "\". Expected: " << expectedOuput3 << " ==> " << output3;
+    //Delete dynamic memory
+    delete[] output3;
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void StringManipTests::countOfTests()
 {
     //countOf TESTS
@@ -1682,8 +1721,12 @@ void StringManipTests::runTests()
     ////getUnique TESTS
     //getUniqueTests();
     //
-    //getFrom TESTS
-    getFromTests();
+    ////getFrom TESTS
+    //getFromTests();
+
+    ////getReversed TESTS
+    //getReversedTests();
+    
     ////countOf TESTS
     //countOfTests();
     //

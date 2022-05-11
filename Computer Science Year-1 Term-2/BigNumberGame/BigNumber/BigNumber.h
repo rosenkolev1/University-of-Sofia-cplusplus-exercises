@@ -18,10 +18,10 @@ private:
 
 	void copy(const BigNumber& other);
 	//void changeNumber(int* const number, size_t newCapacity, size_t newSize, int sign);
-	void changeNumber(const char* number, size_t newCapacity, size_t newSize, int sign);
+	void changeNumber(const char* number);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
-	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
+	BigNumber subtractAndReturn(const BigNumber& thisNumber, const BigNumber& other) const;
 	BigNumberDivisionResult divideAndReturn(const BigNumber& other) const;
 
 public:
@@ -49,7 +49,6 @@ public:
 	 */
 	BigNumber(long long int number);
 
-	BigNumber(const char* number, size_t newCapacity, size_t newSize, int sign);
 
 	~BigNumber();
 
@@ -86,8 +85,6 @@ public:
 	//Outputting to console
 	friend std::ostream& operator<< (std::ostream& os, const BigNumber& other);
 
-	//Reading shit from text file
-	friend std::ifstream& operator>> (std::ifstream& is, BigNumber& other);
 	//Outputting shit to text file
 	friend std::ofstream& operator<< (std::ofstream& os, const BigNumber& other);
 
