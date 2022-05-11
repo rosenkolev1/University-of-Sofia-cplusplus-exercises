@@ -1,19 +1,23 @@
 #pragma once
+#include <iostream>
+
 class BigNumberEquationTests
 {
 public:
-	static void equationBig4Tests();
+	static constexpr const char* OUTPUTFILE_NAME = "BugNumberEquation_Tests_Diagnostics.txt";
 
-	static void equationIsValidTests();
+	static void equationBig4Tests(std::ostream& os);
 
-	static void solveEquationTests();
+	static void equationIsValidTests(std::ostream& os);
 
-	static void generateEquationTests();
+	static void solveEquationTests(std::ostream& os);
+
+	static void generateEquationTests(std::ostream& os);
 
 	static void readFromAndWriteToConsoleTests();
 
 	static void readFromAndWriteToFileTests();
 
-	static void runTests();
+	static void runTests(std::ostream& os);
 };
 

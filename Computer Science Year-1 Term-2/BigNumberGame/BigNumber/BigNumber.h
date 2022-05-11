@@ -1,9 +1,7 @@
 #pragma once
 
-#ifndef BIGNUMBER_H
-#define BIGNUMBER_H
-
 #include<iostream>
+#include<fstream>
 
 const int INIT_CAPACITY = 20;
 
@@ -84,10 +82,14 @@ public:
 	BigNumber operator * (const BigNumber& other) const;
 
 	//Reading shit from console
-	friend std::istream& operator>> (std::istream& cin, BigNumber& other);
-
+	friend std::istream& operator>> (std::istream& is, BigNumber& other);
 	//Outputting to console
 	friend std::ostream& operator<< (std::ostream& os, const BigNumber& other);
+
+	//Reading shit from text file
+	friend std::ifstream& operator>> (std::ifstream& is, BigNumber& other);
+	//Outputting shit to text file
+	friend std::ofstream& operator<< (std::ofstream& os, const BigNumber& other);
 
 	//Printing shit
 	const char* getNumber() const;
@@ -101,6 +103,3 @@ public:
 	BigNumber& operator %= (const BigNumber& other);
 	BigNumber operator % (const BigNumber& other) const;
 };
-
-#endif // ! 'BigNumber.h'
-

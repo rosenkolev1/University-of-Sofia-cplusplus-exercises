@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <fstream>
 #include <cassert>
 #include <cmath>
 #include "BigNumberDivisionResult.h"
@@ -602,10 +603,7 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	//Edge Cases for 0
 	if (other.sign == 0)
 	{
-		while (true)
-		{
-			std::cout << "Idiot ";
-		}
+		throw "CANNOT DIVIDE BY ZERO YOU IDIOT!";
 	}
 
 	if (this->sign == 0)
@@ -866,8 +864,7 @@ const char* BigNumber::getNumberRaw() const
 //Printing shit and reading shit
 void BigNumber::printOutNumber() const
 {
-	const char* numberTextVerbose = getNumber();
-	std::cout << numberTextVerbose << std::endl;
+	std::cout << *this;
 }
 
 void BigNumber::printOutNumberRaw() const
@@ -876,15 +873,13 @@ void BigNumber::printOutNumberRaw() const
 	std::cout << numberTextRaw << std::endl;
 }
 
-std::istream& operator>>(std::istream& cin, BigNumber& other)
+std::istream& operator>>(std::istream& is, BigNumber& other)
 {
 	//
 	char* number = new __nothrow char[100000000];
 	if (number == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
 
-	cin.getline(number, INT_MAX - 1);
-
-	std::cout << "This is the number: " << number << std::endl;
+	is.getline(number, INT_MAX - 1);
 
 	int numberSign = number[0] == '-' ? -1 : 1;
 	if (number[0] == '0') numberSign = 0;
@@ -914,12 +909,26 @@ std::istream& operator>>(std::istream& cin, BigNumber& other)
 
 	delete[] reversedNumber;
 
-	return cin;
+	return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const BigNumber& other) 
 {
-	other.printOutNumber();
+	const char* numberVerbose = other.getNumber();
+	os << numberVerbose << std::endl;
+	return os;
+}
+
+std::ifstream& operator>>(std::ifstream& is, BigNumber& other)
+{
+	// TODO: insert return statement here
+	return is;
+}
+
+std::ofstream& operator<<(std::ofstream& os, const BigNumber& other)
+{
+	const char* number = other.getNumber();
+	os.write(number, strlen(number));
 	return os;
 }
 

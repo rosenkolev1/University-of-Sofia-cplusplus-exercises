@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "BigNumber.h"
 #include "BigNumberDivisionResult.h"
 #include "BigNumberTests.h"
@@ -11,10 +12,12 @@
 
 //TODO: create equations with BigNumber(medium) and make an equation solver with BigNumber(hard)
 
-
-
 int main()
 {
+    std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
+    std::ofstream osExpressionTests("BugNumberExpressions_Tests_Diagnostics.txt", std::ios::trunc);
+    std::ofstream osBigNumberTests("BugNumber_Tests_Diagnostics.txt", std::ios::trunc);
+
     //BigNumber tests
     //BigNumberTests::runTests();
 
@@ -22,5 +25,9 @@ int main()
     //BigNumberExpressionTests::runTests();
 
     //BigNumberEquations tests
-    BigNumberEquationTests::runTests();
+    BigNumberEquationTests::runTests(osEquationTests);
+
+    osEquationTests.close();
+    osExpressionTests.close();
+    osBigNumberTests.close();
 }

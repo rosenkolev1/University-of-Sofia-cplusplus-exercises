@@ -552,6 +552,18 @@ bool BigNumberExpression::expressionIsValid(const char* expression) const
 	return true;
 }
 
+bool BigNumberExpression::expressionTemplateIsValid(const char* expressionTemplate) const
+{
+	//Replace all of the whitespaces
+	char* expressionTemplateCopy = StringManip::replaceAll(expressionTemplate, " ", "");
+
+	//Replace all of the numbers with -1;
+	char* expressionFromTemplate = StringManip::replaceAll(expressionTemplateCopy, "x", "-1");
+	delete[] expressionTemplateCopy;
+	
+	return expressionIsValid(expressionFromTemplate);
+}
+
 //char BigNumberExpression::generateOperator(int seed) const
 //{
 //	if (seed == 4) return '%';
@@ -1010,7 +1022,7 @@ std::istream& operator>>(std::istream& is, BigNumberExpression& expression)
 	return is;
 }
 
-std::ostream& operator<<(std::ostream& os, BigNumberExpression& expression)
+std::ostream& operator<<(std::ostream& os, const BigNumberExpression& expression)
 {
 	os << "This is the expression: " << expression.getExpression() << std::endl;
 	os << "And this is the answer: " << expression.evaluateExpression() << std::endl;
@@ -1029,7 +1041,7 @@ std::ifstream& operator>>(std::ifstream& is, BigNumberExpression& expression)
 	return is;
 }
 
-std::ofstream& operator<<(std::ofstream& os, BigNumberExpression& expression)
+std::ofstream& operator<<(std::ofstream& os, const BigNumberExpression& expression)
 {
 	const char* expressionString = expression.getExpression();
 	const char* equals = "=";
@@ -1049,7 +1061,6 @@ std::ofstream& operator<<(std::ofstream& os, BigNumberExpression& expression)
 
 	//Delete dynamic memory
 	delete[] textLine;
-	//delete[] expressionString;
 	delete[] answer;
 
 	return os;

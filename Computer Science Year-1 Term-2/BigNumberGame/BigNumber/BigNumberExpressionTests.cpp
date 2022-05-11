@@ -53,11 +53,13 @@ void BigNumberExpressionTests::expressionIsValidTests()
     char expressionString1[] = "";
     std::cout << "Testing if expression is valid-> " << expressionString1 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString1) ? "TRUE" : "FALSE");
     std::cout << std::endl;
+    std::cout << std::endl;
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
     char expressionString2[] = "  ";
     std::cout << "Testing if expression is valid-> " << expressionString2 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString2) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
     std::cout << std::endl;
 
     //TEST 3
@@ -65,17 +67,20 @@ void BigNumberExpressionTests::expressionIsValidTests()
     char expressionString3[] = "()((()))(((()))()";
     std::cout << "Testing if expression is valid-> " << expressionString3 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString3) ? "TRUE" : "FALSE");
     std::cout << std::endl;
+    std::cout << std::endl;
 
     //TEST 4
     std::cout << "TEST 4" << std::endl;
     char expressionString4[] = "()((()))((())))((()))";
     std::cout << "Testing if expression is valid-> " << expressionString4 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString4) ? "TRUE" : "FALSE");
     std::cout << std::endl;
+    std::cout << std::endl;
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
     char expressionString5[] = "15+10asd";
     std::cout << "Testing if expression is valid-> " << expressionString5 << ". Expected: FALSE: " << (expression.expressionIsValid(expressionString5) ? "TRUE" : "FALSE");
+    std::cout << std::endl;
     std::cout << std::endl;
 
     //TEST 6-34
@@ -403,14 +408,14 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     std::cout << "TEST 3" << std::endl;
     char expressionString20[] = "125/0";
     BigNumberExpression expression20(expressionString20);
-    std::cout << "Testing expression -> (" << expressionString20 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString20 << "). Expected: "<< BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION <<": ";
     try
     {
         std::cout << expression20.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
     std::cout << std::endl;
 
@@ -418,14 +423,14 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests()
     std::cout << "TEST 4" << std::endl;
     char expressionString21[] = "0/0";
     BigNumberExpression expression21(expressionString21);
-    std::cout << "Testing expression -> (" << expressionString21 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString21 << "). Expected: " << BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << ": ";
     try
     {
         std::cout << expression20.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
     std::cout << std::endl;
 
@@ -502,14 +507,14 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     std::cout << "TEST 3" << std::endl;
     char expressionString29[] = "125%0";
     BigNumberExpression expression29(expressionString29);
-    std::cout << "Testing expression -> (" << expressionString29 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString29 << "). Expected: " << BigNumberExpression::EXPRESSION_PERCENTBYZERO_EXCEPTION << ": ";
     try
     {
         std::cout << expression29.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
     std::cout << std::endl;
 
@@ -517,14 +522,14 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests()
     std::cout << "TEST 4" << std::endl;
     char expressionString30[] = "0%0";
     BigNumberExpression expression30(expressionString30);
-    std::cout << "Testing expression -> (" << expressionString30 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString30 << "). Expected: " << BigNumberExpression::EXPRESSION_PERCENTBYZERO_EXCEPTION << ": ";
     try
     {
         std::cout << expression30.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
     std::cout << std::endl;
 
@@ -740,15 +745,16 @@ void BigNumberExpressionTests::solveExpressionParenthesis_DivideTests()
     char expressionString3[] = "-(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3))";
     BigNumberExpression expression3(expressionString3);
     //int expectedOutput3 = -(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3)); Expected -(100/0) -> Exception thrown
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << ": ";
     try
     {
         std::cout << expression3.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
+    std::cout << std::endl;
     std::cout << std::endl;
 
     //TEST 4
@@ -821,15 +827,16 @@ void BigNumberExpressionTests::solveExpressionParenthesis_PercentTests()
     std::cout << "TEST 3: " << std::endl;
     char expressionString3[] = "5%((100 - 15%(5*4))/2 - 42) + 1000"; //Expected 5%0 + 1000 --> Exception thrown
     BigNumberExpression expression3(expressionString3);
-    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: Exception thrown: ";
+    std::cout << "Testing expression -> (" << expressionString3 << "). Expected: " << BigNumberExpression::EXPRESSION_PERCENTBYZERO_EXCEPTION << ": ";
     try
     {
         std::cout << expression3.evaluateExpression();
     }
-    catch (...)
+    catch (const char* e)
     {
-        std::cout << "Exception thrown\n";
+        std::cout << e;
     }
+    std::cout << std::endl;
     std::cout << std::endl;
 }
      
@@ -854,14 +861,20 @@ void BigNumberExpressionTests::generateExpressionTemplateTests()
     //Generating expressions templates tests
     std::cout << "GENERATE EXPRESSION TEMPLATES TESTS" << std::endl << std::endl;
 
+    BigNumberExpression expression = BigNumberExpression();
+
     srand(time(NULL));
     for (size_t i = 0; i < 50; i++)
     {
         std::cout << "TEST " << i + 1 << ": " << std::endl;
-        BigNumberExpression expression1 = BigNumberExpression();
+        char* expressionTemplate = expression.generateExpressionTemplate();
         std::cout << "Testing the generating of an expression template --> "
-            << expression1.generateExpressionTemplate()
-            << ". Is the expression template valid? Expect: TRUE: "; /*TODO: make a templateIsValid func? << (expression1.expressionIsValid() ? "TRUE" : "FALSE") */
+            << expressionTemplate
+            << ". Is the expression template valid? Expect: TRUE: "
+            << (expression.expressionTemplateIsValid(expressionTemplate) ? "TRUE" : "FALSE");
+
+        //Delete dynamic memory
+        delete[] expressionTemplate;
 
         std::cout << std::endl;
         std::cout << std::endl;
@@ -871,24 +884,29 @@ void BigNumberExpressionTests::generateExpressionTemplateTests()
 void BigNumberExpressionTests::generateExpressionTests()
 {
     std::cout << "GENERATE EXPRESSION TESTS" << std::endl << std::endl;
+
+    BigNumberExpression expression = BigNumberExpression();
+
     srand(time(NULL));
-    int something = (105 + 2876) - 0 % -7003493 - 26 - 4618 - 659043206;
+
     for (size_t i = 0; i < 50; i++)
     {
         std::cout << "TEST " << i + 1 << ": " << std::endl;
-        BigNumberExpression expression1 = BigNumberExpression();
-        expression1.generateExpression();
-        char* expressionTemplate = expression1.getExpressionTemplate();
-        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression1.getExpression();
-        std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() ? "TRUE" : "FALSE") << std::endl;
+        expression.generateExpression();
+        char* expressionTemplate = expression.getExpressionTemplate();
+
+        if (!expression.expressionTemplateIsValid(expressionTemplate)) throw "The expression template is invalid somehow. This shouldn't happen";
+
+        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression.getExpression();
+        std::cout << ". Is the expression valid? Expect: TRUE: " << (expression.expressionIsValid() ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
         {
-            std::cout << expression1.evaluateExpression();
+            std::cout << expression.evaluateExpression();
         }
-        catch (...)
+        catch (const char* e)
         {
-            std::cout << "Exception thrown because of division or percent by 0";
+            std::cout << e;
         }
 
         //Delete dynamic memory
@@ -901,19 +919,21 @@ void BigNumberExpressionTests::generateExpressionTests()
     for (size_t i = 50; i < 99; i++)
     {
         std::cout << "TEST " << i + 1 << ": " << std::endl;
-        BigNumberExpression expression1 = BigNumberExpression();
-        expression1.generateExpression("+-*/");
-        char* expressionTemplate = expression1.getExpressionTemplate();
-        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression1.getExpression();
-        std::cout << ". Is the expression valid? Expect: TRUE: " << (expression1.expressionIsValid() && !StringManip::stringContains(expression1.getExpression(), "%") ? "TRUE" : "FALSE") << std::endl;
+        expression.generateExpression("+-*/");
+        char* expressionTemplate = expression.getExpressionTemplate();
+
+        if (!expression.expressionTemplateIsValid(expressionTemplate)) throw "The expression template is invalid somehow. This shouldn't happen";
+
+        std::cout << "Testing the generating of an expression --> " << expressionTemplate << " --> " << expression.getExpression();
+        std::cout << ". Is the expression valid? Expect: TRUE: " << (expression.expressionIsValid() && !StringManip::stringContains(expression.getExpression(), "%") ? "TRUE" : "FALSE") << std::endl;
         std::cout << "Answer to the expression --> ";
         try
         {
-            std::cout << expression1.evaluateExpression();
+            std::cout << expression.evaluateExpression();
         }
-        catch (...)
+        catch (const char* e)
         {
-            std::cout << "Exception thrown because of division or percent by 0";
+            std::cout << e;
         }
 
         //Delete dynamic memory
@@ -1367,60 +1387,61 @@ void BigNumberExpressionTests::readFromAndWriteToFileTests()
 
 void BigNumberExpressionTests::runTests()
 {
-    ////Big 4 tests
-    //expressionBig4Tests();
-    //
-    //// Expression is valid tests
-    //expressionIsValidTests();
+    //Big 4 tests
+    expressionBig4Tests();
     
-    ////Solving expression tests without parenthesis
-    //solveExpressionNoParenthesisTests();
+    // Expression is valid tests
+    expressionIsValidTests();
     
-    ////Solving expression tests with parenthesis
-    //solveExpressionParenthesisTests();
+    //Solving expression tests without parenthesis
+    solveExpressionNoParenthesisTests();
     
-    ////Generating expressions templates tests
-    //generateExpressionTemplateTests();
+    //Solving expression tests with parenthesis
+    solveExpressionParenthesisTests();
+    
+    //Generating expressions templates tests
+    generateExpressionTemplateTests();
 
     //Generating expressions tests
-    //enerateExpressionTests();
-    //
+    generateExpressionTests();
+
+    //Comparative operators tests
+    comparativeOperatorsTests();
+
+    //Operator + tests
+    operatorSumTests();
+
+    //Operator += tests
+    operatorSumAndEqualsTests();
+
+    //Operator - tests
+    operatorMinusTests();
+
+    //Operator -= tests
+    operatorMinusAndEqualsTests();
+
+    //Operator * tests
+    operatorMultiplyTests();
+
+    //Operator *= tests
+    operatorMultiplyAndEqualsTests();
+
+    //Operator / tests
+    operatorDivideTests();
+
+    //Operator /= tests
+    operatorDivideAndEqualsTests();
+
+    //Operator % tests
+    operatorPercentTests();
+
+    //Operator %= tests
+    operatorPercentAndEqualsTests();
+
     ////Read from and Write to console tests
     //readFromAndWriteToConsoleTests();
     //
     //////Read from and Write to console tests
     //readFromAndWriteToFileTests();
     //
-    ////Comparative operators tests
-    //comparativeOperatorsTests();
-    //
-    ////Operator + tests
-    //operatorSumTests();
-    //
-    ////Operator += tests
-    //operatorSumAndEqualsTests();
-    //
-    ////Operator - tests
-    //operatorMinusTests();
-    //
-    ////Operator -= tests
-    //operatorMinusAndEqualsTests();
-    //
-    ////Operator * tests
-    //operatorMultiplyTests();
-    //
-    ////Operator *= tests
-    //operatorMultiplyAndEqualsTests();
-    //
-    ////Operator / tests
-    //operatorDivideTests();
-    //
-    ////Operator /= tests
-    //operatorDivideAndEqualsTests();
-    //
-    ////Operator % tests
-    //operatorPercentTests();
-    //
-    ////Operator %= tests
-    //operatorPercentAndEqualsTests();
 }

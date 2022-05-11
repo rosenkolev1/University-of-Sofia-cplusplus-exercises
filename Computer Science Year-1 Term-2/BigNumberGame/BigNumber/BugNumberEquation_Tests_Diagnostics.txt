@@ -1,0 +1,45 @@
+EQUATION BIG4 TESTS
+
+Equation 1: Expected: x=0: x=0
+Equation 2: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+Equation 3: Expected: 15/3*x = 20: 15/3*x = 20
+
+Testing "equation1 = equation2;" 
+Equation 1: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+
+Testing "equation2 = equation3;" 
+Equation 2: Expected: 15/3*x = 20: 15/3*x = 20
+
+Testing "BigNumberEquation equation4(equation1);" 
+Equation 4: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+
+EQUATION IS VALID TESTS
+
+TEST 1
+Testing if the equation | -(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: TRUE ==> TRUE
+
+TEST 2
+Testing if the equation | -+(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: TRUE ==> TRUE
+
+TEST 3
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= --x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 4
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 5
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)=+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 6
+Testing if the equation | --(35/x*(40+-36/-x%(9-x) + 38)-16)*(x*5/-(x+34)+15)=-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 7
+Testing if the equation | (35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) | is valid: Expected: FALSE ==> FALSE
+
+TEST 8
+Testing if the equation | (35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890 | is valid: Expected: TRUE ==> TRUE
+
+SOLVE EQUATIONS TESTS
+
+TEST 1
+Testing the answer to the equation | x=5 |: Expected: 5 ==> 5
