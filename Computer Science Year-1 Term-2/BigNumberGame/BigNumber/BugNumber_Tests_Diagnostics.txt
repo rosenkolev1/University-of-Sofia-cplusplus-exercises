@@ -1,0 +1,1016 @@
+---------------------------- Wed May 11 20:32:40 2022 ----------------------------
+
+Initial values: TESTS FOR NON-COPY CONSTRUCTORS
+defaultBigNumber: 0
+someBigNumberInt: 5678
+someBigNumberChar: 1234
+someOtherBigNumber: -1
+someOtheBigNumberZero: 0
+
+New Values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR
+TESTING -> defaultBigNumber = someNumberInt
+defaultBigNumber: 5678
+TESTING -> BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar)
+copyOfBigNumberChar: 1234
+TESTING -> someBigNumberInt = someBigNumberChar
+someBigNumberInt: 1234
+TESTING -> someBigNumberInt = someBigNumberInt
+someBigNumberInt: 1234
+
+TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:
+
+"==" Operator TESTS: 
+
+Testing "==" operator (defaultBigNumber == someBigNumberInt): (Expected: FALSE): FALSE
+
+Testing "==" operator (someBigNumberChar == someBigNumberInt): (Expected: TRUE): TRUE
+
+Testing "==" operator (someBigNumberChar == someBigNumberChar): (Expected: TRUE): TRUE
+
+"!=" Operator TESTS: 
+Testing "!=" operator (defaultBigNumber != someBigNumberInt): (Expected: TRUE): TRUE
+
+Testing "!=" operator (someBigNumberChar != someBigNumberInt): (Expected: FALSE): FALSE
+
+Testing "!=" operator (someBigNumberChar != someBigNumberChar): (Expected: FALSE): FALSE
+
+">" Operator TESTS: 
+
+BigNumber1 tests: 
+Testing ">" operator -> (5050 > 65000). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">" operator -> (65000 > 5050). Expected: True, because sizes are different:TRUE
+
+BigNumber2 tests: 
+Testing ">" operator -> (-67890 > -6789). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">" operator -> (-6789 > -67890). Expected: True, because sizes are different:TRUE
+
+BigNumber3 tests: 
+Testing ">" operator -> (-67890 > 1). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">" operator -> (1 > -67890). Expected: True, because signs are different:TRUE
+
+BigNumber4 tests: 
+Testing ">" operator -> (-69 > 10). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">" operator -> (10 > -69). Expected: True, because signs are different:TRUE
+
+BigNumber5 tests: 
+Testing ">" operator -> (1023 > 1030). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">" operator -> (1030 > 1023). Expected: True, because first number is bigger:TRUE
+
+BigNumber6 tests: 
+Testing ">" operator -> (-4010 > -4000). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">" operator -> (-4000 > -4010). Expected: True, because first number is bigger:TRUE
+
+BigNumber7 tests: 
+Testing ">" operator -> (0 > 100). Expected: False, because first number is 0 and second is positive:FALSE
+REVERSE: Testing ">" operator -> (100 > 0). Expected: True, because second number is 0 and first is positive:TRUE
+
+BigNumber8 tests: 
+Testing ">" operator -> (-100 > 0). Expected: False, because second number is 0 and first is negative:FALSE
+REVERSE: Testing ">" operator -> (0 > -100). Expected: True, because first number is 0 and second is negative:TRUE
+
+BigNumber9 tests: 
+Testing ">" operator -> (0 > 0). Expected: False, because both numbers are 0:FALSE
+
+BigNumber10 tests: 
+Testing ">" operator -> (2456 > 2456). Expected: False, because both numbers are equal:FALSE
+
+">=" Operator TESTS: 
+
+BigNumber1 tests: 
+Testing ">=" operator -> (5050 >= 65000). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">=" operator -> (65000 >= 5050). Expected: True, because sizes are different:TRUE
+
+BigNumber2 tests: 
+Testing ">=" operator -> (-67890 >= -6789). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">=" operator -> (-6789 >= -67890). Expected: True, because sizes are different:TRUE
+
+BigNumber3 tests: 
+Testing ">=" operator -> (-67890 >= 1). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">=" operator -> (1 >= -67890). Expected: True, because signs are different:TRUE
+
+BigNumber4 tests: 
+Testing ">=" operator -> (-69 >= 10). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">=" operator -> (10 >= -69). Expected: True, because signs are different:TRUE
+
+BigNumber5 tests: 
+Testing ">=" operator -> (1023 >= 1030). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">=" operator -> (1030 >= 1023). Expected: True, because first number is bigger:TRUE
+
+BigNumber6 tests: 
+Testing ">=" operator -> (-4010 >= -4000). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">=" operator -> (-4000 >= -4010). Expected: True, because first number is bigger:TRUE
+
+BigNumber7 tests: 
+Testing ">=" operator -> (0 >= 100). Expected: False, because first number is 0 and second is positive:FALSE
+REVERSE: Testing ">=" operator -> (100 >= 0). Expected: True, because second number is 0 and first is positive:TRUE
+
+BigNumber8 tests: 
+Testing ">=" operator -> (-100 >= 0). Expected: False, because second number is 0 and first is negative:FALSE
+REVERSE: Testing ">=" operator -> (0 >= -100). Expected: True, because first number is 0 and second is negative:TRUE
+
+BigNumber9 tests: 
+Testing ">=" operator -> (0 >= 0). Expected: True, because both numbers are equal:TRUE
+
+BigNumber10 tests: 
+Testing ">=" operator -> (2456 >= 2456). Expected: True, because both numbers are equal:TRUE
+
+LESS THAN TESTS:
+Testing "<" operator -> (100 < -130). Expected: False, because 100 > -130:FALSE
+Testing "<" operator -> (110 < 110). Expected: False, the numbers are equal:FALSE
+Testing "<" operator -> (0 < 0). Expected: False, the numbers are equal:FALSE
+
+"<=" Operator TESTS:
+Testing "<=" operator -> (100 <= -130). Expected: False, because 100 > -130:FALSE
+Testing "<=" operator -> (110 <= 110). Expected: True, the numbers are equal:TRUE
+Testing "<=" operator -> (0 <= 0). Expected: True, the numbers are equal:TRUE
+
+"+" Operator TESTS: 
+
+TEST 1:
+Testing "+" operator -> (1 + 2). Expected: 3: 3
+
+TEST 2:
+Testing "+" operator -> (9 + 1). Expected: 10: 10
+
+TEST 3:
+Testing "+" operator -> (9999999 + 78). Expected: 10 000 077: 10,000,077
+
+TEST 4:
+Testing "+" operator -> (0 + (-79)). Expected: -79: -79
+
+TEST 5:
+Testing "+" operator -> ((-101) + 0). Expected: -101: -101
+
+TEST 6:
+Testing "+" operator -> ((-101) + (-5)). Expected: -106: -106
+
+TEST 7:
+Testing "+" operator -> ((-101) + (-99)). Expected: -200: -200
+
+TEST 7:
+Testing "+" operator -> ((-991) + (-99)). Expected: -1090: -1090
+
+TEST 9:
+Testing "+" operator -> (991 + (-99)). Expected: 892: 892
+
+TEST 10:
+Testing "+" operator -> (-100100098 + 65699). Expected: -100,034,399: -100,034,399
+
+"+=" Operator TESTS: 
+
+TEST 1:
+Testing "+=" operator -> (1 + 2). Expected: 3: 3
+
+TEST 2:
+Testing "+=" operator -> (9 + 1). Expected: 10: 10
+
+TEST 3:
+Testing "+=" operator -> (9999999 + 78). Expected: 10 000 077: 10,000,077
+
+TEST 4:
+Testing "+=" operator -> (0 + (-79)). Expected: -79: -79
+
+TEST 5:
+Testing "+=" operator -> ((-101) + 0). Expected: -101: -101
+
+TEST 6:
+Testing "+=" operator -> ((-101) + (-5)). Expected: -106: -106
+
+TEST 7:
+Testing "+=" operator -> ((-101) + (-99)). Expected: -200: -200
+
+TEST 7:
+Testing "+=" operator -> ((-991) + (-99)). Expected: -1090: -1090
+
+TEST 9:
+Testing "+=" operator -> (991 + (-99)). Expected: 892: 892
+
+TEST 10:
+Testing "+=" operator -> (-100100098 + 65699). Expected: -100,034,399: -100,034,399
+
+"-" Operator TESTS: 
+
+TEST 1:
+Testing "-" operator -> (3 - 2). Expected: 1: 1
+
+TEST 2:
+Testing "-" operator -> (1345 - 1234). Expected: 111: 111
+
+TEST 3:
+Testing "-" operator -> (1234 - 1345). Expected: -111: -111
+
+TEST 4:
+Testing "-" operator -> (1234 - 13450). Expected: -12 216: -12,216
+
+TEST 5:
+Testing "-" operator -> (-1234 - -1230). Expected: -4: -4
+
+TEST 6:
+Testing "-" operator -> (-1234 - -13457). Expected: 12 223: 12,223
+
+TEST 7:
+Testing "-" operator -> (-10101 - -99). Expected: -10 002: -10,002
+
+TEST 8:
+Testing "-" operator -> (-10001000000 - -9956123). Expected: -9,991,043,877: -9,991,043,877
+
+TEST 9:
+Testing "-" operator -> (-9956123 - -10001000000). Expected: 9,991,043,877: 9,991,043,877
+
+TEST 9:
+Testing "-" operator -> (-9956123 - 0). Expected: -9956123: -9,956,123
+
+TEST 10:
+Testing "-" operator -> (0 - 156). Expected: -156: -156
+
+TEST 11:
+Testing "-" operator -> (0 - 0). Expected: 0: 0
+
+TEST 12:
+Testing "-" operator -> (15678 - -979900). Expected: 995,578: 995,578
+
+TEST 13:
+Testing "-" operator -> (-9560 - 11256). Expected: -20,816: -20,816
+
+"-=" Operator TESTS: 
+
+TEST 1:
+Testing "-=" operator -> (3 - 2). Expected: 1: 1
+
+TEST 2:
+Testing "-=" operator -> (1345 - 1234). Expected: 111: 111
+
+TEST 3:
+Testing "-=" operator -> (1234 - 1345). Expected: -111: -111
+
+TEST 4:
+Testing "-=" operator -> (1234 - 13450). Expected: -12 216: -12,216
+
+TEST 5:
+Testing "-=" operator -> (-1234 - -1230). Expected: -4: -4
+
+TEST 6:
+Testing "-=" operator -> (-1234 - -13457). Expected: 12 223: 12,223
+
+TEST 7:
+Testing "-=" operator -> (-10101 - -99). Expected: -10 002: -10,002
+
+TEST 8:
+Testing "-=" operator -> (-10001000000 - -9956123). Expected: -9,991,043,877: -9,991,043,877
+
+TEST 9:
+Testing "-=" operator -> (-9956123 - -10001000000). Expected: 9,991,043,877: 9,991,043,877
+
+TEST 10:
+Testing "-=" operator -> (-9956123 - 0). Expected: -9956123: -9,956,123
+
+TEST 11:
+Testing "-=" operator -> (0 - 156). Expected: -156: -156
+
+TEST 12:
+Testing "-=" operator -> (0 - 0). Expected: 0: 0
+
+TEST 13:
+Testing "-=" operator -> (15678 - -979900). Expected: 995,578: 995,578
+
+TEST 14:
+Testing "-=" operator -> (-9560 - 11256). Expected: -20,816: -20,816
+
+"*" Operator TESTS: 
+
+TEST 1:
+Testing "*" operator -> (3 * 2). Expected: 6: 6
+
+TEST 2:
+Testing "*" operator -> (0 * 2). Expected: 0: 0
+
+TEST 3:
+Testing "*" operator -> (-100 * 0). Expected: 0: 0
+
+TEST 4:
+Testing "*" operator -> (56846 * 3501). Expected: 199,017,846: 199,017,846
+
+TEST 5:
+Testing "*" operator -> (-3129 * 309). Expected: -966,861: -966,861
+
+TEST 6:
+Testing "*" operator -> (-9999 * -1001). Expected: 10,008,999: 10,008,999
+
+TEST 7:
+Testing "*" operator -> (-99 * 1000). Expected: -99,000: -99,000
+
+"*=" Operator TESTS: 
+
+TEST 1:
+Testing "*=" operator -> (3 * 2). Expected: 6: 6
+
+TEST 2:
+Testing "*=" operator -> (0 * 2). Expected: 0: 0
+
+TEST 3:
+Testing "*=" operator -> (-100 * 0). Expected: 0: 0
+
+TEST 4:
+Testing "*=" operator -> (56846 * 3501). Expected: 199,017,846: 199,017,846
+
+TEST 5:
+Testing "*=" operator -> (-3129 * 309). Expected: -966,861: -966,861
+
+TEST 6:
+Testing "*=" operator -> (-9999 * -1001). Expected: 10,008,999: 10,008,999
+
+TEST 7:
+Testing "*=" operator -> (-99 * 1000). Expected: -99,000: -99,000
+
+TEST 8:
+Testing "*=" operator -> (-99 * -1). Expected: 99: 99
+
+"/" Operator TESTS: 
+
+TEST 1:
+Testing "/" operator -> (0 / 1). Expected: 0: 0
+
+TEST 2:
+Testing "/" operator -> (100 / 101). Expected: 0: 0
+
+TEST 3:
+Testing "/" operator -> (100 / -101). Expected: 0: 0
+
+TEST 4:
+Testing "/" operator -> (5474253 / 1). Expected: 5474253: 5,474,253
+
+TEST 5:
+Testing "/" operator -> (225 / 15). Expected: 15: 15
+
+TEST 6:
+Testing "/" operator -> (225 / 5). Expected: 45: 45
+
+TEST 7:
+Testing "/" operator -> (29773 / -19). Expected: -1567: -1567
+
+TEST 8:
+Testing "/" operator -> (-14670163 / 163). Expected: -90,001: -90,001
+
+TEST 9:
+Testing "/" operator -> (-14670187 / 163). Expected: -90,001: -90,001
+
+TEST 10:
+Testing "/" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: -108,752,753,423,992,369,919,343,952,194,564,575,733
+
+"/=" Operator TESTS: 
+
+TEST 1:
+Testing "/=" operator -> (0 / 1). Expected: 0: 0
+
+TEST 2:
+Testing "/=" operator -> (100 / 101). Expected: 0: 0
+
+TEST 3:
+Testing "/=" operator -> (100 / -101). Expected: 0: 0
+
+TEST 4:
+Testing "/=" operator -> (5474253 / 1). Expected: 5474253: 5,474,253
+
+TEST 5:
+Testing "/=" operator -> (225 / 15). Expected: 15: 15
+
+TEST 6:
+Testing "/=" operator -> (225 / 5). Expected: 45: 45
+
+TEST 7:
+Testing "/=" operator -> (29773 / -19). Expected: -1567: -1567
+
+TEST 8:
+Testing "/=" operator -> (-14670163 / 163). Expected: -90,001: -90,001
+
+TEST 9:
+Testing "/=" operator -> (-14670187 / 163). Expected: -90,001: -90,001
+
+TEST 10:
+Testing "/=" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: -108,752,753,423,992,369,919,343,952,194,564,575,733
+
+"%" Operator TESTS: 
+
+-24TEST 1:
+Testing "%" operator -> (0 % 1). Expected: 0: 0
+
+TEST 2:
+Testing "%" operator -> (100 % 101). Expected: 100: 100
+
+TEST 3:
+Testing "%" operator -> (100 % -101). Expected: 100: 100
+
+TEST 4:
+Testing "%" operator -> (5474253 % 1). Expected: 0: 0
+
+TEST 5:
+Testing "%" operator -> (225 % 15). Expected: 0: 0
+
+TEST 6:
+Testing "%" operator -> (225 % 5). Expected: 0: 0
+
+TEST 7:
+Testing "%" operator -> (29773 % -19). Expected: 0: 0
+
+TEST 8:
+Testing "%" operator -> (-14670163 % 163). Expected: 0: 0
+
+TEST 9:
+Testing "%" operator -> (-14670187 % 163). Expected: -24: -24
+
+TEST 10:
+Testing "%" operator -> (38715980218941283691286446981264988961289 % -356). Expected: 341: 341
+Testing "%" operator PART 2-> ( (38715980218941283691286446981264988961289 / -356)*-356 + 341 ). Expected: 38715980218941283691286446981264988961289: 38,715,980,218,941,283,691,286,446,981,264,988,961,289
+
+"%=" Operator TESTS: 
+
+-24TEST 1:
+Testing "%=" operator -> (0 %= 1). Expected: 0: 0
+
+TEST 2:
+Testing "%=" operator -> (100 %= 101). Expected: 100: 100
+
+TEST 3:
+Testing "%=" operator -> (100 %= -101). Expected: 100: 100
+
+TEST 4:
+Testing "%=" operator -> (5474253 %= 1). Expected: 0: 0
+
+TEST 5:
+Testing "%=" operator -> (225 %= 15). Expected: 0: 0
+
+TEST 6:
+Testing "%=" operator -> (225 %= 5). Expected: 0: 0
+
+TEST 7:
+Testing "%=" operator -> (29773 %= -19). Expected: 0: 0
+
+TEST 8:
+Testing "%=" operator -> (-14670163 %= 163). Expected: 0: 0
+
+TEST 9:
+Testing "%=" operator -> (-14670187 %= 163). Expected: -24: -24
+
+TEST 10:
+Testing "%=" operator -> (38715980218941283691286446981264988961289 %= -356). Expected: 341: 341
+
+TESTS FROM PESHO AND LUBO: 
+
+true
+true
+true
+true
+true
+true
+true
+true
+true
+true
+true
+
+SPECIAL Tests for copying shit correctly without access violation reading exceptions or memory leaks: 
+
+4,354,678,097,643,135 + 12,345,678,901,234,567,890 = 12,350,033,579,332,211,025??? --> true
+Is copyOfOtherBigNumber == otherBigNumber -> true
+Is copyOfAnotherBigNumber == anotherBigNumber -> true
+Is copyOfOtherAnotherBigNumber == otherAnotherBigNumber -> true
+Is copyOfOtherAnotherBigNumber2 == copyOfOtherAnotherBigNumber -> true
+
+TESTING getNumber() TESTS: 
+
+TEST 1:
+Testing getNumber() operator -> (0). Expected: 0: 0
+
+TEST 2:
+Testing getNumber() operator -> (-55346). Expected: -55,346: -55,346
+
+TEST 3:
+Testing getNumber() operator -> (-123456789). Expected: -123,456,789: -123,456,789
+
+TEST 4:
+Testing getNumber() operator -> (-1234). Expected: -1234: -1234
+
+TESTING getNumberRaw() TESTS: 
+
+TEST 1:
+Testing getNumberRaw() operator -> (0). Expected: 0: 0
+
+TEST 2:
+Testing getNumberRaw() operator -> (-55346). Expected: -55346: -55346
+
+TEST 3:
+Testing getNumberRaw() operator -> (-1234567890). Expected: -1234567890: -1234567890
+
+TEST 4:
+Testing getNumber() operator -> (-1234). Expected: -1234: -1234
+
+
+
+---------------------------- Wed May 11 20:33:36 2022 ----------------------------
+
+Initial values: TESTS FOR NON-COPY CONSTRUCTORS
+defaultBigNumber: 0
+someBigNumberInt: 5678
+someBigNumberChar: 1234
+someOtherBigNumber: -1
+someOtheBigNumberZero: 0
+
+New Values: TESTS FOR ASSIGNMENT AND COPY OPERATORS AND CONSTRUCTOR
+TESTING -> defaultBigNumber = someNumberInt
+defaultBigNumber: 5678
+TESTING -> BigNumber copyOfBigNumberChar = BigNumber(someBigNumberChar)
+copyOfBigNumberChar: 1234
+TESTING -> someBigNumberInt = someBigNumberChar
+someBigNumberInt: 1234
+TESTING -> someBigNumberInt = someBigNumberInt
+someBigNumberInt: 1234
+
+TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:
+
+"==" Operator TESTS: 
+
+Testing "==" operator (defaultBigNumber == someBigNumberInt): (Expected: FALSE): FALSE
+
+Testing "==" operator (someBigNumberChar == someBigNumberInt): (Expected: TRUE): TRUE
+
+Testing "==" operator (someBigNumberChar == someBigNumberChar): (Expected: TRUE): TRUE
+
+"!=" Operator TESTS: 
+Testing "!=" operator (defaultBigNumber != someBigNumberInt): (Expected: TRUE): TRUE
+
+Testing "!=" operator (someBigNumberChar != someBigNumberInt): (Expected: FALSE): FALSE
+
+Testing "!=" operator (someBigNumberChar != someBigNumberChar): (Expected: FALSE): FALSE
+
+">" Operator TESTS: 
+
+BigNumber1 tests: 
+Testing ">" operator -> (5050 > 65000). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">" operator -> (65000 > 5050). Expected: True, because sizes are different:TRUE
+
+BigNumber2 tests: 
+Testing ">" operator -> (-67890 > -6789). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">" operator -> (-6789 > -67890). Expected: True, because sizes are different:TRUE
+
+BigNumber3 tests: 
+Testing ">" operator -> (-67890 > 1). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">" operator -> (1 > -67890). Expected: True, because signs are different:TRUE
+
+BigNumber4 tests: 
+Testing ">" operator -> (-69 > 10). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">" operator -> (10 > -69). Expected: True, because signs are different:TRUE
+
+BigNumber5 tests: 
+Testing ">" operator -> (1023 > 1030). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">" operator -> (1030 > 1023). Expected: True, because first number is bigger:TRUE
+
+BigNumber6 tests: 
+Testing ">" operator -> (-4010 > -4000). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">" operator -> (-4000 > -4010). Expected: True, because first number is bigger:TRUE
+
+BigNumber7 tests: 
+Testing ">" operator -> (0 > 100). Expected: False, because first number is 0 and second is positive:FALSE
+REVERSE: Testing ">" operator -> (100 > 0). Expected: True, because second number is 0 and first is positive:TRUE
+
+BigNumber8 tests: 
+Testing ">" operator -> (-100 > 0). Expected: False, because second number is 0 and first is negative:FALSE
+REVERSE: Testing ">" operator -> (0 > -100). Expected: True, because first number is 0 and second is negative:TRUE
+
+BigNumber9 tests: 
+Testing ">" operator -> (0 > 0). Expected: False, because both numbers are 0:FALSE
+
+BigNumber10 tests: 
+Testing ">" operator -> (2456 > 2456). Expected: False, because both numbers are equal:FALSE
+
+">=" Operator TESTS: 
+
+BigNumber1 tests: 
+Testing ">=" operator -> (5050 >= 65000). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">=" operator -> (65000 >= 5050). Expected: True, because sizes are different:TRUE
+
+BigNumber2 tests: 
+Testing ">=" operator -> (-67890 >= -6789). Expected: False, because sizes are different:FALSE
+REVERSE: Testing ">=" operator -> (-6789 >= -67890). Expected: True, because sizes are different:TRUE
+
+BigNumber3 tests: 
+Testing ">=" operator -> (-67890 >= 1). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">=" operator -> (1 >= -67890). Expected: True, because signs are different:TRUE
+
+BigNumber4 tests: 
+Testing ">=" operator -> (-69 >= 10). Expected: False, because signs are different:FALSE
+REVERSE: Testing ">=" operator -> (10 >= -69). Expected: True, because signs are different:TRUE
+
+BigNumber5 tests: 
+Testing ">=" operator -> (1023 >= 1030). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">=" operator -> (1030 >= 1023). Expected: True, because first number is bigger:TRUE
+
+BigNumber6 tests: 
+Testing ">=" operator -> (-4010 >= -4000). Expected: False, because first number is smaller:FALSE
+REVERSE: Testing ">=" operator -> (-4000 >= -4010). Expected: True, because first number is bigger:TRUE
+
+BigNumber7 tests: 
+Testing ">=" operator -> (0 >= 100). Expected: False, because first number is 0 and second is positive:FALSE
+REVERSE: Testing ">=" operator -> (100 >= 0). Expected: True, because second number is 0 and first is positive:TRUE
+
+BigNumber8 tests: 
+Testing ">=" operator -> (-100 >= 0). Expected: False, because second number is 0 and first is negative:FALSE
+REVERSE: Testing ">=" operator -> (0 >= -100). Expected: True, because first number is 0 and second is negative:TRUE
+
+BigNumber9 tests: 
+Testing ">=" operator -> (0 >= 0). Expected: True, because both numbers are equal:TRUE
+
+BigNumber10 tests: 
+Testing ">=" operator -> (2456 >= 2456). Expected: True, because both numbers are equal:TRUE
+
+LESS THAN TESTS:
+Testing "<" operator -> (100 < -130). Expected: False, because 100 > -130:FALSE
+Testing "<" operator -> (110 < 110). Expected: False, the numbers are equal:FALSE
+Testing "<" operator -> (0 < 0). Expected: False, the numbers are equal:FALSE
+
+"<=" Operator TESTS:
+Testing "<=" operator -> (100 <= -130). Expected: False, because 100 > -130:FALSE
+Testing "<=" operator -> (110 <= 110). Expected: True, the numbers are equal:TRUE
+Testing "<=" operator -> (0 <= 0). Expected: True, the numbers are equal:TRUE
+
+"+" Operator TESTS: 
+
+TEST 1:
+Testing "+" operator -> (1 + 2). Expected: 3: 3
+
+TEST 2:
+Testing "+" operator -> (9 + 1). Expected: 10: 10
+
+TEST 3:
+Testing "+" operator -> (9999999 + 78). Expected: 10 000 077: 10,000,077
+
+TEST 4:
+Testing "+" operator -> (0 + (-79)). Expected: -79: -79
+
+TEST 5:
+Testing "+" operator -> ((-101) + 0). Expected: -101: -101
+
+TEST 6:
+Testing "+" operator -> ((-101) + (-5)). Expected: -106: -106
+
+TEST 7:
+Testing "+" operator -> ((-101) + (-99)). Expected: -200: -200
+
+TEST 7:
+Testing "+" operator -> ((-991) + (-99)). Expected: -1090: -1090
+
+TEST 9:
+Testing "+" operator -> (991 + (-99)). Expected: 892: 892
+
+TEST 10:
+Testing "+" operator -> (-100100098 + 65699). Expected: -100,034,399: -100,034,399
+
+"+=" Operator TESTS: 
+
+TEST 1:
+Testing "+=" operator -> (1 + 2). Expected: 3: 3
+
+TEST 2:
+Testing "+=" operator -> (9 + 1). Expected: 10: 10
+
+TEST 3:
+Testing "+=" operator -> (9999999 + 78). Expected: 10 000 077: 10,000,077
+
+TEST 4:
+Testing "+=" operator -> (0 + (-79)). Expected: -79: -79
+
+TEST 5:
+Testing "+=" operator -> ((-101) + 0). Expected: -101: -101
+
+TEST 6:
+Testing "+=" operator -> ((-101) + (-5)). Expected: -106: -106
+
+TEST 7:
+Testing "+=" operator -> ((-101) + (-99)). Expected: -200: -200
+
+TEST 7:
+Testing "+=" operator -> ((-991) + (-99)). Expected: -1090: -1090
+
+TEST 9:
+Testing "+=" operator -> (991 + (-99)). Expected: 892: 892
+
+TEST 10:
+Testing "+=" operator -> (-100100098 + 65699). Expected: -100,034,399: -100,034,399
+
+"-" Operator TESTS: 
+
+TEST 1:
+Testing "-" operator -> (3 - 2). Expected: 1: 1
+
+TEST 2:
+Testing "-" operator -> (1345 - 1234). Expected: 111: 111
+
+TEST 3:
+Testing "-" operator -> (1234 - 1345). Expected: -111: -111
+
+TEST 4:
+Testing "-" operator -> (1234 - 13450). Expected: -12 216: -12,216
+
+TEST 5:
+Testing "-" operator -> (-1234 - -1230). Expected: -4: -4
+
+TEST 6:
+Testing "-" operator -> (-1234 - -13457). Expected: 12 223: 12,223
+
+TEST 7:
+Testing "-" operator -> (-10101 - -99). Expected: -10 002: -10,002
+
+TEST 8:
+Testing "-" operator -> (-10001000000 - -9956123). Expected: -9,991,043,877: -9,991,043,877
+
+TEST 9:
+Testing "-" operator -> (-9956123 - -10001000000). Expected: 9,991,043,877: 9,991,043,877
+
+TEST 9:
+Testing "-" operator -> (-9956123 - 0). Expected: -9956123: -9,956,123
+
+TEST 10:
+Testing "-" operator -> (0 - 156). Expected: -156: -156
+
+TEST 11:
+Testing "-" operator -> (0 - 0). Expected: 0: 0
+
+TEST 12:
+Testing "-" operator -> (15678 - -979900). Expected: 995,578: 995,578
+
+TEST 13:
+Testing "-" operator -> (-9560 - 11256). Expected: -20,816: -20,816
+
+"-=" Operator TESTS: 
+
+TEST 1:
+Testing "-=" operator -> (3 - 2). Expected: 1: 1
+
+TEST 2:
+Testing "-=" operator -> (1345 - 1234). Expected: 111: 111
+
+TEST 3:
+Testing "-=" operator -> (1234 - 1345). Expected: -111: -111
+
+TEST 4:
+Testing "-=" operator -> (1234 - 13450). Expected: -12 216: -12,216
+
+TEST 5:
+Testing "-=" operator -> (-1234 - -1230). Expected: -4: -4
+
+TEST 6:
+Testing "-=" operator -> (-1234 - -13457). Expected: 12 223: 12,223
+
+TEST 7:
+Testing "-=" operator -> (-10101 - -99). Expected: -10 002: -10,002
+
+TEST 8:
+Testing "-=" operator -> (-10001000000 - -9956123). Expected: -9,991,043,877: -9,991,043,877
+
+TEST 9:
+Testing "-=" operator -> (-9956123 - -10001000000). Expected: 9,991,043,877: 9,991,043,877
+
+TEST 10:
+Testing "-=" operator -> (-9956123 - 0). Expected: -9956123: -9,956,123
+
+TEST 11:
+Testing "-=" operator -> (0 - 156). Expected: -156: -156
+
+TEST 12:
+Testing "-=" operator -> (0 - 0). Expected: 0: 0
+
+TEST 13:
+Testing "-=" operator -> (15678 - -979900). Expected: 995,578: 995,578
+
+TEST 14:
+Testing "-=" operator -> (-9560 - 11256). Expected: -20,816: -20,816
+
+"*" Operator TESTS: 
+
+TEST 1:
+Testing "*" operator -> (3 * 2). Expected: 6: 6
+
+TEST 2:
+Testing "*" operator -> (0 * 2). Expected: 0: 0
+
+TEST 3:
+Testing "*" operator -> (-100 * 0). Expected: 0: 0
+
+TEST 4:
+Testing "*" operator -> (56846 * 3501). Expected: 199,017,846: 199,017,846
+
+TEST 5:
+Testing "*" operator -> (-3129 * 309). Expected: -966,861: -966,861
+
+TEST 6:
+Testing "*" operator -> (-9999 * -1001). Expected: 10,008,999: 10,008,999
+
+TEST 7:
+Testing "*" operator -> (-99 * 1000). Expected: -99,000: -99,000
+
+"*=" Operator TESTS: 
+
+TEST 1:
+Testing "*=" operator -> (3 * 2). Expected: 6: 6
+
+TEST 2:
+Testing "*=" operator -> (0 * 2). Expected: 0: 0
+
+TEST 3:
+Testing "*=" operator -> (-100 * 0). Expected: 0: 0
+
+TEST 4:
+Testing "*=" operator -> (56846 * 3501). Expected: 199,017,846: 199,017,846
+
+TEST 5:
+Testing "*=" operator -> (-3129 * 309). Expected: -966,861: -966,861
+
+TEST 6:
+Testing "*=" operator -> (-9999 * -1001). Expected: 10,008,999: 10,008,999
+
+TEST 7:
+Testing "*=" operator -> (-99 * 1000). Expected: -99,000: -99,000
+
+TEST 8:
+Testing "*=" operator -> (-99 * -1). Expected: 99: 99
+
+"/" Operator TESTS: 
+
+TEST 1:
+Testing "/" operator -> (0 / 1). Expected: 0: 0
+
+TEST 2:
+Testing "/" operator -> (100 / 101). Expected: 0: 0
+
+TEST 3:
+Testing "/" operator -> (100 / -101). Expected: 0: 0
+
+TEST 4:
+Testing "/" operator -> (5474253 / 1). Expected: 5474253: 5,474,253
+
+TEST 5:
+Testing "/" operator -> (225 / 15). Expected: 15: 15
+
+TEST 6:
+Testing "/" operator -> (225 / 5). Expected: 45: 45
+
+TEST 7:
+Testing "/" operator -> (29773 / -19). Expected: -1567: -1567
+
+TEST 8:
+Testing "/" operator -> (-14670163 / 163). Expected: -90,001: -90,001
+
+TEST 9:
+Testing "/" operator -> (-14670187 / 163). Expected: -90,001: -90,001
+
+TEST 10:
+Testing "/" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: -108,752,753,423,992,369,919,343,952,194,564,575,733
+
+"/=" Operator TESTS: 
+
+TEST 1:
+Testing "/=" operator -> (0 / 1). Expected: 0: 0
+
+TEST 2:
+Testing "/=" operator -> (100 / 101). Expected: 0: 0
+
+TEST 3:
+Testing "/=" operator -> (100 / -101). Expected: 0: 0
+
+TEST 4:
+Testing "/=" operator -> (5474253 / 1). Expected: 5474253: 5,474,253
+
+TEST 5:
+Testing "/=" operator -> (225 / 15). Expected: 15: 15
+
+TEST 6:
+Testing "/=" operator -> (225 / 5). Expected: 45: 45
+
+TEST 7:
+Testing "/=" operator -> (29773 / -19). Expected: -1567: -1567
+
+TEST 8:
+Testing "/=" operator -> (-14670163 / 163). Expected: -90,001: -90,001
+
+TEST 9:
+Testing "/=" operator -> (-14670187 / 163). Expected: -90,001: -90,001
+
+TEST 10:
+Testing "/=" operator -> (38715980218941283691286446981264988961289 / -356). Expected: -1.0875275e+38: -108,752,753,423,992,369,919,343,952,194,564,575,733
+
+"%" Operator TESTS: 
+
+-24TEST 1:
+Testing "%" operator -> (0 % 1). Expected: 0: 0
+
+TEST 2:
+Testing "%" operator -> (100 % 101). Expected: 100: 100
+
+TEST 3:
+Testing "%" operator -> (100 % -101). Expected: 100: 100
+
+TEST 4:
+Testing "%" operator -> (5474253 % 1). Expected: 0: 0
+
+TEST 5:
+Testing "%" operator -> (225 % 15). Expected: 0: 0
+
+TEST 6:
+Testing "%" operator -> (225 % 5). Expected: 0: 0
+
+TEST 7:
+Testing "%" operator -> (29773 % -19). Expected: 0: 0
+
+TEST 8:
+Testing "%" operator -> (-14670163 % 163). Expected: 0: 0
+
+TEST 9:
+Testing "%" operator -> (-14670187 % 163). Expected: -24: -24
+
+TEST 10:
+Testing "%" operator -> (38715980218941283691286446981264988961289 % -356). Expected: 341: 341
+Testing "%" operator PART 2-> ( (38715980218941283691286446981264988961289 / -356)*-356 + 341 ). Expected: 38715980218941283691286446981264988961289: 38,715,980,218,941,283,691,286,446,981,264,988,961,289
+
+"%=" Operator TESTS: 
+
+-24TEST 1:
+Testing "%=" operator -> (0 %= 1). Expected: 0: 0
+
+TEST 2:
+Testing "%=" operator -> (100 %= 101). Expected: 100: 100
+
+TEST 3:
+Testing "%=" operator -> (100 %= -101). Expected: 100: 100
+
+TEST 4:
+Testing "%=" operator -> (5474253 %= 1). Expected: 0: 0
+
+TEST 5:
+Testing "%=" operator -> (225 %= 15). Expected: 0: 0
+
+TEST 6:
+Testing "%=" operator -> (225 %= 5). Expected: 0: 0
+
+TEST 7:
+Testing "%=" operator -> (29773 %= -19). Expected: 0: 0
+
+TEST 8:
+Testing "%=" operator -> (-14670163 %= 163). Expected: 0: 0
+
+TEST 9:
+Testing "%=" operator -> (-14670187 %= 163). Expected: -24: -24
+
+TEST 10:
+Testing "%=" operator -> (38715980218941283691286446981264988961289 %= -356). Expected: 341: 341
+
+TESTS FROM PESHO AND LUBO: 
+
+true
+true
+true
+true
+true
+true
+true
+true
+true
+true
+true
+
+SPECIAL Tests for copying shit correctly without access violation reading exceptions or memory leaks: 
+
+4,354,678,097,643,135 + 12,345,678,901,234,567,890 = 12,350,033,579,332,211,025??? --> true
+Is copyOfOtherBigNumber == otherBigNumber -> true
+Is copyOfAnotherBigNumber == anotherBigNumber -> true
+Is copyOfOtherAnotherBigNumber == otherAnotherBigNumber -> true
+Is copyOfOtherAnotherBigNumber2 == copyOfOtherAnotherBigNumber -> true
+
+TESTING getNumber() TESTS: 
+
+TEST 1:
+Testing getNumber() operator -> (0). Expected: 0: 0
+
+TEST 2:
+Testing getNumber() operator -> (-55346). Expected: -55,346: -55,346
+
+TEST 3:
+Testing getNumber() operator -> (-123456789). Expected: -123,456,789: -123,456,789
+
+TEST 4:
+Testing getNumber() operator -> (-1234). Expected: -1234: -1234
+
+TESTING getNumberRaw() TESTS: 
+
+TEST 1:
+Testing getNumberRaw() operator -> (0). Expected: 0: 0
+
+TEST 2:
+Testing getNumberRaw() operator -> (-55346). Expected: -55346: -55346
+
+TEST 3:
+Testing getNumberRaw() operator -> (-1234567890). Expected: -1234567890: -1234567890
+
+TEST 4:
+Testing getNumber() operator -> (-1234). Expected: -1234: -1234
+
+
+

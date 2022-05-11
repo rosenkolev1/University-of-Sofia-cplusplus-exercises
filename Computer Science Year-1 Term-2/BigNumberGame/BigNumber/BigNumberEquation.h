@@ -13,9 +13,9 @@ public:
 	static constexpr const char* EQUATION__SOLVE_NOTWHOLE_EXCEPTION = "Not whole number solution";
 	static constexpr const char* EQUATION__SOLVE_EVERYANSWER_EXCEPTION = "Every x is an answer to the equation";
 	static constexpr const char* EQUATION__SOLVE_NOANSWER_EXCEPTION = "No answer for this equation";
+	static constexpr const char* EQUATION_OPERATORS = "+-*/";
 
 private:
-	static constexpr const char* EQUATION_OPERATORS = "+-*/";
 
 	char* equation;
 	size_t capacity;
@@ -50,11 +50,11 @@ public:
 	//Fill the numbers in an equation template
 	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);
 
+	//Generate a random equation, where the left side and the right side can contain only the given operators. totalUnknown should be at most =maxUnknownPerSide, otherwise, throw error!
+	void generateEquation(const char* leftSideAllowedOperators, const char* rightSideAllowedOperators, size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
+
 	//Generate a random equation. totalUnknown should be at most =maxUnknownPerSide, otherwise, throw error!
 	void generateEquation(size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
-
-	//Generate equation from an expression
-	char* generateEquation(const char* expression);
 
 	//Get equation as read-only
 	const char* getEquation() const;

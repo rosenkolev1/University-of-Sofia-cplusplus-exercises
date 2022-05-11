@@ -964,7 +964,7 @@ char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate, si
 	return expressionFilled;
 }
 
-void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalUnknown)
+void BigNumberEquation::generateEquation(const char* leftSideAllowedOperators, const char* rightSideAllowedOperators, size_t maxUnknownPerSide, size_t totalUnknown)
 {
 	//If maxUnknownPerSide > totalUnknown, throw an error
 	if (maxUnknownPerSide > totalUnknown) throw "The unknown counts are all wrong";
@@ -972,8 +972,8 @@ void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalU
 	//Generate the left expression template
 	BigNumberExpression expression;
 
-	char* leftSideTemplate = expression.generateExpressionTemplate(EQUATION_OPERATORS);
-	char* rightSideTemplate = expression.generateExpressionTemplate(EQUATION_OPERATORS);
+	char* leftSideTemplate = expression.generateExpressionTemplate(leftSideAllowedOperators);
+	char* rightSideTemplate = expression.generateExpressionTemplate(rightSideAllowedOperators);
 
 	//Replace the x in the templates with numbers, except for the targeted x's. Conform to the totalUnknown and maxUnknownPerSide values
 	char* leftSideFilled = generateFromTemplate(leftSideTemplate, maxUnknownPerSide);
@@ -995,9 +995,9 @@ void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalU
 	this->equation = equation;
 }
 
-char* BigNumberEquation::generateEquation(const char* expression)
+void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalUnknown)
 {
-	return nullptr;
+	generateEquation(EQUATION_OPERATORS, EQUATION_OPERATORS, maxUnknownPerSide, totalUnknown);
 }
 
 const char* BigNumberEquation::getEquation() const

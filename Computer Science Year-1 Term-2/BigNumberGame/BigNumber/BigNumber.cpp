@@ -870,7 +870,7 @@ void BigNumber::printOutNumber() const
 void BigNumber::printOutNumberRaw() const
 {
 	const char* numberTextRaw = getNumberRaw();
-	std::cout << numberTextRaw << std::endl;
+	std::cout << numberTextRaw;
 }
 
 std::istream& operator>>(std::istream& is, BigNumber& other)
@@ -915,7 +915,7 @@ std::istream& operator>>(std::istream& is, BigNumber& other)
 std::ostream& operator<<(std::ostream& os, const BigNumber& other) 
 {
 	const char* numberVerbose = other.getNumber();
-	os << numberVerbose << std::endl;
+	os << numberVerbose;
 	return os;
 }
 

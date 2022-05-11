@@ -482,6 +482,55 @@ void BigNumberEquationTests::generateEquationTests(std::ostream& os)
         os << std::endl;
         os << std::endl;
     }
+
+    for (size_t i = 100; i < 149; i++)
+    {
+        os << "TEST " << i + 1 << ": " << std::endl;
+        BigNumberEquation equation1 = BigNumberEquation();
+        size_t maxUnknownsPerSide = 1;
+        size_t maxUnknownsTotal = 1;
+        equation1.generateEquation("+-*", BigNumberEquation::EQUATION_OPERATORS, maxUnknownsPerSide, maxUnknownsTotal);
+        os << "Testing the generating of an equation with up to " << maxUnknownsPerSide << " unknowns per side and a total of " << maxUnknownsTotal 
+            << " unknowns and where the operator \"/\" is not allowed to exist on the unknown side of the equation--> "
+            << equation1.getEquationTemplate() << " --> " << equation1.getEquation() << std::endl;
+        os << "Is the equation valid? Expect: TRUE ==> " << (equation1.isValidEquation() ? "TRUE" : "FALSE") << std::endl;
+        os << "Does the equation have up to " << maxUnknownsPerSide << " unknowns per side and a maximum of " << maxUnknownsTotal << " unknowns? Expect: TRUE: ";
+
+        //Check how many unknowns the equation has on either side.
+        size_t sizeOfSides = 0;
+        char** sides = StringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
+        size_t unknownsInLeftSide = StringManip::countOf(sides[0], "x");
+        size_t unknownsInRightSide = StringManip::countOf(sides[1], "x");
+        if (unknownsInLeftSide > maxUnknownsPerSide || unknownsInRightSide > maxUnknownsPerSide || unknownsInLeftSide + unknownsInRightSide > maxUnknownsTotal) os << "FALSE";
+        else os << "TRUE";
+
+        os << std::endl;
+
+        //Get the unknown side
+        char* unknownSide = sides[0];
+        if (unknownsInLeftSide < unknownsInRightSide)
+        {
+            unknownSide = sides[1];
+        }
+        os << "Does the equation contain a \"/\" operator in it's unknown side? Expect: FALSE: "
+            << (StringManip::findIndex(sides[0], "/") != -1 ? "TRUE" : "FALSE");
+
+        //Delete dynamic memory
+        StringManip::deleteArrayOfStrings(sides, sizeOfSides);
+
+        os << std::endl;
+        os << "Answer to the equation --> ";
+        try
+        {
+            os << equation1.solveEquation();
+        }
+        catch (const char* e)
+        {
+            os << e;
+        }
+        os << std::endl;
+        os << std::endl;
+    }
 }
 
 void BigNumberEquationTests::readFromAndWriteToConsoleTests()
@@ -534,26 +583,25 @@ void BigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 
 void BigNumberEquationTests::runTests(std::ostream& os)
 {
-    std::cout << "Start the tests! ";
+    std::cout << "Start the tests for BigNumberEquations! ";
     if (&os != &std::cout)
     {
-        std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME;
+        std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME << std::endl;
+        time_t timetoday;
+        time(&timetoday);
+        char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
+        os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
+        delete[] timeOfRunningTheTests;
     }
 
-    time_t timetoday;
-    time(&timetoday);
-    char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
-    os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
-    delete[] timeOfRunningTheTests;
-
-    //Big4 tests
-    equationBig4Tests(os);
-    
-    //Equation is valid tests
-    equationIsValidTests(os);
-    
-    //SOLVE EQUATIONS TESTS
-    solveEquationTests(os);
+    ////Big4 tests
+    //equationBig4Tests(os);
+    //
+    ////Equation is valid tests
+    //equationIsValidTests(os);
+    //
+    ////SOLVE EQUATIONS TESTS
+    //solveEquationTests(os);
     
 	//Generate equation tests
 	generateEquationTests(os);

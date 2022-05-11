@@ -1345,7 +1345,7 @@ void BigNumberExpressionTests::operatorPercentAndEqualsTests(std::ostream& os)
     os << std::endl;
 }
 
-void BigNumberExpressionTests::readFromAndWriteToConsoleTests(std::ostream& os)
+void BigNumberExpressionTests::readFromAndWriteToConsoleTests()
 {
     std::cout << "READ AND WRITE FROM AND TO CONSOLE TESTS" << std::endl << std::endl;
 
@@ -1387,17 +1387,16 @@ void BigNumberExpressionTests::readFromAndWriteToFileTests(std::ostream& os)
 
 void BigNumberExpressionTests::runTests(std::ostream& os)
 {
-    std::cout << "Start the tests! ";
+    std::cout << "Start the tests for BigNumberExpression! ";
     if (&os != &std::cout)
     {
-        std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME;
+        std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME << std::endl;
+        time_t timetoday;
+        time(&timetoday);
+        char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
+        os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
+        delete[] timeOfRunningTheTests;
     }
-
-    time_t timetoday;
-    time(&timetoday);
-    char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
-    os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
-    delete[] timeOfRunningTheTests;
 
     //Big 4 tests
     expressionBig4Tests(os);
@@ -1454,7 +1453,7 @@ void BigNumberExpressionTests::runTests(std::ostream& os)
     //readFromAndWriteToConsoleTests();
     //
     //////Read from and Write to console tests
-    //readFromAndWriteToFileTests();
+    //readFromAndWriteToFileTests(os);
     
     os << std::endl << std::endl;
 }

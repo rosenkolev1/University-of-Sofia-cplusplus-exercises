@@ -64,7 +64,8 @@ public:
 
 	static void operatorPercentAndEqualsTests(std::ostream& os);
 
-	static void readFromAndWriteToConsoleTests(std::ostream& os);
+	//Console and file writing and reading tests
+	static void readFromAndWriteToConsoleTests();
 
 	static void readFromAndWriteToFileTests(std::ostream& os);
 
