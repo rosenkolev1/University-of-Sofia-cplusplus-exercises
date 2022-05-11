@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef BIGNUMBERDIVISIONRESULT_H
-#define BIGNUMBERDIVISIONRESULT_H
 #include<iostream>
 
 class BigNumber;
@@ -20,5 +18,4 @@ public:
 	~BigNumberDivisionResult();
 };
 
-#endif // BIGNUMBERDIVISIONRESULT_H
 

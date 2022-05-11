@@ -19,13 +19,13 @@ int main()
     std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::app);
 
     //BigNumber tests
-    //BigNumberTests::runTests(std::cout);
+    BigNumberTests::runTests(std::cout);
 
     //BigNumberExpression tests
     //BigNumberExpressionTests::runTests(std::cout);
 
     //BigNumberEquations tests
-    BigNumberEquationTests::runTests(std::cout);
+    //BigNumberEquationTests::runTests(std::cout);
 
     osEquationTests.close();
     osExpressionTests.close();
