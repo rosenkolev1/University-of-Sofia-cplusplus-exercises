@@ -16,14 +16,17 @@ int main()
     std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::app);
     std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::app);
 
+    //DEBUG shit
+    BigNumber result = BigNumber(25) / BigNumber(25);
+
     //BigNumber tests
     BigNumberTests::runTests(std::cout);
 
     //BigNumberExpression tests
-    //BigNumberExpressionTests::runTests(std::cout);
+    BigNumberExpressionTests::runTests(std::cout);
 
     //BigNumberEquations tests
-    //BigNumberEquationTests::runTests(std::cout);
+    BigNumberEquationTests::runTests(std::cout);
 
     osEquationTests.close();
     osExpressionTests.close();

@@ -604,6 +604,26 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	}
 
 	bool resultIsNegative = this->sign != other.sign;
+
+	//If the numbers are equal, then just return 1 or -1;
+	if (*this == other)
+	{
+		if (resultIsNegative)
+		{
+			BigNumber* divisionQuotient = new BigNumber(-1);
+			BigNumber* divisionLeftover = new BigNumber();
+			BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
+			return divisionResult;
+		}
+		else
+		{
+			BigNumber* divisionQuotient = new BigNumber(1);
+			BigNumber* divisionLeftover = new BigNumber();
+			BigNumberDivisionResult divisionResult = BigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
+			return divisionResult;
+		}
+	}
+
 	//Check this and other by absolute value
 	bool thisIsBiggerAbsolute = this->greaterThanOrEqualsAbsolute(other);
 
