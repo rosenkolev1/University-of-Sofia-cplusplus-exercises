@@ -30,6 +30,8 @@ public:
 
 	static void getUniqueTests();
 
+	static void getFromTests();
+
 	static void countOfTests();
 
 	static void countOfManyTests();

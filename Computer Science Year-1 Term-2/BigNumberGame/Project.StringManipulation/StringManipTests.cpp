@@ -1285,6 +1285,149 @@ void StringManipTests::getUniqueTests()
     delete[] input6;
 }
 
+void StringManipTests::getFromTests()
+{
+    //getFrom TESTS
+    std::cout << "getFrom TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    char input1[] = "bbbcddfagbbcde";
+    char expectedOuput1[] = "bbcdd";
+    int indexStart = 1;
+    int indexEnd = 5;
+    char* output1 = StringManip::getFrom(input1, indexStart, indexEnd);
+    std::cout << "Testing getting the part of \"" << input1 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput1 << " ==> " << output1;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output1;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    char input2[] = "bbbcddfagbbcde";
+    char expectedOuput2[] = "f";
+    indexStart = 6;
+    indexEnd = 6;
+    char* output2 = StringManip::getFrom(input2, indexStart, indexEnd);
+    std::cout << "Testing getting the part of \"" << input2 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput2 << " ==> " << output2;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output2;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    char input3[] = "x";
+    char expectedOuput3[] = "x";
+    indexStart = 0;
+    indexEnd = 0;
+    char* output3 = StringManip::getFrom(input3, indexStart, indexEnd);
+    std::cout << "Testing getting the part of \"" << input3 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput3 << " ==> " << output3;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    //Delete dynamic memory
+    delete[] output3;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    char input4[] = "abcdefghi";
+    char expectedOuput4[] = "The start or end indexes are out of range";
+    indexStart = -5;
+    indexEnd = 2;
+    std::cout << "Testing getting the part of \"" << input4 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput4 << " ==> ";
+    try
+    {
+        char* output4 = StringManip::getFrom(input4, indexStart, indexEnd);
+        std::cout << output4;
+        //Delete dynamic memory
+        delete[] output4;
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 5
+    std::cout << "TEST 5" << std::endl;
+    char input5[] = "abcdefghi";
+    char expectedOuput5[] = "The start or end indexes are out of range";
+    indexStart = 2;
+    indexEnd = 10;
+    std::cout << "Testing getting the part of \"" << input5 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput5 << " ==> ";
+    try
+    {
+        char* output5 = StringManip::getFrom(input5, indexStart, indexEnd);
+        std::cout << output5;
+        //Delete dynamic memory
+        delete[] output5;
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 6
+    std::cout << "TEST 6" << std::endl;
+    char input6[] = "abcdefghi";
+    char expectedOuput6[] = "The start or end indexes are out of range";
+    indexStart = 10;
+    indexEnd = 7;
+    std::cout << "Testing getting the part of \"" << input6 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput6 << " ==> ";
+    try
+    {
+        char* output6 = StringManip::getFrom(input6, indexStart, indexEnd);
+        std::cout << output6;
+        //Delete dynamic memory
+        delete[] output6;
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 7
+    std::cout << "TEST 7" << std::endl;
+    char input7[] = "abcdefghi";
+    char expectedOuput7[] = "The start or end indexes are out of range";
+    indexStart = 2;
+    indexEnd = -2;
+    std::cout << "Testing getting the part of \"" << input7 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput7 << " ==> ";
+    try
+    {
+        char* output7 = StringManip::getFrom(input7, indexStart, indexEnd);
+        std::cout << output7;
+        //Delete dynamic memory
+        delete[] output7;
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 8
+    std::cout << "TEST 8" << std::endl;
+    char input8[] = "abcdefghi";
+    char expectedOuput8[] = "Is nullptr";
+    indexStart = 6;
+    indexEnd = 5;
+    std::cout << "Testing getting the part of \"" << input8 << "\" from " << indexStart << " to " << indexEnd << " are: Expected: " << expectedOuput8 << " ==> ";
+    char* output8 = StringManip::getFrom(input8, indexStart, indexEnd);
+    std::cout << (output8 == nullptr ? "Is nullptr" : output8);
+    //Delete dynamic memory
+    delete[] output8;
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void StringManipTests::countOfTests()
 {
     //countOf TESTS
@@ -1539,6 +1682,8 @@ void StringManipTests::runTests()
     ////getUnique TESTS
     //getUniqueTests();
     //
+    //getFrom TESTS
+    getFromTests();
     ////countOf TESTS
     //countOfTests();
     //

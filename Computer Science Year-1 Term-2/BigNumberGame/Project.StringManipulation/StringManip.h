@@ -86,6 +86,9 @@ public:
 	//Returns an array of strings where each string from strings is unique, i.e. doesn't appear again.
 	static char** getUnique(char** strings, size_t& arraySize);
 
+	//Get the part of the source that start from startIndex and ends on endIndex, both inclusive. Return nullptr if the startIndex is > endIndex
+	static char* getFrom(const char* source, size_t startIndex, size_t endIndex);
+
 	//Compares 2 arrays of strings and says whether or not they are the same
 	static bool arraysOfStringsAreEqual(char** stringsOne, char** stringsTwo, size_t stringsOneSize, size_t stringsTwoSize);
 };

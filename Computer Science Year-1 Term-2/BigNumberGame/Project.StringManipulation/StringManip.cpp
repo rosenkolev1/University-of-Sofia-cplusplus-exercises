@@ -792,6 +792,23 @@ char** StringManip::getUnique(char** strings, size_t& arraySize)
     return uniqueStrings;
 }
 
+char* StringManip::getFrom(const char* source, size_t startIndex, size_t endIndex)
+{
+    if (startIndex < 0 || startIndex > strlen(source) - 1 || endIndex < 0 || endIndex > strlen(source) - 1) throw "The start or end indexes are out of range";
+
+    if (startIndex > endIndex) return nullptr;
+
+    char* returnString = new char[endIndex - startIndex + 2];
+    returnString[endIndex - startIndex + 1] = '\0';
+
+    for (size_t i = startIndex; i <= endIndex; i++)
+    {
+        returnString[i - startIndex] = source[i];
+    }
+
+    return returnString;
+}
+
 bool StringManip::arraysOfStringsAreEqual(char** stringsOne, char** stringsTwo, size_t stringsOneSize, size_t stringsTwoSize)
 {
     if (stringsOneSize != stringsTwoSize) return false;
@@ -804,3 +821,4 @@ bool StringManip::arraysOfStringsAreEqual(char** stringsOne, char** stringsTwo, 
 
     return true;
 }
+
