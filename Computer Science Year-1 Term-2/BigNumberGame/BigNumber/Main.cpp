@@ -15,17 +15,17 @@
 int main()
 {
     std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::app);
-    std::ofstream osExpressionTests("BugNumberExpressions_Tests_Diagnostics.txt", std::ios::app);
+    std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::app);
     std::ofstream osBigNumberTests("BugNumber_Tests_Diagnostics.txt", std::ios::app);
 
     //BigNumber tests
     //BigNumberTests::runTests();
 
     //BigNumberExpression tests
-    //BigNumberExpressionTests::runTests();
+    BigNumberExpressionTests::runTests(osExpressionTests);
 
     //BigNumberEquations tests
-    BigNumberEquationTests::runTests(osEquationTests);
+    //BigNumberEquationTests::runTests(osEquationTests);
 
     osEquationTests.close();
     osExpressionTests.close();

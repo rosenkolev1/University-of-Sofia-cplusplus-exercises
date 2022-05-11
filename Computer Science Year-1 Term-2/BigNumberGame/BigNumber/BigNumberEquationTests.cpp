@@ -534,7 +534,7 @@ void BigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 
 void BigNumberEquationTests::runTests(std::ostream& os)
 {
-    std::cout << "Start the test!";
+    std::cout << "Start the tests! ";
     if (&os != &std::cout)
     {
         std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME;
