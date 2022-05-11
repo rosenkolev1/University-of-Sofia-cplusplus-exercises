@@ -309,7 +309,6 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	{
 		BigNumber invertedOtherCopy = other;
 		invertedOtherCopy.sign *= -1;
-		//BigNumber result = subtractAndReturn(*this, invertedOtherCopy, false);
 		BigNumber result = subtractAndReturn(*this, invertedOtherCopy);
 		return result;
 	}
@@ -317,7 +316,6 @@ BigNumber BigNumber::operator+(const BigNumber& other) const
 	{
 		BigNumber invertedThisCopy = *this;
 		invertedThisCopy.sign *= -1;
-		//BigNumber result = subtractAndReturn(other, invertedThisCopy, false);
 		BigNumber result = subtractAndReturn(other, invertedThisCopy);
 		return result;
 	}
@@ -362,23 +360,6 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 		largerAbsoluteNumber = other;
 		smallerAbsoluteNumber = thisNumber;
 	}
-	//
-	//if (thisNumber > other) expectedResultsSign = 1;
-	//else expectedResultsSign = -1;
-	//
-	//	//In this case, its like -8--10=2
-	//	if (thisNumber > other) expectedResultsSign = 1;
-	//	//In this case, its like 8-10=-2
-	//	else expectedResultsSign = -1;
-	//}
-	////In this case, this is larger in absolute value than other
-	//else
-	//{
-	//	//In this case, its like 12--10=22
-	//	if (thisNumber > other) expectedResultsSign = 1;
-	//	//In this case, its like -12--10=-2
-	//	else expectedResultsSign = -1;
-	//}
 
 	if (thisNumber == other)
 	{
@@ -388,30 +369,10 @@ BigNumber BigNumber::subtractAndReturn(const BigNumber& thisNumber, const BigNum
 	else if (thisNumber > other)
 	{
 		expectedResultsSign = 1;
-		/*if (areNegative)
-		{
-			largerAbsoluteNumber = other;
-			smallerAbsoluteNumber = thisNumber;
-		}
-		else
-		{
-			largerAbsoluteNumber = thisNumber;
-			smallerAbsoluteNumber = other;
-		}*/
 	}
 	else if (thisNumber < other)
 	{
 		expectedResultsSign = -1;
-		/*if (areNegative)
-		{
-			largerAbsoluteNumber = thisNumber;
-			smallerAbsoluteNumber = other;
-		}
-		else
-		{
-			largerAbsoluteNumber = other;
-			smallerAbsoluteNumber = thisNumber;
-		}*/
 	}
 
 	int carryOver = 0;
@@ -500,9 +461,6 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 
 	if (signOfThis > signOfOther) // Addition this + other! Change first digit of other
 	{
-		/*BigNumber invertedOtherCopy = other;
-		invertedOtherCopy.sign *= -1;
-		BigNumber result = addAndReturn(*this, invertedOtherCopy, false);*/
 		BigNumber result = addAndReturn(*this, other, false);
 		return result;
 	}
@@ -515,13 +473,11 @@ BigNumber BigNumber::operator-(const BigNumber& other) const
 	else if (signOfThis == signOfOther && signOfThis > 0)
 	{
 		BigNumber result = subtractAndReturn(*this, other);
-		//BigNumber result = subtractAndReturn(*this, other, false);
 		return result;
 	}
 	else if (signOfThis == signOfOther && signOfThis < 0)
 	{
 		BigNumber result = subtractAndReturn(*this, other);
-		//BigNumber result = subtractAndReturn(*this, other, false);
 		return result;
 	}
 }
