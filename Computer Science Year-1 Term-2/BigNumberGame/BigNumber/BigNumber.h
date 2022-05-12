@@ -99,4 +99,12 @@ public:
 	BigNumber operator / (const BigNumber& other) const;
 	BigNumber& operator %= (const BigNumber& other);
 	BigNumber operator % (const BigNumber& other) const;
+	//--BigNumber
+	BigNumber& operator--();
+	//BigNumber--
+	BigNumber operator--(int);
+	//++BigNumber
+	BigNumber& operator++();
+	//BigNumber++
+	BigNumber operator++(int);
 };

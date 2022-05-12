@@ -788,6 +788,32 @@ BigNumber BigNumber::operator%(const BigNumber& other) const
 	return divisionLeftover;
 }
 
+BigNumber& BigNumber::operator--()
+{
+	*this -= 1;
+	return *this;
+}
+
+BigNumber BigNumber::operator--(int)
+{
+	BigNumber temp = *this;
+	*this -= 1;
+	return temp;
+}
+
+BigNumber& BigNumber::operator++()
+{
+	*this += 1;
+	return *this;
+}
+
+BigNumber BigNumber::operator++(int)
+{
+	BigNumber temp = *this;
+	*this += 1;
+	return temp;
+}
+
 BigNumber& BigNumber::operator%=(const BigNumber& other)
 {
 	*this = *this % other;

@@ -21,16 +21,24 @@ public:
 	static void OperatorGreaterThanOrEqualsTests(std::ostream& os);
 	static void OperatorLessThanTests(std::ostream& os);
 	static void OperatorLessThanOrEqualsTests(std::ostream& os);
+
 	static void OperatorSumTests(std::ostream& os);
 	static void OperatorSumAndEqualsTests(std::ostream& os);
 	static void OperatorMinusTests(std::ostream& os);
 	static void OperatorMinusAndEqualsTests(std::ostream& os);
+
+	static void OperatorIncrementTests(std::ostream& os);
+	static void OperatorDecrementTests(std::ostream& os);
+
 	static void OperatorMultiplyTests(std::ostream& os);
 	static void OperatorMultiplyAndEqualsTests(std::ostream& os);
+
 	static void OperatorDivideTests(std::ostream& os);
 	static void OperatorDivideAndEqualsTests(std::ostream& os);
+
 	static void OperatorPercentTests(std::ostream& os);
 	static void OperatorPercentAndEqualsTests(std::ostream& os);
+
 	//Special division and percent operator memory leak tests.
 	static void OperatorDivideAndPercentMemoryLeakTests();
 	//Tests from my assistants Pesho and Lubo from OOP practicum

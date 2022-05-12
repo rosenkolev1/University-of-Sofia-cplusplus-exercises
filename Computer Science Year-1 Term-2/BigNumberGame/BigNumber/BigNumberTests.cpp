@@ -806,6 +806,50 @@ void BigNumberTests::OperatorMinusAndEqualsTests(std::ostream& os)
     os << std::endl;
 }
 
+void BigNumberTests::OperatorIncrementTests(std::ostream& os)
+{
+    // ++ Operator tests
+    os << "\"++\" Operator TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    os << "TEST 2:" << std::endl;
+    BigNumber number1 = BigNumber(1000);
+    os << "Testing \"++1000\" operation --> Expected: 1001: " << ++number1 << std::endl;
+    os << "New value of BigNumber is: Expected: 1001: " << number1;
+    os << std::endl;
+    os << std::endl;
+
+    //TEST 2
+    os << "TEST 2:" << std::endl;
+    BigNumber number2 = BigNumber(1000);
+    os << "Testing \"1000++\" operation --> Expected: 1000: " << number2++ << std::endl;
+    os << "New value of BigNumber is: Expected: 1001: " << number2;
+    os << std::endl;
+    os << std::endl;
+}
+
+void BigNumberTests::OperatorDecrementTests(std::ostream& os)
+{
+    // -- Operator tests
+    os << "\"--\" Operator TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    os << "TEST 2:" << std::endl;
+    BigNumber number1 = BigNumber(1000);
+    os << "Testing \"--1000\" operation --> Expected: 999: " << --number1 << std::endl;
+    os << "New value of BigNumber is: Expected: 999: " << number1;
+    os << std::endl;
+    os << std::endl;
+
+    //TEST 2
+    os << "TEST 2:" << std::endl;
+    BigNumber number2 = BigNumber(1000);
+    os << "Testing \"1000--\" operation --> Expected: 1000: " << number2-- << std::endl;
+    os << "New value of BigNumber is: Expected: 999: " << number2;
+    os << std::endl;
+    os << std::endl;
+}
+
 void BigNumberTests::OperatorMultiplyTests(std::ostream& os)
 {
     // - Operator tests
@@ -1556,6 +1600,12 @@ void BigNumberTests::runTests(std::ostream& os)
     // -= Operator Tests
     OperatorMinusAndEqualsTests(os);
     
+    // ++ OperatorTests
+    OperatorIncrementTests(os);
+
+    // -- OperatorTests
+    OperatorDecrementTests(os);
+
     // * Operator Tests 
     OperatorMultiplyTests(os);
     
