@@ -66,6 +66,7 @@ BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& o
 {
 	if (this == &other) return *this;
 	this->copy(other);
+	return *this;
 }
 
 BigNumberExpression::BigNumberExpression(const char* expression)

@@ -4,8 +4,6 @@
 
 class BigNumberExpressionTests
 {
-private:
-	std::ostream& os;
 public:
 	static constexpr const char* OUTPUTFILE_NAME = "BugNumberExpressions_Tests_Diagnostics.txt";
 

@@ -1688,48 +1688,48 @@ void StringManipTests::countOfManyTests()
 
 void StringManipTests::runTests()
 {
-    ////splitByChar TESTS
-    //splitByCharTests();
-    //
-    ////splitByString TESTS
-    //splitByStringTests();
+    //splitByChar TESTS
+    splitByCharTests();
+    
+    //splitByString TESTS
+    splitByStringTests();
     
     //splitStringMany TESTS
-    //splitStringManyTests();
+    splitStringManyTests();
 
-    ////stringContains TESTS
-    //stringContainsTests();
-    //
-    ////replaceAll TESTS
-    //replaceAllTests();
-    //
-    ////replaceFirst TESTS
-    //replaceFirstTests();
-    // 
-    //replaceFrom TESTS
-    //replaceFromTests();
-    //
-    ////findIndex TESTS
-    //findIndexTests();
-    //
-    ////findIndexLast TESTS
-    ///findIndexLastTests();
-
-    ////arraysOfStringsAreEqualTests TESTS
-    //arraysOfStringsAreEqualTests();
-    //
-    ////getUnique TESTS
-    //getUniqueTests();
-    //
-    ////getFrom TESTS
-    //getFromTests();
-
-    ////getReversed TESTS
-    //getReversedTests();
+    //stringContains TESTS
+    stringContainsTests();
     
-    ////countOf TESTS
-    //countOfTests();
-    //
-    ////countOfMany TESTS
-    //countOfManyTests();
+    //replaceAll TESTS
+    replaceAllTests();
+    
+    //replaceFirst TESTS
+    replaceFirstTests();
+     
+    //replaceFrom TESTS
+    replaceFromTests();
+    
+    //findIndex TESTS
+    findIndexTests();
+    
+    //findIndexLast TESTS
+    findIndexLastTests();
+
+    //arraysOfStringsAreEqualTests TESTS
+    arraysOfStringsAreEqualTests();
+    
+    //getUnique TESTS
+    getUniqueTests();
+    
+    //getFrom TESTS
+    getFromTests();
+
+    //getReversed TESTS
+    getReversedTests();
+    
+    //countOf TESTS
+    countOfTests();
+    
+    //countOfMany TESTS
+    countOfManyTests();
 }

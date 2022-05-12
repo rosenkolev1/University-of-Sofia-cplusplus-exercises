@@ -31,6 +31,7 @@ BigNumberEquation::BigNumberEquation(const BigNumberEquation& other)
 
 BigNumberEquation& BigNumberEquation::operator=(const BigNumberEquation& other)
 {
+	if (this == &other) return *this;
 	this->copy(other);
 	return *this;
 }

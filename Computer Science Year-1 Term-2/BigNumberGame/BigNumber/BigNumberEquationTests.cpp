@@ -449,7 +449,7 @@ void BigNumberEquationTests::generateEquationTests(std::ostream& os)
         os << std::endl;
     }
 
-    for (size_t i = 50; i < 99; i++)
+    for (size_t i = 50; i <= 99; i++)
     {
         os << "TEST " << i + 1 << ": " << std::endl;
         BigNumberEquation equation1 = BigNumberEquation();
@@ -486,7 +486,7 @@ void BigNumberEquationTests::generateEquationTests(std::ostream& os)
         os << std::endl;
     }
 
-    for (size_t i = 100; i < 149; i++)
+    for (size_t i = 100; i <= 149; i++)
     {
         os << "TEST " << i + 1 << ": " << std::endl;
         BigNumberEquation equation1 = BigNumberEquation();
@@ -598,7 +598,7 @@ void BigNumberEquationTests::runTests(std::ostream& os)
     }
 
     ////Big4 tests
-    //equationBig4Tests(os);
+    equationBig4Tests(os);
     //
     ////Equation is valid tests
     equationIsValidTests(os);
@@ -607,10 +607,10 @@ void BigNumberEquationTests::runTests(std::ostream& os)
     solveEquationTests(os);
     
 	//Generate equation tests
-	//generateEquationTests(os);
+	generateEquationTests(os);
 
     //Read from and Write to console tests
-    //readFromAndWriteToFileTests(os);
+    readFromAndWriteToFileTests(os);
     
     //Read from and Write to console tests
     //readFromAndWriteToConsoleTests();

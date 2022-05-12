@@ -64,7 +64,7 @@ public:
 	//Get equation template
 	char* getEquationTemplate(const char* equation = nullptr) const;
 
-	//Reading and outputting expressions to text file or console
+	///Reading and outputting equation to text file or console
 	friend std::istream& operator>> (std::istream& is, BigNumberEquation& equation);
 	friend std::ostream& operator<< (std::ostream& os, BigNumberEquation& equation);
 

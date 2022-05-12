@@ -15,8 +15,3 @@ const BigNumber& BigNumberDivisionResult::getLeftover() const
 {
 	return this->divisionLeftover;
 }
-
-BigNumberDivisionResult::~BigNumberDivisionResult()
-{
-
-}

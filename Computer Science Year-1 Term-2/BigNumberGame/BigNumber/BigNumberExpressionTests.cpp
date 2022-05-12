@@ -195,6 +195,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     int expectedOutput1 = 1125699;
     os << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
@@ -202,6 +203,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = -1125699;
     os << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -211,6 +213,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     int expectedOutput3 = +-1125699;
     os << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
@@ -218,6 +221,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -+1125699;
     os << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 5
@@ -227,6 +231,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     int expectedOutput5 = 1125699;
     os << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 6
     os << "TEST 6" << std::endl;
@@ -234,6 +239,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_SingleNumberTests(st
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = 1125699;
     os << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 }
      
@@ -248,6 +254,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     int expectedOutput1 = 10 + 5;
     os << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
@@ -255,6 +262,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = 57 - 19;
     os << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -264,6 +272,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     int expectedOutput3 = -57 - 19;
     os << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
@@ -271,6 +280,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -345 - +15;
     os << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 5
@@ -280,6 +290,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     int expectedOutput5 = -345 + -15;
     os << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 6
     os << "TEST 6" << std::endl;
@@ -287,6 +298,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = -345 - (-15);
     os << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 7
@@ -296,6 +308,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     int expectedOutput7 = -345 - (-15) + 30;
     os << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 8
     os << "TEST 8" << std::endl;
@@ -304,7 +317,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_AdditionAndMinusTest
     int expectedOutput8 = -(-345) - (-15) + -30;
     os << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluateExpression();
     os << std::endl;
-
+    os << std::endl;
 }
      
 void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::ostream& os)
@@ -318,6 +331,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     int expectedOutput9 = 4 * 3;
     os << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
@@ -325,6 +339,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     BigNumberExpression expression10(expressionString10);
     int expectedOutput10 = -4 * 3;
     os << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -334,6 +349,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     int expectedOutput11 = 4 * -3;
     os << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
@@ -341,6 +357,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     BigNumberExpression expression12(expressionString12);
     int expectedOutput12 = 4 * 0;
     os << "Testing expression -> (" << expressionString12 << "). Expected: " << expectedOutput12 << ": " << expression12.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 5
@@ -350,6 +367,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     int expectedOutput13 = -0 * 3;
     os << "Testing expression -> (" << expressionString13 << "). Expected: " << expectedOutput13 << ": " << expression13.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 6
     os << "TEST 6" << std::endl;
@@ -357,6 +375,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     BigNumberExpression expression14(expressionString14);
     int expectedOutput14 = -0 * -0;
     os << "Testing expression -> (" << expressionString14 << "). Expected: " << expectedOutput14 << ": " << expression14.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 7
@@ -366,6 +385,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     int expectedOutput15 = 125 - 5 * 5 + 1;
     os << "Testing expression -> (" << expressionString15 << "). Expected: " << expectedOutput15 << ": " << expression15.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 8
     os << "TEST 8" << std::endl;
@@ -374,6 +394,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     int expectedOutput16 = 125 + -5 * 5 - 1 * -9;
     os << "Testing expression -> (" << expressionString16 << "). Expected: " << expectedOutput16 << ": " << expression16.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 9
     os << "TEST 9" << std::endl;
@@ -381,6 +402,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_MultiplyTests(std::o
     BigNumberExpression expression17(expressionString17);
     int expectedOutput17 = -125 + -5 * 5 - +1 * -9;
     os << "Testing expression -> (" << expressionString17 << "). Expected: " << expectedOutput17 << ": " << expression17.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 }
      
@@ -395,6 +417,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     int expectedOutput18 = 125 / 5;
     os << "Testing expression -> (" << expressionString18 << "). Expected: " << expectedOutput18 << ": " << expression18.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
@@ -402,6 +425,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     int expectedOutput19 = 0 / 5;
     BigNumberExpression expression19(expressionString19);
     os << "Testing expression -> (" << expressionString19 << "). Expected: " << expectedOutput19 << ": " << expression19.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -418,6 +442,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
         os << e;
     }
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
@@ -433,6 +458,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
         os << e;
     }
     os << std::endl;
+    os << std::endl;
 
     //TEST 5
     os << "TEST 5" << std::endl;
@@ -440,6 +466,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     BigNumberExpression expression22(expressionString22);
     int expectedOutput22 = -125 / 3;
     os << "Testing expression -> (" << expressionString22 << "). Expected: " << expectedOutput22 << ": " << expression22.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 6
@@ -449,6 +476,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     int expectedOutput23 = 125 / -3;
     os << "Testing expression -> (" << expressionString23 << "). Expected: " << expectedOutput23 << ": " << expression23.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 7
     os << "TEST 7" << std::endl;
@@ -456,6 +484,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     BigNumberExpression expression24(expressionString24);
     int expectedOutput24 = -125 / -3;
     os << "Testing expression -> (" << expressionString24 << "). Expected: " << expectedOutput24 << ": " << expression24.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 8
@@ -465,6 +494,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     int expectedOutput25 = -125 + -5 * 5 / -3 - +3;
     os << "Testing expression -> (" << expressionString25 << "). Expected: " << expectedOutput25 << ": " << expression25.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 9
     os << "TEST 9" << std::endl;
@@ -473,6 +503,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     int expectedOutput26 = -125 + -3 / 5 * 5 / -3 - +3;
     os << "Testing expression -> (" << expressionString26 << "). Expected: " << expectedOutput26 << ": " << expression26.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 10
     os << "TEST 10" << std::endl;
@@ -480,6 +511,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_DivideTests(std::ost
     BigNumberExpression expression27(expressionString27);
     int expectedOutput27 = 100 / 500 * 500;
     os << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOutput27 << ": " << expression27.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 }
      
@@ -494,6 +526,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     int expectedOuput27 = 125 % 5;
     os << "Testing expression -> (" << expressionString27 << "). Expected: " << expectedOuput27 << ": " << expression27.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
@@ -501,6 +534,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     BigNumberExpression expression28(expressionString28);
     int expectedOuput28 = 0 % 5;
     os << "Testing expression -> (" << expressionString28 << "). Expected: " << expectedOuput28 << ": " << expression28.evaluateExpression();;
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -517,6 +551,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
         os << e;
     }
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
@@ -532,6 +567,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
         os << e;
     }
     os << std::endl;
+    os << std::endl;
 
     //TEST 5
     os << "TEST 5" << std::endl;
@@ -539,6 +575,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     BigNumberExpression expression31(expressionString31);
     int expectedOuput31 = 125 % 3;
     os << "Testing expression -> (" << expressionString31 << "). Expected: " << expectedOuput31 << ": " << expression31.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 6
@@ -548,6 +585,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     int expectedOuput32 = 125 % -3;
     os << "Testing expression -> (" << expressionString32 << "). Expected: " << expectedOuput32 << ": " << expression32.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 7
     os << "TEST 7" << std::endl;
@@ -555,6 +593,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     BigNumberExpression expression33(expressionString33);
     int expectedOuput33 = -125 % 3;
     os << "Testing expression -> (" << expressionString33 << "). Expected: " << expectedOuput33 << ": " << expression33.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 8
@@ -564,6 +603,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     int expectedOuput34 = +-125 % -3;
     os << "Testing expression -> (" << expressionString34 << "). Expected: " << expectedOuput34 << ": " << expression34.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 9
     os << "TEST 9" << std::endl;
@@ -572,6 +612,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     int expectedOuput35 = 25 - 125 % -3 * 5;
     os << "Testing expression -> (" << expressionString35 << "). Expected: " << expectedOuput35 << ": " << expression35.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 10
     os << "TEST 10" << std::endl;
@@ -579,6 +620,7 @@ void BigNumberExpressionTests::solveExpressionNoParenthesis_PercentTests(std::os
     BigNumberExpression expression36(expressionString36);
     int expectedOuput36 = 25 - 125 / -3 % 5;
     os << "Testing expression -> (" << expressionString36 << "). Expected: " << expectedOuput36 << ": " << expression36.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 }
      
@@ -609,6 +651,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput1 = 1125699;
     os << "Testing expression -> (" << expressionString1 << "). Expected: " << expectedOutput1 << ": " << expression1.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 2
     os << "TEST 2: " << std::endl;
@@ -616,6 +659,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     BigNumberExpression expression2(expressionString2);
     int expectedOutput2 = -1125699;
     os << "Testing expression -> (" << expressionString2 << "). Expected: " << expectedOutput2 << ": " << expression2.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 3
@@ -625,6 +669,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput3 = +-1125699;
     os << "Testing expression -> (" << expressionString3 << "). Expected: " << expectedOutput3 << ": " << expression3.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 4
     os << "TEST 4: " << std::endl;
@@ -632,6 +677,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     BigNumberExpression expression4(expressionString4);
     int expectedOutput4 = -+1125699;
     os << "Testing expression -> (" << expressionString4 << "). Expected: " << expectedOutput4 << ": " << expression4.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 5
@@ -641,6 +687,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput5 = 1125699;
     os << "Testing expression -> (" << expressionString5 << "). Expected: " << expectedOutput5 << ": " << expression5.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 6
     os << "TEST 6: " << std::endl;
@@ -648,6 +695,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     BigNumberExpression expression6(expressionString6);
     int expectedOutput6 = 1125699;
     os << "Testing expression -> (" << expressionString6 << "). Expected: " << expectedOutput6 << ": " << expression6.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 7
@@ -657,6 +705,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput7 = -(1125699);
     os << "Testing expression -> (" << expressionString7 << "). Expected: " << expectedOutput7 << ": " << expression7.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 8
     os << "TEST 8: " << std::endl;
@@ -664,6 +713,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     BigNumberExpression expression8(expressionString8);
     int expectedOutput8 = -(+-1125699);
     os << "Testing expression -> (" << expressionString8 << "). Expected: " << expectedOutput8 << ": " << expression8.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 
     //TEST 9
@@ -673,6 +723,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput9 = -(1125699);
     os << "Testing expression -> (" << expressionString9 << "). Expected: " << expectedOutput9 << ": " << expression9.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 10
     os << "TEST 10: " << std::endl;
@@ -681,6 +732,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     int expectedOutput10 = -+((-1125699));
     os << "Testing expression -> (" << expressionString10 << "). Expected: " << expectedOutput10 << ": " << expression10.evaluateExpression();
     os << std::endl;
+    os << std::endl;
 
     //TEST 11
     os << "TEST 11: " << std::endl;
@@ -688,6 +740,7 @@ void BigNumberExpressionTests::solveExpressionParenthesis_SingleNumberTests(std:
     BigNumberExpression expression11(expressionString11);
     int expectedOutput11 = (-(-((1125699))));
     os << "Testing expression -> (" << expressionString11 << "). Expected: " << expectedOutput11 << ": " << expression11.evaluateExpression();
+    os << std::endl;
     os << std::endl;
 }
      
@@ -1453,7 +1506,7 @@ void BigNumberExpressionTests::runTests(std::ostream& os)
     //readFromAndWriteToConsoleTests();
     //
     //////Read from and Write to console tests
-    //readFromAndWriteToFileTests(os);
+    readFromAndWriteToFileTests(os);
     
     os << std::endl << std::endl;
 }

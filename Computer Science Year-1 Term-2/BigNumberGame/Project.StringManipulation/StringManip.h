@@ -17,19 +17,25 @@ public:
 	//Split string by many string delims. sizeOfArray returns the numbers of split strings. 
 	static char** splitStringMany(const char* input, const char** delims, size_t sizeOfDelimsArrays, size_t& sizeOfArray);
 
-	//Checks for validity
+	//Checks if the text contains any of the invalid chars
 	static bool stringContainsInvalidChars(const char* text, const char* invalidChars);
 
+	//Checks if the text contains the given char
 	static bool stringContains(const char* text, const char other);
 
+	//Checks if the text contains the given string
 	static bool stringContains(const char* text, const char* other);
 
+	//Checks if the text starts with the given string
 	static bool stringStartsWith(const char* text, const char* other);
 
+	//Checks if the text ends with the given string
 	static bool stringEndsWith(const char* text, const char* other);
 
+	//Deletes a dynamically allocated array of dynamically allocated strings
 	static void deleteArrayOfStrings(char** text, size_t arrayCount);
 
+	//Concatenates strings from a char of strings
 	static char* concatStrings(const char** strings, size_t stringsCount);
 
 	//Replaces all instances of the replaced string in the text with the replacement string

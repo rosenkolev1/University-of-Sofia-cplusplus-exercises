@@ -12,10 +12,8 @@ private:
 	BigNumber& divisionLeftover;
 public:
 	BigNumberDivisionResult(BigNumber& divisionQuotient, BigNumber& divisionLeftover);
-	//BigNumberDivisionResult(const BigNumberDivisionResult& other);
 	const BigNumber& getQuotient() const;
 	const BigNumber& getLeftover() const;
-	~BigNumberDivisionResult();
 };
 
 

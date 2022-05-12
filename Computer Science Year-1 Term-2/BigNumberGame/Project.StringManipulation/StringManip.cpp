@@ -294,7 +294,7 @@ bool StringManip::stringContainsInvalidChars(const char* text, const char* inval
     for (size_t i = 0; i < strlen(text); i++)
     {
         char textChar = text[i];
-        if (textChar < 0 || textChar >= 128) return true;
+        //if (textChar < 0 || textChar >= 128) return true;
         if (stringContains(invalidChars, textChar)) return true;
     }
 

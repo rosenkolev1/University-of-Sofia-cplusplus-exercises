@@ -23,10 +23,10 @@ int main()
     BigNumberTests::runTests(std::cout);
 
     //BigNumberExpression tests
-    //BigNumberExpressionTests::runTests(std::cout);
+    BigNumberExpressionTests::runTests(std::cout);
 
     //BigNumberEquations tests
-    //BigNumberEquationTests::runTests(std::cout);
+    BigNumberEquationTests::runTests(std::cout);
 
     osEquationTests.close();
     osExpressionTests.close();

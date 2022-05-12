@@ -66,10 +66,6 @@ private:
 	BigNumber* replaceNumbersFromCalculation(BigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, BigNumber* resultNumber) const;
 	void replaceOperatorsFromCalculation(char* operators, size_t index) const;
 
-	/*char generateOperator(int seed) const;
-	char generateOpeningParenthesis(int seed) const;
-	int generateSign(int seed) const;
-	size_t generateDigitsCount(int seed) const;*/
 public:
 
 	//Big 4

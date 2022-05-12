@@ -17,7 +17,6 @@ private:
 	int sign;
 
 	void copy(const BigNumber& other);
-	//void changeNumber(int* const number, size_t newCapacity, size_t newSize, int sign);
 	void changeNumber(const char* number);
 	//Add 2 numbers together and return a new number that is their sum
 	BigNumber addAndReturn(const BigNumber& thisNumber, const BigNumber& other, bool areNegative) const;
