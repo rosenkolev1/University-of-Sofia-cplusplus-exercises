@@ -152,12 +152,20 @@ BigNumber BigNumberEquation::solveEquation(const char* equation)
 
 	//Check if the equation has only one unknown. If it doesn't, then throw an exception because I am not that smart to want to code that looooool...
 	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
-	if (countOfUnknowns != 1)
+	if (countOfUnknowns > 1)
 	{
 		//Delete dynamic memory
 		delete[] equationCopy;
 
 		throw EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION;
+	}
+	//If we get to here, then there are no unknowns in the equation and it is always correct because the left and right side expressions are equal
+	else if (countOfUnknowns < 1)
+	{
+		//Delete dynamic memory
+		delete[] equationCopy;
+
+		throw EQUATION__SOLVE_EVERYANSWER_EXCEPTION;
 	}
 
 	//Split the equation by the unknown side and the known side
@@ -177,7 +185,7 @@ BigNumber BigNumberEquation::solveEquation(const char* equation)
 	size_t bracketedExpressionsWithUnknownIndex = 0;
 	char** bracketedExpressionsWithUnknown = new char* [StringManip::countOf(unknownSide, "(")];
 
-	size_t indexOfUnknown = 0; 
+	int indexOfUnknown = 0; 
 
 	while (true)
 	{
@@ -240,7 +248,7 @@ BigNumber BigNumberEquation::solveEquation(const char* equation)
 		int indexOfLastLeftDivide = -1;
 		int indexOfLastLeftDivideMinus = -1;
 		int indexOfLastLeftDividePlus = -1;
-		if (indexOfUnknown != 0)
+		if (indexOfUnknown > 0)
 		{
 			indexOfLastLeftDivide = StringManip::findIndexLast(unknownSide, "/", 0, indexOfUnknown - 1);
 			indexOfLastLeftDivideMinus = StringManip::findIndexLast(unknownSide, "/-", 0, indexOfUnknown - 1);

@@ -544,16 +544,16 @@ void BigNumberEquationTests::readFromAndWriteToConsoleTests()
     std::cout << "TEST 1" << std::endl;
     BigNumberEquation equation1;
     BigNumberEquation equation2;
-    std::cout << "Enter expression1: ";
+    std::cout << "Enter equation1: ";
     std::cin >> equation1;
-    std::cout << "Enter expression2: ";
+    std::cout << "Enter equation2: ";
     std::cin >> equation2;
 
     std::cout << equation1 << std::endl;
     std::cout << equation2 << std::endl;
     std::cout << std::endl << std::endl;
 }
-
+//1248-379*3=111
 void BigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 {
     os << "READ AND WRITE FROM AND TO FILE TESTS" << std::endl << std::endl;
@@ -597,13 +597,13 @@ void BigNumberEquationTests::runTests(std::ostream& os)
         delete[] timeOfRunningTheTests;
     }
 
-    ////Big4 tests
+    //Big4 tests
     equationBig4Tests(os);
     //
-    ////Equation is valid tests
+    //Equation is valid tests
     equationIsValidTests(os);
     //
-    ////SOLVE EQUATIONS TESTS
+    //SOLVE EQUATIONS TESTS
     solveEquationTests(os);
     
 	//Generate equation tests

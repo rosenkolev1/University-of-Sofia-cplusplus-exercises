@@ -1502,10 +1502,10 @@ void BigNumberExpressionTests::runTests(std::ostream& os)
     //Operator %= tests
     operatorPercentAndEqualsTests(os);
 
-    ////Read from and Write to console tests
+    //Read from and Write to console tests
     //readFromAndWriteToConsoleTests();
-    //
-    //////Read from and Write to console tests
+    
+    //Read from and Write to console tests
     readFromAndWriteToFileTests(os);
     
     os << std::endl << std::endl;
