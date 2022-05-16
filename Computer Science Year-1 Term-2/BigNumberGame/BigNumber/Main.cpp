@@ -16,9 +16,6 @@ int main()
     std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::app);
     std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::app);
 
-    //DEBUG shit
-    //BigNumber result(25);
-
     //BigNumber tests
     BigNumberTests::runTests(std::cout);
 

@@ -44,7 +44,16 @@ char* StringManip::parseToString(int integer)
 
 char** StringManip::splitString(const char* input, char delim, size_t& sizeOfArray)
 {
-    return splitString(input, &delim, sizeOfArray);
+    char* delimString = new char[2];
+    delimString[0] = delim;
+    delimString[1] = '\0';
+
+    char** stringResult = splitString(input, delimString, sizeOfArray);
+
+    //Delete Dynamic Memory
+    delete[] delimString;
+
+    return stringResult;
 }
 
 char** StringManip::splitString(const char* input, const char* delim, size_t& sizeOfArray)
