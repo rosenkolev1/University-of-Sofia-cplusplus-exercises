@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{271d5c3d-fcbd-4a2c-950a-19fd44807599}</ProjectGuid>
-    <RootNamespace>ProjectStringManipulation</RootNamespace>
+    <ProjectGuid>{96362037-2228-4178-aa51-e80efa7bd25c}</ProjectGuid>
+    <RootNamespace>Week09StaticAndTemplates</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,7 +88,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,7 +116,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,22 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MString.cpp" />
-    <ClCompile Include="MStringTests.cpp" />
-    <ClCompile Include="Project.StringManipulation.cpp" />
-    <ClCompile Include="StringManip.cpp" />
-    <ClCompile Include="StringManipTests.cpp" />
+    <ClCompile Include="Computer.cpp" />
+    <ClCompile Include="ComputerShop.cpp" />
+    <ClCompile Include="ConsultantUtils.cpp" />
+    <ClCompile Include="Guz.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="Week09-StaticAndTemplates.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MString.h" />
-    <ClInclude Include="MStringTests.h" />
-    <ClInclude Include="StringManip.h" />
-    <ClInclude Include="StringManipTests.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">
-      <Project>{47f8c224-8c43-4bb9-a74d-54847effa488}</Project>
-    </ProjectReference>
+    <ClInclude Include="Computer.h" />
+    <ClInclude Include="ComputerShop.h" />
+    <ClInclude Include="ConsultantUtils.h" />
+    <ClInclude Include="Guz.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

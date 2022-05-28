@@ -1,4 +1,4 @@
----------------------------- Mon May 16 19:57:13 2022 ----------------------------
+---------------------------- Fri May 20 13:53:29 2022 ----------------------------
 
 BIG 4 OF BigNumberExpression TESTS: 
 
@@ -380,552 +380,552 @@ Testing expression -> (5%((100 - 15%(5*4))/2 - 42) + 1000). Expected: PERCENT BY
 GENERATE EXPRESSION TEMPLATES TESTS
 
 TEST 1: 
-Testing the generating of an expression template --> x%x-x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x*x/x%x*x)+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 2: 
-Testing the generating of an expression template --> (x)%(x+(x+x-x)+x%x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x*(x/x)*x%(x)*x)*x+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 3: 
-Testing the generating of an expression template --> (x+(x-x)/(x)+x%x)*x-(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x+x/x%x/x*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 4: 
-Testing the generating of an expression template --> x-x%x/x/x/x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x%(x)*x)*x%(x+(x)-x)*(x)*x-(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 5: 
-Testing the generating of an expression template --> (x)/x-x-x/x%x%x+x-x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x)-(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 6: 
-Testing the generating of an expression template --> x+x%(x)/x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x)%x+x*(x/x)+(x)+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 7: 
-Testing the generating of an expression template --> x/(x%(x)-(x)*x+x/x)%(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*x*x-x%x-x*x+x%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 8: 
-Testing the generating of an expression template --> x+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x-x-x%(x%(x)%x*x)+x-(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 9: 
-Testing the generating of an expression template --> x+x%x%x-x*(x/x)*x*(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*x-x-x*x*x+(x/x)-(x)*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 10: 
-Testing the generating of an expression template --> x-x/(x)*x*x%x%(x)/(x)+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x%x/x-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 11: 
-Testing the generating of an expression template --> x%x%x-(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x%(x)/x*x+x-x%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 12: 
-Testing the generating of an expression template --> x/(x-x/x%x*x%x%x-x%x)*(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x)+x%x/x%x/x-x*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 13: 
-Testing the generating of an expression template --> x/x+x%x%x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x-x%x%x*x-x-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 14: 
-Testing the generating of an expression template --> x%x/x*x+(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*x+(x/x-x)*(x)-(x)-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 15: 
-Testing the generating of an expression template --> x*(x+x-x+x/x+x*x*(x)/x)/x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x+x-x%x+(x+(x)+x)-(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 16: 
-Testing the generating of an expression template --> (x*x-(x)+x)/(x-x)/x*(x)%(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x*x)-x-x%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 17: 
-Testing the generating of an expression template --> x+(x/x)*x-x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x/(x%x+x)+(x)*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 18: 
-Testing the generating of an expression template --> x-(x+(x)-x*x+(x)*x/(x)/x-x)+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x/x%x%(x/x*x)%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 19: 
-Testing the generating of an expression template --> x+x*x%x/x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x-(x/x*x%x*x*x%x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 20: 
-Testing the generating of an expression template --> x%x%x+x%x*x%x%x%x*x-x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x/x)*x+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 21: 
-Testing the generating of an expression template --> x*x-x+x*x+x*x+x/x+x+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x-x-x%x/x+x-x)*(x+(x)+x)-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 22: 
-Testing the generating of an expression template --> x+x%x*x*x+x+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x-x*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 23: 
-Testing the generating of an expression template --> x-x-x/x*x*x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x)%x+x+x/x%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 24: 
-Testing the generating of an expression template --> x/x+x+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x-x%x-x*x)%x+x/x-x/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 25: 
-Testing the generating of an expression template --> x*x%(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x+x+x-x%x-x*x+(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 26: 
-Testing the generating of an expression template --> x+x%x-x/x/x%x%x*x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*x*(x+x-x-x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 27: 
-Testing the generating of an expression template --> x/(x/x*x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*x-x/x*x/x%x%x/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 28: 
-Testing the generating of an expression template --> x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x+x)%(x%x+(x)/(x)-x+x)/(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 29: 
-Testing the generating of an expression template --> x%x*x*(x)/x%x-(x)+(x-(x)/x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x-x%x%x%x)/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 30: 
-Testing the generating of an expression template --> x%x%(x)+(x)+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x/x%x)%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 31: 
-Testing the generating of an expression template --> (x/x/x)+x*(x+x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x+(x)-x%x/x-(x/x)%x)/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 32: 
-Testing the generating of an expression template --> x/x+x+x%x/x-(x+x*x%x)+(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x)+x/x-(x+x)*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 33: 
-Testing the generating of an expression template --> x-x%x%(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x-(x)-x)+(x)+x-x%(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 34: 
-Testing the generating of an expression template --> x/(x)*x-x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 35: 
-Testing the generating of an expression template --> x/(x*x)*x*x/(x+x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x/x%x*x%x+x/x+x+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 36: 
-Testing the generating of an expression template --> x+x+(x)%(x+(x)+x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x+x*x+x%(x*x)/x+(x-x)+x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 37: 
-Testing the generating of an expression template --> x+x+x/(x)*(x)-(x)%x*x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/x-x/x-(x*x)%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 38: 
-Testing the generating of an expression template --> x%x*(x%x%x+x-x)*x/x-x%x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x%x)+x-(x%x)+x/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 39: 
-Testing the generating of an expression template --> x*(x/x-(x)%x+x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x-(x+x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 40: 
-Testing the generating of an expression template --> (x-(x+x)/x-x/x)*(x+x)-x+x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x+x-x%x/x%(x)*x+x+x)*(x)*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 41: 
-Testing the generating of an expression template --> x+x/x+x%(x)-x*x+(x)%(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x+x/x*x)%x%x+x-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 42: 
-Testing the generating of an expression template --> x%x/(x/x)-(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x*x-(x%x*x-x)-x-x)-x/x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 43: 
-Testing the generating of an expression template --> x-x%x*(x)-x+x-x*x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+(x/x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 44: 
-Testing the generating of an expression template --> x%x*x%x+x*x*x/x*(x*x*x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x%x-x-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 45: 
-Testing the generating of an expression template --> x/x-x%x*x-x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x-x/x*x*x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 46: 
-Testing the generating of an expression template --> x-x/x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> (x-x)*x*x+x%(x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 47: 
-Testing the generating of an expression template --> x%x/x*x/x/x%(x-x)*x+(x)/x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x*x/x*x-x%x+x-x+x)%x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 48: 
-Testing the generating of an expression template --> x%(x/x*x/x/x%x+x)%(x)-x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x+x*x/(x+x+x)-(x%x-x-x). Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 49: 
-Testing the generating of an expression template --> (x)*x. Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x/(x*x)-x. Is the expression template valid? Expect: TRUE: TRUE
 
 TEST 50: 
-Testing the generating of an expression template --> x+(x*x)%(x+x*x+x)+x%x%(x)-(x). Is the expression template valid? Expect: TRUE: TRUE
+Testing the generating of an expression template --> x*(x/x+x)+x-x+(x-x)/x. Is the expression template valid? Expect: TRUE: TRUE
 
 GENERATE EXPRESSION TESTS
 
 TEST 1: 
-Testing the generating of an expression --> x%x-x%x --> 7015499%1-835356309768809316969791433344%66486. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -65,594
+Testing the generating of an expression --> (-x*x/x%x*x)+x --> (-479*3/-4%7*-91)+5084. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 4902
 
 TEST 2: 
-Testing the generating of an expression --> x/x%x%x+x-x/x --> 0/0%-389%-531+0-217/0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
+Testing the generating of an expression --> x*x-x*x%x-x/x*x%x%x/(x) --> 29*77--607711*58%-3078-16694908/5221*-25920344%-56%54/(651413). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 3293
 
 TEST 3: 
-Testing the generating of an expression --> (x)%(x)%(x) --> (59)%(6)%(9050). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 5
+Testing the generating of an expression --> x/x+x-x*(x/x+x%x-x*x-x) --> 2/93543+5-948*(4469/912+0%434867--92032602*24-76702532). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -2,021,211,764,155
 
 TEST 4: 
-Testing the generating of an expression --> (x%x-x)*x --> (99%-80-0)*6. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 114
+Testing the generating of an expression --> x/x*x+(x/x)-x*(x)-(-x) --> 264485/40*3662+(719/-832164)-8*(4615)-(-402). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 24,176,626
 
 TEST 5: 
-Testing the generating of an expression --> x%x%(x)/x+x --> 6245%1601%(33639)/41424972+-9. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -9
+Testing the generating of an expression --> (x)-x --> (38)-6. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 32
 
 TEST 6: 
-Testing the generating of an expression --> (x)+x*x/x%x%x/x+x%(x)%(x) --> (6639970)+852*4/35170%866152%718/918485389+7%(33)%(1925). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 6,639,977
+Testing the generating of an expression --> (x%x/x*x%x)-x*x*(x)-x --> (8%166/6582596*79%385125)-0*14*(458)-199358. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -199,358
 
 TEST 7: 
-Testing the generating of an expression --> x-x/x-x+(x) --> -779-796/2449678-3391+(763999). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 759,829
+Testing the generating of an expression --> x*x --> -13*-5. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 65
 
 TEST 8: 
-Testing the generating of an expression --> x%(x) --> -36521%(301617821). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -36,521
+Testing the generating of an expression --> (x%x+x) --> (76646790%-392+963). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 1169
 
 TEST 9: 
-Testing the generating of an expression --> x*(x+x)*x --> 3562*(7010+8)*0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 0
+Testing the generating of an expression --> (x-x+x%x+x+x+x)+x-x --> (99770-66+20%71+-4+-2+24471)+1099081-708. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 1,222,562
 
 TEST 10: 
-Testing the generating of an expression --> x%(x+x+x)*(x)+x*x --> 9800371%(0+323940+28997)*(26336)+738218*91943. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 75,012,929,766
+Testing the generating of an expression --> (-x)/x --> (-479)/114. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -4
 
 TEST 11: 
-Testing the generating of an expression --> x%x*x*(x)/x%x-(x)+(-x-(x)/x) --> -8000288%79830*34*(86)/785093657453115728675855199723%97-(2)+(-55818-(785)/3758). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -55,820
+Testing the generating of an expression --> x%x/x/(x/x)*(x) --> -7%6/9/(53939/-2)*(154549). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 12: 
-Testing the generating of an expression --> x/(x)-(x)%(x)+x+x%x+x+x-x --> -2/(6881799)-(21)%(89401)+9+386000261%-9+3455+-33740-586825. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -617,114
+Testing the generating of an expression --> x/(x)+x/x-x+x*x%(x)+x --> 46/(90)+8/9-30+27889745*46127441%(28)+45. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 28
 
 TEST 13: 
-Testing the generating of an expression --> x+x%x%(x-x) --> 65+604%2465648%(3-6). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 66
+Testing the generating of an expression --> x*x/(-x+x-x+(x%x+x)*x) --> 2*14343876/(-3+258905--2+(22%18238+0)*347002782). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 14: 
-Testing the generating of an expression --> x/x/x-(x*x+x)/x+x%x --> 7426/0/47907-(87*702+459675981)/9252646+-5%5848. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
+Testing the generating of an expression --> (x)-x-x%x-x+(-x%x/x)/x --> (67)-373937-2%3-5+(-31%8723/95)/-2314. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -373,877
 
 TEST 15: 
-Testing the generating of an expression --> x/x/x%x-x --> 708/1565364/5%49679-354496821. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -354,496,821
+Testing the generating of an expression --> x-x-x%(-x%x)%x --> 52967--3-7%(-9193%7140)%6487. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 52,963
 
 TEST 16: 
-Testing the generating of an expression --> x%x+x*x%x+(x*x%x) --> 54%4989796+-7*2396667%77033118+(789*97%27). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -16,776,600
+Testing the generating of an expression --> x*x-x*x*x-x%x+(x/x) --> 994*426184376--353*-8*0-86849%339+(0/8478018). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 423,627,269,679
 
 TEST 17: 
-Testing the generating of an expression --> x+x%x --> -35+290406%6591860. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 290,371
+Testing the generating of an expression --> (x-x*x*x)+x-x*x+x%(x)/x --> (3294-3*92*4500)+-2-1733*51640720+-97483%(538379)/987. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -89,494,606,566
 
 TEST 18: 
-Testing the generating of an expression --> x+x-x+x+x/(x)+(-x) --> -56+71936--728164+-265+691392/(885251159831535120406761787377)+(-4). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 799,775
+Testing the generating of an expression --> x-x*x-(x%x)+x --> 9-464940*9422-(757%-1)+13. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -4,380,664,658
 
 TEST 19: 
-Testing the generating of an expression --> (x-x-x)+(x)-x*x --> (9248--1153-6)+(8)-7923*-4. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 42,095
+Testing the generating of an expression --> x+x-x/x --> 2108+434746694-597739/0. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 20: 
-Testing the generating of an expression --> (x+x-x%x%x+x+x+x%x) --> (66728+3622-396%5%944138965310810086602927523853+28+0+2%8581). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 70,379
+Testing the generating of an expression --> x-(x+x) --> 13-(686768083+8030). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -686,776,100
 
 TEST 21: 
-Testing the generating of an expression --> x-x/x*x+(x)-x*(x%x)/(-x)*x --> -332179-596/258911*-38+(23)--14*(86%7)/(-50)*-398445. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -332,156
+Testing the generating of an expression --> (x/x)*x-x*x/x*x%x/(-x+x)/x --> (294/529)*30812-1164460*32/1*63579%-9/(-494+20)/264. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 22: 
-Testing the generating of an expression --> x-(x/x)*x*x*x-x/x%(-x/x)+x --> -79-(765454/386257035)*447*-6*0-957233/2208%(-19504289/46355)+2731. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 2639
+Testing the generating of an expression --> (x*x/x)/x+x/x-x --> (828*6/2372)/32+482/0-803240. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 23: 
-Testing the generating of an expression --> x-x+x/(x*x/x-x/x)+x-x --> 8703-2094+-67/(0*3099/-2--8/981304615810677106728335832961)+9-4208. Is the expression valid? Expect: TRUE: TRUE
+Testing the generating of an expression --> x%x/x+x-(x-x)/x*(x)+x --> -22948%15631/0+-59-(503646-51430)/799837*(52)+3. Is the expression valid? Expect: TRUE: TRUE
 Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 24: 
-Testing the generating of an expression --> (x)/x%x/(x) --> (4642)/-3%655545/(43164). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 0
+Testing the generating of an expression --> x*x+x-x/x-x --> -7*2+929-8/4935820-8. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 907
 
 TEST 25: 
-Testing the generating of an expression --> x/(x)%x-x+x-x-x*x --> -74/(233)%20108934-508+739--4--242*0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 235
+Testing the generating of an expression --> x-x/x/(x) --> 0-6/74/(3). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 26: 
-Testing the generating of an expression --> x+(x%x)+x --> -614+(1%8245035)+-892. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -1505
+Testing the generating of an expression --> x/x --> 67/-57. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -1
 
 TEST 27: 
-Testing the generating of an expression --> x/x*(x%x)-x-x-x-x --> 6013108/9450662*(92050%32941)-532219-0-6751-497. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -539,467
+Testing the generating of an expression --> x+(x)-x --> -27206826+(37178)--86446482. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 59,276,834
 
 TEST 28: 
-Testing the generating of an expression --> x-x/x*x%x --> -8--6899/5*-2%0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
+Testing the generating of an expression --> x/x+x%x --> 898/-4+926219%87283964. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 925,995
 
 TEST 29: 
-Testing the generating of an expression --> x*x-x*x/x-(x)+x --> 8*595602-632*4357/8768547-(7)+663. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 4,765,472
+Testing the generating of an expression --> x%x/x+x+(-x)%x --> 8%84/-3+0+(-3)%35148420. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -5
 
 TEST 30: 
-Testing the generating of an expression --> x+(x%x+x*x*x/x) --> 3+(1109322%87+-67*1961260*388/9729). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -5,240,434
+Testing the generating of an expression --> x-x+x-x+x-x --> -703--234+438705523787798900797830637380-0+128-67299. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 438,705,523,787,798,900,797,830,569,740
 
 TEST 31: 
-Testing the generating of an expression --> x%x+(x-x) --> 445%-51691535+(7-62391). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -61,939
+Testing the generating of an expression --> x/x+x-x%x --> 7698/162+155988-47228%-4. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 156,035
 
 TEST 32: 
-Testing the generating of an expression --> x%(x) --> 7522090%(1476099). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 141,595
+Testing the generating of an expression --> x*(x)%(x/(x)*x%x)-x+(x*x)/(x) --> 431380876*(8837)%(251981249646376702343255894635/(0)*468%-1)--2+(15*4527)/(0). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 33: 
-Testing the generating of an expression --> x*(x)*(-x)*x --> -38078*(8)*(-77990)*2771. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 65,832,380,980,960
+Testing the generating of an expression --> x-x*x+x%x --> -9-0*32908+78157923%70775112. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 7,382,802
 
 TEST 34: 
-Testing the generating of an expression --> x-x --> 589003--163996. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 752,999
+Testing the generating of an expression --> x/(x/x)/x%x%x --> 330996/(5479/7552037)/4%-100%949. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 35: 
-Testing the generating of an expression --> x+(x/(x/x-x)+x)+x-(x)*(-x)*x --> 7+(9/(7474/703--9)+7)+1-(8)*(-5421)*6823. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 295,899,879
+Testing the generating of an expression --> (x-x)*(x+x*(x%x)+x)*x/(x)*x-x --> (632225936407712893615719916368--8619)*(7656442+-38668826*(62948543%533)+-768)*714924291/(143)*80492-57. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -1,739,391,129,881,901,242,548,529,487,641,252,662,184,426,106,929,593
 
 TEST 36: 
-Testing the generating of an expression --> (x-x%x*x+x-x)+(x+x%x) --> (0--7%4*729487721+0-2937)+(1525+5827%81532). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 2,188,467,578
+Testing the generating of an expression --> (x*x) --> (49*-63). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -3087
 
 TEST 37: 
-Testing the generating of an expression --> x-x-(x*x)/x --> -5-4927-(4*-45)/1. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -4752
+Testing the generating of an expression --> x-x%x+x-x-x --> 91460266-1357%175595602451042279171538274209+3-4094356-0. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 87,364,556
 
 TEST 38: 
-Testing the generating of an expression --> x*x-x --> -8*0-200. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -200
+Testing the generating of an expression --> x/x/x/x/x --> 17761/63/7351808/61/398. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 39: 
-Testing the generating of an expression --> x%(x-x/x)%x/(x)/x --> -880%(0-3/8)%5921435/(3)/-2. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
+Testing the generating of an expression --> x*(x) --> 0*(587407018). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 40: 
-Testing the generating of an expression --> x*x-(x%x) --> 6933136*587884150-(0%-13). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 4,075,880,764,194,400
+Testing the generating of an expression --> x+x%x-x%x+(x) --> 17588+3330%0-2470%584528+(959). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
 
 TEST 41: 
-Testing the generating of an expression --> x+x+x+x*x-x/x+x/x-(x*x) --> 5436+4245695+2258+-35709*17162-9068/90+39/81-(50*163276). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -616,748,369
+Testing the generating of an expression --> (-x/(-x+x/(x)%x+(-x)%x+x)%x)+x+x --> (-1/(-1+983506/(577209)%0+(-898)%-166+900)%565)+90+558. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
 
 TEST 42: 
-Testing the generating of an expression --> x+x+x+x/(x-x%x)-(-x/x+x*x) --> -11894928+0+6+8526/(53626-540%6067)-(-316404/89616+7*685061). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -16,690,346
+Testing the generating of an expression --> x*(x%x*x-x)%x/x --> 9*(3%0*61-1)%-33141462393132497367407050890/5. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
 
 TEST 43: 
-Testing the generating of an expression --> x-x-(-x)-(-x)%(x) --> 0--20-(-264)-(-678)%(99). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 368
+Testing the generating of an expression --> x/(x-(x%x/x)*x)%(x*x+x%x) --> 629530/(5231-(3%769/-148)*15695845)%(37*491812803+-229%111). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 120
 
 TEST 44: 
-Testing the generating of an expression --> x/(x) --> 3/(358207). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 0
+Testing the generating of an expression --> x%x*x-x-(x%x)*x%x/(x) --> 91%160*-711-37-(2%84499)*67%4/(874). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -64,738
 
 TEST 45: 
-Testing the generating of an expression --> x*x-(-x-x*x-x) --> 2616*8-(-8569--97*2672-748). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -228,939
+Testing the generating of an expression --> x+(x+x*x-x%x%x)+x*x --> 0+(911451949+-45731*93530-3%0%29094)+48118778*8. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> PERCENT BY 0 IS NOT ALLOWED!
 
 TEST 46: 
-Testing the generating of an expression --> x*x --> 29*235965786508544035034602645159. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 6,843,007,808,747,777,016,003,476,709,611
+Testing the generating of an expression --> x*x%x-x+x+x/x+x-x --> 550955387*-91310%7899726--57+86+468/79120+92-39225581. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -45,323,228
 
 TEST 47: 
-Testing the generating of an expression --> (-x/x%x+x%x-x+x*x)%x-x/x --> (-612/61489694%135+-5038%7957-265+-62756*72225)%39--5/943. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -23
-
-TEST 48: 
-Testing the generating of an expression --> x*(x) --> 0*(6615). Is the expression valid? Expect: TRUE: TRUE
+Testing the generating of an expression --> (x-x/x)/x*x --> (26-8/4831717)/43229118*1. Is the expression valid? Expect: TRUE: TRUE
 Answer to the expression --> 0
 
+TEST 48: 
+Testing the generating of an expression --> x+x%x --> 2634+293%454. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 2927
+
 TEST 49: 
-Testing the generating of an expression --> x-x*x*x+x*x%x-x/(x) --> -8487144-536051*47*980+9216220*-3%61289-97/(816062). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -24,699,003,525
+Testing the generating of an expression --> x/x-x+x*(-x)/(x)-x+x/x+x --> 0/586-19862+5*(-114085)/(914519604)--7+770/25+3038. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -16,787
 
 TEST 50: 
-Testing the generating of an expression --> x/x/x*x/x*x --> 4/953893/4*2/3240*-5. Is the expression valid? Expect: TRUE: TRUE
+Testing the generating of an expression --> x%x%x/x --> 5778369%722%629/29908708. Is the expression valid? Expect: TRUE: TRUE
 Answer to the expression --> 0
 
 TEST 51: 
-Testing the generating of an expression without a percent operator --> x-(-x*x)-(x+x-x*x+x)/x/(x)+x --> 5-(-7*-9015901)-(20823+-19583-281*3728+65)/-89921780609785312327208698049/(0)+5. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
+Testing the generating of an expression without a percent operator --> x-x-x/x*x*x-(x)-x --> 4-425996159044227109184855990251--7/400*-181*2495-(23)-2. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -425,996,159,044,227,109,184,855,990,272
 
 TEST 52: 
-Testing the generating of an expression without a percent operator --> x*x-x*x-(x)*x+x --> 0*4117560-208*0-(7)*12+-838. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -922
+Testing the generating of an expression without a percent operator --> x-(x-x-x-(x)/x)/(x/x)-(x) --> 18-(700-50363398-63572-(34)/9398)/(5616/-1)-(7). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -8968
 
 TEST 53: 
-Testing the generating of an expression without a percent operator --> x*x+x-x+(x+x*x/x)-x-(x)*x --> 1493*524+698179-37588+(4679+9*430/197)-883-(1673)*4719. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -6,448,149
+Testing the generating of an expression without a percent operator --> x/(x+x)-x*(-x)-x --> 1/(742368+81140)--82*(-27)-3890527. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -3,892,741
 
 TEST 54: 
-Testing the generating of an expression without a percent operator --> x+x/x --> -7+98716/614. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 153
+Testing the generating of an expression without a percent operator --> x+x-(x-x*x+x)-x/(-x)+x*x --> 0+9893-(501-56065*1449064+3)-237530/(-8)+7*44. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 81,241,812,548
 
 TEST 55: 
-Testing the generating of an expression without a percent operator --> (x)+x-x*x-x+x+x*(x) --> (247)+81202-4178*0-89+80+737372848*(875). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 645,201,323,440
+Testing the generating of an expression without a percent operator --> (x/x-(x+(x)+x/x)+x+x)-(x*x+x) --> (0/-4101617-(3+(5)+8320/56)+773944843+6983033)-(8257*-12+6002). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 781,020,802
 
 TEST 56: 
-Testing the generating of an expression without a percent operator --> x+x --> 618187+-2. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 618,185
+Testing the generating of an expression without a percent operator --> x-x-x+x*x-x-x+(x)+x/x --> 364--2172-8+-246956*5370-9--3540509+(39911)+8/-5. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -1,322,570,782
 
 TEST 57: 
-Testing the generating of an expression without a percent operator --> x+x-x*x-x+(-x)+x+(x)-x --> 5+879-4167*1015000--70129+(-32602)+6090+(5)-307491. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -4,229,767,985
-
-TEST 58: 
-Testing the generating of an expression without a percent operator --> x/x*(x) --> 575570394/0*(0). Is the expression valid? Expect: TRUE: TRUE
+Testing the generating of an expression without a percent operator --> x-x*x+x/x+x-x+x+x+x --> 6531872-2745*47260+887343296/0+0-312+0+-478+23. Is the expression valid? Expect: TRUE: TRUE
 Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
+TEST 58: 
+Testing the generating of an expression without a percent operator --> x-(x+x+x+(x)*x/x)+x-x*(-x) --> 424-(98+279920614+-45275695639683627536643072088+(87977)*294960/32)+9--2*(-50). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 45,275,695,639,683,627,535,552,223,712
+
 TEST 59: 
-Testing the generating of an expression without a percent operator --> x+x/x-x/x-x+x+x/x/(-x) --> 80934318+-7/0-7/388-8214+5+601510/8577381/(-8). Is the expression valid? Expect: TRUE: TRUE
+Testing the generating of an expression without a percent operator --> x+x/x-x/x*(x)+x*(x)+x --> -994941+877464/0-0/3*(1966)+6084586*(68)+8750. Is the expression valid? Expect: TRUE: TRUE
 Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 60: 
-Testing the generating of an expression without a percent operator --> x-x*(x/x/x/x)+x --> -10-718351*(4349/-868125/66/35866)+-821. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -831
+Testing the generating of an expression without a percent operator --> (-x-x+x/x-x*x+x/x)*(-x)/x+x --> (-11-728+58/4489--3*193+-9521/7)*(-7)/2+5639. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 10,959
 
 TEST 61: 
-Testing the generating of an expression without a percent operator --> x+x*x/x+x/x/x-(x)*x --> 84+8*9872/48562+3935/-57630591/6-(634)*1419. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -899,561
+Testing the generating of an expression without a percent operator --> x+x-x/x-(x) --> 170+447--58873343633380088324744673864/98522-(6090198). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 597,565,453,740,079,248,541,310
 
 TEST 62: 
-Testing the generating of an expression without a percent operator --> x*x+x-(-x)-x*x --> 6016*1+90243994-(-11)-7915*-649. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 95,386,856
+Testing the generating of an expression without a percent operator --> x-x+(x-(x)/x-x/x)+(x+x*x)+(x) --> 840160--3+(795242-(0)/-76899878-13115/999)+(82456+64296*73428)+(2340). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 4,722,846,876
 
 TEST 63: 
-Testing the generating of an expression without a percent operator --> x*x+x/x/x+x-x-x-x-x --> 713*-160+12833581/91747/66+414085053-67809-0-54817-7716852. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 406,131,497
+Testing the generating of an expression without a percent operator --> x-x*(x*x)/x-x-x-x --> 2025127--57*(29924*2240)/0-36990-44-7. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 64: 
-Testing the generating of an expression without a percent operator --> x+x/x+x/x/x-x*x --> 875940327855400103108732305999+0/217+749/-46/14-460*5765. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 875,940,327,855,400,103,108,729,654,098
+Testing the generating of an expression without a percent operator --> x+x+x-x*x-x/x --> 610322+26678+3--2284*540728--887/5475. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 1,235,659,755
 
 TEST 65: 
-Testing the generating of an expression without a percent operator --> (x)*x-x --> (9903)*-1-18520. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -28,423
+Testing the generating of an expression without a percent operator --> x*(x+(x)/x/x/x)/x+x/x --> 65*(78+(1)/-22676/176739/413)/9+8659/0. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 66: 
-Testing the generating of an expression without a percent operator --> x*(x+(x-x)+x)*x/x-(x) --> 1294704*(4+(48-4)+838)*929757065/5-(460302). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 213,306,305,859,581,970
+Testing the generating of an expression without a percent operator --> (x)-x-(x/x) --> (699)-47-(297167/9619710). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 652
 
 TEST 67: 
-Testing the generating of an expression without a percent operator --> (-x)*x+x+(x+x)+x/(x+x-x)*x --> (-47883)*-1+1312+(87794+2603)+25399/(7+-57-3)*-9. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 143,903
+Testing the generating of an expression without a percent operator --> x/x/x*x --> 109/-4/-932*710. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 0
 
 TEST 68: 
-Testing the generating of an expression without a percent operator --> x+x+x-x-(-x)-x --> 8+8+54745-7684-(-20819)-7. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 67,889
+Testing the generating of an expression without a percent operator --> x-x-x --> 9-84-0. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -75
 
 TEST 69: 
-Testing the generating of an expression without a percent operator --> (x-(-x)-x-x)+x --> (43004-(-201)-3-739)+-65. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 42,398
+Testing the generating of an expression without a percent operator --> x*x*x/(x/x)*x --> 44093*-33*30100/(3419/6352)*9108. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 70: 
-Testing the generating of an expression without a percent operator --> x*x+(x-x) --> -661*781294790922238243724935839083+(2802778--12). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -516,435,856,799,599,479,102,182,586,831,073
+Testing the generating of an expression without a percent operator --> x*x/(x-x/x-x*x)-x+x --> 5954*982174/(872--962572/-367-22*94729)-35485+5. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -38,283
 
 TEST 71: 
-Testing the generating of an expression without a percent operator --> (-x-x-x/x+x-x+x+x*x-x*x) --> (-583-3418-335907358/6+5-23794+557488+85855*69058295-844*57). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 5,928,944,414,256
+Testing the generating of an expression without a percent operator --> x*x/x --> -8*-81009/25148. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 25
 
 TEST 72: 
-Testing the generating of an expression without a percent operator --> x*(-x-(x/x-x*x+x*(-x)-x)*x)+x --> 3*(-8976-(77/4-149*-746421+-2*(-3)-8017)*-53)+-364. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 17,682,161,891
+Testing the generating of an expression without a percent operator --> x*x-x+(x/x*x*x*x)*x-x/x --> 78*-3-237+(0/226710*4813488*-65922229872699910406576342159*9)*-9-53/70972954. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -471
 
 TEST 73: 
-Testing the generating of an expression without a percent operator --> x+x/x --> -35+-7/6081. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -35
+Testing the generating of an expression without a percent operator --> (x/x) --> (3761/-757). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -4
 
 TEST 74: 
-Testing the generating of an expression without a percent operator --> (x-x-x) --> (1-733-116). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -848
+Testing the generating of an expression without a percent operator --> x/x+x+(-x) --> 5955301/717845683160800315184682881368+3+(-23). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -20
 
 TEST 75: 
-Testing the generating of an expression without a percent operator --> (x)+x*x --> (0)+70217*-5. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -351,085
+Testing the generating of an expression without a percent operator --> x/x+x-x*x/(x)+(x)-(x) --> -969/1016+6639--415*-3358/(8)+(497)-(913). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -167,973
 
 TEST 76: 
-Testing the generating of an expression without a percent operator --> x+(x)+x+(-x*x/x/(x)/x-x*x) --> 4603+(525485497)+9517+(-4629932*-68408095/453602/(9686)/-156815-120*6776). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 524,686,497
+Testing the generating of an expression without a percent operator --> x-(x-x)-x*(-x) --> 9-(695264594643389659694002102593-79)-21554*(-3). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -695,264,594,643,389,659,694,002,037,843
 
 TEST 77: 
-Testing the generating of an expression without a percent operator --> x/x/x/x-x --> -151/853/5244/5545-798. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -798
+Testing the generating of an expression without a percent operator --> x/x+x --> 1056/93909+884806. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 884,806
 
 TEST 78: 
-Testing the generating of an expression without a percent operator --> x+x+x --> -1+60+-43. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 16
+Testing the generating of an expression without a percent operator --> (x*x)-x+x --> (9243483*922045)-83800557+29037207. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 8,522,852,519,385
 
 TEST 79: 
-Testing the generating of an expression without a percent operator --> x+x*x*x*(x+(x)/x)/x/(x)*x-x --> 3+3912*8*0*(632+(998)/17)/63/(6995)*0-0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 3
+Testing the generating of an expression without a percent operator --> x*x*x+x*x*x --> 2516*605389*1+-53*864*8. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 1,522,792,388
 
 TEST 80: 
-Testing the generating of an expression without a percent operator --> x-x-x/x-x-x+x --> 99370-687853-0/-9-478-228+7. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -589,182
+Testing the generating of an expression without a percent operator --> x*x --> -48735495433720616509518025469*6502. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -316,878,191,310,051,448,544,886,201,599,438
 
 TEST 81: 
-Testing the generating of an expression without a percent operator --> (x-x+x/x)/x+x --> (661-78+7/-48)/54800855+-132. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -132
+Testing the generating of an expression without a percent operator --> x*x+x-(x-x) --> 8*0+8266-(0-99254500). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 99,262,766
 
 TEST 82: 
-Testing the generating of an expression without a percent operator --> x/x --> 51504480/60. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 858,408
+Testing the generating of an expression without a percent operator --> (x)-(x)+x*(x+x/x*x*x) --> (9)-(54)+0*(599+-6858/0*14747727*20). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 83: 
-Testing the generating of an expression without a percent operator --> x+x*x*(x) --> 810+55192*273*(0). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 810
+Testing the generating of an expression without a percent operator --> (x)-x+(x)/(x)-x --> (0)--692+(6371440)/(765)-455. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 8565
 
 TEST 84: 
-Testing the generating of an expression without a percent operator --> (-x*x*(-x*x)+x)-x --> (-99*730800085917482269100767890202*(-3*297)+986863326286560785997769372040)-0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 64,464,131,642,021,480,035,895,632,596,200,258
+Testing the generating of an expression without a percent operator --> x+(x-x) --> 551+(7590--5682). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 13,823
 
 TEST 85: 
-Testing the generating of an expression without a percent operator --> x+x-(x)*x --> 4+0-(794873860)*-4. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 3,179,495,444
+Testing the generating of an expression without a percent operator --> x+x+x*x+(x+x)+x --> -71+9092+0*68733+(4243+8176)+0. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 21,440
 
 TEST 86: 
-Testing the generating of an expression without a percent operator --> x+x*x+x/x/x*(x)/x-x+x --> -46141545+3*8+-7/83368/8913550*(215242600)/955087-16459+5002. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -46,152,978
+Testing the generating of an expression without a percent operator --> (-x+(-x+x)+x+x+x+x*x)/x --> (-1+(-6+6)+351+-9+951873+-8*2311)/73. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 12,790
 
 TEST 87: 
-Testing the generating of an expression without a percent operator --> x+x/x*x+x+x-x*x+x-x+x --> 575+4115/-3275618*47943585+-85959764+1396-41*461272160+3-542287+-713. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -18,998,659,350
+Testing the generating of an expression without a percent operator --> (-x)-(-x*x/x)*x+x-x-x --> (-13776)-(-94535442084137794465623685195*750/61)*0+95685-0-1. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 81,908
 
 TEST 88: 
-Testing the generating of an expression without a percent operator --> x*x*x+x-x-x-x --> 16*2559*9+4994-764-4065-263. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 368,398
+Testing the generating of an expression without a percent operator --> x+(x)-x*x-x+x --> 12+(0)-6376*80-0+66850758. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 66,340,690
 
 TEST 89: 
-Testing the generating of an expression without a percent operator --> x-x*(x-x/(x)-(x)/x)+(x/x*x) --> 949-90*(5256-4/(8)-(182684650)/9314)+(1652/3*4617476). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 2,540,904,879
+Testing the generating of an expression without a percent operator --> x+x/(x*x-x-x*x)+x/x --> -76188+481/(4*-35--9-28*7094)+3464/-508. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -76,194
 
 TEST 90: 
-Testing the generating of an expression without a percent operator --> x-x --> 16-202791. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -202,775
+Testing the generating of an expression without a percent operator --> (x+x/x/x/x*x*x)-(x)+x/(x) --> (9+718602/957/1236/0*756630*51238)-(698785)+1/(9344). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 91: 
-Testing the generating of an expression without a percent operator --> x-x/x-(x*x*x)-x+x --> 4-82734/0-(81626936*826*87882)--21381+0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
+Testing the generating of an expression without a percent operator --> (-x)/x+x --> (-665144)/-39+-61658782. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -61,641,728
 
 TEST 92: 
-Testing the generating of an expression without a percent operator --> x*x*x*x/x/x*(x)+(x)-x+x-x --> 256588*-989*5*1/9586/-8955*(2)+(28)-8554+-1-312695. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -321,194
+Testing the generating of an expression without a percent operator --> x+x*x/x*x/x+x+(-x)+(x) --> -637+2*-217/32*4207709/422+-772+(-196154)+(4985). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -322,199
 
 TEST 93: 
-Testing the generating of an expression without a percent operator --> x-(x)+x --> 79919-(82580)+0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -2661
+Testing the generating of an expression without a percent operator --> x*(x) --> 63*(165403095657450153708655046190). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 10,420,395,026,419,359,683,645,267,909,970
 
 TEST 94: 
-Testing the generating of an expression without a percent operator --> x*x+x --> 58822*-948821+0. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -55,811,548,862
+Testing the generating of an expression without a percent operator --> x/x*x-x*x-(-x)+x+x --> -319/957*4--7*8481-(-9)+880168+-910. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 938,634
 
 TEST 95: 
-Testing the generating of an expression without a percent operator --> x*x-x+x/(-x*x*x)*x+(x+x) --> 3247824*5-8+71417708/(-5876*5*212)*80+(908937+-6). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 17,147,163
+Testing the generating of an expression without a percent operator --> (x*x-x/x)+x/x*x --> (717*9125-7/1172)+-5048/-88*264672. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 21,628,929
 
 TEST 96: 
-Testing the generating of an expression without a percent operator --> x/x --> 89/2. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 44
+Testing the generating of an expression without a percent operator --> x+x-(x/x*(x+x+x)+x-x)/x --> 9+-646-(0/757536*(86196+3+3)+-892-75185)/7380. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -627
 
 TEST 97: 
-Testing the generating of an expression without a percent operator --> (x-(x*x)/x)+x*x+x*x-(x) --> (760-(6762*275)/549)+635*609627252+251*667-(184). Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> 387,113,469,626
+Testing the generating of an expression without a percent operator --> x+x+x --> 143+-2+2. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> 143
 
 TEST 98: 
-Testing the generating of an expression without a percent operator --> x/x/x-x-x-x --> 3242111/537222/6282--1553-118729897-88581. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> -118,816,925
+Testing the generating of an expression without a percent operator --> x-x-x/x*(x/(-x)*(x)-x)*(x)-(x)-x --> 0-7-0/0*(61/(-47462215)*(220)-49105)*(0)-(6654)-1214. Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
 
 TEST 99: 
-Testing the generating of an expression without a percent operator --> x-x-x+x+(x*x*x/x)-(x)*x/x --> 863--8-74+61+(7*527*4301/0)-(3183)*30417/3. Is the expression valid? Expect: TRUE: TRUE
-Answer to the expression --> DIVISION BY 0 IS NOT ALLOWED!
+Testing the generating of an expression without a percent operator --> x-x-x/x-x+(-x*x)*(-x) --> 11-959174401766740449795005861358--782/2--6791+(-9*855)*(-3). Is the expression valid? Expect: TRUE: TRUE
+Answer to the expression --> -959,174,401,766,740,449,795,005,831,080
 
 COMPARATIVE OPERATORS TESTS: 
 

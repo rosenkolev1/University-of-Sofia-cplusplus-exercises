@@ -15,33 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project.StringManipulation.cpp">
+    <ClCompile Include="Week09-StaticAndTemplates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringManip.cpp">
+    <ClCompile Include="List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringManipTests.cpp">
+    <ClCompile Include="Guz.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MString.cpp">
+    <ClCompile Include="Computer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MStringTests.cpp">
+    <ClCompile Include="ComputerShop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsultantUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StringManip.h">
+    <ClInclude Include="List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StringManipTests.h">
+    <ClInclude Include="Guz.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MString.h">
+    <ClInclude Include="Computer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MStringTests.h">
+    <ClInclude Include="ComputerShop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsultantUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

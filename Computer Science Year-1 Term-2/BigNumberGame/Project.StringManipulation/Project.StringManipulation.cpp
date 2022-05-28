@@ -4,9 +4,11 @@
 #include <iostream>
 #include "StringManip.h"
 #include "StringManipTests.h"
+#include "MStringTests.h"
 
 int main()
 {
     StringManipTests::runTests();
+    //MStringTests::runTests();
 }
 
