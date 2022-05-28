@@ -142,6 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MString.cpp" />
+    <ClCompile Include="MStringManip.cpp" />
+    <ClCompile Include="MStringManipTests.cpp" />
     <ClCompile Include="MStringTests.cpp" />
     <ClCompile Include="Project.StringManipulation.cpp" />
     <ClCompile Include="StringManip.cpp" />
@@ -149,6 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MString.h" />
+    <ClInclude Include="MStringManip.h" />
+    <ClInclude Include="MStringManipTests.h" />
     <ClInclude Include="MStringTests.h" />
     <ClInclude Include="StringManip.h" />
     <ClInclude Include="StringManipTests.h" />

@@ -25,6 +25,7 @@ public:
 	MString();
 	MString(const char* string);
 	MString(char string[]);
+	MString(char symbol);
 
 	//Rule of 3
 	MString(const MString& other);
@@ -45,7 +46,7 @@ public:
 	bool operator<=(const MString& other) const;
 
 	//Getters and Setters
-	size_t getSize();
+	size_t getSize() const;
 
 	//IO from and to console
 	friend std::ostream& operator<<(std::ostream& os, const MString& other);

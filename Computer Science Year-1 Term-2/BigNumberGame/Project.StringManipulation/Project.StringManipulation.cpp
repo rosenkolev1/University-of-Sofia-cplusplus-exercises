@@ -5,10 +5,14 @@
 #include "StringManip.h"
 #include "StringManipTests.h"
 #include "MStringTests.h"
+#include "MString.h"
+#include "MStringManip.h"
+#include "MStringManipTests.h"
 
 int main()
 {
-    StringManipTests::runTests();
+    //StringManipTests::runTests();
     //MStringTests::runTests();
+    MStringManipTests::runTests();
 }
 

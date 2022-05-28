@@ -40,6 +40,15 @@ MString::MString(char string[])
 {
 }
 
+MString::MString(char symbol)
+{
+	this->data = new char[2];
+	this->data[0] = symbol;
+	this->data[1] = '\0';
+	this->size = 1;
+	this->capacity = 2;
+}
+
 MString::MString(const MString& other)
 {
 	this->copy(other);
@@ -112,7 +121,7 @@ bool MString::operator<=(const MString& other) const
 	return !(*this > other);
 }
 
-size_t MString::getSize()
+size_t MString::getSize() const
 {
 	return this->size;
 }

@@ -348,6 +348,8 @@ void MStringTests::squareBracketsOperatorTests()
 
 void MStringTests::runTests()
 {
+	mstring firstString = "Hey string!!!";
+
 	////IO tests for console
 	//printingOutToConsoleTests();
 	////inputtingFromConsoleTests();
