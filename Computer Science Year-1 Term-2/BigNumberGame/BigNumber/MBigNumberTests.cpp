@@ -1457,8 +1457,7 @@ void MBigNumberTests::SpecialTests(std::ostream& os)
     MBigNumber anotherMBigNumber = MBigNumber("12345678901234567890");
     MBigNumber otherAnotherMBigNumber = MBigNumber("12350033579332211025");
     os << otherMBigNumber << " + " << anotherMBigNumber << " = " << otherAnotherMBigNumber << "??? --> ";
-    /*MBigNumber otherAnotherMBigNumber = otherMBigNumber + anotherMBigNumber;
-    otherAnotherMBigNumber << std::endl;*/
+
     os << std::boolalpha << ((otherMBigNumber + anotherMBigNumber) == otherAnotherMBigNumber) << std::endl;
 
     MBigNumber copyOfOtherMBigNumber = otherMBigNumber;
@@ -1564,81 +1563,81 @@ void MBigNumberTests::runTests(std::ostream& os)
         delete[] timeOfRunningTheTests;
     }
 
-    // CONSTRUCTOR TESTS
+    //// CONSTRUCTOR TESTS
     ConstructorAndCopyAndAssignTests(os);
-
-    // READING OPERATOR TESTS
+    //
+    //// READING OPERATOR TESTS
     //ReadingOperatorTests();
-
-    // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
-    os << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
-
-    // == Operator and != Operator Tests
-    EqualsAndNotEqualsTests(os);
-
-    // > Operator Tests
-    OperatorGreaterThanTests(os);
-
-    // >= Operator Tests
-    OperatorGreaterThanOrEqualsTests(os);
-
-    // < Operator Tests
-    OperatorLessThanTests(os);
-
-    // <= Operator Tests
-    OperatorLessThanOrEqualsTests(os);
-
-    // + Operator Tests
-    OperatorSumTests(os);
-
-    // += Operator Tests
-    OperatorSumAndEqualsTests(os);
-
-    // - Operator Tests
-    OperatorMinusTests(os);
-
-    // -= Operator Tests
-    OperatorMinusAndEqualsTests(os);
-
-    // ++ OperatorTests
-    OperatorIncrementTests(os);
-
-    // -- OperatorTests
-    OperatorDecrementTests(os);
-
-    // * Operator Tests 
-    OperatorMultiplyTests(os);
-
-    // *= Operator Tests
-    OperatorMultiplyAndEqualsTests(os);
-
-    // Operator tests
-    OperatorDivideTests(os);
-
-    //= Operator tests
-    OperatorDivideAndEqualsTests(os);
-
-    // % Operator tests
-    OperatorPercentTests(os);
-
-    // %= Operator tests
-    OperatorPercentAndEqualsTests(os);
-
-    // Test inputs from Pesho and Lubo
-    PeshoAndLuboTests(os);
-
-    //Special Tests
-    SpecialTests(os);
-
-    //Tests for getter of number
-    getNumberTests(os);
-    getNumberRawTests(os);
+    //
+    //// ARITHMETIC AND COMPARATIVE OPERATORS TESTS
+    //os << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
+    //
+    //// == Operator and != Operator Tests
+    //EqualsAndNotEqualsTests(os);
+    //
+    //// > Operator Tests
+    //OperatorGreaterThanTests(os);
+    //
+    //// >= Operator Tests
+    //OperatorGreaterThanOrEqualsTests(os);
+    //
+    //// < Operator Tests
+    //OperatorLessThanTests(os);
+    //
+    //// <= Operator Tests
+    //OperatorLessThanOrEqualsTests(os);
+    //
+    //// + Operator Tests
+    //OperatorSumTests(os);
+    //
+    //// += Operator Tests
+    //OperatorSumAndEqualsTests(os);
+    //
+    //// - Operator Tests
+    //OperatorMinusTests(os);
+    //
+    //// -= Operator Tests
+    //OperatorMinusAndEqualsTests(os);
+    //
+    //// ++ OperatorTests
+    //OperatorIncrementTests(os);
+    //
+    //// -- OperatorTests
+    //OperatorDecrementTests(os);
+    //
+    //// * Operator Tests 
+    //OperatorMultiplyTests(os);
+    //
+    //// *= Operator Tests
+    //OperatorMultiplyAndEqualsTests(os);
+    //
+    //// Operator tests
+    //OperatorDivideTests(os);
+    //
+    ////= Operator tests
+    //OperatorDivideAndEqualsTests(os);
+    //
+    //// % Operator tests
+    //OperatorPercentTests(os);
+    //
+    //// %= Operator tests
+    //OperatorPercentAndEqualsTests(os);
+    //
+    //// Test inputs from Pesho and Lubo
+    //PeshoAndLuboTests(os);
+    //
+    ////Special Tests
+    //SpecialTests(os);
+    //
+    ////Tests for getter of number
+    //getNumberTests(os);
+    //getNumberRawTests(os);
 
     // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
     //OperatorDivideAndPercentMemoryLeakTests();
 
-    ////Test for getNumber memory leak. PROCEED WITH CAUTION!!!
-    ////getNumberMemoryLeakTest();
+    //Test for getNumber memory leak. PROCEED WITH CAUTION!!!
+    //getNumberMemoryLeakTest();
 
     os << std::endl << std::endl;
 }

@@ -8,11 +8,6 @@ class MBigNumberDivisionResult;
 class MBigNumber
 {
 private:
-	//const int INIT_CAPACITY = 20;
-
-	//size_t capacity;
-	//size_t size;
-
 	//Digits of the number
 	mstring number;
 
@@ -51,14 +46,8 @@ public:
 	 */
 	MBigNumber(long long int number);
 
-
-	//~MBigNumber();
-
 	//Get the sign of the number
 	int getSign();
-
-	//Assigment operator
-	//MBigNumber& operator = (const MBigNumber& other);
 
 	// Mandatory
 	bool operator == (const MBigNumber& other) const;

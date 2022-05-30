@@ -12,6 +12,8 @@
 #include "MBigNumber.h"
 #include "MBigNumberDivisionResult.h"
 #include "MBigNumberTests.h"
+#include "MBigNumberExpression.h"
+#include "MBigNumberExpressionTests.h"
 
 int main()
 {
@@ -40,8 +42,13 @@ int main()
 
     //BIGNUMBER with MSTRING
     std::ofstream osBigNumberTests(MBigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
+    std::ofstream osExpressionTests(MBigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
 
     //BigNumber tests
     MBigNumberTests::runTests(std::cout);
     //MBigNumberTests::runTests(osBigNumberTests);
+
+    //BigNumberExpression tests
+    MBigNumberExpressionTests::runTests(std::cout);
+    //MBigNumberExpressionTests::runTests(osExpressionTests);
 }
