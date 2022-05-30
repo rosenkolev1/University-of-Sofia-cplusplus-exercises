@@ -41,9 +41,6 @@ mstring* MStringManip::splitString(const mstring& input, char delim, size_t& siz
 {
     mstring* stringResult = splitString(input, (mstring)delim, sizeOfArray);
 
-    //Delete Dynamic Memory
-    //delete[] delimString;
-
     return stringResult;
 }
 
@@ -83,7 +80,6 @@ mstring* MStringManip::splitString(const mstring& input, const mstring& delim, s
 
             if (foundDelim)
             {
-                //baaaa aa
                 numberOfStrings++;
                 i += delim.getSize() - 1;
             }
@@ -91,51 +87,6 @@ mstring* MStringManip::splitString(const mstring& input, const mstring& delim, s
     }
 
     mstring* arrayOfStrings = new mstring [numberOfStrings];
-    //size_t* sizesOfStrings = new size_t[numberOfStrings];
-
-    ////Init sizesOfStrings
-    //for (size_t i = 0; i < numberOfStrings; i++)
-    //{
-    //    sizesOfStrings[i] = 0;
-    //}
-
-    //Get the lengths of all the strings
-    //size_t sizeOfStringIndex = 0;
-    //for (size_t i = 0; i < sizeOfInput; i++)
-    //{
-    //    if (input[i] == delim[0])
-    //    {
-    //        bool foundDelim = true;
-    //        for (size_t y = 1; y < delim.getSize(); y++)
-    //        {
-    //            if (input[i + y] != delim[y])
-    //            {
-    //                foundDelim = false;
-    //                break;
-    //            }
-    //            if (i + y == input.getSize() - 1 && y + 1 < delim.getSize())
-    //            {
-    //                foundDelim = false;
-    //                break;
-    //            }
-    //        }
-
-    //        if (foundDelim)
-    //        {
-    //            sizeOfStringIndex++;
-    //            i += delim.getSize() - 1;
-    //        }
-    //        //If it failed the search for a match, then add the character to the current string length
-    //        else
-    //        {
-    //            //sizesOfStrings[sizeOfStringIndex]++;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        //sizesOfStrings[sizeOfStringIndex]++;
-    //    }
-    //}
 
     size_t currentStringIndex = 0;
     size_t delimStartIndex = 0;
@@ -179,7 +130,6 @@ mstring* MStringManip::splitString(const mstring& input, const mstring& delim, s
     }
     arrayOfStrings[currentStringIndex++] = modifiedInput;
 
-    //delete[] sizesOfStrings;
     sizeOfArray = numberOfStrings;
     return arrayOfStrings;
 }
@@ -195,7 +145,6 @@ mstring* MStringManip::splitStringMany(const mstring& input, const mstring& deli
 
     mstring* splitInput = splitStringMany(input, delimsStringArray, delims.getSize(), sizeOfArray);
 
-    //Delete dynamic memory. We don't use the MStringManip::deleteArrayOfStrings function because we don't want to delete the delims parameter
     delete[] delimsStringArray;
 
     return splitInput;
@@ -342,10 +291,6 @@ bool MStringManip::stringContains(const mstring& text, const mstring& other)
 
 void MStringManip::deleteArrayOfStrings(mstring* text, size_t arrayCount)
 {
-    /*for (size_t i = 0; i < arrayCount; i++)
-    {
-        delete text[i];
-    }*/
     delete[] text;
 }
 
@@ -409,7 +354,6 @@ mstring MStringManip::replaceAll(const mstring& text, const mstring& replaced, c
     mstring finalText = concatStrings(finalTextStrings, finalTextStringsCount);
 
     //Delete dynamic memory
-    //TODO: FIX DELETIONS
     delete[] finalTextStrings;
     delete[] textStrings;
 
@@ -450,9 +394,7 @@ mstring MStringManip::replaceFirst(const mstring& text, const mstring& replaced,
     mstring finalText = concatStrings(finalTextStrings, finalTextStringsCount);
 
     //Delete dynamic memory
-    //TODO: FIX THE DELETION
-    deleteArrayOfStrings(finalTextStrings, finalTextStringsCount);
-    //delete[] finalTextStrings;
+    delete[] finalTextStrings;
 
     return finalText;
 }
@@ -490,7 +432,6 @@ mstring MStringManip::replaceFrom(const mstring& text, const mstring& replacemen
 
 int MStringManip::findIndex(const mstring& text, const mstring& searchText)
 {
-    //return firstIndex > -1 ? firstIndex + startIndex : -1;
     return findIndex(text, searchText, 0, text.getSize() - 1);
 }
 
@@ -506,7 +447,7 @@ int MStringManip::findIndex(const mstring& text, const mstring& searchText, size
         if (text[i] == searchText[0])
         {
             bool stringIsFound = true;
-            searchTextFoundIndex = i;//6 - (6-x) = 3 //0+x=3//x=3
+            searchTextFoundIndex = i;
             if (sizeOfTextPart - (i - startIndex) < searchText.getSize()) stringIsFound = false;
             else
             {
@@ -536,37 +477,6 @@ int MStringManip::findIndex(const mstring& text, const mstring& searchText, size
 
 int MStringManip::findIndexLast(const mstring& text, const mstring& searchText)
 {
-    //int searchTextFoundIndex = -1;
-    //int searchTextFoundLastIndex = -1;
-    //bool searchTextHasBeenFound = false;
-    //for (size_t i = 0; i < text.getSize(); i++)
-    //{
-    //    if (text[i] == searchText[0])
-    //    {
-    //        bool stringIsFound = true;
-    //        searchTextFoundLastIndex = searchTextFoundIndex;
-    //        searchTextFoundIndex = i;
-    //        for (size_t y = 1; y < searchText.getSize(); y++)
-    //        {
-    //            if (text[i + y] != searchText[y])
-    //            {
-    //                stringIsFound = false;
-    //                break;
-    //            }
-    //            if (i + y == text.getSize() - 1 && y + 1 < searchText.getSize())
-    //            {
-    //                stringIsFound = false;
-    //                break;
-    //            }
-    //        }
-    //        if (stringIsFound && !searchTextHasBeenFound) searchTextHasBeenFound = true;
-    //        else if (!stringIsFound && !searchTextHasBeenFound) searchTextFoundIndex = -1;
-    //        else if (!stringIsFound && searchTextHasBeenFound) searchTextFoundIndex = searchTextFoundLastIndex;
-    //    }
-    //}
-
-    //// If we get -1, then the searchText wasn't found within text
-    //return searchTextFoundIndex;
     return findIndexLast(text, searchText, 0, text.getSize() - 1);
 }
 
@@ -577,25 +487,13 @@ int MStringManip::findIndexLast(const mstring& text, const mstring& searchText, 
 
     mstring reverseText = MStringManip::getReverse(text);
     mstring reverseSearchText = MStringManip::getReverse(searchText);
-    //abbaababcabbaaabcabccabab | abc ==> 17
-    //
+
     int deltaFromStart = startIndex;
     int deltaFromEnd = text.getSize() - 1 - endIndex;
     int indexWhenReversed = findIndex(reverseText, reverseSearchText, deltaFromEnd, text.getSize() - 1 - deltaFromStart);
     int correctIndex = text.getSize() - 1 - indexWhenReversed - searchText.getSize() + 1 ;
-    return indexWhenReversed > -1 ? correctIndex : -1;
 
-    //char* textPart = new char[endIndex - startIndex + 2];
-    //textPart[endIndex - startIndex + 1] = '\0';
-    //for (size_t i = startIndex; i <= endIndex; i++)
-    //{
-    //    textPart[i - startIndex] = text[i];
-    //}
-    //
-    //int lastIndex = findIndexLast(textPart, searchText);
-    ////Delete dynamic memory
-    //delete[] textPart;
-    //return lastIndex > -1 ? lastIndex + startIndex : -1;
+    return indexWhenReversed > -1 ? correctIndex : -1;
 }
 
 size_t MStringManip::countOf(const mstring& text, char symbol)
@@ -707,16 +605,6 @@ size_t MStringManip::countOfMany(const mstring& text, const mstring* searchStrin
         countOfAllStrings += countOfString;
     }
 
-    //Delete dynamic memory
-    //deleteArrayOfStrings(uniqueStringsFromSearchText, uniqueStringsCount);
-
-    ////PLACEHOLDER
-    //for (size_t i = 0; i < uniqueStringsCount; i++)
-    //{
-    //    delete[] uniqueStringsFromSearchText[i];
-    //}
-    //delete[] uniqueStringsFromSearchText;
-
     delete[] uniqueStringsFromSearchText;
 
     return countOfAllStrings;
@@ -749,12 +637,6 @@ mstring* MStringManip::getUnique(const mstring* strings, size_t& arraySize)
 
     mstring* uniqueStrings = new mstring [arraySize];
 
-    //Init the unique strings
-    //for (size_t i = 0; i < arraySize; i++)
-    //{
-    //    uniqueStrings[i] = new mstring();
-    //}
-
     size_t uniqueStringsIndex = 0;
 
     for (size_t i = 0; i < arraySize; i++)
@@ -775,10 +657,6 @@ mstring* MStringManip::getUnique(const mstring* strings, size_t& arraySize)
         {
             //Add the new string to uniqueStrings
             uniqueStrings[uniqueStringsIndex++] = stringToCompare;
-            //delete[] uniqueStrings[uniqueStringsIndex];
-            //uniqueStrings[uniqueStringsIndex] = new char[strlen(stringToCompare) + 1];
-            //strcpy(uniqueStrings[uniqueStringsIndex], stringToCompare);
-            //uniqueStringsIndex++;
         }
     }
 

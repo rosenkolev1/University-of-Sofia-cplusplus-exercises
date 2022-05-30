@@ -247,12 +247,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 1
     std::cout << "TEST 1" << std::endl;
     mstring input1 = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
-    /*const mstring* delims1 = new mstring []
-    {
-        "|||",
-            "^^^",
-            "_"
-    };*/
+
     mstring delims1[] =
     {
          "|||",
@@ -262,16 +257,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims1Count = 3;
 
     size_t sizeOfExpectedOutput = 7;
-    /*const mstring* expectedOutput1 = new mstring[]
-    {
-        "Roskata123",
-            "Tupa",
-            "rabota",
-            "Egati",
-            "Tupoto||^^",
-            " ",
-            ""
-    };*/
+
     mstring expectedOutput1[]
     {
         "Roskata123",
@@ -305,12 +291,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 2
     std::cout << "TEST 2" << std::endl;
     mstring input2 = "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on";
-    /*const mstring* delims2 = new const mstring* []
-    {
-        "|||",
-            "^^^",
-            "_"
-    };*/
+
     mstring delims2[]
     {
         "|||",
@@ -320,17 +301,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims2Count = 3;
 
     sizeOfExpectedOutput = 8;
-    /*const mstring* expectedOutput2 = new const mstring* []
-    {
-        "",
-            "Roskata123",
-            "Tupa",
-            "rabota",
-            "Egati",
-            "Tupoto||^^",
-            " ",
-            "something to end on"
-    };*/
+
     mstring expectedOutput2[]
     {
         "",
@@ -369,10 +340,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims3Count = 0;
 
     sizeOfExpectedOutput = 1;
-    /*const mstring* expectedOutput3 = new const mstring* []
-    {
-        "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on",
-    };*/
+
     mstring expectedOutput3[] =
     {
         "|||Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||something to end on",
@@ -401,12 +369,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 4
     std::cout << "TEST 4" << std::endl;
     mstring input4 = "";
-    /*const mstring* delims4 = new const mstring* [3]
-    {
-        "|||",
-            "^^^",
-            "_"
-    };*/
+
     mstring delims4[]
     {
         "|||",
@@ -416,10 +379,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims4Count = 3;
 
     sizeOfExpectedOutput = 1;
-   /* const mstring* expectedOutput4 = new const mstring* []
-    {
-        "",
-    };*/
+
     mstring expectedOutput4[]
     {
         "",
@@ -447,12 +407,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 5
     std::cout << "TEST 5" << std::endl;
     mstring input5 = "|||";
-    /*const mstring* delims5 = new const mstring* [3]
-    {
-        "|||",
-            "^^^",
-            "_"
-    };*/
+
     mstring delims5[]
     {
         "|||",
@@ -462,11 +417,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims5Count = 3;
 
     sizeOfExpectedOutput = 2;
-    /*const mstring* expectedOutput5 = new const mstring* []
-    {
-        "",
-            ""
-    };*/
+
     mstring expectedOutput5[]
     {
         "",
@@ -495,12 +446,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 6
     std::cout << "TEST 6" << std::endl;
     mstring input6 = "Rosen4o";
-    /*const mstring* delims6 = new const mstring* [3]
-    {
-        "|||",
-            "^^^",
-            "_"
-    };*/
+
     mstring delims6[]
     {
          "|||",
@@ -510,10 +456,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims6Count = 3;
 
     sizeOfExpectedOutput = 1;
-    /*const mstring* expectedOutput6 = new const mstring* []
-    {
-        "Rosen4o"
-    };*/
+
     mstring expectedOutput6[]
     {
         "Rosen4o"
@@ -541,15 +484,7 @@ void MStringManipTests::splitStringManyTests()
     //TEST 7
     std::cout << "TEST 7" << std::endl;
     mstring input7 = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
-    /*const mstring* delims7 = new const mstring* []
-    {
-        "|||",
-            "^^^",
-            "_",
-            "|||",
-            "_",
-            "||"
-    };*/
+
     mstring delims7[]
     {
         "|||",
@@ -563,17 +498,7 @@ void MStringManipTests::splitStringManyTests()
     size_t delims7Count = 6;
 
     sizeOfExpectedOutput = 8;
-   /* const mstring* expectedOutput7 = new const mstring* []
-    {
-        "Roskata123",
-            "Tupa",
-            "rabota",
-            "Egati",
-            "Tupoto",
-            "^^",
-            " ",
-            ""
-    };*/
+
     mstring expectedOutput7[]
     {
         "Roskata123",
@@ -608,28 +533,11 @@ void MStringManipTests::splitStringManyTests()
     //TEST 8
     std::cout << "TEST 8" << std::endl;
     mstring input8 = "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||";
-    /*mstring delims8[] =
-    {
-        "_|"
-    };*/
+
     mstring delims8 = "_|";
 
     sizeOfExpectedOutput = 12;
-    /*const mstring* expectedOutput8 = new const mstring* []
-    {
-        "Roskata123",
-            "",
-            "",
-            "Tupa",
-            "rabota^^^Egati",
-            "Tupoto",
-            "",
-            "^^",
-            " ",
-            "",
-            "",
-            ""
-    };*/
+
     mstring expectedOutput8[]
     {
         "Roskata123",
@@ -669,18 +577,7 @@ void MStringManipTests::splitStringManyTests()
     mstring delims9 = "|";
 
     sizeOfExpectedOutput = 9;
-    /*const mstring* expectedOutput9 = new const mstring* []
-    {
-        "Roskata123",
-            "",
-            "",
-            "Tupa_rabota^^^Egati_Tupoto",
-            "",
-            "^^_ ",
-            "",
-            "",
-            "",
-    };*/
+
     mstring expectedOutput9[]
     {
         "Roskata123",
@@ -717,10 +614,7 @@ void MStringManipTests::splitStringManyTests()
     mstring delims10 = "";
 
     sizeOfExpectedOutput = 1;
-    /*const mstring* expectedOutput10 = new const mstring* []
-    {
-        "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||",
-    };*/
+
     mstring expectedOutput10[]
     {
         "Roskata123|||Tupa_rabota^^^Egati_Tupoto||^^_ |||"
@@ -1107,19 +1001,7 @@ void MStringManipTests::arraysOfStringsAreEqualTests()
 
     //TEST 1
     std::cout << "TEST 1" << std::endl;
-    /*const mstring* input11 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "Something",
-            "Anything",
-            "",
-            "  ",
-            "",
-            " ",
-            "Anything"
-    };*/
+
     mstring input11[]
     {
         "Something",
@@ -1135,15 +1017,6 @@ void MStringManipTests::arraysOfStringsAreEqualTests()
     };
     size_t arraySizeInput11 = 10;
 
-    /*const mstring* input12 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "",
-            "  ",
-            " ",
-    };*/
     mstring input12[]
     {
         "Something",
@@ -1165,19 +1038,7 @@ void MStringManipTests::arraysOfStringsAreEqualTests()
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
-    /*const mstring* input21 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "Something",
-            "Anything",
-            "",
-            "  ",
-            "",
-            " ",
-            "Anything"
-    };*/
+   
     mstring input21[]
     {
          "Something",
@@ -1194,19 +1055,6 @@ void MStringManipTests::arraysOfStringsAreEqualTests()
 
     size_t arraySizeInput21 = 10;
 
-    /*const mstring* input22 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "Something",
-            "Anything",
-            "",
-            "  ",
-            "",
-            " ",
-            "Anything"
-    };*/
     mstring input22[]
     {
         "Something",
@@ -1233,20 +1081,13 @@ void MStringManipTests::arraysOfStringsAreEqualTests()
 
     //TEST 3
     std::cout << "TEST 3" << std::endl;
-    /*const mstring* input31 = new const mstring* []
-    {
-        "",
-    };*/
+
     mstring input31[]
     {
         ""
     };
     size_t arraySizeInput31 = 1;
 
-    /*const mstring* input32 = new const mstring* []
-    {
-        "",
-    };*/
     mstring input32[]
     {
         ""
@@ -1309,19 +1150,7 @@ void MStringManipTests::getUniqueTests()
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
-    /*const mstring* input5 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "Something",
-            "Anything",
-            "",
-            "  ",
-            "",
-            " ",
-            "Anything"
-    };*/
+
     mstring input5[]
     {
         "Something",
@@ -1337,15 +1166,6 @@ void MStringManipTests::getUniqueTests()
     };
     size_t arraySizeInput = 10;
 
-    /*const mstring* expectedOutput5 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "",
-            "  ",
-            " ",
-    };*/
     mstring expectedOutput5[]
     {
          "Something",
@@ -1378,15 +1198,6 @@ void MStringManipTests::getUniqueTests()
     const mstring* input6 = new mstring [0];
     arraySizeInput = 0;
 
-    /*const mstring* expectedOutput6 = new const mstring* []
-    {
-        "Something",
-            "Anything",
-            "something",
-            "",
-            "  ",
-            " ",
-    };*/
     mstring expectedOutput6[]
     {
         "Something",
@@ -1717,12 +1528,6 @@ void MStringManipTests::countOfManyTests()
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
-    /*const mstring* input5 = new const mstring* []
-    {
-        "bro",
-            "orb",
-            "bro"
-    };*/
     mstring input5[]
     {
         "bro",
@@ -1740,11 +1545,6 @@ void MStringManipTests::countOfManyTests()
 
     //TEST 6
     std::cout << "TEST 6" << std::endl;
-    /*const mstring* input6 = new const mstring* []
-    {
-        "bro",
-            "",
-    };*/
     mstring input6[]
     {
         "bro",
@@ -1782,11 +1582,7 @@ void MStringManipTests::countOfManyTests()
 
     //TEST 8
     std::cout << "TEST 8" << std::endl;
-    /*const mstring* input8 = new const mstring* []
-    {
-        "Something",
-            "Anything"
-    };*/
+
     mstring input8[]
     {
         "Something",
