@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 
 class MString
 {
@@ -61,6 +62,10 @@ public:
 	//IO from and to console
 	friend std::ostream& operator<<(std::ostream& os, const MString& other);
 	friend std::istream& operator>>(std::istream& is, MString& other);
+
+	//IO from and to files
+	friend std::ofstream& operator<<(std::ofstream& os, const MString& other);
+	friend std::ifstream& operator>>(std::ifstream& is, MString& other);
 };
 
 typedef MString mstring;

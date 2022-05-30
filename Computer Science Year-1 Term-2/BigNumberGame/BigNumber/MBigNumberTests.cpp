@@ -1547,7 +1547,7 @@ void MBigNumberTests::getNumberMemoryLeakTest()
     MBigNumber memoryLeakExpression("10");
     while (true)
     {
-        const char* answer = memoryLeakExpression.getNumber();
+        mstring answer = memoryLeakExpression.getNumber();
     }
 }
 

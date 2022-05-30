@@ -4,24 +4,23 @@
 #include <cmath>
 #include "MBigNumberDivisionResult.h"
 #include "MBigNumber.h"
-#include "..\Project.StringManipulation\StringManip.h"
+#include "..\Project.StringManipulation\MStringManip.h"
 
 MBigNumber::MBigNumber()
 {
-	this->capacity = INIT_CAPACITY;
-	this->size = 1;
+	//this->capacity = INIT_CAPACITY;
+	//this->number.getSize() = 1;
 	this->number = "0";
 	this->sign = 0;
 }
 
-MBigNumber::MBigNumber(const MBigNumber& other)
-	:MBigNumber()
-{
-	this->copy(other);
-}
+//MBigNumber::MBigNumber(const MBigNumber& other)
+//	:MBigNumber()
+//{
+//	this->copy(other);
+//}
 
 MBigNumber::MBigNumber(mstring number)
-	: MBigNumber()
 {
 	changeNumber(number);
 }
@@ -42,10 +41,10 @@ MBigNumber::MBigNumber(long long int number)
 		numberCopy /= 10;
 	}
 
-	this->capacity = numberSize + 1;
-	this->size = numberSize;
+	/*this->capacity = numberSize + 1;
+	this->number.getSize() = numberSize;*/
 	//this->number = new char[this->capacity];
-	//this->number[this->size] = '\0';
+	//this->number[this->number.getSize()] = '\0';
 
 	////Digits are stored in reverse. 
 	//for (long long int i = numberSize - 1; i >= 0; i--)
@@ -65,34 +64,36 @@ MBigNumber::MBigNumber(long long int number)
 	}
 }
 
-void MBigNumber::copy(const MBigNumber& other)
-{
-	this->capacity = other.capacity;
-	this->size = other.size;
-	this->sign = other.sign;
-	delete[] this->number;
-	this->number = new char[other.capacity];
-	this->number[other.size] = '\0';
-	for (size_t i = 0; i < other.size; i++)
-	{
-		this->number[i] = other.number[i];
-	}
-}
+//void MBigNumber::copy(const MBigNumber& other)
+//{
+//	this->capacity = other.capacity;
+//	this->number.getSize() = other.number.getSize();
+//	this->sign = other.sign;
+//	//delete this->number;
+//	/*this->number = new char[other.capacity];
+//	this->number[other.number.getSize()] = '\0';
+//	for (size_t i = 0; i < other.number.getSize(); i++)
+//	{
+//		this->number[i] = other.number[i];
+//	}*/
+//	this->number = other.number;
+//}
 
 /*
 @brief Changes the number array to the specified number array
 */
-void MBigNumber::changeNumber(const char* number)
+void MBigNumber::changeNumber(mstring number)
 {
 	bool otherNumberIsNegative = number[0] == '-';
 
-	size_t numberSize = 0;
+	size_t trueSizeOfNumber = number.getSize();
+	size_t numberSize = otherNumberIsNegative ? trueSizeOfNumber - 1 : trueSizeOfNumber;/*0;
 	if (otherNumberIsNegative) numberSize++;
 	while (number[numberSize] - '0' >= 0 && number[numberSize] - '0' <= 9)
 	{
 		numberSize++;
 	}
-	if (otherNumberIsNegative) numberSize--;
+	if (otherNumberIsNegative) numberSize--;*/
 
 	//Set sign
 	if (otherNumberIsNegative) this->sign = -1;
@@ -100,57 +101,68 @@ void MBigNumber::changeNumber(const char* number)
 	else this->sign = 1;
 
 	//Delete the old number
-	delete[] this->number;
+	//delete[] this->number;
 
 	//If the number size is =0, then create the bigNumber as 0
 	if (numberSize == 0)
 	{
-		this->capacity = 2;
-		this->size = 1;
+		/*this->capacity = 2;
+		this->number.getSize() = 1;
 		this->number = new char[2];
 		this->number[0] = '0';
 		this->number[1] = '\0';
+		return;*/
+		this->number = "0";
 		return;
 	}
 
-	this->capacity = numberSize + 1;
-	this->size = numberSize;
+	/*this->capacity = numberSize + 1;
+	this->number.getSize() = numberSize;*/
 
 	//Copy the reversed number into this->number
-	this->number = new char[this->capacity];
-	this->number[this->size] = '\0';
+	/*this->number = new char[this->capacity];
+	this->number[this->number.getSize()] = '\0';
 	size_t trueSizeOfNumber = otherNumberIsNegative ? numberSize + 1 : numberSize;
 	for (size_t i = 0; i < numberSize; i++)
 	{
 		this->number[i] = number[trueSizeOfNumber - 1 - i];
+	}*/
+
+	//TODO: CHECK FOR MEMORY LEAK ISSUES
+	mstring newNumber;
+	for (size_t i = 0; i < numberSize; i++)
+	{
+		newNumber += number[trueSizeOfNumber - 1 - i];
 	}
+
+	this->number = newNumber;
 }
 
-MBigNumber::~MBigNumber()
-{
-	delete[] this->number;
-}
+//MBigNumber::~MBigNumber()
+//{
+//	delete[] this->number;
+//}
 
 int MBigNumber::getSign()
 {
 	return this->sign;
 }
 
-MBigNumber& MBigNumber::operator=(const MBigNumber& other)
-{
-	if (this != &other)
-	{
-		copy(other);
-	}
-	return *this;
-}
+//MBigNumber& MBigNumber::operator=(const MBigNumber& other)
+//{
+//	if (this != &other)
+//	{
+//		copy(other);
+//	}
+//	return *this;
+//}
 
 bool MBigNumber::operator==(const MBigNumber& other) const
 {
 	//Compare the numbers
-	if (other.size != this->size) return false;
+	if (other.number.getSize() != this->number.getSize()) return false;
 	if (this->sign != other.sign) return false;
-	for (size_t i = 0; i < other.size; i++)
+	for (size_t i = 0; i < other.number.getSize(); i++)
 	{
 		if (this->number[i] != other.number[i]) return false;
 	}
@@ -189,11 +201,11 @@ bool MBigNumber::operator>(const MBigNumber& other) const
 	else if (signOfOther > 0 && signOfThis > 0)
 	{
 		//Check by size of numbers second
-		if (this->size > other.size) return true;
-		else if (this->size < other.size) return false;
+		if (this->number.getSize() > other.number.getSize()) return true;
+		else if (this->number.getSize() < other.number.getSize()) return false;
 		else
 		{
-			for (long long int i = other.size - 1; i >= 0; i--)
+			for (long long int i = other.number.getSize() - 1; i >= 0; i--)
 			{
 				int thisDigit = this->number[i] - '0';
 				int otherDigit = other.number[i] - '0';
@@ -206,11 +218,11 @@ bool MBigNumber::operator>(const MBigNumber& other) const
 	else if (signOfOther < 0 && signOfThis < 0)
 	{
 		//Check by size of numbers second
-		if (this->size > other.size) return false;
-		else if (this->size < other.size) return true;
+		if (this->number.getSize() > other.number.getSize()) return false;
+		else if (this->number.getSize() < other.number.getSize()) return true;
 		else
 		{
-			for (long long int i = other.size - 1; i >= 0; i--)
+			for (long long int i = other.number.getSize() - 1; i >= 0; i--)
 			{
 				//abs is included here because the front digits are negative, which means comparing them is weird
 				int thisDigit = this->number[i] - '0';
@@ -243,53 +255,53 @@ bool MBigNumber::greaterThanOrEqualsAbsolute(const MBigNumber& other) const
 
 MBigNumber MBigNumber::addAndReturn(const MBigNumber& thisNumber, const MBigNumber& other, bool areNegative) const
 {
-	size_t biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
-	size_t biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
-	biggerCapacity++;
+	size_t biggerSize = thisNumber.number.getSize() > other.number.getSize() ? thisNumber.number.getSize() : other.number.getSize();
+	/*size_t biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
+	biggerCapacity++;*/
 
 	int carryOver = 0;
 
-	char* reversedNewNumber = new char[biggerSize + 2];
-	reversedNewNumber[biggerSize] = '\0';
+	mstring reversedNewNumber;
 
 	for (size_t i = 0; i < biggerSize; i++)
 	{
-		int digitThis = thisNumber.size > i ? thisNumber.number[i] - '0' : 0;
-		int digitOther = other.size > i ? other.number[i] - '0' : 0;
+		int digitThis = thisNumber.number.getSize() > i ? thisNumber.number[i] - '0' : 0;
+		int digitOther = other.number.getSize() > i ? other.number[i] - '0' : 0;
 
 		int sum = digitThis + digitOther + carryOver;
 		int newDigit = sum % 10;
 		carryOver = sum / 10;
 
-		reversedNewNumber[i] = newDigit + '0';
+		reversedNewNumber += (newDigit + '0');
 	}
 
 	if (carryOver == 1)
 	{
-		reversedNewNumber[biggerSize] = 1 + '0';
-		reversedNewNumber[biggerSize + 1] = '\0';
+		reversedNewNumber += (1 + '0');
 		biggerSize++;
 	}
 
 	//Reverse the number
-	char* newNumber = StringManip::getReverse(reversedNewNumber);
+	mstring newNumber = MStringManip::getReverse(reversedNewNumber);
 	//Delete dynamic memory
-	delete[] reversedNewNumber;
+	/*delete[] reversedNewNumber;*/
 
 	//If the result number is negative, then append a - to the front of the newNumber
 	if (areNegative)
 	{
-		char* newNumberCopy = new char[strlen(newNumber) + 2];
+		/*char* newNumberCopy = new char[strlen(newNumber) + 2];
 		newNumberCopy[0] = '-';
 		newNumberCopy[1] = '\0';
 		strcat(newNumberCopy, newNumber);
 		delete[] newNumber;
-		newNumber = newNumberCopy;
+		newNumber = newNumberCopy;*/
+		newNumber.push_front("-");
 	}
 
-	MBigNumber newMBigNumber = MBigNumber(newNumber);
+	/*MBigNumber newMBigNumber = MBigNumber(newNumber);
 
-	return newMBigNumber;
+	return newMBigNumber;*/
+	return newNumber;
 }
 
 MBigNumber MBigNumber::operator+(const MBigNumber& other) const
@@ -346,10 +358,11 @@ MBigNumber& MBigNumber::operator+=(const MBigNumber& other)
 
 MBigNumber MBigNumber::subtractAndReturn(const MBigNumber& thisNumber, const MBigNumber& other) const
 {
-	size_t biggerSize = thisNumber.size > other.size ? thisNumber.size : other.size;
-	size_t biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
+	size_t biggerSize = thisNumber.number.getSize() > other.number.getSize() ? thisNumber.number.getSize() : other.number.getSize();
+	/*size_t biggerCapacity = thisNumber.capacity > other.capacity ? thisNumber.capacity : other.capacity;
 	char* reversedNewNumber = new char[biggerSize + 1];
-	reversedNewNumber[biggerSize] = '\0';
+	reversedNewNumber[biggerSize] = '\0';*/
+	mstring reversedNewNumber;
 	int expectedResultsSign = 0;
 
 	//Check if the numbers are equal
@@ -386,8 +399,8 @@ MBigNumber MBigNumber::subtractAndReturn(const MBigNumber& thisNumber, const MBi
 
 	for (size_t i = 0; i < biggerSize; i++)
 	{
-		int digitLarger = largerAbsoluteNumber.size > i ? largerAbsoluteNumber.number[i] - '0' : 0;
-		int digitSmaller = smallerAbsoluteNumber.size > i ? smallerAbsoluteNumber.number[i] - '0' : 0;
+		int digitLarger = largerAbsoluteNumber.number.getSize() > i ? largerAbsoluteNumber.number[i] - '0' : 0;
+		int digitSmaller = smallerAbsoluteNumber.number.getSize() > i ? smallerAbsoluteNumber.number[i] - '0' : 0;
 
 		bool carryOverLocked = false;
 
@@ -405,7 +418,8 @@ MBigNumber MBigNumber::subtractAndReturn(const MBigNumber& thisNumber, const MBi
 
 		int subtractionResult = digitLarger < digitSmaller ? digitLarger + 10 - digitSmaller : digitLarger - digitSmaller;
 
-		reversedNewNumber[i] = subtractionResult + '0';
+		//reversedNewNumber[i] = subtractionResult + '0';
+		reversedNewNumber += (subtractionResult + '0');
 	}
 
 	//Remove trailing zeroes
@@ -418,30 +432,34 @@ MBigNumber MBigNumber::subtractAndReturn(const MBigNumber& thisNumber, const MBi
 
 	size_t finalSize = biggerSize - trailingZeroesCounter;
 
-	char* reversedNewNumberCopy = StringManip::getFrom(reversedNewNumber, 0, finalSize - 1);
+	/*char* reversedNewNumberCopy = MStringManip::getFrom(reversedNewNumber, 0, finalSize - 1);
 	delete[] reversedNewNumber;
-	reversedNewNumber = reversedNewNumberCopy;
+	reversedNewNumber = reversedNewNumberCopy;*/
+	reversedNewNumber = MStringManip::getFrom(reversedNewNumber, 0, finalSize - 1);
 
 	//Reverse the number
-	char* newNumber = StringManip::getReverse(reversedNewNumber);
+	//char* newNumber = MStringManip::getReverse(reversedNewNumber);
+	mstring newNumber = MStringManip::getReverse(reversedNewNumber);
 
 	//If the expectedResultsSign is negative, then append a - to the front of the new number
 	if (expectedResultsSign < 0)
 	{
-		char* newNumberCopy = new char[strlen(newNumber) + 2];
+		/*char* newNumberCopy = new char[strlen(newNumber) + 2];
 		newNumberCopy[0] = '-';
 		newNumberCopy[1] = '\0';
 		strcat(newNumberCopy, newNumber);
 		delete[] newNumber;
-		newNumber = newNumberCopy;
+		newNumber = newNumberCopy;*/
+		newNumber.push_front("-");
 	}
 
 	//Delete dynamic memory
-	delete[] reversedNewNumber;
+	//delete[] reversedNewNumber;
 
-	MBigNumber newMBigNumber = MBigNumber(newNumber);
-	delete[] newNumber;
-	return newMBigNumber;
+	//MBigNumber newMBigNumber = MBigNumber(newNumber);
+	//delete[] newNumber;
+	//return newMBigNumber;
+	return newNumber;
 }
 
 MBigNumber MBigNumber::operator-(const MBigNumber& other) const
@@ -504,9 +522,9 @@ MBigNumber MBigNumber::operator*(const MBigNumber& other) const
 
 	bool resultIsNegative = thisSign != otherSign;
 
-	bool thisHasSmallerSize = this->size < other.size;
-	size_t smallerSize = thisHasSmallerSize ? this->size : other.size;
-	int biggerSize = thisHasSmallerSize ? other.size : this->size;
+	bool thisHasSmallerSize = this->number.getSize() < other.number.getSize();
+	size_t smallerSize = thisHasSmallerSize ? this->number.getSize() : other.number.getSize();
+	int biggerSize = thisHasSmallerSize ? other.number.getSize() : this->number.getSize();
 
 	const MBigNumber& smallerNumber = thisHasSmallerSize ? *this : other;
 	const MBigNumber& largerNumber = thisHasSmallerSize ? other : *this;
@@ -539,7 +557,7 @@ MBigNumber MBigNumber::operator*(const MBigNumber& other) const
 			int secondDigitOfRes = multiplicationRes % 10;
 			int sizeOfMultiplicationRes = firstDigitOfRes == 0 ? 1 : 2;
 
-			char* digitsOfNewNumber = new  char[sizeOfMultiplicationRes + zeroesPadding + 1];
+			/*char* digitsOfNewNumber = new  char[sizeOfMultiplicationRes + zeroesPadding + 1];
 			digitsOfNewNumber[sizeOfMultiplicationRes + zeroesPadding] = '\0';
 			if (sizeOfMultiplicationRes == 2)
 			{
@@ -551,36 +569,59 @@ MBigNumber MBigNumber::operator*(const MBigNumber& other) const
 			for (size_t z = 0; z < zeroesPadding; z++)
 			{
 				digitsOfNewNumber[z + sizeOfMultiplicationRes] = '0';
+			}*/
+
+			mstring digitsOfNewNumber;
+			if (sizeOfMultiplicationRes == 2)
+			{
+				digitsOfNewNumber += ('0' + firstDigitOfRes);
+				digitsOfNewNumber += ('0' + secondDigitOfRes);
+			}
+			else digitsOfNewNumber += ('0' + secondDigitOfRes);
+
+			for (size_t z = 0; z < zeroesPadding; z++)
+			{
+				digitsOfNewNumber += '0';
 			}
 
 			MBigNumber multiplicationResNumber = MBigNumber(digitsOfNewNumber);
 			sumOfMultiplicationDigit += multiplicationResNumber;
 
 			//Delete dynamic memory
-			delete[] digitsOfNewNumber;
+			//delete[] digitsOfNewNumber;
 		}
 		//Multiplication with one digits has been made
 		//Pad with zeroes
 		zeroesPadding = i;
-		size_t newSize = sumOfMultiplicationDigit.size + zeroesPadding;
+		/*size_t newSize = sumOfMultiplicationDigit.number.getSize() + zeroesPadding;
 		char* charsOfMultiplication = new char[newSize + 1];
 		charsOfMultiplication[newSize] = '\0';
 
-		for (size_t y = 0; y < sumOfMultiplicationDigit.size; y++)
+		for (size_t y = 0; y < sumOfMultiplicationDigit.number.getSize(); y++)
 		{
-			charsOfMultiplication[y] = sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.size - 1 - y];
+			charsOfMultiplication[y] = sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.number.getSize() - 1 - y];
 		}
 
 		for (size_t y = 0; y < zeroesPadding; y++)
 		{
-			charsOfMultiplication[sumOfMultiplicationDigit.size + y] = '0';
+			charsOfMultiplication[sumOfMultiplicationDigit.number.getSize() + y] = '0';
+		}*/
+		mstring charsOfMultiplication;
+		for (size_t y = 0; y < sumOfMultiplicationDigit.number.getSize(); y++)
+		{
+			charsOfMultiplication += sumOfMultiplicationDigit.number[sumOfMultiplicationDigit.number.getSize() - 1 - y];
+		}
+
+		for (size_t y = 0; y < zeroesPadding; y++)
+		{
+			charsOfMultiplication += '0';
 		}
 
 		MBigNumber multiplicationWithDigitFinalSum = MBigNumber(charsOfMultiplication);
 		finalMultiplicationSum += multiplicationWithDigitFinalSum;
 
 		//Delete dynamic memory
-		delete[] charsOfMultiplication;
+		//delete[] charsOfMultiplication;
 	}
 
 	if (resultIsNegative) finalMultiplicationSum.sign *= -1;
@@ -651,34 +692,38 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 
 	const MBigNumber BIGNUMBER10 = MBigNumber(10);
 
-	size_t lowerSize = thisIsBiggerAbsolute ? other.size : this->size;
-	size_t upperSize = thisIsBiggerAbsolute ? this->size : other.size;
+	size_t lowerSize = thisIsBiggerAbsolute ? other.number.getSize() : this->number.getSize();
+	size_t upperSize = thisIsBiggerAbsolute ? this->number.getSize() : other.number.getSize();
 
 	//Unreverse the numbers of this and other
-	char* largerNumberChars = StringManip::getReverse(largerNumber.number);
+	/*char* largerNumberChars = MStringManip::getReverse(largerNumber.number);
 
-	char* smallerNumberChars = StringManip::getReverse(smallerNumber.number);
+	char* smallerNumberChars = MStringManip::getReverse(smallerNumber.number);
 
 	char* tempNumber = new char[lowerSize + 1];
 	tempNumber[lowerSize] = '\0';
 	char* resultChars = new char[upperSize + 1];
-	resultChars[upperSize] = '\0';
+	resultChars[upperSize] = '\0';*/
+	mstring largerNumberChars = MStringManip::getReverse(largerNumber.number);
+	mstring smallerNumberChars = MStringManip::getReverse(smallerNumber.number);
+	mstring tempNumber;
+	mstring resultChars;
 
-	size_t resultCharsCounter = 0;
-	size_t finalSize = 0;
+	//size_t resultCharsCounter = 0;
+	//size_t finalSize = 0;
 	size_t largerNumberCounter = 0;
 	bool endOfLargeNumberReached = false;
-	bool tempIsGarbage = true;
+	bool tempIsGarbage = lowerSize - 1 <= 0;
 	//Get the initial temp
 	for (size_t i = 0; i < lowerSize - 1; i++)
 	{
-		tempNumber[i] = largerNumberChars[largerNumberCounter];
+		tempNumber += largerNumberChars[largerNumberCounter];
 		largerNumberCounter++;
-		tempIsGarbage = false;
+		//tempIsGarbage = false;
 	}
 
 	//START of cycle
-	while (largerNumberCounter < largerNumber.size)
+	while (largerNumberCounter < largerNumber.number.getSize())
 	{
 		//REMOVE THE FRONT ZERO LATER
 		MBigNumber tempMBigNumber = tempIsGarbage ? MBigNumber() : MBigNumber(tempNumber);
@@ -687,7 +732,7 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 			if (!endOfLargeNumberReached)
 			{
 				tempMBigNumber *= BIGNUMBER10;
-				tempMBigNumber += MBigNumber(largerNumber.number[largerNumber.size - 1 - largerNumberCounter] - '0');
+				tempMBigNumber += MBigNumber(largerNumber.number[largerNumber.number.getSize() - 1 - largerNumberCounter] - '0');
 				largerNumberCounter++;
 			}
 		}
@@ -702,31 +747,35 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 				if (tempMBigNumber < multipliedMBigNumber)
 				{
 					tempDividedResult = i - 1;
-					resultChars[resultCharsCounter] = (tempDividedResult)+'0';
-					resultCharsCounter++;
-					finalSize++;
+					/*resultChars[resultCharsCounter] = tempDividedResult + '0';
+					resultCharsCounter++;*/
+					resultChars += (tempDividedResult + '0');
+					//finalSize++;
 					break;
 				}
 			}
 		}
 		else
 		{
-			resultChars[resultCharsCounter] = '0';
-			resultCharsCounter++;
-			finalSize++;
+			//resultChars[resultCharsCounter] = '0';
+			resultChars += '0';
+			//resultCharsCounter++;
+			//finalSize++;
 		}
 		MBigNumber leftOverFromTemp = tempDividedResult == 0 ? tempMBigNumber : tempMBigNumber - (smallerNumber * MBigNumber(tempDividedResult));
 		//Change old temp char array to new temp
-		delete[] tempNumber;
-		tempNumber = new char[lowerSize + 1];
-		tempNumber[lowerSize] = '\0';
+		//delete[] tempNumber;
+		/*tempNumber = new char[lowerSize + 1];
+		tempNumber[lowerSize] = '\0';*/
+		tempNumber = "";
 
 		//temp char array remains with no chars if leftover is 0
 		if (leftOverFromTemp.sign != 0)
 		{
-			for (size_t i = 0; i < leftOverFromTemp.size; i++)
+			for (size_t i = 0; i < leftOverFromTemp.number.getSize(); i++)
 			{
-				tempNumber[i] = leftOverFromTemp.number[leftOverFromTemp.size - 1 - i];
+				//tempNumber[i] = leftOverFromTemp.number[leftOverFromTemp.number.getSize() - 1 - i];
+				tempNumber += leftOverFromTemp.number[leftOverFromTemp.number.getSize() - 1 - i];
 				tempIsGarbage = false;
 			}
 		}
@@ -739,12 +788,13 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 	//tempNumber holds the chars of the leftover, i.e % operator result
 	//resultChars holds the chars of the division, i.e / operator result. It may or may not have an invalid zero as first integer, however!
 	//Remove possible zero as first digit of resultChars
-	if (StringManip::stringStartsWith(resultChars, "0"))
+	if (MStringManip::stringStartsWith(resultChars, "0"))
 	{
-		char* newResultChars = StringManip::replaceFrom(resultChars, "", 0, 0);
+		/*char* newResultChars = MStringManip::replaceFrom(resultChars, "", 0, 0);
 		delete[] resultChars;
-		resultChars = newResultChars;
-		finalSize--;
+		resultChars = newResultChars;*/
+		resultChars = MStringManip::replaceFrom(resultChars, "", 0, 0);
+		//finalSize--;
 	}
 
 	MBigNumber* divisionQuotient = new MBigNumber(resultChars);
@@ -760,10 +810,10 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 	MBigNumberDivisionResult divisionResult = MBigNumberDivisionResult(*divisionQuotient, *divisionLeftover);
 
 	//Delete dynamic memory
-	delete[] resultChars;
+	/*delete[] resultChars;
 	delete[] tempNumber;
 	delete[] smallerNumberChars;
-	delete[] largerNumberChars;
+	delete[] largerNumberChars;*/
 
 	return divisionResult;
 }
@@ -827,60 +877,63 @@ MBigNumber& MBigNumber::operator%=(const MBigNumber& other)
 	return *this;
 }
 
-const char* MBigNumber::getNumber() const
+mstring MBigNumber::getNumber() const
 {
 	//Calculate comma spacings
-	bool addCommas = this->size >= 5;
-	int threeDigitSpaces = this->size / 3;
-	int leftOverDigitSpaces = this->size % 3;
+	bool addCommas = this->number.getSize() >= 5;
+	int threeDigitSpaces = this->number.getSize() / 3;
+	int leftOverDigitSpaces = this->number.getSize() % 3;
 	int initialDigitsSpaces = leftOverDigitSpaces != 0 ? leftOverDigitSpaces : 3;
 	int commaCounter = leftOverDigitSpaces != 0 ? threeDigitSpaces : threeDigitSpaces - 1;
 	int commaStep = initialDigitsSpaces;
 
 	//Get the number string size and create it
-	size_t numberStringSize = this->size + commaCounter;
+	size_t numberStringSize = this->number.getSize() + commaCounter;
 	if (!addCommas) numberStringSize -= commaCounter;
 	if (this->sign == -1) numberStringSize++;
-	char* numberString = new char[numberStringSize + 1];
+	/*char* numberString = new char[numberStringSize + 1];
 	numberString[numberStringSize] = '\0';
-	size_t numberStringIndex = 0;
+	size_t numberStringIndex = 0;*/
+	mstring numberString;
 
-	if (this->sign == -1) numberString[numberStringIndex++] = '-';
-	for (long long int i = this->size - 1; i >= 0; i--)
+	if (this->sign == -1) numberString += '-';
+	for (long long int i = this->number.getSize() - 1; i >= 0; i--)
 	{
-		numberString[numberStringIndex++] = this->number[i];
+		numberString += this->number[i];
 		commaStep--;
 		if (commaStep == 0 && commaCounter > 0 && addCommas)
 		{
-			numberString[numberStringIndex++] = ',';
+			numberString += ',';
 			commaCounter--;
 			commaStep = 3;
 		}
 	}
+
 	return numberString;
 }
 
-const char* MBigNumber::getNumberRaw() const
+mstring MBigNumber::getNumberRaw() const
 {
 	//Get the number string size and create it
 	/*numberString[numberStringSize] = '\0';
 	size_t numberStringIndex = 0;
 
 	if (this->sign == -1) numberString[numberStringIndex++] = '-';
-	for (long long int i = this->size - 1; i >= 0; i--)
+	for (long long int i = this->number.getSize() - 1; i >= 0; i--)
 	{
 		numberString[numberStringIndex++] = this->number[i];
 	}*/
 
-	char* numberString = StringManip::getReverse(this->number);
+	mstring numberString = MStringManip::getReverse(this->number);
 	if (this->sign == -1)
 	{
-		char* numberStringCopy = new char[strlen(numberString) + 2];
+		/*char* numberStringCopy = new char[strlen(numberString) + 2];
 		numberStringCopy[0] = '-';
 		numberStringCopy[1] = '\0';
 		strcat(numberStringCopy, numberString);
 		delete[] numberString;
-		numberString = numberStringCopy;
+		numberString = numberStringCopy;*/
+		numberString.push_front("-");
 	}
 
 	return numberString;
@@ -894,21 +947,23 @@ void MBigNumber::printOutNumber() const
 
 void MBigNumber::printOutNumberRaw() const
 {
-	const char* numberTextRaw = getNumberRaw();
+	mstring numberTextRaw = getNumberRaw();
 	std::cout << numberTextRaw;
 }
 
 std::istream& operator>>(std::istream& is, MBigNumber& other)
 {
 	//Lets just agree that 100000000 is the max symbol count of a MBigNumber
-	char* number = new char[100000002];
+	/*char* number = new char[100000002];
 	number[100000001] = '\0';
 
-	is.getline(number, 100000001);
+	is.getline(number, 100000001);*/
+	mstring number;
+	is >> number;
 
 	int numberSign = number[0] == '-' ? -1 : 1;
 	//In this case the new number is just 0
-	if (number[0] == '0')
+	if (number == '0')
 	{
 		other.changeNumber("0");
 		return is;
@@ -921,15 +976,16 @@ std::istream& operator>>(std::istream& is, MBigNumber& other)
 
 std::ostream& operator<<(std::ostream& os, const MBigNumber& other)
 {
-	const char* numberVerbose = other.getNumber();
+	mstring numberVerbose = other.getNumber();
 	os << numberVerbose;
 	return os;
 }
 
 std::ofstream& operator<<(std::ofstream& os, const MBigNumber& other)
 {
-	const char* number = other.getNumber();
-	os.write(number, strlen(number));
+	/*const char* number = other.getNumber();
+	os.write(number, strlen(number));*/
+	os << other.getNumber();
 	return os;
 }
 

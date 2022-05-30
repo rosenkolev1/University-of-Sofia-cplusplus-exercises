@@ -422,26 +422,57 @@ void MStringTests::squareBracketsOperatorTests()
 	std::cout << "\n\n";
 }
 
+void MStringTests::outputToFileTests()
+{
+	std::cout << "OUTPUT TO FILE TESTS:\n\n";
+	mstring string1 = "Output string!";
+
+	std::ofstream os("MString Output To File.txt");
+
+	//Test 1
+	std::cout << "Test 1\n";
+	std::cout << "Outputting "<< string1 <<" to file: Expected: "<< string1 <<" ==> {file output}";
+	os << string1;
+	std::cout << "\n\n";
+
+	os.close();
+}
+
+void MStringTests::readFromFileTests()
+{
+	std::cout << "READ FROM FILE TESTS:\n\n";
+	mstring string1;
+
+	std::ifstream is("Reading MString from file.txt");
+	is >> string1;
+	//Test 1
+	std::cout << "Test 1\n";
+	std::cout << "Reading String 1 from file: Expected: {file data} ==> " << string1 ;
+	std::cout << "\n\n";
+
+	is.close();
+}
+
 void MStringTests::runTests()
 {
 	mstring firstString = "Hey string!!!";
 
 	//IO tests for console
 	printingOutToConsoleTests();
-	//inputtingFromConsoleTests();
+	inputtingFromConsoleTests();
 	
-	//Big4 tests
-	big4Tests();
-	
-	//Operator [] tests
-	squareBracketsOperatorTests();
-	
-	//+ OperatorTests
-	plusOperatorTests();
-	
-	//+= OperatorTests
-	plusAndEqualsOperatorTests();
-
+	////Big4 tests
+	//big4Tests();
+	//
+	////Operator [] tests
+	//squareBracketsOperatorTests();
+	//
+	////+ OperatorTests
+	//plusOperatorTests();
+	//
+	////+= OperatorTests
+	//plusAndEqualsOperatorTests();
+	//
 	////== and != OperatorTests
 	//equalsAndNotEqualsOperatorTests();
 	//
@@ -458,5 +489,11 @@ void MStringTests::runTests()
 	//lessThanOrEqualsOperatorTests();
 
 	//pushFront TESTS";
-	pushFrontTests();
+	//pushFrontTests();
+
+	//READ FROM FILE TESTS
+	readFromFileTests();
+
+	//OUTPUT TO FILE TESTS
+	outputToFileTests();
 }

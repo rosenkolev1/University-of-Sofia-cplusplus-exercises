@@ -1,7 +1,7 @@
 #pragma once
 #include "BigNumber.h"
 #include "BigNumberExpressionCommon.h"
-#include <ostream>
+#include <iostream>
 #include <fstream>
 
 class BigNumberExpression

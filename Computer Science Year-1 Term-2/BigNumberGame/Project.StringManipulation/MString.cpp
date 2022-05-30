@@ -82,8 +82,11 @@ MString::MString(const MString& other)
 
 MString& MString::operator=(const MString& other)
 {
-	this->deallocate();
-	this->copy(other);
+	if (this != &other)
+	{
+		this->deallocate();
+		this->copy(other);
+	}
 
 	return *this;
 }
@@ -204,6 +207,27 @@ std::istream& operator>>(std::istream& is, MString& other)
 	is.getline(newString, 100000);
 
 	other = newString;
+
+	delete[] newString;
+
+	return is;
+}
+
+std::ofstream& operator<<(std::ofstream& os, const MString& other)
+{
+	os.write(other.data, other.getSize());
+	return os;
+}
+
+std::ifstream& operator>>(std::ifstream& is, MString& other)
+{
+	// TODO: insert return statement here
+	char* newString = new char[100000];
+	is.getline(newString, 100000);
+
+	other = newString;
+
+	delete[] newString;
 
 	return is;
 }

@@ -27,6 +27,10 @@ public:
 
 	static void inputtingFromConsoleTests();
 
+	static void readFromFileTests();
+	
+	static void outputToFileTests();
+
 	static void runTests();
 };
 
