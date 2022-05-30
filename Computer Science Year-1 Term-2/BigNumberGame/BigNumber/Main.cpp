@@ -12,6 +12,12 @@
 
 int main()
 {
+    std::string someString = "This is shit!";
+    someString[12] = '.';
+
+    std::cout << someString;
+
+
     std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
     std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
     std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);

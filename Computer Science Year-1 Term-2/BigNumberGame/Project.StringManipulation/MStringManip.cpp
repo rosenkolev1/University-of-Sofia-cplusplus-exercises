@@ -201,38 +201,31 @@ mstring* MStringManip::splitStringMany(const mstring& input, const mstring* deli
             }
 
             //Get the split part of the input and store it in the final split string array
-            char* splitInput = new char[input.getSize() - lastSplitPartIndex + 1];
+            mstring splitInput;
             for (size_t i = 0; i < input.getSize() - lastSplitPartIndex; i++)
             {
-                splitInput[i] = input[i + lastSplitPartIndex];
+                splitInput += input[i + lastSplitPartIndex];
             }
-
-            splitInput[input.getSize() - lastSplitPartIndex] = '\0';
+            //splitInput += '\0';
 
             finalSplitInput[finalSplitInputIndex++] = splitInput;
-
-            //Deallocate splitInput
-            delete[] splitInput;
 
             break;
         }
 
         //Get the split part of the input and store it in the final split string array
-        char* splitInput = new char[earliestOccuranceIndex - startIndexSearch + 1];
+        mstring splitInput;
         for (size_t i = 0; i < earliestOccuranceIndex - startIndexSearch; i++)
         {
-            splitInput[i] = input[i + startIndexSearch];
+            splitInput += input[i + startIndexSearch];
         }
 
-        splitInput[earliestOccuranceIndex - startIndexSearch] = '\0';
+        //splitInput += '\0';
 
         finalSplitInput[finalSplitInputIndex++] = splitInput;
 
         //Change the starting point of the search in input for splitters
         startIndexSearch = earliestOccuranceIndex + earliestOccuranceWord.getSize();
-
-        //Deallocate splitInput
-        delete[] splitInput;
     }
 
     sizeOfArray = finalSplitInputIndex;
@@ -410,21 +403,19 @@ mstring MStringManip::replaceFrom(const mstring& text, const mstring& replacemen
     if (startIndex > text.getSize() - 1) throw "Start index is higher than the length of the text";
 
     size_t newTextSize = text.getSize() - (endIndex - startIndex + 1) + replacement.getSize();
-    char* newText = new char[newTextSize + 1];
-    newText[newTextSize] = '\0';
-    size_t newTextIndex = 0;
 
+    mstring newText;
     for (size_t i = 0; i < startIndex; i++)
     {
-        newText[newTextIndex++] = text[i];
+        newText += text[i];
     }
     for (size_t i = 0; i < replacement.getSize(); i++)
     {
-        newText[newTextIndex++] = replacement[i];
+        newText += replacement[i];
     }
     for (size_t i = endIndex + 1; i < text.getSize(); i++)
     {
-        newText[newTextIndex++] = text[i];
+        newText += text[i];
     }
 
     return newText;
@@ -612,23 +603,15 @@ size_t MStringManip::countOfMany(const mstring& text, const mstring* searchStrin
 
 mstring MStringManip::getUnique(const mstring& text)
 {
-    char* uniqueSymbols = new char[text.getSize() + 1];
-
-    //Init contained symbols with terminating char
-    for (size_t i = 0; i < text.getSize() + 1; i++)
-    {
-        uniqueSymbols[i] = '\0';
-    }
+    mstring uniqueSymbols;
 
     size_t uniqueSymbolsIndex = 0;
 
     for (size_t i = 0; i < text.getSize(); i++)
     {
-        if (!stringContains(uniqueSymbols, text[i])) uniqueSymbols[uniqueSymbolsIndex++] = text[i];
+        if (!stringContains(uniqueSymbols, text[i])) uniqueSymbols += text[i];
     }
-    uniqueSymbols[uniqueSymbolsIndex++] = '\0';
-
-    return mstring(uniqueSymbols);
+    return uniqueSymbols;
 }
 
 mstring* MStringManip::getUnique(const mstring* strings, size_t& arraySize)
@@ -673,12 +656,10 @@ mstring MStringManip::getFrom(const mstring& source, size_t startIndex, size_t e
 
     if (startIndex > endIndex) return "";
 
-    char* returnString = new char[endIndex - startIndex + 2];
-    returnString[endIndex - startIndex + 1] = '\0';
-
+    mstring returnString;
     for (size_t i = startIndex; i <= endIndex; i++)
     {
-        returnString[i - startIndex] = source[i];
+        returnString += source[i];
     }
 
     return returnString;
@@ -686,14 +667,13 @@ mstring MStringManip::getFrom(const mstring& source, size_t startIndex, size_t e
 
 mstring MStringManip::getReverse(const mstring& source)
 {
-    char* reversedSource = new char[source.getSize() + 1];
-    reversedSource[source.getSize()] = '\0';
+    mstring reversedSource;
     for (size_t i = 0; i < source.getSize(); i++)
     {
-        reversedSource[i] = source[source.getSize() - 1 - i];
+        reversedSource += source[source.getSize() - 1 - i];
     }
 
-    return mstring(reversedSource);;
+    return mstring(reversedSource);
 }
 
 bool MStringManip::arraysOfStringsAreEqual(const mstring* stringsOne, const mstring* stringsTwo, size_t stringsOneSize, size_t stringsTwoSize)

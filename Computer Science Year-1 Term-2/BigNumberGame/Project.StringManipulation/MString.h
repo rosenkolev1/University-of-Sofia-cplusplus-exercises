@@ -5,6 +5,7 @@ class MString
 {
 private:
 	//size_t INIT_CAPACITY = 10;
+	const int INCREASE_STEP = 2;
 
 	char* data;
 
@@ -17,7 +18,10 @@ private:
 
 	void deallocate();
 
-	//void resize();
+	void resize();
+
+	//Setter for size
+	void setSize(size_t size);
 
 public:
 	static constexpr const char* INDEX_OUT_OF_RANGE_EXCEPTION = "The index is out of range!";
@@ -35,7 +39,7 @@ public:
 	//Operators
 	MString operator+(const MString& other) const;
 	MString& operator+=(const MString& other);
-	char operator[](size_t index) const;
+	char& operator[](size_t index) const;
 
 	//Comparative operators
 	bool operator==(const MString& other) const;
@@ -45,8 +49,14 @@ public:
 	bool operator>=(const MString& other) const;
 	bool operator<=(const MString& other) const;
 
-	//Getters and Setters
+	//Getters
 	size_t getSize() const;
+
+	//Additional operators
+	/*void push_front(char symbol);
+	void push_front(const char* text);
+	void push_front(char text[]);*/
+	void push_front(const MString& text);
 
 	//IO from and to console
 	friend std::ostream& operator<<(std::ostream& os, const MString& other);

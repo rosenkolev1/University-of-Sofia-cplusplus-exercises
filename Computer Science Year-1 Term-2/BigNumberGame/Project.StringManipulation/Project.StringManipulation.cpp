@@ -12,7 +12,7 @@
 int main()
 {
     //StringManipTests::runTests();
-    //MStringTests::runTests();
-    MStringManipTests::runTests();
+    MStringTests::runTests();
+    //MStringManipTests::runTests();
 }
 

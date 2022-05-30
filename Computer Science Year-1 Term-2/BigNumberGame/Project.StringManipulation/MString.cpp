@@ -15,6 +15,23 @@ void MString::deallocate()
 	delete[] data;
 }
 
+void MString::resize()
+{
+	char* newData = new char[this->capacity *= INCREASE_STEP];
+	strcpy(newData, this->data);
+	delete[] this->data;
+	this->data = newData;
+}
+
+void MString::setSize(size_t size)
+{
+	this->size = size;
+	while (this->size >= this->capacity)
+	{
+		this->resize();
+	}
+}
+
 //void MString::resize()
 //{
 //}
@@ -84,7 +101,7 @@ MString& MString::operator+=(const MString& other)
 	return *this;
 }
 
-char MString::operator[](size_t index) const
+char& MString::operator[](size_t index) const
 {
 	if (index >= this->size && index > 0) throw std::out_of_range(INDEX_OUT_OF_RANGE_EXCEPTION);
 
@@ -124,6 +141,39 @@ bool MString::operator<=(const MString& other) const
 size_t MString::getSize() const
 {
 	return this->size;
+}
+
+//void MString::push_front(char symbol)
+//{
+//	this->push_front((MString)symbol);
+//}
+//
+//void MString::push_front(const char* text)
+//{
+//	this->push_front((MString)text);
+//}
+//
+//void MString::push_front(char text[])
+//{
+//	this->push_front((MString)text);
+//}
+
+void MString::push_front(const MString& text)
+{
+	size_t oldSize = this->size;
+
+	this->setSize(this->size + text.getSize());
+
+	for (size_t i = oldSize; i > 0; i--)
+	{
+		this->data[i + text.getSize()] = this->data[i];
+	}
+	this->data[text.getSize()] = this->data[0];
+
+	for (size_t i = 0; i < text.getSize(); i++)
+	{
+		this->data[i] = text[i];
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, const MString& other)

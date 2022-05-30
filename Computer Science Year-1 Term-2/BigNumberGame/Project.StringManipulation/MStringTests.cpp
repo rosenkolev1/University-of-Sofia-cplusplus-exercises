@@ -35,6 +35,7 @@ void MStringTests::big4Tests()
 	mstring string9 = someArrayOfChars;
 	char string10[] = "String N.10 is stupid";
 	char* dynamicString11 = new char[] {"Dynamic string N.11"};
+	mstring string12;
 
 	std::cout << "String1: Expected: First string ==> " << string1 << "\nString1 size: Expected: 12 ==> " << string1.getSize() << "\n\n";
 	std::cout << "String2: Expected: ==> " << string2 << "\nString2 size: Expected: 0 ==> " << string2.getSize() << "\n\n";
@@ -285,6 +286,81 @@ void MStringTests::lessThanOrEqualsOperatorTests()
 	std::cout << "\n\n";
 }
 
+void MStringTests::pushFrontTests()
+{
+	std::cout << "pushFront TESTS:\n\n";
+
+	//Test 1
+	std::cout << "Test 1\n";
+	mstring string1 = "cool!";
+	mstring string2 = "This is ";
+	mstring expectedOutput1 = "This is cool!";
+	std::cout << "Testing \"" << string1 << "\".push_front(\"" << string2 << "\") --> Expected: (" << expectedOutput1 << ", TRUE) ==> ";
+	string1.push_front(string2);
+	std::cout << string1 << ", " << (string1 == expectedOutput1 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 2
+	std::cout << "Test 2\n";
+	mstring string3 = "cool!";
+	mstring string4 = "";
+	mstring expectedOutput2 = "cool!";
+	std::cout << "Testing \"" << string3 << "\".push_front(\"" << string4 << "\") --> Expected: (" << expectedOutput2 << ", TRUE) ==> ";
+	string3.push_front(string4);
+	std::cout << string3 << ", " << (string3 == expectedOutput2 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+	
+	//Test 3
+	std::cout << "Test 3\n";
+	mstring string5 = "";
+	mstring string6 = "cool!";
+	mstring expectedOutput3 = "cool!";
+	std::cout << "Testing \"" << string5 << "\".push_front(\"" << string6 << "\") --> Expected: (" << expectedOutput3 << ", TRUE) ==> ";
+	string5.push_front(string6);
+	std::cout << string5 << ", " << (string5 == expectedOutput3 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+	
+	//Test 4
+	std::cout << "Test 4\n";
+	mstring string7 = "";
+	mstring string8 = "";
+	mstring expectedOutput4 = "";
+	std::cout << "Testing \"" << string7 << "\".push_front(\"" << string8 << "\") --> Expected: (" << expectedOutput4 << ", TRUE) ==> ";
+	string7.push_front(string8);
+	std::cout << string7 << ", " << (string7 == expectedOutput4 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 5
+	std::cout << "Test 5\n";
+	mstring string9 = "!";
+	const char* string10 = "Ha, gayyyy";
+	mstring expectedOutput5 = "Ha, gayyyy!";
+	std::cout << "Testing \"" << string9 << "\".push_front(\"" << string10 << "\") --> Expected: (" << expectedOutput5 << ", TRUE) ==> ";
+	string9.push_front(string10);
+	std::cout << string9 << ", " << (string9 == expectedOutput5 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 6
+	std::cout << "Test 6\n";
+	mstring string11 = " boyy!";
+	char string12[] = "Yugi";
+	mstring expectedOutput6 = "Yugi boyy!";
+	std::cout << "Testing \"" << string11 << "\".push_front(\"" << string12 << "\") --> Expected: (" << expectedOutput6 << ", TRUE) ==> ";
+	string11.push_front(string12);
+	std::cout << string11 << ", " << (string11 == expectedOutput6 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 7
+	std::cout << "Test 7\n";
+	mstring string13 = "ur!";
+	char string14 = 'K';
+	mstring expectedOutput7 = "Kur!";
+	std::cout << "Testing \"" << string13 << "\".push_front(\"" << string14 << "\") --> Expected: (" << expectedOutput7 << ", TRUE) ==> ";
+	string13.push_front(string14);
+	std::cout << string13 << ", " << (string13 == expectedOutput7 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+}
+
 void MStringTests::inputtingFromConsoleTests()
 {
 	std::cout << "READING FROM CONSOLE TESTS:\n\n";
@@ -366,18 +442,21 @@ void MStringTests::runTests()
 	////+= OperatorTests
 	//plusAndEqualsOperatorTests();
 
-	//== and != OperatorTests
-	equalsAndNotEqualsOperatorTests();
+	////== and != OperatorTests
+	//equalsAndNotEqualsOperatorTests();
+	//
+	////> Operator Tests
+	//greaterThanOperatorTests();
+	//
+	////>= Operator Tests
+	//greaterThanOrEqualsOperatorTests();
+	//
+	////< Operator Tests
+	//lessThanOperatorTests();
+	//
+	////<= Operator Tests
+	//lessThanOrEqualsOperatorTests();
 
-	//> Operator Tests
-	greaterThanOperatorTests();
-
-	//>= Operator Tests
-	greaterThanOrEqualsOperatorTests();
-
-	//< Operator Tests
-	lessThanOperatorTests();
-
-	//<= Operator Tests
-	lessThanOrEqualsOperatorTests();
+	//pushFront TESTS";
+	pushFrontTests();
 }

@@ -21,6 +21,8 @@ public:
 
 	static void lessThanOrEqualsOperatorTests();
 
+	static void pushFrontTests();
+
 	static void printingOutToConsoleTests();
 
 	static void inputtingFromConsoleTests();
