@@ -40,6 +40,8 @@ public:
 
 	static void countOfManyTests();
 
+	static void parseToStringTests();
+
 	static void runTests();
 };
 

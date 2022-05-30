@@ -20,19 +20,17 @@ mstring MStringManip::parseToString(int integer)
     int charsCount = digitsCount + 1;
     if (isNegativeInt) charsCount++;
 
-    char* parsedInt = new char[charsCount];
-    parsedInt[charsCount - 1] = '\0';
-
+    mstring parsedInt;
     int positiveInteger = abs(integer);
 
     for (int i = charsCount - 2; i >= (isNegativeInt ? 1 : 0); i--)
     {
         int digit = positiveInteger % 10;
-        parsedInt[i] = (char)digit + '0';
+        parsedInt.push_front((char)digit + '0');
         positiveInteger /= 10;
     }
 
-    if (isNegativeInt) parsedInt[0] = '-';
+    if (isNegativeInt) parsedInt.push_front('-');
 
     return parsedInt;
 }
