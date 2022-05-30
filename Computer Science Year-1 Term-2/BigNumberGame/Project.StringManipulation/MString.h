@@ -23,6 +23,8 @@ private:
 	//Setter for size
 	void setSize(size_t size);
 
+	void push_back(const MString& text, MString& source) const;
+
 public:
 	static constexpr const char* INDEX_OUT_OF_RANGE_EXCEPTION = "The index is out of range!";
 
@@ -53,10 +55,8 @@ public:
 	size_t getSize() const;
 
 	//Additional operators
-	/*void push_front(char symbol);
-	void push_front(const char* text);
-	void push_front(char text[]);*/
 	void push_front(const MString& text);
+	void push_back(const MString& text);
 
 	//IO from and to console
 	friend std::ostream& operator<<(std::ostream& os, const MString& other);

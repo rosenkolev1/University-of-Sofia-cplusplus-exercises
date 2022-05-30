@@ -1650,50 +1650,50 @@ void MStringManipTests::parseToStringTests()
 
 void MStringManipTests::runTests()
 {
-    ////splitByChar TESTS
-    //splitByCharTests();
-    //
-    ////splitByString TESTS
-    //splitByStringTests();
-    //
-    ////splitStringMany TESTS
-    //splitStringManyTests();
-    //
-    ////stringContains TESTS
-    //stringContainsTests();
-    //
-    ////replaceAll TESTS
-    //replaceAllTests();
-    //
-    ////replaceFirst TESTS
-    //replaceFirstTests();
-    //
-    ////replaceFrom TESTS
-    //replaceFromTests();
-    //
-    ////findIndex TESTS
-    //findIndexTests();
-    //
-    ////findIndexLast TESTS
-    //findIndexLastTests();
-    //
-    ////arraysOfStringsAreEqualTests TESTS
-    //arraysOfStringsAreEqualTests();
-    //
-    ////getUnique TESTS
-    //getUniqueTests();
-    //
-    ////getFrom TESTS
-    //getFromTests();
-    //
-    ////getReversed TESTS
-    //getReversedTests();
-    //
-    ////countOf TESTS
-    //countOfTests();
-    //
-    ////countOfMany TESTS
-    //countOfManyTests();
+    //splitByChar TESTS
+    splitByCharTests();
+    
+    //splitByString TESTS
+    splitByStringTests();
+    
+    //splitStringMany TESTS
+    splitStringManyTests();
+    
+    //stringContains TESTS
+    stringContainsTests();
+    
+    //replaceAll TESTS
+    replaceAllTests();
+    
+    //replaceFirst TESTS
+    replaceFirstTests();
+    
+    //replaceFrom TESTS
+    replaceFromTests();
+    
+    //findIndex TESTS
+    findIndexTests();
+    
+    //findIndexLast TESTS
+    findIndexLastTests();
+    
+    //arraysOfStringsAreEqualTests TESTS
+    arraysOfStringsAreEqualTests();
+    
+    //getUnique TESTS
+    getUniqueTests();
+    
+    //getFrom TESTS
+    getFromTests();
+    
+    //getReversed TESTS
+    getReversedTests();
+    
+    //countOf TESTS
+    countOfTests();
+    
+    //countOfMany TESTS
+    countOfManyTests();
 
     //parseToString TESTS
     parseToStringTests();

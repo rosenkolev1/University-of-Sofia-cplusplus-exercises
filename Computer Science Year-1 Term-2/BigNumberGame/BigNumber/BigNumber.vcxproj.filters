@@ -42,6 +42,15 @@
     <ClCompile Include="BigNumberEquationTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MBigNumber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MBigNumberTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MBigNumberDivisionResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h">
@@ -66,6 +75,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigNumberEquationTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumberTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumberDivisionResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -426,21 +426,21 @@ void MStringTests::runTests()
 {
 	mstring firstString = "Hey string!!!";
 
-	////IO tests for console
-	//printingOutToConsoleTests();
-	////inputtingFromConsoleTests();
-	//
-	////Big4 tests
-	//big4Tests();
-	//
-	////Operator [] tests
-	//squareBracketsOperatorTests();
-	//
-	////+ OperatorTests
-	//plusOperatorTests();
-	//
-	////+= OperatorTests
-	//plusAndEqualsOperatorTests();
+	//IO tests for console
+	printingOutToConsoleTests();
+	//inputtingFromConsoleTests();
+	
+	//Big4 tests
+	big4Tests();
+	
+	//Operator [] tests
+	squareBracketsOperatorTests();
+	
+	//+ OperatorTests
+	plusOperatorTests();
+	
+	//+= OperatorTests
+	plusAndEqualsOperatorTests();
 
 	////== and != OperatorTests
 	//equalsAndNotEqualsOperatorTests();

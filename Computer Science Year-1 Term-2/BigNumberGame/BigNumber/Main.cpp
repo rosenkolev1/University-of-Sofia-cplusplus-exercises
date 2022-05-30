@@ -9,32 +9,39 @@
 #include "BigNumberExpression.h"
 #include "BigNumberExpressionTests.h"
 #include "BigNumberEquationTests.h"
+#include "MBigNumber.h"
+#include "MBigNumberDivisionResult.h"
+#include "MBigNumberTests.h"
 
 int main()
 {
-    std::string someString = "This is shit!";
-    someString[12] = '.';
+    //ORIGINAL BIG NUMBER
+    //std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
+    //std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
+    //std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
+    //
+    ////BigNumber tests
+    //BigNumberTests::runTests(std::cout);
+    ////BigNumberTests::runTests(osBigNumberTests);
+    //
+    ////BigNumberExpression tests
+    //BigNumberExpressionTests::runTests(std::cout);
+    ////BigNumberExpressionTests::runTests(osExpressionTests);
+    //
+    ////BigNumberEquations tests
+    //BigNumberEquationTests::runTests(std::cout);
+    ////BigNumberEquationTests::runTests(osEquationTests);
+    //
+    //osEquationTests.close();
+    //osExpressionTests.close();
+    //osBigNumberTests.close();
 
-    std::cout << someString;
+    //--------------------------------------------------------------------------------------------
 
-
-    std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
-    std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
-    std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
+    //BIGNUMBER with MSTRING
+    std::ofstream osBigNumberTests(MBigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
 
     //BigNumber tests
-    BigNumberTests::runTests(std::cout);
-    //BigNumberTests::runTests(osBigNumberTests);
-
-    //BigNumberExpression tests
-    BigNumberExpressionTests::runTests(std::cout);
-    //BigNumberExpressionTests::runTests(osExpressionTests);
-
-    //BigNumberEquations tests
-    BigNumberEquationTests::runTests(std::cout);
-    //BigNumberEquationTests::runTests(osEquationTests);
-
-    osEquationTests.close();
-    osExpressionTests.close();
-    osBigNumberTests.close();
+    MBigNumberTests::runTests(std::cout);
+    //MBigNumberTests::runTests(osBigNumberTests);
 }

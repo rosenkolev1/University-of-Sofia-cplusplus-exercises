@@ -32,9 +32,18 @@ void MString::setSize(size_t size)
 	}
 }
 
-//void MString::resize()
-//{
-//}
+void MString::push_back(const MString& text, MString& source) const
+{
+	size_t oldSize = source.size;
+
+	source.setSize(source.size + text.getSize());
+
+	for (size_t i = oldSize; i < source.size; i++)
+	{
+		source.data[i] = text[i - oldSize];
+	}
+	source.data[source.size] = '\0';
+}
 
 MString::MString()
 	:MString("")
@@ -86,18 +95,26 @@ MString::~MString()
 
 MString MString::operator+(const MString& other) const
 {
-	size_t newSize = this->size + other.size;
+	/*size_t newSize = this->size + other.size;
 	
 	char* newData = new char[newSize + 1];
 	strcpy(newData, this->data);
 	strcat(newData, other.data);
 
-	return mstring(newData);
+	return mstring(newData);*/
+	mstring thisCopy = *this;
+
+	this->push_back(other, thisCopy);
+
+	return thisCopy;
 }
 
 MString& MString::operator+=(const MString& other)
 {
-	*this = *this + other;
+	this->push_back(other);
+
+	//*this = *this + other;
+	//return *this;
 	return *this;
 }
 
@@ -143,21 +160,6 @@ size_t MString::getSize() const
 	return this->size;
 }
 
-//void MString::push_front(char symbol)
-//{
-//	this->push_front((MString)symbol);
-//}
-//
-//void MString::push_front(const char* text)
-//{
-//	this->push_front((MString)text);
-//}
-//
-//void MString::push_front(char text[])
-//{
-//	this->push_front((MString)text);
-//}
-
 void MString::push_front(const MString& text)
 {
 	size_t oldSize = this->size;
@@ -174,6 +176,19 @@ void MString::push_front(const MString& text)
 	{
 		this->data[i] = text[i];
 	}
+}
+
+void MString::push_back(const MString& text)
+{
+	/*size_t oldSize = this->size;
+
+	this->setSize(this->size + text.getSize());
+
+	for (size_t i = oldSize; i < this->size + 1; i++)
+	{
+		this->data[i] = text[i - oldSize];
+	}*/
+	this->push_back(text, *this);
 }
 
 std::ostream& operator<<(std::ostream& os, const MString& other)

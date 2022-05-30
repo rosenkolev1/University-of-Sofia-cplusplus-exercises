@@ -3,12 +3,12 @@
 #include<iostream>
 #include<fstream>
 
-const int INIT_CAPACITY = 20;
-
 class BigNumberDivisionResult;
 class BigNumber
 {
 private:
+	const int INIT_CAPACITY = 20;
+
 	size_t capacity;
 	size_t size;
 	//Digits of the number

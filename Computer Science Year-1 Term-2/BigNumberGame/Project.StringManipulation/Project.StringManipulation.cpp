@@ -13,6 +13,6 @@ int main()
 {
     //StringManipTests::runTests();
     //MStringTests::runTests();
-    MStringManipTests::runTests();
+    //MStringManipTests::runTests();
 }
 
