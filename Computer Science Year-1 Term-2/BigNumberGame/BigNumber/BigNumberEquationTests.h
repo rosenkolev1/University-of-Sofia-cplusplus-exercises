@@ -4,7 +4,7 @@
 class BigNumberEquationTests
 {
 public:
-	static constexpr const char* OUTPUTFILE_NAME = "BugNumberEquation_Tests_Diagnostics.txt";
+	static constexpr const char* OUTPUTFILE_NAME = "BigNumberEquation_Tests_Diagnostics.txt";
 
 	static void equationBig4Tests(std::ostream& os);
 

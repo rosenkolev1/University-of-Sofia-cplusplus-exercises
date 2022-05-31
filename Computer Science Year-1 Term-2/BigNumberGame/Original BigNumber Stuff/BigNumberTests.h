@@ -1,18 +1,18 @@
 #pragma once
-#include "MBigNumber.h"
+#include "BigNumber.h"
 #include <iostream>
 #include <fstream>
 
-class MBigNumberTests
+class BigNumberTests
 {
 private:
 	static void OperatorGreaterThanTestTemplate(const char testTitle[], const char textDescription[],
-		const MBigNumber& bigNumber1, const MBigNumber& bigNumber2, bool newLine, std::ostream& os);
+		const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os);
 	static void OperatorGreaterThanOrEqualsTestTemplate(const char testTitle[], const char textDescription[],
-		const MBigNumber& bigNumber1, const MBigNumber& bigNumber2, bool newLine, std::ostream& os);
+		const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os);
 
 public:
-	static constexpr const char* OUTPUTFILE_NAME = "MBigNumber_Tests_Diagnostics.txt";
+	static constexpr const char* OUTPUTFILE_NAME = "BugNumber_Tests_Diagnostics.txt";
 
 	static void ConstructorAndCopyAndAssignTests(std::ostream& os);
 	static void ReadingOperatorTests();
@@ -55,6 +55,4 @@ public:
 
 	static void runTests(std::ostream& os);
 };
-
-
 

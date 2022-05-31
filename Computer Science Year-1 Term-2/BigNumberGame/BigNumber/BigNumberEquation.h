@@ -6,21 +6,21 @@ class BigNumberEquation
 	:public BigNumberExpressionCommon
 {
 public:
-	//Exception messages
-	static constexpr const char* EQUATION_INVALID_EXCEPTION = "Invalid Equation!";
-	static constexpr const char* EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION = "Equation is too complex for me to solve";
-	static constexpr const char* EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION = "The unknown is tied to division, so I can't solve this equation, sorry!";
-	static constexpr const char* EQUATION__SOLVE_NOTWHOLE_EXCEPTION = "Not whole number solution";
-	static constexpr const char* EQUATION__SOLVE_EVERYANSWER_EXCEPTION = "Every x is an answer to the equation";
-	static constexpr const char* EQUATION__SOLVE_NOANSWER_EXCEPTION = "No answer for this equation";
-	static constexpr const char* EQUATION_OPERATORS = "+-*/";
+	//Exception messages CONSTANTS
+	static const mstring EQUATION_INVALID_EXCEPTION;
+	static const mstring EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION;
+	static const mstring EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION;
+	static const mstring EQUATION__SOLVE_NOTWHOLE_EXCEPTION;
+	static const mstring EQUATION__SOLVE_EVERYANSWER_EXCEPTION;
+	static const mstring EQUATION__SOLVE_NOANSWER_EXCEPTION;
+	static const mstring EQUATION_OPERATORS;
 
 private:
 
-	char* equation;
-	size_t capacity;
+	mstring equation;
+	//size_t capacity;
 
-	void copy(const BigNumberEquation& other);
+	/*void copy(const BigNumberEquation& other);*/
 
 	int generateCountOfX(int seed);
 
@@ -28,41 +28,45 @@ public:
 
 	//Big 4
 	BigNumberEquation();
-	BigNumberEquation(const BigNumberEquation& other);
+	/*BigNumberEquation(const BigNumberEquation& other);
 	BigNumberEquation& operator= (const BigNumberEquation& other);
-	~BigNumberEquation();
+	~BigNumberEquation();*/
 
 	//Other constructors
-	BigNumberEquation(const char* equation);
+	BigNumberEquation(mstring equation);
 
 	//Check for equation validity. Excluding if the equation has a solution or not, or if it throws a divide by zero exception
-	bool isValidEquation(const char* equation = nullptr) const;
+	bool isValidEquation(mstring equation) const;
+	bool isValidEquation() const;
 
 	//Get the answer to an equation
-	BigNumber solveEquation(const char* equation = nullptr);
+	BigNumber solveEquation(mstring equation);
+	BigNumber solveEquation();
 
 	//Fill the numbers in an equation template
-	char* generateFromTemplate(const char* expressionTemplate, size_t maxUnknown = 3);
+	mstring generateFromTemplate(mstring expressionTemplate, size_t maxUnknown = 3);
 
 	//Generate a random equation, where the left side and the right side can contain only the given operators. totalUnknown should be at most =maxUnknownPerSide, otherwise, throw error!
-	void generateEquation(const char* leftSideAllowedOperators, const char* rightSideAllowedOperators, size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
+	void generateEquation(mstring leftSideAllowedOperators, mstring rightSideAllowedOperators, size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
 
 	//Generate a random equation. totalUnknown should be at most =maxUnknownPerSide, otherwise, throw error!
 	void generateEquation(size_t maxUnknownPerSide = 3, size_t totalUnknown = 6);
 
 	//Get equation as read-only
-	const char* getEquation() const;
+	mstring getEquation() const;
+
 	//Set equation
-	void setEquation(const char* equation);
+	void setEquation(mstring equation);
 
 	//Get the right expression as read-only
-	const char* getRightExpression() const;
+	mstring getRightExpression() const;
 
 	//Get the left expression, with the 'x', as read-only
-	const char* getLeftExpression() const;
+	mstring getLeftExpression() const;
 
 	//Get equation template
-	char* getEquationTemplate(const char* equation = nullptr) const;
+	mstring getEquationTemplate(mstring equation) const;
+	mstring getEquationTemplate() const;
 
 	///Reading and outputting equation to text file or console
 	friend std::istream& operator>> (std::istream& is, BigNumberEquation& equation);

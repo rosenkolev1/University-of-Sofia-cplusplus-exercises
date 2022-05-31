@@ -1,20 +1,20 @@
-#include "MBigNumberEquationTests.h"
-#include "MBigNumberEquation.h"
+#include "BigNumberEquationTests.h"
+#include "BigNumberEquation.h"
 #include <iostream>
 #include <fstream>
-#include "..\Project.StringManipulation\MStringManip.h"
+#include "..\Project.StringManipulation\StringManip.h"
 
-void MBigNumberEquationTests::equationBig4Tests(std::ostream& os)
+void BigNumberEquationTests::equationBig4Tests(std::ostream& os)
 {
     //BIG4 TESTS
     os << "EQUATION BIG4 TESTS" << std::endl << std::endl;
 
     //SETUP
-    MBigNumberEquation equation1 = MBigNumberEquation();
-    mstring someEquation = " 5 + 5*x = 30/x";
-    mstring anotherEquation = "15/3*x = 20";
-    MBigNumberEquation equation2(someEquation);
-    MBigNumberEquation equation3(anotherEquation);
+    BigNumberEquation equation1 = BigNumberEquation();
+    char someEquation[] = " 5 + 5*x = 30/x";
+    char anotherEquation[] = "15/3*x = 20";
+    BigNumberEquation equation2(someEquation);
+    BigNumberEquation equation3(anotherEquation);
 
     os << "Equation 1: Expected: " << "x=0" << ": " << equation1.getEquation() << std::endl;
     os << "Equation 2: Expected: " << someEquation << ": " << equation2.getEquation() << std::endl;
@@ -34,203 +34,203 @@ void MBigNumberEquationTests::equationBig4Tests(std::ostream& os)
 
     os << std::endl;
 
-    MBigNumberEquation equation4(equation1);
-    os << "Testing \"MBigNumberEquation equation4(equation1);\" \n";
+    BigNumberEquation equation4(equation1);
+    os << "Testing \"BigNumberEquation equation4(equation1);\" \n";
     os << "Equation 4: Expected: " << someEquation << ": " << equation4.getEquation() << std::endl;
 
     os << std::endl;
-
+    
 }
 
-void MBigNumberEquationTests::equationIsValidTests(std::ostream& os)
+void BigNumberEquationTests::equationIsValidTests(std::ostream& os)
 {
     //EQUATION IS VALID TESTS
     os << "EQUATION IS VALID TESTS" << std::endl << std::endl;
 
     //TEST 1
     os << "TEST 1" << std::endl;
-    mstring equation1 = "-(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
-    MBigNumberEquation equation(equation1);
+    char equation1[] = "-(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    BigNumberEquation equation(equation1);
     os << "Testing if the equation | " << equation1 << " | is valid: Expected: TRUE ==> " << (equation.isValidEquation() ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 2
     os << "TEST 2" << std::endl;
-    mstring equation2 = "-+(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    char equation2[] = "-+(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
     os << "Testing if the equation | " << equation2 << " | is valid: Expected: TRUE ==> " << (equation.isValidEquation(equation2) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 3
     os << "TEST 3" << std::endl;
-    mstring equation3 = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= --x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    char equation3[] = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= --x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
     os << "Testing if the equation | " << equation3 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation3) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 4
     os << "TEST 4" << std::endl;
-    mstring equation4 = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    char equation4[] = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
     os << "Testing if the equation | " << equation4 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation4) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 5
     os << "TEST 5" << std::endl;
-    mstring equation5 = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)=+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    char equation5[] = "--(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)=+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
     os << "Testing if the equation | " << equation5 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation5) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 6
     os << "TEST 6" << std::endl;
-    mstring equation6 = "--(35/x*(40+-36/-x%(9-x) + 38)-16)*(x*5/-(x+34)+15)=-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
+    char equation6[] = "--(35/x*(40+-36/-x%(9-x) + 38)-16)*(x*5/-(x+34)+15)=-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x)";
     os << "Testing if the equation | " << equation6 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation6) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 7
     os << "TEST 7" << std::endl;
-    mstring equation7 = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5)"; //Expected: 10890 = 0
+    char equation7[] = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5)"; //Expected: 10890 = 0
     os << "Testing if the equation | " << equation7 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation7) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 8
     os << "TEST 8" << std::endl;
-    mstring equation8 = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890"; //Expected: 10890 = 10890
+    char equation8[] = "(35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890"; //Expected: 10890 = 10890
     os << "Testing if the equation | " << equation8 << " | is valid: Expected: TRUE ==> " << (equation.isValidEquation(equation8) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 
     //TEST 9
     os << "TEST 9" << std::endl;
-    mstring equation9 = "5/(10*3-30)=5";
+    char equation9[] = "5/(10*3-30)=5";
     os << "Testing if the equation | " << equation9 << " | is valid: Expected: FALSE ==> " << (equation.isValidEquation(equation9) ? "TRUE" : "FALSE");
     os << std::endl << std::endl;
 }
 
-void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
+void BigNumberEquationTests::solveEquationTests(std::ostream& os)
 {
     //SOLVE EQUATIONS TESTS
     os << "SOLVE EQUATIONS TESTS" << std::endl << std::endl;
 
     //TEST PREP
-    MBigNumberEquation equation;
+    BigNumberEquation equation;
 
     //TEST 1
     os << "TEST 1" << std::endl;
-    mstring equation1 = "x=5";
+    char equation1[] = "x=5";
     os << "Testing the answer to the equation | " << equation1 << " |: Expected: 5 ==> " << equation.solveEquation(equation1);
     os << std::endl << std::endl;
-
+    
     //TEST 2
     os << "TEST 2" << std::endl;
-    mstring equation2 = "3+x=5";
+    char equation2[] = "3+x=5";
     os << "Testing the answer to the equation | " << equation2 << " |: Expected: 2 ==> " << equation.solveEquation(equation2);
     os << std::endl << std::endl;
-
+    
     //TEST 3
     os << "TEST 3" << std::endl;
-    mstring equation3 = "5-3+x=5";
+    char equation3[] = "5-3+x=5";
     os << "Testing the answer to the equation | " << equation3 << " |: Expected: 3 ==> " << equation.solveEquation(equation3);
     os << std::endl << std::endl;
-
+    
     //TEST 4
     os << "TEST 4" << std::endl;
-    mstring equation4 = "5-3-x=5";
+    char equation4[] = "5-3-x=5";
     os << "Testing the answer to the equation | " << equation4 << " |: Expected: -3 ==> " << equation.solveEquation(equation4);
     os << std::endl << std::endl;
-
+    
     //TEST 5
     os << "TEST 5" << std::endl;
-    mstring equation5 = "--5+-3-x=5";
+    char equation5[] = "--5+-3-x=5";
     os << "Testing the answer to the equation | " << equation5 << " |: Expected: -3 ==> " << equation.solveEquation(equation5);
     os << std::endl << std::endl;
-
+    
     //TEST 6
     os << "TEST 6" << std::endl;
-    mstring equation6 = "-x+9=5";
+    char equation6[] = "-x+9=5";
     os << "Testing the answer to the equation | " << equation6 << " |: Expected: 4 ==> " << equation.solveEquation(equation6);
     os << std::endl << std::endl;
-
+    
     //TEST 7
     os << "TEST 7" << std::endl;
-    mstring equation7 = "-x-+9=5";
+    char equation7[] = "-x-+9=5";
     os << "Testing the answer to the equation | " << equation7 << " |: Expected: -14 ==> " << equation.solveEquation(equation7);
     os << std::endl << std::endl;
-
+    
     //TEST 8
     os << "TEST 8" << std::endl;
-    mstring equation8 = "-x--9=5";
+    char equation8[] = "-x--9=5";
     os << "Testing the answer to the equation | " << equation8 << " |: Expected: 4 ==> " << equation.solveEquation(equation8);
     os << std::endl << std::endl;
-
+    
     //TEST 9
     os << "TEST 9" << std::endl;
-    mstring equation9 = "-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x+9-24=3+10*2-13 ==> -x-15=10 ==> x=-25 
+    char equation9[] = "-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x+9-24=3+10*2-13 ==> -x-15=10 ==> x=-25 
     os << "Testing the answer to the equation | " << equation9 << " |: Expected: -25 ==> " << equation.solveEquation(equation9);
     os << std::endl << std::endl;
-
+    
     //TEST 10
     os << "TEST 10" << std::endl;
     int correctAnswer = (5 * 3 / 4 + 10 * (5 / 3 + 1) - 13 - (50 + 74 + -69 - +69 + 22)) - (9 + -10 - +14);
-    mstring equation10 = "50+74+-69-+69--22-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-2-15 ==> x=-17
+    char equation10[] = "50+74+-69-+69--22-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-2-15 ==> x=-17
     os << "Testing the answer to the equation | " << equation10 << " |: Expected: -17 ==> " << equation.solveEquation(equation10);
     os << std::endl << std::endl;
-
+    
     //TEST 11
     os << "TEST 11" << std::endl;
     correctAnswer = ((5 * 3 / 4 + 10 * (5 / 3 + 1) - 13) - (+-50 + 74 + -69 - +69 + 21)) - (+9 + -10 - +14);
-    mstring equation11 = "+-50+74+-69-+69--21-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-30-100=10 ==> x=-140
+    char equation11[] = "+-50+74+-69-+69--21-x--9+-10-+14=5*3/4+10*(5/3+1)-13"; //-x-30-100=10 ==> x=-140
     os << "Testing the answer to the equation | " << equation11 << " |: Expected: -118 ==> " << equation.solveEquation(equation11);
     os << std::endl << std::endl;
-
+    
     //TEST 12
     os << "TEST 12" << std::endl;
-    mstring equation12 = "5*3/4+10*(5/3+1)-13=+-50+74+-69-+69--21-x--9+-10-+14"; //x=83
+    char equation12[] = "5*3/4+10*(5/3+1)-13=+-50+74+-69-+69--21-x--9+-10-+14"; //x=83
     os << "Testing the answer to the equation | " << equation12 << " |: Expected: -118 ==> " << equation.solveEquation(equation12);
     os << std::endl << std::endl;
-
+    
     //TEST 13
     os << "TEST 13" << std::endl;
-    mstring equation13 = "x*5=25";
+    char equation13[] = "x*5=25"; 
     os << "Testing the answer to the equation | " << equation13 << " |: Expected: 5 ==> " << equation.solveEquation(equation13);
     os << std::endl << std::endl;
-
+    
     //TEST 14
     os << "TEST 14" << std::endl;
-    mstring equation14 = "-x*5=25";
+    char equation14[] = "-x*5=25";
     os << "Testing the answer to the equation | " << equation14 << " |: Expected: -5 ==> " << equation.solveEquation(equation14);
-    os << std::endl << std::endl;
-
+    os << std::endl << std::endl;    
+    
     //TEST 15
     os << "TEST 15" << std::endl;
-    mstring equation15 = "-x*-5=25";
+    char equation15[] = "-x*-5=25";
     os << "Testing the answer to the equation | " << equation15 << " |: Expected: 5 ==> " << equation.solveEquation(equation15);
     os << std::endl << std::endl;
-
+    
     //TEST 16
     os << "TEST 16" << std::endl;
-    mstring equation16 = "5*x=25";
+    char equation16[] = "5*x=25";
     os << "Testing the answer to the equation | " << equation16 << " |: Expected: 5 ==> " << equation.solveEquation(equation16);
     os << std::endl << std::endl;
-
+    
     //TEST 17
     os << "TEST 17" << std::endl;
-    mstring equation17 = "5*-x=25";
+    char equation17[] = "5*-x=25";
     os << "Testing the answer to the equation | " << equation17 << " |: Expected: -5 ==> " << equation.solveEquation(equation17);
     os << std::endl << std::endl;
-
+    
     //TEST 18
     os << "TEST 18" << std::endl;
-    mstring equation18 = "-5*-x=25";
+    char equation18[] = "-5*-x=25";
     os << "Testing the answer to the equation | " << equation18 << " |: Expected: 5 ==> " << equation.solveEquation(equation18);
     os << std::endl << std::endl;
-
+    
     //TEST 19
     os << "TEST 19" << std::endl;
-    mstring equation19 = "13*6*x=25*(7/2+3--5) + 37"; // x = 312/78 = 4
+    char equation19[] = "13*6*x=25*(7/2+3--5) + 37"; // x = 312/78 = 4
     os << "Testing the answer to the equation | " << equation19 << " |: Expected: 4 ==> " << equation.solveEquation(equation19);
     os << std::endl << std::endl;
-
+    
     //TEST 20
     os << "TEST 20" << std::endl;
     int shouldBe0 = 13 * 6 * (-32 + 10 - 43 / (6 * (3 - 5)) + 20) + 500 / (35 - 47 * 5) * 3 - 19 + 4 * (13) - ((15 + (25 * (7 / 2 + 3 + 5)) / 6) + 45);
-    mstring equation20 = "13*6*(x+10-43/(6*(3-5))+20) + 500/(35-47*5)*3-19+4*(13) = (15+(25*(7/2+3--5))/6) + 45";
+    char equation20[] = "13*6*(x+10-43/(6*(3-5))+20) + 500/(35-47*5)*3-19+4*(13) = (15+(25*(7/2+3--5))/6) + 45";  
     //13*6*(x+10+3+20) -6 -19+4*(13) = (15+45) + 45
     //78*(x+33)-25+52=105;
     //78*(x+33)=78;
@@ -238,19 +238,19 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
     //x=-32;
     os << "Testing the answer to the equation | " << equation20 << " |: Expected: -32 ==> " << equation.solveEquation(equation20);
     os << std::endl << std::endl;
-
+    
     //TEST 21
     os << "TEST 21" << std::endl;
-    mstring equation21 = "15/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45";
+    char equation21[] = "15/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45";
     //15/(5)*x = 105
     //3*x=105;
     //x=35;
     os << "Testing the answer to the equation | " << equation21 << " |: Expected: 35 ==> " << equation.solveEquation(equation21);
     os << std::endl << std::endl;
-
+    
     //TEST 22
     os << "TEST 22" << std::endl;
-    mstring equation22 = "17/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45";
+    char equation22[] = "17/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45";
     //17/(5)*x = 105
     //3*x=105;
     //x=35;
@@ -259,29 +259,29 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 23
     os << "TEST 23" << std::endl;
-    mstring equation23 = "(23*18-457)*35-(17/(20-5*3))*x*345/(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation23 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    char equation23[] = "(23*18-457)*35-(17/(20-5*3))*x*345/(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation23 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation23);
     }
-    catch (const mstring e)
+    catch(const char* e)
     {
         os << e;
     }
-    os << std::endl << std::endl;
+    os << std::endl << std::endl;  
 
     //TEST 24
     os << "TEST 24" << std::endl;
-    mstring equation24 = "(23*18-457)*35-(17/(20-5*3))/x*345*(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation24 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    char equation24[] = "(23*18-457)*35-(17/(20-5*3))/x*345*(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation24 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation24);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -289,14 +289,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 25
     os << "TEST 25" << std::endl;
-    mstring equation25 = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8))/(15+10) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation25 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    char equation25[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8))/(15+10) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation25 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation25);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -304,14 +304,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 26
     os << "TEST 26" << std::endl;
-    mstring equation26 = "(23*18-457)*35-172222/(17/(20-5*3))/-x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation26 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    char equation26[] = "(23*18-457)*35-172222/(17/(20-5*3))/-x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation26 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation26);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -319,14 +319,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 27
     os << "TEST 27" << std::endl;
-    mstring equation27 = "(23*18-457)*35-172222/(17/(20-5*3))/+x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation27 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
+    char equation27[] = "(23*18-457)*35-172222/(17/(20-5*3))/+x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation27 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation27);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -334,14 +334,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 28
     os << "TEST 28" << std::endl;
-    mstring equation28 = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
-    os << "Testing the answer to the equation | " << equation28 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_NOTWHOLE_EXCEPTION << " ==> ";
+    char equation28[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88";
+    os << "Testing the answer to the equation | " << equation28 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_NOTWHOLE_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation28);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -349,14 +349,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 29
     os << "TEST 29" << std::endl;
-    mstring equation29 = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88*x";
-    os << "Testing the answer to the equation | " << equation29 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION << " ==> ";
+    char equation29[] = "(23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88*x";
+    os << "Testing the answer to the equation | " << equation29 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation29);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -364,14 +364,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 30
     os << "TEST 30" << std::endl;
-    mstring equation30 = "x*0 + 10 = 10";
-    os << "Testing the answer to the equation | " << equation30 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_EVERYANSWER_EXCEPTION << " ==> ";
+    char equation30[] = "x*0 + 10 = 10";
+    os << "Testing the answer to the equation | " << equation30 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_EVERYANSWER_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation30);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -379,14 +379,14 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 31
     os << "TEST 31" << std::endl;
-    mstring equation31 = "x*0 = 10";
-    os << "Testing the answer to the equation | " << equation31 << " |:" << std::endl
-        << "Expected: " << MBigNumberEquation::EQUATION__SOLVE_NOANSWER_EXCEPTION << " ==> ";
+    char equation31[] = "x*0 = 10";
+    os << "Testing the answer to the equation | " << equation31 << " |:" << std::endl 
+        << "Expected: " << BigNumberEquation::EQUATION__SOLVE_NOANSWER_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation31);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
@@ -394,28 +394,28 @@ void MBigNumberEquationTests::solveEquationTests(std::ostream& os)
 
     //TEST 32
     os << "TEST 32" << std::endl;
-    mstring equation32 = "x*(25/0) = 10";
-    os << "Testing the answer to the equation | " << equation32 << " |:" << std::endl
-        << "Expected: " << MBigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << " ==> ";
+    char equation32[] = "x*(25/0) = 10";
+    os << "Testing the answer to the equation | " << equation32 << " |:" << std::endl 
+        << "Expected: " << BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << " ==> ";
     try
     {
         os << equation.solveEquation(equation32);
     }
-    catch (const mstring e)
+    catch (const char* e)
     {
         os << e;
     }
     os << std::endl << std::endl;
 }
 
-void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
+void BigNumberEquationTests::generateEquationTests(std::ostream& os)
 {
     os << "GENERATE EQUATIONS TESTS" << std::endl << std::endl;
     srand(time(NULL));
     for (size_t i = 0; i < 50; i++)
     {
         os << "TEST " << i + 1 << ": " << std::endl;
-        MBigNumberEquation equation1 = MBigNumberEquation();
+        BigNumberEquation equation1 = BigNumberEquation();
         size_t maxUnknownsPerSide = 3;
         size_t maxUnknownsTotal = 6;
         equation1.generateEquation(maxUnknownsPerSide, maxUnknownsTotal);
@@ -426,14 +426,14 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
 
         //Check how many unknowns the equation has on either side.
         size_t sizeOfSides = 0;
-        mstring* sides = MStringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
-        size_t unknownsInLeftSide = MStringManip::countOf(sides[0], "x");
-        size_t unknownsInRightSide = MStringManip::countOf(sides[1], "x");
+        char** sides = StringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
+        size_t unknownsInLeftSide = StringManip::countOf(sides[0], "x");
+        size_t unknownsInRightSide = StringManip::countOf(sides[1], "x");
         if (unknownsInLeftSide > maxUnknownsPerSide || unknownsInRightSide > maxUnknownsPerSide || unknownsInLeftSide + unknownsInRightSide > maxUnknownsTotal) os << "FALSE";
         else os << "TRUE";
 
         //Delete dynamic memory
-        delete[] sides;
+        StringManip::deleteArrayOfStrings(sides, sizeOfSides);
 
         os << std::endl;
         os << "Answer to the equation --> ";
@@ -441,7 +441,7 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
         {
             os << equation1.solveEquation();
         }
-        catch (const mstring e)
+        catch (const char* e)
         {
             os << e;
         }
@@ -452,7 +452,7 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
     for (size_t i = 50; i <= 99; i++)
     {
         os << "TEST " << i + 1 << ": " << std::endl;
-        MBigNumberEquation equation1 = MBigNumberEquation();
+        BigNumberEquation equation1 = BigNumberEquation();
         size_t maxUnknownsPerSide = 1;
         size_t maxUnknownsTotal = 1;
         equation1.generateEquation(maxUnknownsPerSide, maxUnknownsTotal);
@@ -463,14 +463,14 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
 
         //Check how many unknowns the equation has on either side.
         size_t sizeOfSides = 0;
-        mstring* sides = MStringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
-        size_t unknownsInLeftSide = MStringManip::countOf(sides[0], "x");
-        size_t unknownsInRightSide = MStringManip::countOf(sides[1], "x");
+        char** sides = StringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
+        size_t unknownsInLeftSide = StringManip::countOf(sides[0], "x");
+        size_t unknownsInRightSide = StringManip::countOf(sides[1], "x");
         if (unknownsInLeftSide > maxUnknownsPerSide || unknownsInRightSide > maxUnknownsPerSide || unknownsInLeftSide + unknownsInRightSide > maxUnknownsTotal) os << "FALSE";
         else os << "TRUE";
 
         //Delete dynamic memory
-        delete[] sides;
+        StringManip::deleteArrayOfStrings(sides, sizeOfSides);
 
         os << std::endl;
         os << "Answer to the equation --> ";
@@ -478,7 +478,7 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
         {
             os << equation1.solveEquation();
         }
-        catch (const mstring e)
+        catch (const char* e)
         {
             os << e;
         }
@@ -489,11 +489,11 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
     for (size_t i = 100; i <= 149; i++)
     {
         os << "TEST " << i + 1 << ": " << std::endl;
-        MBigNumberEquation equation1 = MBigNumberEquation();
+        BigNumberEquation equation1 = BigNumberEquation();
         size_t maxUnknownsPerSide = 1;
         size_t maxUnknownsTotal = 1;
-        equation1.generateEquation("+-*", MBigNumberEquation::EQUATION_OPERATORS, maxUnknownsPerSide, maxUnknownsTotal);
-        os << "Testing the generating of an equation with up to " << maxUnknownsPerSide << " unknowns per side and a total of " << maxUnknownsTotal
+        equation1.generateEquation("+-*", BigNumberEquation::EQUATION_OPERATORS, maxUnknownsPerSide, maxUnknownsTotal);
+        os << "Testing the generating of an equation with up to " << maxUnknownsPerSide << " unknowns per side and a total of " << maxUnknownsTotal 
             << " unknowns and where the operator \"/\" is not allowed to exist on the unknown side of the equation--> "
             << equation1.getEquationTemplate() << " --> " << equation1.getEquation() << std::endl;
         os << "Is the equation valid? Expect: TRUE ==> " << (equation1.isValidEquation() ? "TRUE" : "FALSE") << std::endl;
@@ -501,25 +501,25 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
 
         //Check how many unknowns the equation has on either side.
         size_t sizeOfSides = 0;
-        mstring* sides = MStringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
-        size_t unknownsInLeftSide = MStringManip::countOf(sides[0], "x");
-        size_t unknownsInRightSide = MStringManip::countOf(sides[1], "x");
+        char** sides = StringManip::splitString(equation1.getEquation(), "=", sizeOfSides);
+        size_t unknownsInLeftSide = StringManip::countOf(sides[0], "x");
+        size_t unknownsInRightSide = StringManip::countOf(sides[1], "x");
         if (unknownsInLeftSide > maxUnknownsPerSide || unknownsInRightSide > maxUnknownsPerSide || unknownsInLeftSide + unknownsInRightSide > maxUnknownsTotal) os << "FALSE";
         else os << "TRUE";
 
         os << std::endl;
 
         //Get the unknown side
-        mstring unknownSide = sides[0];
+        char* unknownSide = sides[0];
         if (unknownsInLeftSide < unknownsInRightSide)
         {
             unknownSide = sides[1];
         }
         os << "Does the equation contain a \"/\" operator in it's unknown side? Expect: FALSE: "
-            << (MStringManip::findIndex(sides[0], "/") != -1 ? "TRUE" : "FALSE");
+            << (StringManip::findIndex(sides[0], "/") != -1 ? "TRUE" : "FALSE");
 
         //Delete dynamic memory
-        delete[] sides;
+        StringManip::deleteArrayOfStrings(sides, sizeOfSides);
 
         os << std::endl;
         os << "Answer to the equation --> ";
@@ -527,7 +527,7 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
         {
             os << equation1.solveEquation();
         }
-        catch (const mstring e)
+        catch (const char* e)
         {
             os << e;
         }
@@ -536,14 +536,14 @@ void MBigNumberEquationTests::generateEquationTests(std::ostream& os)
     }
 }
 
-void MBigNumberEquationTests::readFromAndWriteToConsoleTests()
+void BigNumberEquationTests::readFromAndWriteToConsoleTests()
 {
     std::cout << "READ AND WRITE FROM AND TO CONSOLE TESTS" << std::endl << std::endl;
 
     //TEST 1
     std::cout << "TEST 1" << std::endl;
-    MBigNumberEquation equation1;
-    MBigNumberEquation equation2;
+    BigNumberEquation equation1;
+    BigNumberEquation equation2;
     std::cout << "Enter equation1: ";
     std::cin >> equation1;
     std::cout << "Enter equation2: ";
@@ -554,7 +554,7 @@ void MBigNumberEquationTests::readFromAndWriteToConsoleTests()
     std::cout << std::endl << std::endl;
 }
 //1248-379*3=111
-void MBigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
+void BigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 {
     os << "READ AND WRITE FROM AND TO FILE TESTS" << std::endl << std::endl;
 
@@ -563,8 +563,8 @@ void MBigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
 
     std::ifstream is("Equations.txt");
     int somethingDebug = (15 - (3 * 156 / 343 % (6 / 2 * 4 % 10 + 43))) + 10;
-    MBigNumberEquation equation1 = MBigNumberEquation();
-    MBigNumberEquation equation2 = MBigNumberEquation();
+    BigNumberEquation equation1 = BigNumberEquation();
+    BigNumberEquation equation2 = BigNumberEquation();
     is >> equation1;
     is >> equation2;
 
@@ -575,7 +575,7 @@ void MBigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
     os << std::endl << std::endl;
 
     std::ofstream osEquations("EquationAnswers.txt", std::ios::trunc);
-
+    
     osEquations << equation1 << std::endl;
     osEquations << equation2 << std::endl;
 
@@ -584,16 +584,17 @@ void MBigNumberEquationTests::readFromAndWriteToFileTests(std::ostream& os)
     os << std::endl << std::endl;
 }
 
-void MBigNumberEquationTests::runTests(std::ostream& os)
+void BigNumberEquationTests::runTests(std::ostream& os)
 {
-    std::cout << "Start the tests for MBigNumberEquations! ";
+    std::cout << "Start the tests for BigNumberEquations! ";
     if (&os != &std::cout)
     {
         std::cout << "The test results are being outputted to text file with name: " << OUTPUTFILE_NAME << std::endl;
         time_t timetoday;
         time(&timetoday);
-        mstring timeOfRunningTheTests = MStringManip::replaceFirst(ctime(&timetoday), "\n", "");
+        char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
         os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
+        delete[] timeOfRunningTheTests;
     }
 
     //Big4 tests
@@ -604,13 +605,13 @@ void MBigNumberEquationTests::runTests(std::ostream& os)
     //
     //SOLVE EQUATIONS TESTS
     solveEquationTests(os);
-
-    //Generate equation tests
-    generateEquationTests(os);
+    
+	//Generate equation tests
+	generateEquationTests(os);
 
     //Read from and Write to console tests
     readFromAndWriteToFileTests(os);
-
+    
     //Read from and Write to console tests
     //readFromAndWriteToConsoleTests();
 

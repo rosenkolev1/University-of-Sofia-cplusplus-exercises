@@ -145,23 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="BigNumber.cpp" />
     <ClCompile Include="BigNumberDivisionResult.cpp" />
     <ClCompile Include="BigNumberEquation.cpp" />
     <ClCompile Include="BigNumberEquationTests.cpp" />
     <ClCompile Include="BigNumberExpression.cpp" />
-    <ClCompile Include="BigNumberExpressionTests.cpp" />
     <ClCompile Include="BigNumberExpressionCommon.cpp" />
+    <ClCompile Include="BigNumberExpressionTests.cpp" />
     <ClCompile Include="BigNumberTests.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MBigNumber.cpp" />
-    <ClCompile Include="MBigNumberDivisionResult.cpp" />
-    <ClCompile Include="MBigNumberEquation.cpp" />
-    <ClCompile Include="MBigNumberEquationTests.cpp" />
-    <ClCompile Include="MBigNumberExpression.cpp" />
-    <ClCompile Include="MBigNumberExpressionCommon.cpp" />
-    <ClCompile Include="MBigNumberExpressionTests.cpp" />
-    <ClCompile Include="MBigNumberTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h" />
@@ -169,17 +161,9 @@
     <ClInclude Include="BigNumberEquation.h" />
     <ClInclude Include="BigNumberEquationTests.h" />
     <ClInclude Include="BigNumberExpression.h" />
-    <ClInclude Include="BigNumberExpressionTests.h" />
     <ClInclude Include="BigNumberExpressionCommon.h" />
+    <ClInclude Include="BigNumberExpressionTests.h" />
     <ClInclude Include="BigNumberTests.h" />
-    <ClInclude Include="MBigNumber.h" />
-    <ClInclude Include="MBigNumberDivisionResult.h" />
-    <ClInclude Include="MBigNumberEquation.h" />
-    <ClInclude Include="MBigNumberEquationTests.h" />
-    <ClInclude Include="MBigNumberExpression.h" />
-    <ClInclude Include="MBigNumberExpressionCommon.h" />
-    <ClInclude Include="MBigNumberExpressionTests.h" />
-    <ClInclude Include="MBigNumberTests.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">

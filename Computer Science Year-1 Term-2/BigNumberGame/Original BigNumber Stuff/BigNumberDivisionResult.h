@@ -16,3 +16,4 @@ public:
 	const BigNumber& getLeftover() const;
 };
 
+

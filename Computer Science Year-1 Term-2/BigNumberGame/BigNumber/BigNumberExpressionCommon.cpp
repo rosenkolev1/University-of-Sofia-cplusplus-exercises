@@ -1,9 +1,10 @@
 #include "BigNumberExpressionCommon.h"
 #include <iostream>
-#include "..\Project.StringManipulation\StringManip.h"
+#include "..\Project.StringManipulation\MStringManip.h"
 
-char BigNumberExpressionCommon::generateOperator(int seed) const
+char BigNumberExpressionCommon::generateOperator() const
 {
+	size_t seed = rand() % 5;
 	if (seed == 4) return '%';
 	else if (seed == 3) return '/';
 	else if (seed == 2) return '*';
@@ -11,21 +12,24 @@ char BigNumberExpressionCommon::generateOperator(int seed) const
 	else if (seed == 0) return '+';
 }
 
-char BigNumberExpressionCommon::generateOpeningParenthesis(int seed) const
+char BigNumberExpressionCommon::generateOpeningParenthesis() const
 {
+	size_t seed = rand() % 10;
 	if (seed > 7) return '(';
 	else if (seed >= 0) return '#';
 }
 
-int BigNumberExpressionCommon::generateSign(int seed) const
+int BigNumberExpressionCommon::generateSign() const
 {
+	size_t seed = rand() % 15;
 	if (seed >= 12) return -1;
 	else if (seed >= 1) return 1;
 	else if (seed == 0) return 0;
 }
 
-size_t BigNumberExpressionCommon::generateDigitsCount(int seed) const
+size_t BigNumberExpressionCommon::generateDigitsCount() const
 {
+	size_t seed = rand() % 51;
 	if (seed == 50) return 30;
 	else if (seed >= 48) return 9;
 	else if (seed >= 46) return 8;
@@ -38,18 +42,15 @@ size_t BigNumberExpressionCommon::generateDigitsCount(int seed) const
 	else if (seed <= 7) return 1;
 }
 
-char* BigNumberExpressionCommon::replaceNumbers(const char* expression, const char* replacement) const
+mstring BigNumberExpressionCommon::replaceNumbers(mstring expression, mstring replacement) const
 {
-	char* newExpression = new char[strlen(expression) + 1];
-	strcpy(newExpression, expression);
-
 	//Replace all of the numbers in the expression with an x
 	bool isOnNumber = false;
 	size_t currentNumberStartIndex = 0;
 
-	for (size_t i = 0; i < strlen(newExpression); i++)
+	for (size_t i = 0; i < expression.getSize(); i++)
 	{
-		char symbol = newExpression[i];
+		char symbol = expression[i];
 
 		if (isdigit(symbol) && isOnNumber == false)
 		{
@@ -61,22 +62,18 @@ char* BigNumberExpressionCommon::replaceNumbers(const char* expression, const ch
 			isOnNumber = false;
 
 			//Replace the digit with an x
-			char* expressionCopy = StringManip::replaceFrom(newExpression, replacement, currentNumberStartIndex, i - 1);
-			delete[] newExpression;
-			newExpression = expressionCopy;
+			expression = MStringManip::replaceFrom(expression, replacement, currentNumberStartIndex, i - 1);
 
 			//Now move back the counter because you have just deleted a very important number;
-			i -= (i - 1 - currentNumberStartIndex + 1 - strlen(replacement));
+			i -= (i - 1 - currentNumberStartIndex + 1 - replacement.getSize());
 		}
 	}
 
 	//If the expression ends on a number, then replace that number with x
 	if (isOnNumber)
 	{
-		char* expressionCopy = StringManip::replaceFrom(newExpression, "x", currentNumberStartIndex, strlen(newExpression) - 1);
-		delete[] newExpression;
-		newExpression = expressionCopy;
+		expression = MStringManip::replaceFrom(expression, "x", currentNumberStartIndex, expression.getSize() - 1);
 	}
 
-	return newExpression;
+	return expression;
 }

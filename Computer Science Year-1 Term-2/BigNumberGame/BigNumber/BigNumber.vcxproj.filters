@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BigNumber.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BigNumberDivisionResult.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigNumber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BigNumberTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigNumberDivisionResult.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BigNumberExpression.cpp">
@@ -33,37 +33,13 @@
     <ClCompile Include="BigNumberExpressionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BigNumberEquation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BigNumberExpressionCommon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigNumberEquation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="BigNumberEquationTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumber.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberDivisionResult.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberExpression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberExpressionTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberExpressionCommon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberEquation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MBigNumberEquationTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,10 +47,10 @@
     <ClInclude Include="BigNumber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BigNumberDivisionResult.h">
+    <ClInclude Include="BigNumberTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BigNumberTests.h">
+    <ClInclude Include="BigNumberDivisionResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigNumberExpression.h">
@@ -83,37 +59,13 @@
     <ClInclude Include="BigNumberExpressionTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BigNumberEquation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BigNumberExpressionCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BigNumberEquation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BigNumberEquationTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumber.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberDivisionResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberExpression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberExpressionTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberExpressionCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberEquation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MBigNumberEquationTests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

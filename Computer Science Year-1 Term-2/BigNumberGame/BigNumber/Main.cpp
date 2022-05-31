@@ -8,58 +8,28 @@
 #include "BigNumberTests.h"
 #include "BigNumberExpression.h"
 #include "BigNumberExpressionTests.h"
+#include "BigNumberEquation.h"
 #include "BigNumberEquationTests.h"
-#include "MBigNumber.h"
-#include "MBigNumberDivisionResult.h"
-#include "MBigNumberTests.h"
-#include "MBigNumberExpression.h"
-#include "MBigNumberExpressionTests.h"
-#include "MBigNumberEquation.h"
-#include "MBigNumberEquationTests.h"
 
 int main()
 {
-    //ORIGINAL BIG NUMBER
-    //std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
-    //std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
-    //std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
-    //
-    ////BigNumber tests
-    //BigNumberTests::runTests(std::cout);
-    ////BigNumberTests::runTests(osBigNumberTests);
-    //
-    ////BigNumberExpression tests
-    //BigNumberExpressionTests::runTests(std::cout);
-    ////BigNumberExpressionTests::runTests(osExpressionTests);
-    //
-    ////BigNumberEquations tests
-    //BigNumberEquationTests::runTests(std::cout);
-    ////BigNumberEquationTests::runTests(osEquationTests);
-    //
-    //osEquationTests.close();
-    //osExpressionTests.close();
-    //osBigNumberTests.close();
+    std::ofstream osBigNumberTests(BigNumberTests::OUTPUTFILE_NAME, std::ios::app);
+    std::ofstream osExpressionTests(BigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::app);
+    std::ofstream osEquationTests(BigNumberEquationTests::OUTPUTFILE_NAME, std::ios::app);
 
-    //--------------------------------------------------------------------------------------------
+    //BigNumber tests
+    BigNumberTests::runTests(std::cout);
+    //BigNumberTests::runTests(osBigNumberTests);
 
-    //BIGNUMBER with MSTRING
-    std::ofstream osBigNumberTests(MBigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
-    std::ofstream osExpressionTests(MBigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
-    std::ofstream osEquationTests(MBigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
+    //BigNumberExpression tests
+    BigNumberExpressionTests::runTests(std::cout);
+    //BigNumberExpressionTests::runTests(osExpressionTests);
 
-    //MBigNumber tests
-    //MBigNumberTests::runTests(std::cout);
-    //MBigNumberTests::runTests(osBigNumberTests);
+    //BigNumberEquations tests
+    BigNumberEquationTests::runTests(std::cout);
+    //BigNumberEquationTests::runTests(osEquationTests);
 
-    //MBigNumberExpression tests
-    //MBigNumberExpressionTests::runTests(std::cout);
-    //MBigNumberExpressionTests::runTests(osExpressionTests);
-
-    //MBigNumberEquations tests
-    MBigNumberEquationTests::runTests(std::cout);
-    //MBigNumberEquationTests::runTests(osEquationTests);
-
-    //osEquationTests.close();
+    osEquationTests.close();
     osExpressionTests.close();
     osBigNumberTests.close();
 }

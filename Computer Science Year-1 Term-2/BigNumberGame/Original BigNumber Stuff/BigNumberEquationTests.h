@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-class MBigNumberEquationTests
+class BigNumberEquationTests
 {
 public:
 	static constexpr const char* OUTPUTFILE_NAME = "BugNumberEquation_Tests_Diagnostics.txt";

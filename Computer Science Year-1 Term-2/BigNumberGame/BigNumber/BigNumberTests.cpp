@@ -897,7 +897,7 @@ void BigNumberTests::OperatorMultiplyTests(std::ostream& os)
     BigNumber number15 = number13 * number14;
 
     os << "TEST 5:" << std::endl;
-    os << "Testing \"*\" operator -> (-3129 * 309). Expected: -966,861: "<< number15 << std::endl;
+    os << "Testing \"*\" operator -> (-3129 * 309). Expected: -966,861: " << number15 << std::endl;
     os << std::endl;
 
     //TEST 6
@@ -1285,7 +1285,7 @@ void BigNumberTests::OperatorPercentTests(std::ostream& os)
     os << "TEST 10:" << std::endl;
     os << "Testing \"%\" operator -> (38715980218941283691286446981264988961289 % -356). Expected: 341: " << number30 << std::endl;
     //os << std::endl;
-    os << "Testing \"%\" operator PART 2-> ( (38715980218941283691286446981264988961289 / -356)*-356 + 341 ). Expected: 38715980218941283691286446981264988961289: " 
+    os << "Testing \"%\" operator PART 2-> ( (38715980218941283691286446981264988961289 / -356)*-356 + 341 ). Expected: 38715980218941283691286446981264988961289: "
         << (((number28 / number29) * number29) + number30) << std::endl;
     os << std::endl;
 
@@ -1457,8 +1457,7 @@ void BigNumberTests::SpecialTests(std::ostream& os)
     BigNumber anotherBigNumber = BigNumber("12345678901234567890");
     BigNumber otherAnotherBigNumber = BigNumber("12350033579332211025");
     os << otherBigNumber << " + " << anotherBigNumber << " = " << otherAnotherBigNumber << "??? --> ";
-    /*BigNumber otherAnotherBigNumber = otherBigNumber + anotherBigNumber;
-    otherAnotherBigNumber << std::endl;*/
+
     os << std::boolalpha << ((otherBigNumber + anotherBigNumber) == otherAnotherBigNumber) << std::endl;
 
     BigNumber copyOfOtherBigNumber = otherBigNumber;
@@ -1547,7 +1546,7 @@ void BigNumberTests::getNumberMemoryLeakTest()
     BigNumber memoryLeakExpression("10");
     while (true)
     {
-        const char* answer = memoryLeakExpression.getNumber();
+        mstring answer = memoryLeakExpression.getNumber();
     }
 }
 
@@ -1567,8 +1566,8 @@ void BigNumberTests::runTests(std::ostream& os)
     // CONSTRUCTOR TESTS
     ConstructorAndCopyAndAssignTests(os);
     
-    // READING OPERATOR TESTS
-    //ReadingOperatorTests();
+    ////// READING OPERATOR TESTS
+    ////ReadingOperatorTests();
     
     // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
     os << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;
@@ -1602,10 +1601,10 @@ void BigNumberTests::runTests(std::ostream& os)
     
     // ++ OperatorTests
     OperatorIncrementTests(os);
-
+    
     // -- OperatorTests
     OperatorDecrementTests(os);
-
+    
     // * Operator Tests 
     OperatorMultiplyTests(os);
     
@@ -1622,7 +1621,7 @@ void BigNumberTests::runTests(std::ostream& os)
     OperatorPercentTests(os);
     
     // %= Operator tests
-    OperatorPercentAndEqualsTests(os);  
+    OperatorPercentAndEqualsTests(os);
     
     // Test inputs from Pesho and Lubo
     PeshoAndLuboTests(os);
@@ -1637,8 +1636,8 @@ void BigNumberTests::runTests(std::ostream& os)
     // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
     //OperatorDivideAndPercentMemoryLeakTests();
 
-    ////Test for getNumber memory leak. PROCEED WITH CAUTION!!!
-    ////getNumberMemoryLeakTest();
+    //Test for getNumber memory leak. PROCEED WITH CAUTION!!!
+    //getNumberMemoryLeakTest();
 
     os << std::endl << std::endl;
 }

@@ -1,0 +1,1116 @@
+---------------------------- Tue May 31 04:28:15 2022 ----------------------------
+
+EQUATION BIG4 TESTS
+
+Equation 1: Expected: x=0: x=0
+Equation 2: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+Equation 3: Expected: 15/3*x = 20: 15/3*x = 20
+
+Testing "equation1 = equation2;" 
+Equation 1: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+
+Testing "equation2 = equation3;" 
+Equation 2: Expected: 15/3*x = 20: 15/3*x = 20
+
+Testing "MBigNumberEquation equation4(equation1);" 
+Equation 4: Expected:  5 + 5*x = 30/x:  5 + 5*x = 30/x
+
+EQUATION IS VALID TESTS
+
+TEST 1
+Testing if the equation | -(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: TRUE ==> TRUE
+
+TEST 2
+Testing if the equation | -+(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= + x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: TRUE ==> TRUE
+
+TEST 3
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)= --x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 4
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 5
+Testing if the equation | --(35/x*(40+-36/-x*(9-x) + 38)-16)*(x*5/-(x+34)=+15)-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 6
+Testing if the equation | --(35/x*(40+-36/-x%(9-x) + 38)-16)*(x*5/-(x+34)+15)=-x*x/(x*x-x+x*(--10)-x-x*(x-1+x)*x)*(10-x) | is valid: Expected: FALSE ==> FALSE
+
+TEST 7
+Testing if the equation | (35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) | is valid: Expected: FALSE ==> FALSE
+
+TEST 8
+Testing if the equation | (35/5*(40+-36/-5*(9-5) + 38)-16)*(5*5/-(5+34)+15)=-5*5/(5*5-5+5*(--10)-5-5*(5-1+5)*5)*(10-5) + 10890 | is valid: Expected: TRUE ==> TRUE
+
+TEST 9
+Testing if the equation | 5/(10*3-30)=5 | is valid: Expected: FALSE ==> FALSE
+
+SOLVE EQUATIONS TESTS
+
+TEST 1
+Testing the answer to the equation | x=5 |: Expected: 5 ==> 5
+
+TEST 2
+Testing the answer to the equation | 3+x=5 |: Expected: 2 ==> 2
+
+TEST 3
+Testing the answer to the equation | 5-3+x=5 |: Expected: 3 ==> 3
+
+TEST 4
+Testing the answer to the equation | 5-3-x=5 |: Expected: -3 ==> -3
+
+TEST 5
+Testing the answer to the equation | --5+-3-x=5 |: Expected: -3 ==> -3
+
+TEST 6
+Testing the answer to the equation | -x+9=5 |: Expected: 4 ==> 4
+
+TEST 7
+Testing the answer to the equation | -x-+9=5 |: Expected: -14 ==> -14
+
+TEST 8
+Testing the answer to the equation | -x--9=5 |: Expected: 4 ==> 4
+
+TEST 9
+Testing the answer to the equation | -x--9+-10-+14=5*3/4+10*(5/3+1)-13 |: Expected: -25 ==> -25
+
+TEST 10
+Testing the answer to the equation | 50+74+-69-+69--22-x--9+-10-+14=5*3/4+10*(5/3+1)-13 |: Expected: -17 ==> -17
+
+TEST 11
+Testing the answer to the equation | +-50+74+-69-+69--21-x--9+-10-+14=5*3/4+10*(5/3+1)-13 |: Expected: -118 ==> -118
+
+TEST 12
+Testing the answer to the equation | 5*3/4+10*(5/3+1)-13=+-50+74+-69-+69--21-x--9+-10-+14 |: Expected: -118 ==> -118
+
+TEST 13
+Testing the answer to the equation | x*5=25 |: Expected: 5 ==> 5
+
+TEST 14
+Testing the answer to the equation | -x*5=25 |: Expected: -5 ==> -5
+
+TEST 15
+Testing the answer to the equation | -x*-5=25 |: Expected: 5 ==> 5
+
+TEST 16
+Testing the answer to the equation | 5*x=25 |: Expected: 5 ==> 5
+
+TEST 17
+Testing the answer to the equation | 5*-x=25 |: Expected: -5 ==> -5
+
+TEST 18
+Testing the answer to the equation | -5*-x=25 |: Expected: 5 ==> 5
+
+TEST 19
+Testing the answer to the equation | 13*6*x=25*(7/2+3--5) + 37 |: Expected: 4 ==> 4
+
+TEST 20
+Testing the answer to the equation | 13*6*(x+10-43/(6*(3-5))+20) + 500/(35-47*5)*3-19+4*(13) = (15+(25*(7/2+3--5))/6) + 45 |: Expected: -32 ==> -32
+
+TEST 21
+Testing the answer to the equation | 15/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45 |: Expected: 35 ==> 35
+
+TEST 22
+Testing the answer to the equation | 17/(20-5*3)*x = (15+(25*(7/2+3+5))/6) + 45 |: Expected: 35 ==> 35
+
+TEST 23
+Testing the answer to the equation | (23*18-457)*35-(17/(20-5*3))*x*345/(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: The unknown is tied to division, so I can't solve this equation, sorry! ==> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 24
+Testing the answer to the equation | (23*18-457)*35-(17/(20-5*3))/x*345*(15+24-3*7) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: The unknown is tied to division, so I can't solve this equation, sorry! ==> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 25
+Testing the answer to the equation | (23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8))/(15+10) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: The unknown is tied to division, so I can't solve this equation, sorry! ==> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 26
+Testing the answer to the equation | (23*18-457)*35-172222/(17/(20-5*3))/-x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: The unknown is tied to division, so I can't solve this equation, sorry! ==> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 27
+Testing the answer to the equation | (23*18-457)*35-172222/(17/(20-5*3))/+x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: The unknown is tied to division, so I can't solve this equation, sorry! ==> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 28
+Testing the answer to the equation | (23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88 |:
+Expected: Not whole number solution ==> Not whole number solution
+
+TEST 29
+Testing the answer to the equation | (23*18-457)*35-172222/(17/(20-5*3))*x*345*(15+24/3*7*(45/8)) = (15+(25*(7/2+3+5))/6) + 88*x |:
+Expected: Equation is too complex for me to solve ==> Equation is too complex for me to solve
+
+TEST 30
+Testing the answer to the equation | x*0 + 10 = 10 |:
+Expected: Every x is an answer to the equation ==> Every x is an answer to the equation
+
+TEST 31
+Testing the answer to the equation | x*0 = 10 |:
+Expected: No answer for this equation ==> No answer for this equation
+
+TEST 32
+Testing the answer to the equation | x*(25/0) = 10 |:
+Expected: DIVISION BY 0 IS NOT ALLOWED! ==> DIVISION BY 0 IS NOT ALLOWED!
+
+GENERATE EQUATIONS TESTS
+
+TEST 1: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x)*x/U-x+x+x-x-x-x=(x*x/x-x)*(x)/x-U-(x-x)*(x) --> (4226)*-55/x-0+57+970-514--4-61=(50*-93361/353-22309)*(0)/46-x-(8-559657)*(188282115286078349697257844115)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 2: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x*x*U)-(x-x-x*x)/x*x-x=x-(x+(U*x)/x+x+x-x)-(x) --> (6570*2*x)-(839660162--720--1*688)/286*424-367=7482-(396896+(x*-5820)/111+950011888+391205-692)-(718)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 3: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x+x)/x-x/x-x-x*(-U/x+x)=x+(x)/x/U+(x)+(x)-x --> (172+8)/-55-0/745-8-0*(-x/0+120)=7750+(6)/1/x+(0)+(80)-82840031
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 4: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U*x/x/x-x*x*(x)*(x)=x*x/U/x --> x*153560160916639714981708927554/354721/78325100-113*68*(77)*(970637)=-1538541*99823316/-x/53
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 5: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U*x-x*x*x*x/(x)-x+(x-x)=U-U/U/x+x --> x*5666-92104367*33*14*-4/(80965)-945+(86604--4)=x-x/-x/75+-43
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 6: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x*x*x+U+x=x-x*x/(U*(x)*x)*x-(x) --> 221590952*622*941755+x+3=778-4*8136076/(x*(4050)*2888)*4851-(9157)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 7: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U*(x-x)/x*(x)-(-x/U)=x-x/U-x/x*x-x --> x*(76293-5960)/1*(16)-(-7/x)=76-0/x-0/0*176-8051681
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 8: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x-U/x=x-U+x*x+x+(x)-(x)+x --> 12381-x/993920368750130559354300216884=-2-x+0*1+76+(0)-(28971)+7439464
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 9: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/x*x/x*x-(-U)-(x/U)*U=x+x-U-x*(x) --> 281852/3682*102/5615*0-(-x)-(951040129049304753210495723829/-x)*x=-3+-2-x-48632*(9459694)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 10: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x)*(x/(-x)/x)-(U)/x-x-x/x*x=x*(x/x-x-U) --> (1333)*(624605906/(-6960618)/693)-(x)/-7045-9544-41143/2*5=3*(869/99501-51-x)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 11: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U*x-x/x/x=x/(x-x*x/(x)+U)*(x) --> x*948--35713531612686453860784769472/-23617618724295400378373666558/2=2299/(3-9*88384/(69)+x)*(43644406)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 12: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/x/x/x*(U-x-x)+(x*x-x)=(-x/x+x-U-(x)+x*x*x/x) --> 2/-3994/390/-161968*(x-5760-928)+(7*513-4788)=(-55/-4154653+-370-x-(0)+-511*63*148082/5605)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 13: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (U/U*x)=U/x+x/x-x/(-x)/x-(-x)-x/(x) --> (x/x*5830)=-x/2+12558/17--2/(-92960)/8992513-(-8)-8270330/(8373)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 14: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x*x-x/x-x/x*U*(x)-(-x)=x+U*(x*x-x*(x)*x) --> 83370*922-123666767239093268017122785422/3--47/80*x*(9)-(-7229)=-7687296+x*(177*-3-499975*(5804)*219)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 15: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x+x-x*x-(x/U-x)+x=x-U*x*x --> -1+8440-896*1130-(59/x-3174)+-319=1-x*-8*1
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 16: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x+(-x)/U)=x+x/U*(x)-x+x+x+x+x --> (4+(-597)/x)=-2+6236/x*(95274338)-978050+37+89+0+639
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 17: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x-x-x+x*x+x/(-x*(-U/x)-x)=x*U-(x-x-x-x) --> 956636106-312-950615+-4*90+936/(-829*(-x/6139)-907)=-16116*x-(479705--13-928689017-817)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 18: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x*U+x+U-x/x+(x)=x*(x*(x*x)+x)*(U) --> 6265*x+-465+x-80729/73+(50820)=9757*(8403*(47*108)+141)*(x)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 19: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U+(-x)=U/(x)-x --> -x+(-6)=x/(670462)-0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 20: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x+x+x/x-x/U/x-x=x-x+U/(x)*(x) --> 0+94325+6775/220--640/x/916198-437=0-9813+x/(7)*(9945917)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 21: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x+(x*x+U)/x=x*x-(x-x)+(-x)*x-x/(x/U/x) --> 98975+(736*0+x)/0=85*-1519-(9952-73)+(-9)*311-886/(411/x/-6)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 22: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x+x*x/x/x/(U)-x=x+x/U+x*x/x/(-x)/(x) --> 59+720476*2896/806861700/828/(x)-3=252341+84/x+62*2825812/-1512824/(-4)/(24474)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 23: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (-x/x)/x+x*(x+(x-U)+x)-x=x/x/x*U/x-(-x*U*(-x)+x) --> (-443054/0)/582+2807*(3+(144751-x)+4860)-905=873/9163/69250650*x/508207-(-4171*x*(-9)+284)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 24: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/(x)*x-(x)*(x*x)/(-U)=x+x+x/x-x+U+x-x*x*x/x --> 526/(559523426)*943004-(3)*(865*-9)/(-x)=38+-208005+893619320/8-73+x+42--6295*3*0/-145
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 25: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U-x*x/x*(x-x+x/x)=x-x/x*x-(x/x-(U*x)*x/x)/x --> x-83496150*-9/9*(62858106-80370+336807001/93496)=2899160-151824/4038*17-(3/761-(x*957680194)*327845/62)/0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 26: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (-x*x)+x-U*x/x=(x*x)/x/(-x-(-x)*U) --> (-29539938*7)+276-x*1876/4344=(46038*2)/40/(-92-(-24)*x)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 27: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x+U*x/(x)-(x)=x+(x)/x-(x/x+U+x)-(x)+(x-x) --> -91216+x*802/(51563)-(43)=22454+(0)/2-(0/5032+x+827)-(96)+(8772539-298883)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 28: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/(U*(x)+x*x)/x/x=U-x-(x) --> 5752/(x*(5)+78*-767)/384540/43125504=x-43-(50)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 29: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x*(-U)=x-x+U+x+(x-x-x)+(x+x)+x-x --> 852*(-x)=34-78+x+635259273+(5-477151-3)+(28970888+873)+573228-9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 30: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x/U-U)=U-x-x+x-(x) --> (9608/x-x)=x--52953-33+3-(3812)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 31: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x)+U*(x-x)*x+x=U-x*x-x-x-x --> (31)+x*(62942824-6551)*161975634835388217970129532075+29817=x-2415*0--87362--33-0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 32: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x)*(x)-U=x*x*x/U*x/(x)*x*(x/x) --> (280)*(728)-x=3063444*-990116*470/x*1535/(950166)*0*(274/9467846)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 33: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/(-x)-(x-U)+(x-U)=U*x+x*x/x-(x) --> -67/(-74)-(778167697-x)+(99-x)=x*911809131204716105126705536311+1*20/271395456807081336748807506482-(2246)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 34: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x-(x*x+x)/(U)-x+(x-x)=x*x*x+x-x/x+U --> -8-(9*1542602+94177304)/(x)--77+(4312135-191240)=7956*-844*1+0-3/485173+x
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 35: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U-x*x-(-x)-x=(x*U)+(U)-U --> x-0*68-(-80556197464047459505601183178)-5177=(127*x)+(x)-x
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 36: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/(U-x)/x+x-x-x*U/x/x/x=U+(x+x-x+x*x/(x)*x) --> 54587/(x--2)/46+-49765-2934-87078*x/695/-58/2=x+(3+-51677-0+-156*9207/(92)*815)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 37: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/(-U+x)/(x)+(-x)=x/x/x/(x-U-x)/x/x --> -33/(-x+-30811)/(69568)+(-2)=86115/-87/86/(422839701-x-858)/75/650444
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 38: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x*U/x-x)=U*x-(x/(U*U/x)/x) --> (5*x/-447-40)=x*49405-(2127/(x*x/373288824)/490)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 39: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/x/x*(-x/x+(U)-x)=U/x/x --> 5149/0/4975*(-510/1068885+(x)-4)=-x/932991/-89
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 40: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x)/U*x/x*(x)-(x)/(x)+x=x-(U)+(U)+(-x) --> (58)/x*2/1414*(8)-(0)/(407)+27327=52837-(x)+(x)+(-44392)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 41: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x/x-x*N=x-x/(-U+x-x) --> 0/1710505-0*-x=621-9650/(-x+56-581)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 42: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (-U)+x=U-x --> (-x)+23=x-478427325
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 43: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U/x/U/x=x*N --> -x/3962032/x/-440=26*-x
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 44: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U-U-(-x*x+x+x-x)/(U)-x*x=x/U*x/(x-x*(x/x)/x-(-x-x)/x) --> x-x-(-39397039299071755182909083186*0+34899766+798509-542)/(x)-238605493092981336680590944705*57=3/x*6093932/(8139-71*(7373/682865364)/690-(-48--99435009417606439244238306676)/1482)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 45: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U*x=x+x-(x*x-U) --> x*586322048=-3+646-(28*267-x)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 46: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> x-(x-x)/(x)+U/x*x+U-x-(x)=(x/(x+x)-x+(U)-x)-x*x*(x) --> 4774006-(9-614871976)/(423)+x/3*147281265278665230770965677537+x-0-(15)=(23/(53523706+954)--46387061+(x)--89)-8*45425*(12)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 47: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (-U)/(x)=(x)/(-x+x*(U)-x)-x/x --> (-x)/(4)=(44)/(-13076+26*(x)--5)--845/217
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 48: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> U+(x-x)=x-(x/U/x-x-U/x)/x --> x+(651-8805)=82-(808233/x/56-321-x/2680)/700
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 49: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x*x+x/x*x+x+x/(-x/x)-x)*N=x/x*(x+x-x/x)/U/x*x-x --> (582*5+1797/59*0+3510+223326890/(-90216/-79)-296558)*-x=283471/13*(6+2-253/938)/x/894051*8-0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 50: 
+Testing the generating of an equation with up to 3 unknowns per side and a total of 6 unknowns --> (x*U+x)=x+(-x+x+x)*x+(-x)+(x*U)*(x) --> (20*x+4)=-65641+(-3+5069+277678)*56+(-25)+(972*x)*(3)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 3 unknowns per side and a maximum of 6 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Equation is too complex for me to solve
+
+TEST 51: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-U*x+x-x-(x*x*x-x)=(x-x)*x+(x) --> -84-x*99985+3-91-(17927*6335343*38-7606)=(0--37791293)*43+(9)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 52: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (U-x*x+(-x)*(-x/(x+x)+x)*x*x)*x=x+x+x*x*x --> (x-0*-9+(-95)*(-561/(10+-6)+9814998)*7*0)*-3756543=44056036+7732+966*-307*9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 53: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U+(-x)/(x/x)=(x*(-x+x)-x-x)*(x*x) --> x+(-64829879)/(4227/665)=(98*(-4+36835)-66-573676654236167160317257571771)*(3589990*8978)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -18,490,132,211,528,971,144,440,965,524,100,661,992,801
+
+TEST 54: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+U*(x+x+x)=x+x/x --> 5630+x*(3839+635+1655)=576+0/26298
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 55: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U/x=x*x+(x+x*x+x)-x+x --> x/33=3618970*45+(451494617+-7609*-43+-4)--49+56041
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 56: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*x*x-(-x-x)+x/x-U=x/x --> 25*0*-85529645-(-64847841870931055703673721233-86)+-389/-6-x=5793/-9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 64,847,841,870,931,055,703,673,722,026
+
+TEST 57: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (U*x)*x*(x)/x=x/x/x-(x*x) --> (x*51609)*784*(13)/679=246/78/8496410-(8396*4351793)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 58: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U-x*(x)*x=x-x --> x--28*(0)*8231=4614-44
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 4570
+
+TEST 59: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*x-x*x-x-x+x-(x)+(U-x)=x*x/x*x/x*(x-x)/x --> 19*0-25346*95195563-73963-60+260-(80)+(x--27)=836*-723/93*808997859/2701*(3-4665)/-12875750
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 2,412,826,108,809
+
+TEST 60: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+(-x/U)=(-x/x-x/x-x)-x*x*x*x --> 326+(-7/x)=(-65/20977404--8/-98-36)-4*595*-909*0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 61: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U-x=x*(x) --> x-2585048=929115674*(3)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 2,789,932,070
+
+TEST 62: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*U*(x/x/(-x/x)+x*x)/x=x-x --> -2036*x*(692826064/2563180/(-9300/2)+0*-787)/47=-3917--179
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> No answer for this equation
+
+TEST 63: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x+x+U+(x)=x/(x)+x --> 9297+884+-4+x+(309)=2040041/(2)+-201
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 1,009,333
+
+TEST 64: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x/x*x-x-U-(x)=x*x+(-x)+x --> 267/-2*498-232-x-(841959)=542906331*-94+(-463)+588
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 51,032,286,564
+
+TEST 65: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U+x+(x)/(x/x*x*x)/x*x=x/x*x --> x+0+(95)/(31555988/7*493105979181836114960274644961*680)/18*-3007=6788567/830*-381
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -3,115,818
+
+TEST 66: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (-x)-(x/U*x)=(x-x)+(x)/(x)+(-x) --> (-3)-(379651575/x*50725318)=(97324-37)+(686028)/(328)+(-2)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 67: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x/x+x*x-U+(-x)/x=(-x-x)*(x-x*x+(x*x*x)-x)-x --> 4630+-4132/71388+4178933*3286455-x+(-39)/-234=(-17582577--8)*(0-9791026*88660219+(339757414*-646*-74)-6348)-440
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -14,977,408,018,957,382,858,249
+
+TEST 68: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*x+(x-U)=x*x*x --> 0*-17+(0-x)=2*0*7986
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 0
+
+TEST 69: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U+x*x+x/x/x+(x+x)*x+x=x/x/x/x --> -x+435*47+8/684/52+(9453+6)*433389167+3964=72/20571/46841/-7171
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 4,099,428,155,062
+
+TEST 70: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (x-(x)/(x)/x)*x*U*x=x*(-x*x+x*x-x)*x/x --> (9-(7233)/(2691719)/25)*2*x*53920=87*(-670*7213+155828*59161-0)*7199205/12
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 71: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*x*x*(x/x-x)-U+x-(x*x)-x=x/x --> 29365*2633*338*(1697178/3754-93)-x+369-(57*-9)--218=0/-4962233
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 9,381,926,217,490
+
+TEST 72: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-(U)/x=x/x*x --> 94213227-(x)/24=194/805*314
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 73: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (x+(x)+U+(-x)*x-x)/x=(x)+x/(x)+x-(x-(-x)+x/x) --> (79800+(71)+x+(-205)*-47-52)/-5=(4167)+4941/(2008)+-2-(352702861878733765416668102008-(-7)+-796717/3)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 74: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-x-U+x/x/x=(x-x)*x-x-x/(x)+(x)-x+(x*x) --> 0-1246-x+9/8/5603=(32149--8)*4990-323--500/(157182732492681600973954960186)+(0)-40283+(388*6857290)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -2,821,052,590
+
+TEST 75: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x*x*(U/x/x*(x)*x)*x=x-x-(-x*x*x) --> -7+5724*-7*(x/90/1*(1)*9)*58905=-33479272431570506520344428737-55-(-72*-3404*6)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 76: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x/U+x/(x)/x+x/x=(-x/x-x-x-x)+x*x-x-x --> 6/x+75280/(816)/-3+764118/756769=(-8/30-663-932-8037)+3*108-353-2692293
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 77: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (-x*x+x*(x+x)/x*x+x+(x)-x)/U=(-x)-x*x-(x)*x*x*(x)/x --> (-756*667776+7069*(32+173)/-272*1+47425+(3631891)-69)/x=(-3)-5154*800-(6990)*-662*4392838*(7845)/8845961
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 78: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (x)+U=x*(x) --> (6249)+x=671422*(4841614)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 3,250,766,148,859
+
+TEST 79: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+(x*U-x*x)-x/x=x+x/x+x --> -64+(138*x-28087*-415)-12/3467166=-43053+2125/-9+5846330
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 80: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x-x*x/x+x*x-(U)+(x)-x=x+(x)-x+x --> 9+8-535706*77/979497+1*0-(x)+(6694)--5=474388+(2)-25+311376
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -779,067
+
+TEST 81: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (U+x+(x+x)*x-x)*x=x-x+x*x --> (x+8+(6+9)*29-52)*-517796=478-803660+-992*199
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 82: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (x+x)*U=x/x/x --> (7+258)*x=3/3242/12
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 0
+
+TEST 83: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (-U)/x=x+x-(-x) --> (-x)/52641461=4680365+5111-(-1730)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 84: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+(-x-x+x/x)*x-(x+(x)-U)*(x)=(x-(x*x*x)*x-(x)-x)+(-x)*(x)*x/x --> 807+(-25450037072183409240633111858-97+621978/-76850031)*2005-(679875328+(0)-x)*(7)=(1-(894*6360*-1)*610882-(373367460)-9572)+(-348)*(747640)*1/8
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 85: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-U-(-x*(x)-x)=x/(x-x*x-x/(-x-x)-x+x)-x --> 5-x-(-23280496715969725875182551930*(98)-24445)=125/(9676-749850*-295282-0/(-95--1218)-80127+2)-1970
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 2,281,488,678,165,033,135,767,890,115,560
+
+TEST 86: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U-x+x-x-x+x-x-x/x=x+x-x --> -x-9+23592-1261088-871826+12--5948-525133/-875=548+7503-9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -2,110,813
+
+TEST 87: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-x+x*x/x/U=(x)-x-x/x --> 41--1+71*91/-9/x=(54)-24--7/28637
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 88: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x/x+x/x-(-x*x/U*x)=x/x+x/x+x/x/x+x-x+x/x --> 1534297/97+675/5194-(-5*33230/x*121)=49/-196+4/-5+75909643/1493/1+75622--5+7361926/297
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 89: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x/(x*x-x-x)*(x)-(x)-U-x=x*x+x*x+x*x/x*x-x+x*x --> 6192/(682*86--85753-875)*(71345)-(5317)-x-2908=664836*-52+6*5+842*67581/50*-3-674416+-21668*65
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 40,060,245
+
+TEST 90: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U+x*x*x-x*x+x/x*x/x=x-x*x/x-x-x/x/x/x/x --> x+0*2660332*-5-8040*22162+7/-4*0/5614=1-14616*831/7-779--497477/1525789/7/68384/123173
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 176,446,574
+
+TEST 91: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x+x-x/x/U/x*x/x/(x-x)=(x-x*x)*x+x/x --> 0+4158+82343170-3127/718/x/3376435*733/5743412/(34-116001036)=(27-83*-616)*30779+2/35
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 92: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x+x+x-x*(-x)+x/x/(U)/x=x+x+x+(-x)+x+x/x-x --> -84213+613069158203300092067752311936+2--84*(-28)+-33/613/(x)/7=19+638760+8933+(-973)+1+8/-374-18810
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 93: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x/(U/x)=x/x/x+(x/x+x)-(x)-x --> 6/(x/6021509)=2133492/455158/4354370+(0/6244+-2)-(739456725210451434480113713571)-7930
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 94: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-U=x-x+x --> 4-x=-1-8+953299219
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> -953,299,206
+
+TEST 95: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U*x+x-x/x+x+(x/x*x)-x*x=x/x*x --> x*-4114755+2507-6/16785+802183+(986505919/-3721*-383)-50036*-5330=439/829*49
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 96: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> U*x=x-x/x+x+x --> -x*-19774=765064-50/17875+655923922+6
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 97: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*U-x*x*x+x-(x)=x-x/(-x*x/(x+x+x/x)*x)/x --> 6*x-41*3324634*5+2541-(779)=894-2/(-8*-531017/(726859397808596766636383381426+250307285447802307368410152427+62/704707803421235924049529384977)*824)/79
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 98: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x-x*(x-U+x)=x*x+(-x-x)+x*x --> 3-7*(460335-x+99872)=8106836*-99350+(-7-214)+57019*-595
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> Not whole number solution
+
+TEST 99: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> x*x*(-x+x*x/x)/x/U=x*x+x/x+(x-(x)-(x)+x)*x*x*x --> 4*5428*(-683+78*-6/5)/358/x=-1*1+9/22+(1096-(46)-(92332)+624797851453825691617934414095)*-1*-5*589
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> The unknown is tied to division, so I can't solve this equation, sorry!
+
+TEST 100: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns --> (x)+x+U=x/x/x/x+x+x+x-x --> (357753390)+9+x=707891/943/-706/869758084990311198963328651096+372225073226150391449997377380+95+-98-197344
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Answer to the equation --> 372,225,073,226,150,391,449,639,426,634
+
+TEST 101: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-U+(x)-(x)=x*(-x*x) --> 0-x+(7762)-(609974)=-2029980*(-269*1702239)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -929,532,493,286,392
+
+TEST 102: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x+x+U-(x+x*x)-x)*x=x-x-x+x+x/x --> (814+132+x-(1099+85*8775)-0)*7=48-531-5+0+46974/8
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 746,797
+
+TEST 103: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-U=x/x-(x+x)/x*x/x --> 795-x=9/591017-(19+7861)/-42961143976564372424916038646*574009/22696555
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 795
+
+TEST 104: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (-U*x-x-x-x*x*x)-x+(x*x*x)=x+x+(x-x) --> (-x*6242982-0--8--54*47321297*62)-99687+(247808202325174838321644214673*0*-850)=16+-6072+(266-810869)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 105: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (U)*x=x*x*(-x) --> (x)*791354755096328345910638820836=8*-3780704*(-90304)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 106: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (U*x-x+x-x+x)+x+x=x-x/x*x/x-x+(x) --> (x*-104-8263+-7--8+-9626172)+5+170=7-7346/3*40/-27-110+(15643)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 107: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U*x=x-x --> -x*-7=-9-323
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 108: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U+x=x/x+(x*x/(x/x-x)/x-x)*x+x --> x+17826=720/91466308+(13193*-21/(253/-2029-7)/73-8)*765+2322
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 393,006
+
+TEST 109: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x+(-x)+(U)+(x)=(x/x)*x/x/x-x*x*x-(x+x) --> -3-95765918+(-28)+(x)+(9623886)=(991/-2942)*4003717/698419/5263524-0*3709*1-(20+9)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 86,142,034
+
+TEST 110: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*x+x-x+x-(U-x)+x+(x)=x*x*x*x/x*x*x*x+x+x --> 0*968+16771-35831+-666994-(x-964573029)+-625+(9)=527963*3*2758*2/-662443*-578179*9999*425+72007+-13
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -32,403,113,171,708,535
+
+TEST 111: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U+(x*x)*(-x-x+x*x-x-x*x)=(x+x*x*x)+(x)-(x/x)+x+(x)-x --> -x+(9921*8703949)*(-79-2269+632144653*7912039-153--5*-7)=(588+894124*130*22)+(16799)-(57/653191)+5+(413349955)--42226731
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 431,893,507,406,762,602,654,702,281
+
+TEST 112: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U+(-x)=(-x-x+x-x/x+x)-x-x --> x+(-5)=(-78-6409+138743105252806761990104421634--6560330/-72+7)-7294350-947
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 138,743,105,252,806,761,990,097,028,747
+
+TEST 113: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U*(x)*x-x-x=x*x*x-x*x/(-x+x) --> -x*(701)*1138--50079--3426036=683*6*0-642*25210/(-891+4)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 114: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x)+x-x*x*(x)+x*x+U-(x)=x+x --> (938)+0-3897*52*(7758)+4*-69+x-(8)=8313+837839909
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 2,409,959,720
+
+TEST 115: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-U+x*x+x=x+x-x+x*(x)/x --> 82-x+5*95+47=75907+3658-1+0*(157)/-7
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -78,960
+
+TEST 116: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (U*(x*x*x)-x)*(-x+(x)-x*x)+x-x=x-x+x+x/(-x/x)+x+x*x+x --> (x*(448916532015416631823920915869*79*22060)-21)*(-3+(6)-92498*5)+-3--51849=33948-972+-653+65/(-893/666)+6383+67600*53237+0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 117: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x+(x)-x)+x-x+(x-U)*(-x)=(-x+x-x)-(-x)+x+(-x)/(x*x) --> (0+(4989)-5)+528896-4253712+(411-x)*(-7)=(-777639+375653149-7)-(-527450)+47+(-53)/(8624864*994608751)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 118: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x*x*x+x-(U)+x)-x+x+x=x-(-x+x+x*x) --> (7268*398*3028+65198628-(x)+858)-0+-58+6369=73-(-2+407+6*356)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 8,824,194,857
+
+TEST 119: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*x*x+(x-x+U)-(x)=x/(x/x*x-x) --> 3671*97574*444+(375011-4+x)-(351)=14/(66972607/57*1--7)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -159,038,579,032
+
+TEST 120: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*U=x-x-x/x*x --> 77016789*x=1-1848--4/943909563*41
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 121: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x-(x+U-x-x)=x*x/(x)+x*x-x*x*x --> -486-231-(7+x-603-93)=810*77503/(508)+2913469*-3--2*532027064*32
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -34,041,115,294
+
+TEST 122: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x*x-(x)+x-x*(x*x)+(U)=(-x-(x*x)*x/(x)/x)/x/x --> 7426893-8*9-(82538)+52-139*(28*-636)+(x)=(-85254-(352*-1)*584368/(806013529562432464828727876697)/53362)/51/0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 123: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+x*x+x-x-x+x*x-(x)-U=x/x --> -28+40*-2024+-48359--67-4024+0*40-(273)-x=325455771/-4
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 81,230,365
+
+TEST 124: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-U*x-x=x/x+x*x/x*x+(x*x/x)*x --> -732-x*87-381773797001223398061605626399=0/84447+815*798/921*-125+(92522*50753490/6)*955
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 125: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x-(x+x+x-x+x)+(-x)*(U)=x*x+(x-x/x*x) --> 65278--7-(270222208+94789+-56-4130+-8255368)+(-400040)*(x)=0*2+(6-5084/-16*0)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 126: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x*(-x*x+x+x+x-U)=(x-x*x/x+x)*x*x-x --> 661460--16*(-7675*8+7202+42+5-x)=(13--863822*886/0+27)*-522*6882-483272
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 127: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x*U)=(-x)-x+x/x+x+x/x-x*x --> (6875*x)=(-9)-3+440525/-4+50+58/7--90992*701
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 128: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+x*x-x-x-x*x-U-x*(x)-x=x-x*(x/x)-x+(x*x+x)+x --> 8+778376*25586--92211978101679151857951775736-6--54366*2-x-235906945*(20958)-5638=-2-4972*(2345618/2)-20706744+(0*958+210439489)+8661
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 92,211,978,101,679,146,939,371,118,802
+
+TEST 129: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (U+x)=x/(x)/x*x --> (x+5579)=35278/(0)/0*452
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 130: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x+U*x*x-(-x-x)-x*(-x)=(x)*x/(x) --> -6-3687+x*583739*6278-(-321-7482)--502999*(-8)=(4933)*0/(2)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 131: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+x-x*U-x=x/x*x-x/x-x/x --> 9643+3783554-7*x--9557=-4/7843585*421304163197586819637373953197--34382/4879-4579/92655701
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 132: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U-x*x=x+x+x+(x/x-x)-(x*x-x) --> x-99944*-5=243+840785+32+(483214158/392423--5)-(869*3-4716229)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 5,056,198
+
+TEST 133: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U*x=x-x --> x*38=-11-0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 134: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*(-x+(x*x*x+x+U)-x)-x+x*(x)=x+(-x)/x*x-x --> 164914595*(-7843383+(7*687136718532064405286499723811*2946+18066503+x)-8171)-0+95*(72519)=56+(-2319)/165*664095--3491
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 135: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x)*x+U=x/x*(-x+(x-x)-x)-x --> (3)*-73330134+x=40/0*(-16+(772395905-76245091)-177429)--9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 136: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+U-(x)+x=(x+(x*x)/(-x)+x-x)/x-x --> 3366272+x-(74)+74=(0+(6186*663)/(-21)+-57323598--833145)/8612161-9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -3,366,287
+
+TEST 137: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U+x-x*x+x*x+x-x-x-x+x=x-x/x+x-(x+x)*(x-x) --> x+795-43040*-503+9*804+36790-83596-933-1317+-99=941-7592/49723+417-(2+0)*(68-674603)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -20,257,568
+
+TEST 138: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*x+U+(x+x)=(x/x-x*x) --> 264204*921+x+(42+360)=(718/7592-762820*57)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -286,813,026
+
+TEST 139: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+x+x*x*(U)=x-x-(-x*x*x+x)/x-(x+x*x) --> 84+7+925350118*85*(x)=-6-47-(-88*738*43+201)/0-(0+2581289*9)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> DIVISION BY 0 IS NOT ALLOWED!
+
+TEST 140: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-(-x*x)*x+(x+x)*N-x+(x)*x=x+(x)+(x)*x --> 130929-(-799623*4265)*74+(576270998+40)*-x-75416969+(59)*142=148+(4153311)+(9542)*0
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 141: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x)-U=(x)-x --> (77)-x=(8)-6502
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 6571
+
+TEST 142: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x+x+(-x-U+(-x)-x)=x/x-x --> -9255--408+49+(-2502-x+(-77124852)--8)=3/8-22
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -77,136,122
+
+TEST 143: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> (x*x-x*U*x)=x-x/x-(x/(x)+x*x)-x --> (36326*425-459449416*x*-2)=3556--8/6142-(249792/(627038847)+-98245*6)--4
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> Not whole number solution
+
+TEST 144: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x+U*x=x*x --> 64777766-92+x*0=0*90063834
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> No answer for this equation
+
+TEST 145: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U-(x)*x=x/x-x --> x-(61146)*45073=85/-6-5
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 2,756,033,639
+
+TEST 146: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x*x+x-x-x*x-U+x*x*x-x=x/x*x-x*(x) --> 547*-39+53--18533-95*659-x+226104*871*50-12=-5419896/24447*-61080-387805617*(0)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 9,833,265,156
+
+TEST 147: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-x+U=x+x+x/(x)-x-(x) --> -97-285+x=63751+0+36370/(973581714)-39160-(610493)
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -585,520
+
+TEST 148: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> U-x=(-x+x-x-(x/x)+x)-x-x --> x--87896909=(-18810576493170108792771971884+9-909031044-(506/55)+828496)--47-13
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> -18,810,576,493,170,108,793,768,071,307
+
+TEST 149: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x-(-x)+(U)=x-x/x-(-x)*x --> 6-(-1)+(x)=4171-0/74-(-2)*6651
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 17,466
+
+TEST 150: 
+Testing the generating of an equation with up to 1 unknowns per side and a total of 1 unknowns and where the operator "/" is not allowed to exist on the unknown side of the equation--> x+x-U-x*x+(x-x)*x=(-x*x*(-x+x+x*x+x/x+x)-x)+x --> 0+0-x--844*1334+(7771911-380)*2127528=(-6*0*(-111+99+176*94+520904/9465436+576)-81)+9
+Is the equation valid? Expect: TRUE ==> TRUE
+Does the equation have up to 1 unknowns per side and a maximum of 1 unknowns? Expect: TRUE: TRUE
+Does the equation contain a "/" operator in it's unknown side? Expect: FALSE: FALSE
+Answer to the equation --> 16,534,150,931,336
+
+READ AND WRITE FROM AND TO FILE TESTS
+
+TEST 1
+Equation 1: 5+5*x=30/x
+Equation 2: 15/3*x=20
+
+
+
+
+

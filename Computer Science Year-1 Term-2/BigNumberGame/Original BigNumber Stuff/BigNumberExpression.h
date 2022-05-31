@@ -3,7 +3,6 @@
 #include "BigNumberExpressionCommon.h"
 #include <iostream>
 #include <fstream>
-#include "..\Project.StringManipulation\MString.h"
 
 class BigNumberExpression
 	:public BigNumberExpressionCommon
@@ -13,72 +12,106 @@ public:
 	//Check if the expression contains: **, */, *%, /*, //, /%, %*, %/, %%. If it does, then it is invalid
 	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
 	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
-
-	//OTHER CONSTANTS
-	static const mstring EXPRESSION_DIVIDEBYZERO_EXCEPTION;
-	static const mstring EXPRESSION_PERCENTBYZERO_EXCEPTION;
-	static const mstring EXPRESSION_INVALID_EXCEPTION;
-	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 32;
-	static const mstring EXPRESSION_OPERATORS;
-	static const mstring EXPRESSION_NOTDIGIT;
-
 	//FORBIDDEN SYMBOLS CONSTANT
-	static const mstring EXPRESSION_FORBIDDEN_STRINGS[32];
+	static constexpr const char* EXPRESSION_DIVIDEBYZERO_EXCEPTION = "DIVISION BY 0 IS NOT ALLOWED!";
+	static constexpr const char* EXPRESSION_PERCENTBYZERO_EXCEPTION = "PERCENT BY 0 IS NOT ALLOWED!";
+	static constexpr const char* EXPRESSION_INVALID_EXCEPTION = "This expression isn't valid";
 
+	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 32;
+	static constexpr const char* EXPRESSION_OPERATORS = "+-*/%";
+	static constexpr const char* EXPRESSION_NOTDIGIT = "+-*/%()";
+	static const constexpr char* EXPRESSION_FORBIDDEN_STRINGS[32] =
+	{
+		"+++",
+		"++-",
+		"+-+",
+		"+--",
+		"-++",
+		"-+-",
+		"--+",
+		"---",
+		"**",
+		"*/",
+		"*%",
+		"/*",
+		"//",
+		"/%",
+		"%*",
+		"%/",
+		"%%",
+		"+*",
+		"-*",
+		"+/",
+		"-/",
+		"+%",
+		"-%",
+		"+)",
+		"-)",
+		"*)",
+		"/)",
+		"%)",
+		"(*",
+		"(/",
+		"(%",
+		"()"
+	};
 private:
 
-	mstring expression;
+
+	char* expression;
+	size_t capacity;
+
+	void copy(const BigNumberExpression& other);
 
 	BigNumber* replaceNumbersFromCalculation(BigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, BigNumber* resultNumber) const;
-
-	size_t generateCountOfOperators() const;
+	void replaceOperatorsFromCalculation(char* operators, size_t index) const;
 
 public:
 
 	//Big 4
 	BigNumberExpression();
+	BigNumberExpression(const BigNumberExpression& other);
+	~BigNumberExpression();
+	BigNumberExpression& operator=(const BigNumberExpression& other);
 
-	BigNumberExpression(mstring expression);
+	BigNumberExpression(const char* expression);
 
 	//Get the equation as read-only
-	mstring getExpression() const;
+	const char* getExpression() const;
 
 	//Set the equation
-	void setExpression(mstring expression);
+	void setExpression(const char* expression);
 
 	//Return the answer to an expression
-	BigNumber evaluateExpression() const;
-	BigNumber evaluateExpression(mstring expression) const;
+	BigNumber evaluateExpression(const char* expression = nullptr) const;
 
 	//Check if expression is valid
-	bool expressionIsValid() const;
-	bool expressionIsValid(mstring expression) const;
+	bool expressionIsValid(const char* expression = nullptr) const;
 
 	//Check if expression template is valid
-	bool expressionTemplateIsValid(mstring expressionTemplate) const;
+	bool expressionTemplateIsValid(const char* expressionTemplate) const;
 
 	//Randomly generate a new expression template
-	mstring generateExpressionTemplate() const;
+	char* generateExpressionTemplate() const;
 
 	//Randomly generate a new expression template with certain conditions
-	mstring generateExpressionTemplate(mstring allowedOperators) const;
+	char* generateExpressionTemplate(const char* allowedOperators) const;
 
 	//Get the expression template for an expression
-	mstring getExpressionTemplate() const;
-	mstring getExpressionTemplate(mstring expression) const;
+	char* getExpressionTemplate(const char* expression = nullptr) const;
 
 	//Get the expression template for an expression
-	mstring getExpressionTemplate(const BigNumberExpression& expression) const;
+	char* getExpressionTemplate(const BigNumberExpression& expression) const;
 
-	mstring generateExpressionFromTemplate(mstring expressionTemplate) const;
+	char* generateExpressionFromTemplate(const char* expressionTemplate) const;
 
 	//Randomly generate a new expression
 	void generateExpression();
 
 	//Generate a new expression with certain conditions
-	void generateExpression(mstring allowedOperators);
+	void generateExpression(const char* allowedOperators);
 
-	mstring concatExpressionsWithOperator(mstring thisExpression, mstring otherExpression, mstring concatOperator) const;
+	char* concatExpressionsWithOperator(const char* thisExpression, const char* otherExpression, const char* concatOperator) const;
 
 	//Comparative operators
 	bool operator == (const BigNumberExpression& other) const;
@@ -111,6 +144,4 @@ public:
 	friend std::ifstream& operator>> (std::ifstream& is, BigNumberExpression& expression);
 	friend std::ofstream& operator<< (std::ofstream& os, const BigNumberExpression& expression);
 };
-
-//TODO: Remove Big4 tests for BigNumber and BigNumberExpressions and BigNumberEquations
 

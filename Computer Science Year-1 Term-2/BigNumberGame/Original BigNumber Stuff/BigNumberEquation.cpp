@@ -1,14 +1,13 @@
 #include "BigNumberEquation.h"
-#include "../Project.StringManipulation/MStringManip.h"
+#include "../Project.StringManipulation/StringManip.h"
 
-//Exception messages CONSTANTS
-const mstring BigNumberEquation::EQUATION_INVALID_EXCEPTION = "Invalid Equation!";
-const mstring BigNumberEquation::EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION = "Equation is too complex for me to solve";
-const mstring BigNumberEquation::EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION = "The unknown is tied to division, so I can't solve this equation, sorry!";
-const mstring BigNumberEquation::EQUATION__SOLVE_NOTWHOLE_EXCEPTION = "Not whole number solution";
-const mstring BigNumberEquation::EQUATION__SOLVE_EVERYANSWER_EXCEPTION = "Every x is an answer to the equation";
-const mstring BigNumberEquation::EQUATION__SOLVE_NOANSWER_EXCEPTION = "No answer for this equation";
-const mstring BigNumberEquation::EQUATION_OPERATORS = "+-*/";
+void BigNumberEquation::copy(const BigNumberEquation& other)
+{
+	this->capacity = other.capacity;
+	delete[] this->equation;
+	this->equation = new char[this->capacity];
+	strcpy(this->equation, other.getEquation());
+}
 
 //0-49
 int BigNumberEquation::generateCountOfX(int seed)
@@ -20,36 +19,65 @@ int BigNumberEquation::generateCountOfX(int seed)
 
 BigNumberEquation::BigNumberEquation()
 {
-	this->equation = "x=0";
+	this->equation = new char[] {"x=0"};
+	this->capacity = 4;
 }
 
-BigNumberEquation::BigNumberEquation(mstring equation)
+BigNumberEquation::BigNumberEquation(const BigNumberEquation& other)
+	:BigNumberEquation()
+{
+	this->copy(other);
+}
+
+BigNumberEquation& BigNumberEquation::operator=(const BigNumberEquation& other)
+{
+	if (this == &other) return *this;
+	this->copy(other);
+	return *this;
+}
+
+BigNumberEquation::~BigNumberEquation()
+{
+	delete[] this->equation;
+}
+
+BigNumberEquation::BigNumberEquation(const char* equation)
 {
 	if (!isValidEquation(equation)) throw "Invalid equation!";
 
-	this->equation = equation;
+	size_t capacityOfNewEquations = strlen(equation) + 1;
+	if (capacityOfNewEquations > this->capacity) this->capacity = capacityOfNewEquations;
+
+	this->equation = new char[this->capacity];
+	strcpy(this->equation, equation);
 }
 
-bool BigNumberEquation::isValidEquation(mstring equation) const
+bool BigNumberEquation::isValidEquation(const char* equation) const
 {
+	//Decided if we are checking the object caller's own equation
+	if (equation == nullptr)
+	{
+		equation = this->getEquation();		
+	}
+
 	//Replace all of the whitespaces
-	equation = MStringManip::replaceAll(equation, " ", "");
+	char* newEquation = StringManip::replaceAll(equation, " ", "");
 
 	//Check if the equation contains exactly 1 equals symbol
-	bool isValidEquation = MStringManip::countOf(equation, "=");
+	bool isValidEquation = StringManip::countOf(newEquation, "=");
 	if (isValidEquation == false) return false;
 
 	//Check if the equation contains percent operator, which is invalid for equations.
-	size_t countOfPercents = MStringManip::countOf(equation, "%");
+	size_t countOfPercents = StringManip::countOf(newEquation, "%");
 	if (countOfPercents > 0) return false;
 
 	//Check if the equation contains at least one unknown. 
 	//If it doesn't, then solve the left and right sides and compare their answer. If they are equal, then the equation is valid. Otherwise, it's not
-	size_t countOfUnknowns = MStringManip::countOf(equation, "x");
+	size_t countOfUnknowns = StringManip::countOf(newEquation, "x");
 
 	//Split by equals and decided if the sides are invalid
 	size_t countOfSides = 0;
-	mstring* sides = MStringManip::splitString(equation, "=", countOfSides);
+	char** sides = StringManip::splitString(newEquation, "=", countOfSides);
 
 	if (countOfUnknowns == 0)
 	{
@@ -58,21 +86,13 @@ bool BigNumberEquation::isValidEquation(mstring equation) const
 
 		try
 		{
-			bool result = leftSide.evaluateExpression() == rightSide.evaluateExpression();
-
-			//Deallocate Dynamic Memory
-			delete[] sides;
-
-			return result;
+			return leftSide.evaluateExpression() == rightSide.evaluateExpression();
 		}
 		//If we get here, then the evaluation of one of the expressions failed because of division by /. So return false
-		catch (mstring e)
+		catch (const char* e)
 		{
-			if (BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION == e)
+			if (strcmp(BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION, e) == 0)
 			{
-				//Deallocate Dynamic Memory
-				delete[] sides;
-
 				return false;
 			}
 		}
@@ -81,12 +101,12 @@ bool BigNumberEquation::isValidEquation(mstring equation) const
 	{
 		for (size_t i = 0; i < 2; i++)
 		{
-			mstring side = sides[i];
+			char* side = sides[i];
 
 			//Check if side is valid by replacing the unknowns with -1 and checking if the expression is valid
 
 			//Replace the unknowns with -1
-			mstring sideWithoutUnknowns = MStringManip::replaceAll(side, "x", "-1");
+			char* sideWithoutUnknowns = StringManip::replaceAll(side, "x", "-1");
 
 			//Check if expression is valid
 			BigNumberExpression sideExpression;
@@ -94,72 +114,83 @@ bool BigNumberEquation::isValidEquation(mstring equation) const
 
 			if (!sideIsValid)
 			{
-				//Deallocate Dynamic Memory
-				delete[] sides;
+				//Delete dynamic memory
+				delete[] sideWithoutUnknowns;
+				StringManip::deleteArrayOfStrings(sides, 2);
 
 				return false;
 			}
+
+			//Delete dynamic memory
+			delete[] sideWithoutUnknowns;
 		}
 	}
-
-	//Deallocate Dynamic Memory
-	delete[] sides;
+	
+	//Delete dynamic memory
+	StringManip::deleteArrayOfStrings(sides, 2);
 
 	//If we get to here, then the equation passed all tests and is true
 	return true;
 }
 
-bool BigNumberEquation::isValidEquation() const
+BigNumber BigNumberEquation::solveEquation(const char* equation)
 {
-	return this->isValidEquation(this->equation);
-}
+	//Check if the belongs to the object caller
+	if (equation == nullptr) equation = this->getEquation();
 
-BigNumber BigNumberEquation::solveEquation(mstring equation)
-{
 	//Remove the whitespaces
-	equation = MStringManip::replaceAll(equation, " ", "");
+	char* equationCopy = StringManip::replaceAll(equation, " ", "");
 
 	//Check if the equation is valid
-	if (!isValidEquation(equation))
+	if (!isValidEquation(equationCopy))
 	{
+		//Delete dynamic memory
+		delete[] equationCopy;
+		
 		throw EQUATION_INVALID_EXCEPTION;
 	}
 
 	//Check if the equation has only one unknown. If it doesn't, then throw an exception because I am not that smart to want to code that looooool...
-	size_t countOfUnknowns = MStringManip::countOf(equation, "x");
+	size_t countOfUnknowns = StringManip::countOf(equationCopy, "x");
 	if (countOfUnknowns > 1)
 	{
+		//Delete dynamic memory
+		delete[] equationCopy;
+
 		throw EQUATION__SOLVE_TOOCOMPLEX_EXCEPTION;
 	}
 	//If we get to here, then there are no unknowns in the equation and it is always correct because the left and right side expressions are equal
 	else if (countOfUnknowns < 1)
 	{
+		//Delete dynamic memory
+		delete[] equationCopy;
+
 		throw EQUATION__SOLVE_EVERYANSWER_EXCEPTION;
 	}
 
 	//Split the equation by the unknown side and the known side
 	size_t sidesCount = 0;
-	mstring* sides = MStringManip::splitString(equation, "=", sidesCount);
-	mstring unknownSide = sides[0];
-	mstring knownSide = sides[1];
+	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
+	char* unknownSide = sides[0];
+	char* knownSide = sides[1];
 
 	//If the right side is the one with the unknown, then swap the sides
-	if (MStringManip::stringContains(knownSide, "x"))
+	if (StringManip::stringContains(knownSide, "x"))
 	{
-		mstring copy = unknownSide;
+		char* copy = unknownSide;
 		unknownSide = knownSide;
 		knownSide = copy;
 	}
 
 	size_t bracketedExpressionsWithUnknownIndex = 0;
-	mstring* bracketedExpressionsWithUnknown = new mstring [MStringManip::countOf(unknownSide, "(")];
+	char** bracketedExpressionsWithUnknown = new char* [StringManip::countOf(unknownSide, "(")];
 
-	int indexOfUnknown = 0;
+	int indexOfUnknown = 0; 
 
 	while (true)
 	{
 		//Update the index of unknown
-		indexOfUnknown = MStringManip::findIndex(unknownSide, "x");
+		indexOfUnknown = StringManip::findIndex(unknownSide, "x");
 
 		//Check if the unknown is inside brackets
 		int openingBracketBeforeUnknown = -1;
@@ -185,7 +216,7 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		if (!isInsideBrackets) break;
 		unclosedBrackets = 1;
 		//Get the index of the closing bracket
-		for (size_t i = indexOfUnknown + 1; i < unknownSide.getSize(); i++)
+		for (size_t i = indexOfUnknown + 1; i < strlen(unknownSide); i++)
 		{
 			if (unknownSide[i] == '(') unclosedBrackets++;
 			else if (unknownSide[i] == ')')
@@ -198,9 +229,11 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 				}
 			}
 		}
-		mstring storedExpression = MStringManip::getFrom(unknownSide, openingBracketBeforeUnknown, closingBracketAfterUnknown);
+		char* storedExpression = StringManip::getFrom(unknownSide, openingBracketBeforeUnknown, closingBracketAfterUnknown);
 
-		unknownSide = MStringManip::replaceFirst(unknownSide, storedExpression, "x");
+		char* newUnknownSide = StringManip::replaceFirst(unknownSide, storedExpression, "x");
+		delete[] unknownSide;
+		unknownSide = newUnknownSide;
 
 		bracketedExpressionsWithUnknown[bracketedExpressionsWithUnknownIndex++] = storedExpression;
 	}
@@ -209,7 +242,7 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 	while (true)
 	{
 		//Update the index of unknown
-		indexOfUnknown = MStringManip::findIndex(unknownSide, "x");
+		indexOfUnknown = StringManip::findIndex(unknownSide, "x");
 
 		//Check if the unknown is tied to a division to the left
 		int indexOfLastLeftDivide = -1;
@@ -217,9 +250,9 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		int indexOfLastLeftDividePlus = -1;
 		if (indexOfUnknown > 0)
 		{
-			indexOfLastLeftDivide = MStringManip::findIndexLast(unknownSide, "/", 0, indexOfUnknown - 1);
-			indexOfLastLeftDivideMinus = MStringManip::findIndexLast(unknownSide, "/-", 0, indexOfUnknown - 1);
-			indexOfLastLeftDividePlus = MStringManip::findIndexLast(unknownSide, "/+", 0, indexOfUnknown - 1);
+			indexOfLastLeftDivide = StringManip::findIndexLast(unknownSide, "/", 0, indexOfUnknown - 1);
+			indexOfLastLeftDivideMinus = StringManip::findIndexLast(unknownSide, "/-", 0, indexOfUnknown - 1);
+			indexOfLastLeftDividePlus = StringManip::findIndexLast(unknownSide, "/+", 0, indexOfUnknown - 1);
 		}
 
 		bool tiedToDivision = false;
@@ -231,7 +264,7 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		//Check if the unknown is tied to a division from the right
 		bool divideInBrackets = false;
 		int bracketsNested = 0;
-		for (size_t i = indexOfUnknown + 1; i < unknownSide.getSize(); i++)
+		for (size_t i = indexOfUnknown + 1; i < strlen(unknownSide); i++)
 		{
 			if (unknownSide[i] == '(') bracketsNested++;
 			else if (unknownSide[i] == ')') bracketsNested--;
@@ -246,17 +279,21 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		if (tiedToDivision)
 		{
 			//Delete dynamic memory
+			delete[] unknownSide;
+			delete[] knownSide;
 			delete[] sides;
-			delete[] bracketedExpressionsWithUnknown;
+			delete[] equationCopy;
 
 			throw EQUATION__SOLVE_TIEDTODIVISION_EXCEPTION;
 		}
 		//In this case, the unknown isn't tied to any division
 		else if (!tiedToDivision && bracketedExpressionsWithUnknownIndex < 1) break;
 		//In this case, the replace the unknown with the next stored bracketed expression
-		else
+		else 
 		{
-			unknownSide = MStringManip::replaceFirst(unknownSide, "x", bracketedExpressionsWithUnknown[--bracketedExpressionsWithUnknownIndex]);
+			char* newUnknownSide = StringManip::replaceFirst(unknownSide, "x", bracketedExpressionsWithUnknown[--bracketedExpressionsWithUnknownIndex]);
+			delete[] unknownSide;
+			unknownSide = newUnknownSide;
 		}
 	}
 
@@ -265,11 +302,11 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 	BigNumber testValue1(1);
 	BigNumber testValue2(2);
 	BigNumberExpression knownSideExpression(knownSide);
-
-	mstring expressionTestValue1String = MStringManip::replaceFirst(unknownSide, "x", testValue1.getNumberRaw());
+	
+	char* expressionTestValue1String = StringManip::replaceFirst(unknownSide, "x", testValue1.getNumberRaw());
 	BigNumberExpression expressionTestValue1(expressionTestValue1String);
 
-	mstring expressionTestValue2String = MStringManip::replaceFirst(unknownSide, "x", testValue2.getNumberRaw());
+	char* expressionTestValue2String = StringManip::replaceFirst(unknownSide, "x", testValue2.getNumberRaw());
 	BigNumberExpression expressionTestValue2(expressionTestValue2String);
 
 	BigNumber testValue1Result = (expressionTestValue1 - knownSideExpression).evaluateExpression();
@@ -278,10 +315,6 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 	if (testValue2Result.getSign() == -1) testValue2Result *= -1;
 
 	BigNumber deltaResult = testValue2Result - testValue1Result;
-
-	//Delete dynamic memory
-	delete[] sides;
-	delete[] bracketedExpressionsWithUnknown;
 
 	//If this is true, then that means that by increasing x by 1, we increase the result of the expression when substituting with x.
 	//However, we want the opposite to happen, so we divide the testValue1Result by deltaResult to see how many times we need to lower x by 1 from 1 before we get the equation to 0
@@ -294,15 +327,21 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		//If this is true, then the equation doesn't have a solution that is a whole number;
 		if (decreaseOfXLeftover.getSign() != 0)
 		{
+			//Delete dynamic memory
+			delete[] unknownSide;
+			delete[] knownSide;
+			delete[] sides;
+			delete[] equationCopy;
+
 			throw EQUATION__SOLVE_NOTWHOLE_EXCEPTION;
 		}
 		//If we get here, then 1 - decreaseOfX should be the answer to the equation, unless in between 1 and 1-decreaseOfX there is a value where the expression breaks because of division by 0
 		else
 		{
 			BigNumber potentialAnswer = (decreaseOfX - 1) * -1;
-
+			
 			//Test the potential answer to see if it holds true
-			mstring expressionPotenialAnswerString = MStringManip::replaceFirst(unknownSide, "x", potentialAnswer.getNumberRaw());
+			char* expressionPotenialAnswerString = StringManip::replaceFirst(unknownSide, "x", potentialAnswer.getNumberRaw());
 			BigNumberExpression expressionPotenialAnswer(expressionPotenialAnswerString);
 
 			//By presumption, this should not throw an error for dividing by 0, because I made it so that the unknown isn't tied to a division in the first place
@@ -311,11 +350,26 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 			//In this case, we got the correct answer
 			if (potentialAnswerResult.getSign() == 0)
 			{
+				//Delete dynamic memory
+				delete[] expressionPotenialAnswerString;
+				delete[] expressionTestValue2String;
+				delete[] expressionTestValue1String;
+				delete[] unknownSide;
+				delete[] knownSide;
+				delete[] sides;
+				delete[] equationCopy;
+
 				return potentialAnswer;
 			}
 			//In this case, there is no correct answer to the equation that is a whole number
 			else
 			{
+				//Delete dynamic memory
+				delete[] unknownSide;
+				delete[] knownSide;
+				delete[] sides;
+				delete[] equationCopy;
+
 				throw EQUATION__SOLVE_NOTWHOLE_EXCEPTION;
 			}
 		}
@@ -325,27 +379,41 @@ BigNumber BigNumberEquation::solveEquation(mstring equation)
 		//In this case, every x that is a whole number is an answer to the equation
 		if (testValue1Result.getSign() == 0)
 		{
+			//Delete dynamic memory
+			delete[] unknownSide;
+			delete[] knownSide;
+			delete[] sides;
+			delete[] equationCopy;
+
 			throw EQUATION__SOLVE_EVERYANSWER_EXCEPTION;
 		}
-		else
+		else  
 		{
+			//Delete dynamic memory
+			delete[] unknownSide;
+			delete[] knownSide;
+			delete[] sides;
+			delete[] equationCopy;
+
 			throw EQUATION__SOLVE_NOANSWER_EXCEPTION;
 		}
 	}
 
+	//Delete dynamic memory
+	delete[] unknownSide;
+	delete[] knownSide;
+	delete[] sides;
+	delete[] equationCopy;
+
 	throw "This is some error state loool";
 }
 
-BigNumber BigNumberEquation::solveEquation()
+char* BigNumberEquation::generateFromTemplate(const char* expressionTemplate, size_t maxUnknown)
 {
-	return this->solveEquation(this->equation);
-}
+	char* expressionFilled = new char[strlen(expressionTemplate) + 1];
+	strcpy(expressionFilled, expressionTemplate);
 
-mstring BigNumberEquation::generateFromTemplate(mstring expressionTemplate, size_t maxUnknown)
-{
-	mstring expressionFilled = expressionTemplate;
-
-	size_t countOfNumbers = MStringManip::countOf(expressionFilled, "x");
+	size_t countOfNumbers = StringManip::countOf(expressionFilled, "x");
 
 	int countOfX = -1;
 	if (maxUnknown > 0)
@@ -393,7 +461,7 @@ mstring BigNumberEquation::generateFromTemplate(mstring expressionTemplate, size
 
 	//Replace the target x with U
 	size_t currentXPos = 0;
-	for (size_t i = 0; i < expressionFilled.getSize(); i++)
+	for (size_t i = 0; i < strlen(expressionFilled); i++)
 	{
 		if (expressionFilled[i] == 'x')
 		{
@@ -415,74 +483,87 @@ mstring BigNumberEquation::generateFromTemplate(mstring expressionTemplate, size
 			if (isTargeted)
 			{
 				//Decide randomly whether or not the x is going to have a - in front of it
-				int signOfX = generateSign();
+				int signOfX = generateSign(rand() % 15);
 
 				//If signOfX is 0, then reroll until it isn't
 				while (true)
 				{
 					if (signOfX > 0)
 					{
-						expressionFilled = MStringManip::replaceFrom(expressionFilled, "U", i, i);
+						char* expressionFilledCopy = StringManip::replaceFrom(expressionFilled, "U", i, i);
+						delete[] expressionFilled;
+						expressionFilled = expressionFilledCopy;
 						break;
 					}
 					else if (signOfX < 0)
 					{
-						expressionFilled = MStringManip::replaceFrom(expressionFilled, "-U", i, i);
+						char* expressionFilledCopy = StringManip::replaceFrom(expressionFilled, "-U", i, i);
+						delete[] expressionFilled;
+						expressionFilled = expressionFilledCopy;
 						break;
 					}
-					else signOfX = signOfX = generateSign();
+					else signOfX = signOfX = generateSign(rand() % 15);
 				}
 			}
-		}
+		}	
 	}
 
 	//Replace the x in the expression template with numbers, except for the targeted x numbers, which are now U or -U
-	while (MStringManip::stringContains(expressionFilled, "x"))
+	while (StringManip::stringContains(expressionFilled, "x"))
 	{
 		//Generate the sign of the number
 		BigNumber bigNumber = BigNumber();
-		int signOfNumber = generateSign();
+		int signOfNumber = generateSign(rand() % 15);
 		if (signOfNumber != 0)
 		{
 			//Randomly generate a number
-			size_t digitsCount = generateDigitsCount();
+			size_t digitsCount = generateDigitsCount(rand() % 51);
 			size_t capacity = digitsCount + 1;
 			size_t digitsIndex = 0;
 
 			if (signOfNumber == -1) capacity++;
 
-			mstring numberString;
+			char* numberString = new char[capacity];
+			numberString[capacity - 1] = '\0';
 
-			if (signOfNumber == -1) numberString += '-';
+			if (signOfNumber == -1) numberString[digitsIndex++] = '-';
 
-			numberString  += rand() % 9 + 1 + '0';
-			for (size_t i = numberString.getSize(); i < digitsCount; i++)
+			numberString[digitsIndex++] = rand() % 9 + 1 + '0';
+			for (size_t i = digitsIndex; i < digitsCount; i++)
 			{
-				numberString += (rand() % 10) + '0';
+				numberString[i] = (rand() % 10) + '0';
 			}
 
 			bigNumber = BigNumber(numberString);
 		}
 
 		//Replace the bigNumber in the expressionTemplate
-		expressionFilled = MStringManip::replaceFirst(expressionFilled, "x", bigNumber.getNumberRaw());
+		char* newExpressionTemplate = StringManip::replaceFirst(expressionFilled, "x", bigNumber.getNumberRaw());
+		delete[] expressionFilled;
+		expressionFilled = newExpressionTemplate;
 	}
 
 	//Replace the U back with x because it looks better
-	expressionFilled = MStringManip::replaceAll(expressionFilled, "U", "x");
+	char* expressionFilledCopy = StringManip::replaceAll(expressionFilled, "U", "x");
+	delete[] expressionFilled;
+	expressionFilled = expressionFilledCopy;
 
 	//Replace all the instances of +-x,-+x, --x inside the string. Otherwise, when you try to replace x with a negative number, it will be an invalid expression!
-	expressionFilled = MStringManip::replaceAll(expressionFilled, "+-x", "-x");
-	expressionFilled = MStringManip::replaceAll(expressionFilled, "-+x", "-x");
-	expressionFilled = MStringManip::replaceAll(expressionFilled, "--x", "+x");
+	char* expressionOne = StringManip::replaceAll(expressionFilled, "+-x", "-x");
+	char* expressionTwo = StringManip::replaceAll(expressionOne, "-+x", "-x");
+	char* expressionThree = StringManip::replaceAll(expressionTwo, "--x", "+x");
+
+	delete[] expressionFilled;
+	expressionFilled = expressionThree;
 
 	//Delete dynamic memory
-	delete[] positionsX;
+	delete[] expressionTwo;
+	delete[] expressionOne;
 
 	return expressionFilled;
 }
 
-void BigNumberEquation::generateEquation(mstring leftSideAllowedOperators, mstring rightSideAllowedOperators, size_t maxUnknownPerSide, size_t totalUnknown)
+void BigNumberEquation::generateEquation(const char* leftSideAllowedOperators, const char* rightSideAllowedOperators, size_t maxUnknownPerSide, size_t totalUnknown)
 {
 	//If maxUnknownPerSide > totalUnknown, throw an error
 	if (maxUnknownPerSide > totalUnknown) throw "The unknown counts are all wrong";
@@ -490,15 +571,25 @@ void BigNumberEquation::generateEquation(mstring leftSideAllowedOperators, mstri
 	//Generate the left expression template
 	BigNumberExpression expression;
 
-	mstring leftSideTemplate = expression.generateExpressionTemplate(leftSideAllowedOperators);
-	mstring rightSideTemplate = expression.generateExpressionTemplate(rightSideAllowedOperators);
+	char* leftSideTemplate = expression.generateExpressionTemplate(leftSideAllowedOperators);
+	char* rightSideTemplate = expression.generateExpressionTemplate(rightSideAllowedOperators);
 
 	//Replace the x in the templates with numbers, except for the targeted x's. Conform to the totalUnknown and maxUnknownPerSide values
-	mstring leftSideFilled = generateFromTemplate(leftSideTemplate, maxUnknownPerSide);
-	size_t countOfUnknownInLeftSide = MStringManip::countOf(leftSideFilled, "x");
-	mstring rightSideFilled = generateFromTemplate(rightSideTemplate, totalUnknown - countOfUnknownInLeftSide);
+	char* leftSideFilled = generateFromTemplate(leftSideTemplate, maxUnknownPerSide);
+	size_t countOfUnknownInLeftSide = StringManip::countOf(leftSideFilled, "x");
+	char* rightSideFilled = generateFromTemplate(rightSideTemplate, totalUnknown - countOfUnknownInLeftSide);
 
-	mstring equation = leftSideFilled + "=" + rightSideFilled;
+	char* equation = new char[strlen(leftSideFilled) + strlen(rightSideFilled) + 2];
+	equation[0] = '\0';
+	strcat(equation, leftSideFilled);
+	strcat(equation, "=");
+	strcat(equation, rightSideFilled);
+
+	//Delete dynamic memory
+	delete[] rightSideFilled;
+	delete[] leftSideFilled;
+	delete[] rightSideTemplate;
+	delete[] leftSideTemplate;
 
 	this->equation = equation;
 }
@@ -508,125 +599,161 @@ void BigNumberEquation::generateEquation(size_t maxUnknownPerSide, size_t totalU
 	generateEquation(EQUATION_OPERATORS, EQUATION_OPERATORS, maxUnknownPerSide, totalUnknown);
 }
 
-mstring BigNumberEquation::getEquation() const
+const char* BigNumberEquation::getEquation() const
 {
 	return this->equation;
 }
 
-void BigNumberEquation::setEquation(mstring equation)
+void BigNumberEquation::setEquation(const char* equation)
 {
 	if (!isValidEquation(equation)) throw "The expression that you are trying to set is invalid";
 
 	//Remove all the whitespaces
-	//equation = MStringManip::replaceAll(equation, " ", "");
+	char* equationCopy = StringManip::replaceAll(equation, " ", "");
 
-	size_t capacityOfNewEquation = equation.getSize() + 1;
-
-	//Remove all the whitespaces
-	this->equation = MStringManip::replaceAll(equation, " ", "");
+	size_t capacityOfNewEquation = strlen(equationCopy) + 1;
+	//Resize expression if needed
+	if (capacityOfNewEquation > this->capacity)
+	{
+		this->capacity = capacityOfNewEquation;
+		delete[] this->equation;
+		this->equation = new char[this->capacity];
+	}
+	strcpy(this->equation, equationCopy);
 
 	//Delete dynamic memory
-	//delete[] equationCopy;
+	delete[] equationCopy;
 }
 
-mstring BigNumberEquation::getRightExpression() const
+const char* BigNumberEquation::getRightExpression() const
 {
 	size_t arraySize = 0;
-	mstring* expressions = MStringManip::splitString(this->getEquation(), "=", arraySize);
-	mstring rightExpression = expressions[1];
+	char** expressions = StringManip::splitString(this->getEquation(), "=", arraySize);
+	char* rightExpression = new char [strlen(expressions[1] + 1)];
+	strcpy(rightExpression, expressions[1]);
 
 	//Delete dynamic memory
-	delete[] expressions;
+	StringManip::deleteArrayOfStrings(expressions, 2);
 
 	return rightExpression;
 }
 
-mstring BigNumberEquation::getLeftExpression() const
+const char* BigNumberEquation::getLeftExpression() const
 {
 	size_t arraySize = 0;
-	mstring* expressions = MStringManip::splitString(this->getEquation(), "=", arraySize);
-	mstring leftExpression = expressions[0];
+	char** expressions = StringManip::splitString(this->getEquation(), "=", arraySize);
+	char* leftExpression = new char[strlen(expressions[0] + 1)];
+	strcpy(leftExpression, expressions[0]);
 
 	//Delete dynamic memory
-	delete[] expressions;
+	StringManip::deleteArrayOfStrings(expressions, 2);
 
 	return leftExpression;
 }
 
-mstring BigNumberEquation::getEquationTemplate(mstring equation) const
+char* BigNumberEquation::getEquationTemplate(const char* equation) const
 {
+	if (equation == nullptr) equation = this->getEquation();
+
 	//Check if the equation is valid. If it isn't, throw an exception 
 	if (this->isValidEquation(equation) == false) throw "This equation isn't valid";
+	char* equationCopy = new char[strlen(equation) + 1];
+
+	strcpy(equationCopy, equation);
 
 	//Remove all the whitespaces
-	equation = MStringManip::replaceAll(equation, " ", "");
+	char* equationCopyCopy = StringManip::replaceAll(equationCopy, " ", "");
+	delete[] equationCopy;
+	equationCopy = equationCopyCopy;
 
 	size_t sidesCount = 0;
-	mstring* sides = MStringManip::splitString(equation, "=", sidesCount);
+	char** sides = StringManip::splitString(equationCopy, "=", sidesCount);
 
 	for (size_t i = 0; i < 2; i++)
 	{
-		mstring newSide = sides[i];
+		char* newSide = new char[strlen(sides[i]) + 1];
+		strcpy(newSide, sides[i]);
 
 		//Replace all the *-x, +-x, --x, /-x with *N, +N, -N, /N
-		newSide = MStringManip::replaceAll(newSide, "*-x", "*N");
-		newSide = MStringManip::replaceAll(newSide, "+-x", "+N");
-		newSide = MStringManip::replaceAll(newSide, "--x", "-N");
-		newSide = MStringManip::replaceAll(newSide, "/+x", "/N");
+		char* side1 = StringManip::replaceAll(newSide, "*-x", "*N");
+		char* side2 = StringManip::replaceAll(side1, "+-x", "+N");
+		char* side3 = StringManip::replaceAll(side2, "--x", "-N");
+		char* side4 = StringManip::replaceAll(side3, "/+x", "/N");
 
 		//Replace all the x's with U's
-		newSide = MStringManip::replaceAll(newSide, "x", "U");
+		char* side5 = StringManip::replaceAll(side4, "x", "U");
+
+		delete[] newSide;
+		newSide = side5;
+
+		//Delete dynamic memory
+		delete[] side4;
+		delete[] side3;
+		delete[] side2;
+		delete[] side1;
 
 		//Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
-		newSide = MStringManip::replaceAll(newSide, "+-", "+");
-		newSide = MStringManip::replaceAll(newSide, "--", "-");
-		newSide = MStringManip::replaceAll(newSide, "-+", "-");
-		newSide = MStringManip::replaceAll(newSide, "*+", "*");
-		newSide = MStringManip::replaceAll(newSide, "/+", "/");
-		newSide = MStringManip::replaceAll(newSide, "%+", "%");
-		newSide = MStringManip::replaceAll(newSide, "*-", "*");
-		newSide = MStringManip::replaceAll(newSide, "/-", "/");
-		newSide = MStringManip::replaceAll(newSide, "%-", "%");
+		side1 = StringManip::replaceAll(newSide, "+-", "+");
+		side2 = StringManip::replaceAll(side1, "--", "-");
+		side3 = StringManip::replaceAll(side2, "-+", "-");
+		side4 = StringManip::replaceAll(side3, "*+", "*");
+		side5 = StringManip::replaceAll(side4, "/+", "/");
+		char* side6 = StringManip::replaceAll(side5, "%+", "%");
+		char* side7 = StringManip::replaceAll(side6, "*-", "*");
+		char* side8 = StringManip::replaceAll(side7, "/-", "/");
+		char* side9 = StringManip::replaceAll(side8, "%-", "%");
+
+		delete[] newSide;
+		newSide = side9;
+
+		//Delete dynamic memory
+		delete[] side8;
+		delete[] side7;
+		delete[] side6;
+		delete[] side5;
+		delete[] side4;
+		delete[] side3;
+		delete[] side2;
+		delete[] side1;
 
 		//Check if the first char of the expression is + or - and if the first number is known. If this is true, then remove the sign entirely
 		if (newSide[0] == '-' || newSide[0] == '+' && newSide[1] != 'U' && newSide[1] != 'N')
 		{
-			newSide = MStringManip::replaceFrom(newSide, "", 0, 0);
+			const char* sideCopy = newSide;
+			newSide = StringManip::replaceFrom(newSide, "", 0, 0);
+			delete[] sideCopy;
 		}
 
 		//Replace the numbers with x's
-		newSide = replaceNumbers(newSide, "x");
+		char* newSideCopy = replaceNumbers(newSide, "x");
+		delete[] newSide;
+		newSide = newSideCopy;
 
 		//Return the side template to the sides array
+		delete[] sides[i];
 		sides[i] = newSide;
 	}
 
 	// Concat the sides array into the equation
-	mstring equationTemplate = sides[0] + "=" + sides[1];
+	char* equationTemplate = new char[strlen(sides[0]) + strlen(sides[1]) + 2];
+	equationTemplate[0] = '\0';
+	strcat(equationTemplate, sides[0]);
+	strcat(equationTemplate, "=");
+	strcat(equationTemplate, sides[1]);
 
 	//Delete dynamic memory
-	delete[] sides;
+	StringManip::deleteArrayOfStrings(sides, 2);
 
 	return equationTemplate;
-}
-
-mstring BigNumberEquation::getEquationTemplate() const
-{
-	return this->getEquationTemplate(this->equation);
 }
 
 std::istream& operator>>(std::istream& is, BigNumberEquation& equation)
 {
 	//Let's just agree that an equation larger than 10000 symbols cannot occur.
-	char* text = new char[10000];
-	is.getline(text, 10000);
-
-	mstring textLine = text;
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
 
 	equation.setEquation(textLine);
-
-	//Deallocate dynamic memory
-	delete[] text;
 
 	return is;
 }
@@ -639,7 +766,7 @@ std::ostream& operator<<(std::ostream& os, BigNumberEquation& equation)
 	{
 		os << equation.solveEquation();
 	}
-	catch (mstring e)
+	catch (const char* e)
 	{
 		os << e;
 	}
@@ -649,14 +776,10 @@ std::ostream& operator<<(std::ostream& os, BigNumberEquation& equation)
 std::ifstream& operator>>(std::ifstream& is, BigNumberEquation& equation)
 {
 	//Let's just agree that an expression larger than 10000 symbols cannot occur.
-	char* text = new char[10000];
-	is.getline(text, 10000);
-
-	mstring textLine = text;
+	char* textLine = new char[10000];
+	is.getline(textLine, 10000);
 
 	equation.setEquation(textLine);
-
-	delete[] text;
 
 	return is;
 }
@@ -669,7 +792,7 @@ std::ofstream& operator<<(std::ofstream& os, BigNumberEquation& equation)
 	{
 		os << equation.solveEquation();
 	}
-	catch (mstring e)
+	catch (const char* e)
 	{
 		os << e;
 	}
