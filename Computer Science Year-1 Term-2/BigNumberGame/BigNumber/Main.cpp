@@ -45,7 +45,7 @@ int main()
     std::ofstream osExpressionTests(MBigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
 
     //BigNumber tests
-    MBigNumberTests::runTests(std::cout);
+    //MBigNumberTests::runTests(std::cout);
     //MBigNumberTests::runTests(osBigNumberTests);
 
     //BigNumberExpression tests

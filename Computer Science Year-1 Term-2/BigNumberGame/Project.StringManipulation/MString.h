@@ -58,6 +58,7 @@ public:
 	//Additional operators
 	void push_front(const MString& text);
 	void push_back(const MString& text);
+	void removeAt(size_t index);
 
 	//IO from and to console
 	friend std::ostream& operator<<(std::ostream& os, const MString& other);

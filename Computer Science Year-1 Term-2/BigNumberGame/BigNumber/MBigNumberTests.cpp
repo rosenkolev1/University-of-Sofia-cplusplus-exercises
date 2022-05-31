@@ -1,6 +1,9 @@
 #include "MBigNumberTests.h"
 #include "..\Project.StringManipulation\StringManip.h"
 
+//CONSTANTS
+//const mstring MBigNumberTests::OUTPUTFILE_NAME = "MBigNumber_Tests_Diagnostics.txt";
+
 void MBigNumberTests::OperatorGreaterThanTestTemplate(const char testTitle[], const char textDescription[],
     const MBigNumber& bigNumber1, const MBigNumber& bigNumber2, bool newLine, std::ostream& os)
 {

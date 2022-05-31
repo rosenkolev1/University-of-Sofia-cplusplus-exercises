@@ -51,6 +51,15 @@
     <ClCompile Include="MBigNumberDivisionResult.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MBigNumberExpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MBigNumberExpressionTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MBigNumberExpressionCommon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigNumber.h">
@@ -84,6 +93,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MBigNumberDivisionResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumberExpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumberExpressionTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MBigNumberExpressionCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -124,37 +124,42 @@ bool MBigNumber::operator>(const MBigNumber& other) const
 	else if (signOfOther > 0 && signOfThis > 0)
 	{
 		//Check by size of numbers second
-		if (this->number.getSize() > other.number.getSize()) return true;
-		else if (this->number.getSize() < other.number.getSize()) return false;
-		else
-		{
-			for (long long int i = other.number.getSize() - 1; i >= 0; i--)
-			{
-				int thisDigit = this->number[i] - '0';
-				int otherDigit = other.number[i] - '0';
-				//Return if the digits arent equal. Continue cycle if digits are equal
-				if (thisDigit > otherDigit) return true;
-				else if (thisDigit < otherDigit) return false;
-			}
-		}
+		//if (this->number.getSize() > other.number.getSize()) return true;
+		//else if (this->number.getSize() < other.number.getSize()) return false;
+		//else
+		//{
+		//	for (long long int i = other.number.getSize() - 1; i >= 0; i--)
+		//	{
+		//		int thisDigit = this->number[i] - '0';
+		//		int otherDigit = other.number[i] - '0';
+		//		//Return if the digits arent equal. Continue cycle if digits are equal
+		//		if (thisDigit > otherDigit) return true;
+		//		else if (thisDigit < otherDigit) return false;
+		//	}
+		//}
+		int comparisonResult = this->compareByAbsolute(other);
+		return comparisonResult == 1;
 	}
 	else if (signOfOther < 0 && signOfThis < 0)
 	{
 		//Check by size of numbers second
-		if (this->number.getSize() > other.number.getSize()) return false;
-		else if (this->number.getSize() < other.number.getSize()) return true;
-		else
-		{
-			for (long long int i = other.number.getSize() - 1; i >= 0; i--)
-			{
-				//abs is included here because the front digits are negative, which means comparing them is weird
-				int thisDigit = this->number[i] - '0';
-				int otherDigit = other.number[i] - '0';
-				//Return if the digits arent equal. Continue cycle if digits are equal
-				if (thisDigit > otherDigit) return false;
-				else if (thisDigit < otherDigit) return true;
-			}
-		}
+		//if (this->number.getSize() > other.number.getSize()) return false;
+		//else if (this->number.getSize() < other.number.getSize()) return true;
+		//else
+		//{
+		//	for (long long int i = other.number.getSize() - 1; i >= 0; i--)
+		//	{
+		//		//abs is included here because the front digits are negative, which means comparing them is weird
+		//		int thisDigit = this->number[i] - '0';
+		//		int otherDigit = other.number[i] - '0';
+		//		//Return if the digits arent equal. Continue cycle if digits are equal
+		//		if (thisDigit > otherDigit) return false;
+		//		else if (thisDigit < otherDigit) return true;
+		//	}
+		//}
+
+		int comparisonResult = this->compareByAbsolute(other);
+		return comparisonResult == -1;
 	}
 
 	//If we get to this point, then the 2 numbers are equal, meaning that we return false
@@ -173,7 +178,28 @@ bool MBigNumber::isZero() const
 
 bool MBigNumber::greaterThanOrEqualsAbsolute(const MBigNumber& other) const
 {
-	return (*this > other && this->sign == 1) || (*this < other && this->sign == -1);
+	return this->compareByAbsolute(other) >= 0;
+	//return (*this > other && this->sign == 1) || (*this < other && this->sign == -1);
+}
+
+int MBigNumber::compareByAbsolute(const MBigNumber& other) const
+{
+	if (this->number.getSize() > other.number.getSize()) return 1;
+	else if (this->number.getSize() < other.number.getSize()) return -1;
+	else
+	{
+		for (long long int i = other.number.getSize() - 1; i >= 0; i--)
+		{
+			int thisDigit = this->number[i] - '0';
+			int otherDigit = other.number[i] - '0';
+			//Return if the digits arent equal. Continue cycle if digits are equal
+			if (thisDigit > otherDigit) return 1;
+			else if (thisDigit < otherDigit) return -1;
+		}
+	}
+
+	//If we get to here, then the numbers were equal by absolute value
+	return 0;
 }
 
 MBigNumber MBigNumber::addAndReturn(const MBigNumber& thisNumber, const MBigNumber& other, bool areNegative) const
@@ -514,6 +540,8 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 	bool resultIsNegative = this->sign != other.sign;
 
 	//If the numbers are equal, then just return 1 or -1;
+
+	//TODO: other.number == this->number
 	if (*this == other)
 	{
 		if (resultIsNegative)

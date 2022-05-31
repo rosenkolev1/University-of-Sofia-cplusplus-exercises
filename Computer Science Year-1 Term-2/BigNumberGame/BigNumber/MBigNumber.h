@@ -66,6 +66,8 @@ public:
 	/// <returns></returns>
 	bool greaterThanOrEqualsAbsolute(const MBigNumber& other) const;
 
+	int compareByAbsolute(const MBigNumber& other) const;
+
 	MBigNumber& operator += (const MBigNumber& other);
 	MBigNumber operator + (const MBigNumber& other) const;
 	MBigNumber& operator -= (const MBigNumber& other);

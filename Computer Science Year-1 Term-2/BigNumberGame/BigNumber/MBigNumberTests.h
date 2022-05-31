@@ -12,7 +12,7 @@ private:
 		const MBigNumber& bigNumber1, const MBigNumber& bigNumber2, bool newLine, std::ostream& os);
 
 public:
-	static constexpr const char* OUTPUTFILE_NAME = "BugNumber_Tests_Diagnostics.txt";
+	static constexpr const char* OUTPUTFILE_NAME = "MBigNumber_Tests_Diagnostics.txt";
 
 	static void ConstructorAndCopyAndAssignTests(std::ostream& os);
 	static void ReadingOperatorTests();

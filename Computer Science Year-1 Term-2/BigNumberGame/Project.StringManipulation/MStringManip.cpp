@@ -259,19 +259,25 @@ bool MStringManip::stringContains(const mstring& text, const mstring& other)
         if (text[i] == other[0])
         {
             bool stringIsFound = true;
-            for (size_t y = 1; y < other.getSize(); y++)
+            if (text.getSize() - i < other.getSize()) stringIsFound = false;
+            else
             {
-                if (text[i + y] != other[y])
+                for (size_t y = 1; y < other.getSize(); y++)
                 {
-                    stringIsFound = false;
-                    break;
-                }
-                if (i + y == text.getSize() - 1 && y + 1 < other.getSize())
-                {
-                    stringIsFound = false;
-                    break;
+                    if (i + y >= text.getSize() - 1 && y + 1 < other.getSize())
+                    {
+                        stringIsFound = false;
+                        break;
+                    }
+                    if (text[i + y] != other[y])
+                    {
+                        stringIsFound = false;
+                        break;
+                    }
+
                 }
             }
+            
             if (stringIsFound) return true;
         }
     }

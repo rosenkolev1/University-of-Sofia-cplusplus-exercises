@@ -1,4 +1,6 @@
 #pragma once
+#include "..\Project.StringManipulation\MString.h"
+
 class BigNumberExpressionCommon
 {
 protected:

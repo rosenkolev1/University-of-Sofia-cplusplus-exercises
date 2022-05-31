@@ -194,6 +194,17 @@ void MString::push_back(const MString& text)
 	this->push_back(text, *this);
 }
 
+void MString::removeAt(size_t index)
+{
+	for (size_t i = index; i < this->getSize(); i++)
+	{
+		if (i != this->getSize() - 1) this->data[i] = this->data[i + 1];
+		else this->data[i] = '\0';
+	}
+
+	this->setSize(this->size-1);
+}
+
 std::ostream& operator<<(std::ostream& os, const MString& other)
 {
 	os << other.data;

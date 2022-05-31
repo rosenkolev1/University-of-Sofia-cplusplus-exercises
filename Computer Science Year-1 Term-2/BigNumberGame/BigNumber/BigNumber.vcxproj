@@ -156,6 +156,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MBigNumber.cpp" />
     <ClCompile Include="MBigNumberDivisionResult.cpp" />
+    <ClCompile Include="MBigNumberExpression.cpp" />
+    <ClCompile Include="MBigNumberExpressionCommon.cpp" />
+    <ClCompile Include="MBigNumberExpressionTests.cpp" />
     <ClCompile Include="MBigNumberTests.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,9 @@
     <ClInclude Include="BigNumberTests.h" />
     <ClInclude Include="MBigNumber.h" />
     <ClInclude Include="MBigNumberDivisionResult.h" />
+    <ClInclude Include="MBigNumberExpression.h" />
+    <ClInclude Include="MBigNumberExpressionCommon.h" />
+    <ClInclude Include="MBigNumberExpressionTests.h" />
     <ClInclude Include="MBigNumberTests.h" />
   </ItemGroup>
   <ItemGroup>
