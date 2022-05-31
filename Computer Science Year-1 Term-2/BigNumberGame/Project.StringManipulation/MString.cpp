@@ -232,7 +232,6 @@ std::ofstream& operator<<(std::ofstream& os, const MString& other)
 
 std::ifstream& operator>>(std::ifstream& is, MString& other)
 {
-	// TODO: insert return statement here
 	char* newString = new char[100000];
 	is.getline(newString, 100000);
 

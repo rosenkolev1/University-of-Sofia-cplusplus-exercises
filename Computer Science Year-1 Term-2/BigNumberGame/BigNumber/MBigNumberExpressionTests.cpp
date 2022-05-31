@@ -6,12 +6,8 @@
 #include "..\Project.StringManipulation\MStringManip.h"
 #include <fstream>
 
-//CONSTANTS
-//const mstring MBigNumberExpressionTests::OUTPUTFILE_NAME = "MBigNumberExpressions_Tests_Diagnostics.txt";
-
 void MBigNumberExpressionTests::expressionBig4Tests(std::ostream& os)
 {
-    //MBigNumberTests::runTests();
     os << "BIG 4 OF MBigNumberExpression TESTS: " << std::endl << std::endl;
     MBigNumberExpression expression1 = MBigNumberExpression();
     mstring someExpression = " 10 + 5";
@@ -94,11 +90,6 @@ void MBigNumberExpressionTests::expressionIsValidTests(std::ostream& os)
         mstring expressionStringSecond = MBigNumberExpression::EXPRESSION_FORBIDDEN_STRINGS[i];
         mstring expressionStringThird = "10";
 
-        /*mstring* finalExpression = new mstring[strlen(expressionStringFirst) + strlen(expressionStringSecond) + strlen(expressionStringThird) + 1];
-        finalExpression[0] = '\0';
-        strcat(finalExpression, expressionStringFirst);
-        strcat(finalExpression, expressionStringSecond);
-        strcat(finalExpression, expressionStringThird);*/
         mstring finalExpression = expressionStringFirst + expressionStringSecond + expressionStringThird;
 
         os << "Testing if expression is valid-> " << finalExpression << ". Expected: FALSE: " << (expression.expressionIsValid(finalExpression) ? "TRUE" : "FALSE");
@@ -106,8 +97,6 @@ void MBigNumberExpressionTests::expressionIsValidTests(std::ostream& os)
         os << std::endl;
         os << std::endl;
 
-        //Delete dynamic memory
-        //delete finalExpression;
     }
 
     //TEST 38
@@ -801,7 +790,6 @@ void MBigNumberExpressionTests::solveExpressionParenthesis_DivideTests(std::ostr
     os << "TEST 3: " << std::endl;
     mstring expressionString3 = "-(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3))";
     MBigNumberExpression expression3(expressionString3);
-    //int expectedOutput3 = -(100/((576 - 35/(9-2)*2/(12 - 4/2))/575*6/(3+4-1)*3 - 3)); Expected -(100/0) -> Exception thrown
     os << "Testing expression -> (" << expressionString3 << "). Expected: " << MBigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION << ": ";
     try
     {
@@ -942,10 +930,6 @@ void MBigNumberExpressionTests::generateExpressionTests(std::ostream& os)
     MBigNumberExpression expression = MBigNumberExpression();
 
     srand(time(NULL));
-    //MBigNumberExpression something("1015%48%-2%-8576/6621-(83-943)*(437)");
-    ////1015%48%-2%-8576/6621--860*437
-    //MBigNumber answer = something.evaluateExpression();
-    //long long int actualAnswer = 1015 % 48 % -2 % -8576 / 6621 - (83 - 943) * (437);
 
     for (size_t i = 0; i < 50; i++)
     {

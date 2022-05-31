@@ -14,6 +14,8 @@
 #include "MBigNumberTests.h"
 #include "MBigNumberExpression.h"
 #include "MBigNumberExpressionTests.h"
+#include "MBigNumberEquation.h"
+#include "MBigNumberEquationTests.h"
 
 int main()
 {
@@ -43,12 +45,21 @@ int main()
     //BIGNUMBER with MSTRING
     std::ofstream osBigNumberTests(MBigNumberTests::OUTPUTFILE_NAME, std::ios::trunc);
     std::ofstream osExpressionTests(MBigNumberExpressionTests::OUTPUTFILE_NAME, std::ios::trunc);
+    std::ofstream osEquationTests(MBigNumberEquationTests::OUTPUTFILE_NAME, std::ios::trunc);
 
-    //BigNumber tests
+    //MBigNumber tests
     //MBigNumberTests::runTests(std::cout);
     //MBigNumberTests::runTests(osBigNumberTests);
 
-    //BigNumberExpression tests
-    MBigNumberExpressionTests::runTests(std::cout);
+    //MBigNumberExpression tests
+    //MBigNumberExpressionTests::runTests(std::cout);
     //MBigNumberExpressionTests::runTests(osExpressionTests);
+
+    //MBigNumberEquations tests
+    MBigNumberEquationTests::runTests(std::cout);
+    //MBigNumberEquationTests::runTests(osEquationTests);
+
+    //osEquationTests.close();
+    osExpressionTests.close();
+    osBigNumberTests.close();
 }

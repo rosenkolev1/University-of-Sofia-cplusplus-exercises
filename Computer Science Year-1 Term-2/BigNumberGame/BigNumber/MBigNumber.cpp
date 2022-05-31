@@ -65,7 +65,6 @@ void MBigNumber::changeNumber(mstring number)
 		return;
 	}
 
-	//TODO: CHECK FOR MEMORY LEAK ISSUES
 	mstring newNumber;
 	for (size_t i = 0; i < numberSize; i++)
 	{
@@ -542,7 +541,7 @@ MBigNumberDivisionResult MBigNumber::divideAndReturn(const MBigNumber& other) co
 	//If the numbers are equal, then just return 1 or -1;
 
 	//TODO: other.number == this->number
-	if (*this == other)
+	if (this->number == other.number)
 	{
 		if (resultIsNegative)
 		{

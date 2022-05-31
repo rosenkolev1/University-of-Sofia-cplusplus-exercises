@@ -45,14 +45,6 @@ const mstring MBigNumberExpression::EXPRESSION_FORBIDDEN_STRINGS[32] =
 	"()"
 };
 
-//void MBigNumberExpression::copy(const MBigNumberExpression& other)
-//{
-//	delete[] this->expression;
-//	this->capacity = other.capacity;
-//	this->expression = new char[this->capacity];
-//	strcpy(this->expression, other.expression);
-//}
-
 MBigNumber* MBigNumberExpression::replaceNumbersFromCalculation(MBigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, MBigNumber* resultNumber) const
 {
 	//Replace the 2 numbers in the numbers array with the result number
@@ -73,18 +65,6 @@ MBigNumber* MBigNumberExpression::replaceNumbersFromCalculation(MBigNumber* numb
 	delete[] numbers;
 	countOfNumbers--;
 	return numbersCopy;
-}
-
-void MBigNumberExpression::replaceOperatorsFromCalculation(mstring& operators, size_t index) const
-{
-	//Replace the operator from the operators array
-	/*for (size_t i = index; i < operators.getSize(); i++)
-	{
-		if (i != operators.getSize() - 1) operators[i] = operators[i + 1];
-		else operators[i] = '\0';
-	}*/
-
-	/*operators = MStringManip::replaceFrom(operators, "", index, index);*/
 }
 
 MBigNumberExpression::MBigNumberExpression()
@@ -125,22 +105,8 @@ void MBigNumberExpression::setExpression(mstring expression)
 {
 	if (!expressionIsValid(expression)) throw EXPRESSION_INVALID_EXCEPTION;
 
-
-	//size_t capacityOfNewExpression = expressionCopy.getSize() + 1;
-	////Resize expression if needed
-	//if (capacityOfNewExpression > this->capacity)
-	//{
-	//	this->capacity = capacityOfNewExpression;
-	//	delete[] this->expression;
-	//	this->expression = new char[this->capacity];
-	//}
-	//strcpy(this->expression, expressionCopy);
-	// 
 	//Remove all the whitespaces and set the expression
 	this->expression = MStringManip::replaceAll(expression, " ", "");
-
-	//Delete dynamic memory
-	/*delete[] expressionCopy;*/
 }
 
 MBigNumber MBigNumberExpression::evaluateExpression() const
@@ -166,41 +132,15 @@ size_t MBigNumberExpression::generateCountOfOperators() const
 
 MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 {
-	//if (expression == nullptr)
-	//{
-	//	expression = this->getExpression();
-	//}
-
 	//Remove all the whitespaces
 	expression = MStringManip::replaceAll(expression, " ", "");
 
-	//bool isValidExpression = this->expressionIsValid(expression);
 	if (!this->expressionIsValid(expression)) throw EXPRESSION_INVALID_EXCEPTION;
 
 	//Start resolving all the parenthesis in the expression until none are left
 	//If there are none, at least run the necessary in all cases things first. Hence why this is a do, while expression instead of a simple while expression
 	do
 	{
-		////Replace all the instances of +-,-+, -- inside the string
-		//char* expressionOne = MStringManip::replaceAll(expression, "+-", "-");
-		//char* expressionTwo = MStringManip::replaceAll(expressionOne, "-+", "-");
-		//char* expressionThree = MStringManip::replaceAll(expressionTwo, "--", "+");
-
-		////Replace all the instances of *+,/+, %- inside the string
-		//char* expressioFour = MStringManip::replaceAll(expressionThree, "*+", "*");
-		//char* expressionFive = MStringManip::replaceAll(expressioFour, "/+", "/");
-		//char* expressionSix = MStringManip::replaceAll(expressionFive, "%+", "%");
-
-		//delete[] expression;
-		//expression = expressionSix;
-
-		////Delete dynamic memory
-		//delete[] expressionFive;
-		//delete[] expressioFour;
-		//delete[] expressionThree;
-		//delete[] expressionTwo;
-		//delete[] expressionOne;
-
 		//Replace all the instances of +-,-+, -- inside the string
 		expression = MStringManip::replaceAll(expression, "+-", "-");
 		expression = MStringManip::replaceAll(expression, "-+", "-");
@@ -211,25 +151,9 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 		expression = MStringManip::replaceAll(expression, "/+", "/");
 		expression = MStringManip::replaceAll(expression, "%+", "%");
 
-		/*delete[] expression;
-		expression = expressionSix;*/
-
-		//Delete dynamic memory
-		/*delete[] expressionFive;
-		delete[] expressioFour;
-		delete[] expressionThree;
-		delete[] expressionTwo;
-		delete[] expressionOne;*/
-
 		//Check if the first char of the expression is + or -. If it is, then add a "0" in front of the equation
 		if (expression[0] == '-' || expression[0] == '+')
 		{
-			/*char* expressionCopy = new char[strlen(expression) + 2];
-			expressionCopy[0] = '0';
-			expressionCopy[1] = '\0';
-			strcat(expressionCopy, expression);
-			delete[] expression;
-			expression = expressionCopy;*/
 			expression.push_front("0");
 		}
 
@@ -250,14 +174,6 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 			}
 		}
 
-		////Get the expression inside the parenthesis
-		//char* parenthesisExpression = new char[closingParenthesis - lastOpeningParenthesis];
-		//parenthesisExpression[closingParenthesis - lastOpeningParenthesis - 1] = '\0';
-		//for (size_t i = lastOpeningParenthesis + 1; i < closingParenthesis; i++)
-		//{
-		//	parenthesisExpression[i - lastOpeningParenthesis - 1] = expression[i];
-		//}
-
 		//Get the expression inside the parenthesis
 		mstring parenthesisExpression;
 		for (size_t i = lastOpeningParenthesis + 1; i < closingParenthesis; i++)
@@ -268,60 +184,22 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 		//Calculate the new expression
 		MBigNumber expressionResult = this->evaluateExpression(parenthesisExpression);
 
-		//Delete dynamic memory
-		//delete[] parenthesisExpression;
-
-		////Create the new parts of the new expression
-		//char* expressionPartOne = new char[lastOpeningParenthesis + 1];
-		//strncpy(expressionPartOne, expression, lastOpeningParenthesis);
-		//expressionPartOne[lastOpeningParenthesis] = '\0';
-
 		//Create the new parts of the new expression
 		mstring expressionPartOne = (lastOpeningParenthesis > 0 ? MStringManip::getFrom(expression, 0, lastOpeningParenthesis - 1) : "");
 
 		mstring expressionPartTwo = expressionResult.getNumberRaw();
 
-		////5+(7-9)+8
-		//char* expressionPartThree = new char[strlen(expression) - closingParenthesis];
-		//expressionPartThree[strlen(expression) - closingParenthesis - 1] = '\0';
-		//for (size_t i = closingParenthesis + 1; i < strlen(expression); i++)
-		//{
-		//	expressionPartThree[i - closingParenthesis - 1] = expression[i];
-		//}
-
 		//5+(7-9)+8
 		mstring expressionPartThree = (closingParenthesis + 1 < expression.getSize() ? MStringManip::getFrom(expression, closingParenthesis + 1, expression.getSize() - 1) : "");
 
-		//size_t newExpressionLength = strlen(expressionPartOne) + strlen(expressionPartTwo) + strlen(expressionPartThree) + 1;
-		//char* newExpression = new char[newExpressionLength + 1];
-		//newExpression[0] = '\0';
-
-		////Concat all the expression parts into the new expression
-		//strcat(newExpression, expressionPartOne);
-		//strcat(newExpression, expressionPartTwo);
-		//strcat(newExpression, expressionPartThree);
-
-		//Set the current expression to the new one
+		//Concat all the expression parts into the new expression
 		expression = expressionPartOne + expressionPartTwo + expressionPartThree;
-
-		//Set the current expression to the new one
-		//delete[] expression;
-		//expression = newExpression;
-
-		////Delete dynamic memory
-		//delete[] expressionPartThree;
-		//delete[] expressionPartTwo;
-		//delete[] expressionPartOne;
 	} while (true);
 
-	//Get all the operators
-	//size_t operatorsCapacity = 10;
-	//char* operators = new char[operatorsCapacity + 1];
+	//Get the operators
 	mstring operators;
-	//size_t operatorsCount = 0;
 
 	size_t negativeOperatorsCapacity = 10;
-	//size_t* negativeOperatorsIndexes = new size_t[operatorsCapacity + 1];
 	size_t* negativeOperatorsIndexes = new size_t[negativeOperatorsCapacity];
 	size_t negativeOperatorsCount = 0;
 
@@ -329,18 +207,8 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 	{
 		if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/' || expression[i] == '%')
 		{
-			////If operators runs out of capacity, then increase it's capacity
-			//if (operatorsCount >= operatorsCapacity)
-			//{
-			//	char* operatorsCopy = new char[operatorsCount * 2 + 1];
-			//	strcpy(operatorsCopy, operators);
-			//	delete[] operators;
-			//	operators = operatorsCopy;
-			//}
-
 			if (expression[i + 1] == '-')
 			{
-				/*operators[operatorsCount] = expression[i];*/
 				operators += expression[i];
 
 				//If negativeOperators runs out of capacity, then increase it's capacity
@@ -355,12 +223,10 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 					negativeOperatorsIndexes = negativeOperatorsCopy;
 				}
 				negativeOperatorsIndexes[negativeOperatorsCount++] = operators.getSize() - 1;
-				/*operatorsCount++;*/
 				i++;
 			}
 			else
 			{
-				//operators[operatorsCount++] = expression[i];
 				operators += expression[i];
 			}
 		}
@@ -372,9 +238,6 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 		MBigNumber result(expression);
 		return result;
 	}
-
-	//Set the null terminator
-	//operators[operatorsCount++] = '\0';
 
 	//Get all the numbers
 	//Replace all the *- with the delim |
@@ -397,16 +260,6 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 	size_t countOfNumbers = 0;
 	mstring* numberStrings = MStringManip::splitString(expression, '|', countOfNumbers);
 
-	//Delete the dynamic memory from the replaceAll functions
-	/*delete[] expressionPercentReplaced;
-	delete[] expressionDivisionReplaced;
-	delete[] expressionMultiplicationReplaced;
-	delete[] expressionMinusReplaced;
-	delete[] expressionPlusReplaced;
-	delete[] expressionPercentMinusReplaced;
-	delete[] expressionDivideMinusReplaced;
-	delete[] expressionMultiplyMinusReplaced;*/
-
 	//Get the actual MBigNumber numbers
 	MBigNumber* numbers = new MBigNumber[countOfNumbers];
 	for (size_t i = 0; i < countOfNumbers; i++)
@@ -421,12 +274,7 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 	}
 
 	//Delete dynamic memory
-	//for (size_t i = 0; i < countOfNumbers; i++)
-	//{
-	//	delete[] numberStrings[i];
-	//}
 	delete[] numberStrings;
-
 	delete[] negativeOperatorsIndexes;
 
 	//Start calculating
@@ -514,7 +362,6 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 			numbers = this->replaceNumbersFromCalculation(numbers, countOfNumbers, lowestIndex, &resultNumber);
 
 			//Replace the operator from the operators array
-			//this->replaceOperatorsFromCalculation(operators, lowestIndex);
 			operators = MStringManip::replaceFrom(operators, "", lowestIndex, lowestIndex);
 		}
 		//If there is no priority operator, then calculate the non-priority operators (+, -)
@@ -542,7 +389,6 @@ MBigNumber MBigNumberExpression::evaluateExpression(mstring expression) const
 			numbers = replaceNumbersFromCalculation(numbers, countOfNumbers, 0, &resultNumber);
 
 			//Replace the operator from the operators array
-			//this->replaceOperatorsFromCalculation(operators, 0);
 			operators = MStringManip::replaceFrom(operators, "", 0, 0);
 		}
 	}
@@ -559,18 +405,12 @@ bool MBigNumberExpression::expressionIsValid() const
 
 bool MBigNumberExpression::expressionIsValid(mstring expression) const
 {
-	//if (expression == nullptr) expression = this->getExpression();
-
 	//Replace the whitespaces in the expression before checks for it's validity
-	/*mstring expressionCopy = MStringManip::replaceAll(expression, " ", "");*/
 	expression = MStringManip::replaceAll(expression, " ", "");
 
 	//Check if the expression's length is 0. If it is, then return false
 	if (expression.getSize() == 0)
 	{
-		//Delete dynamic memory
-		//delete[] expressionCopy;
-
 		return false;
 	}
 
@@ -581,9 +421,6 @@ bool MBigNumberExpression::expressionIsValid(mstring expression) const
 		char symbol = expression[i];
 		if (!MStringManip::stringContains(EXPRESSION_NOTDIGIT, symbol) && !isdigit(symbol))
 		{
-			//Delete dynamic memory
-			//delete[] expressionCopy;
-
 			return false;
 		}
 	}
@@ -595,18 +432,12 @@ bool MBigNumberExpression::expressionIsValid(mstring expression) const
 	{
 		if (MStringManip::stringContains(expression, EXPRESSION_FORBIDDEN_STRINGS[i]))
 		{
-			//Delete dynamic memory
-			//delete[] expressionCopy;
-
 			return false;
 		}
 	}
 
 	if (expressionIsInvalid)
 	{
-		//Delete dynamic memory
-		//delete[] expressionCopy;
-
 		return false;
 	}
 
@@ -616,9 +447,6 @@ bool MBigNumberExpression::expressionIsValid(mstring expression) const
 		char symbolString[2] = { EXPRESSION_OPERATORS[i] };
 		if (MStringManip::stringEndsWith(expression, symbolString))
 		{
-			//Delete dynamic memory
-			//delete[] expressionCopy;
-
 			return false;
 		}
 	}
@@ -628,9 +456,6 @@ bool MBigNumberExpression::expressionIsValid(mstring expression) const
 		char symbolString[2] = { EXPRESSION_OPERATORS[i] };
 		if (EXPRESSION_OPERATORS[i] != '+' && EXPRESSION_OPERATORS[i] != '-' && MStringManip::stringStartsWith(expression, symbolString))
 		{
-			//Delete dynamic memory
-			//delete[] expressionCopy;
-
 			return false;
 		}
 	}
@@ -644,37 +469,26 @@ bool MBigNumberExpression::expressionIsValid(mstring expression) const
 		//If this happens, then there is a closing parenthesis which doesn't have a matching opening parenthesis. So the expression is invalid
 		if (openedParenthesis < 0)
 		{
-			//Delete dynamic memory
-			//delete[] expressionCopy;
-
 			return false;
 		}
 	}
 	//If this happens, then there is an opening parenthesis which doesn't have a matching closing parenthesis. So the expression is invalid
 	if (openedParenthesis > 0)
 	{
-		//Delete dynamic memory
-		//delete[] expressionCopy;
-
 		return false;
 	}
 
 	//If this happens, then the expression has passed the test and is correct
-	//Delete dynamic memory
-	//delete[] expressionCopy;
-
 	return true;
 }
 
 bool MBigNumberExpression::expressionTemplateIsValid(mstring expressionTemplate) const
 {
 	//Replace all of the whitespaces
-	/*char* expressionTemplateCopy = MStringManip::replaceAll(expressionTemplate, " ", "");*/
 	expressionTemplate = MStringManip::replaceAll(expressionTemplate, " ", "");
 
 	//Replace all of the numbers with -1;
 	mstring expressionFromTemplate = MStringManip::replaceAll(expressionTemplate, "x", "-1");
-	//delete[] expressionTemplateCopy;
 
 	return this->expressionIsValid(expressionFromTemplate);
 }
@@ -692,33 +506,7 @@ mstring MBigNumberExpression::generateExpressionTemplate(mstring allowedOperator
 	//+ - * / % ( E
 	//0 1 2 3 4 5 6
 	
-	//size_t countOfOperators = -1;
-
-	//computerNumber = rand() % 20;
-	////Determine the count of the operators
-	//if (computerNumber >= 18) countOfOperators = 10;
-	//else if (computerNumber >= 16) countOfOperators = 9;
-	//else if (computerNumber >= 14) countOfOperators = 8;
-	//else if (computerNumber >= 12) countOfOperators = 7;
-	//else if (computerNumber >= 10) countOfOperators = 6;
-	//else if (computerNumber >= 8) countOfOperators = 5;
-	//else if (computerNumber >= 6) countOfOperators = 4;
-	//else if (computerNumber >= 4) countOfOperators = 3;
-	//else if (computerNumber >= 2) countOfOperators = 2;
-	//else if (computerNumber >= 0) countOfOperators = 1;
 	size_t countOfOperators = this->generateCountOfOperators();
-
-	//char* operators = new char[countOfOperators + 1];
-	//operators[countOfOperators] = '\0';
-	//for (size_t i = 0; i < countOfOperators; i++)
-	//{
-	//	do
-	//	{
-	//		// Determine the operators
-	//		computerNumber = rand() % 5;
-	//		operators[i] = generateOperator(computerNumber);
-	//	} while (MStringManip::stringContains(allowedOperators, operators[i]) == false);
-	//}
 
 	mstring operators;
 	for (size_t i = 0; i < countOfOperators; i++)
@@ -726,9 +514,8 @@ mstring MBigNumberExpression::generateExpressionTemplate(mstring allowedOperator
 		do
 		{
 			// Determine the operators
-			/*computerNumber = rand() % 5;
-			operators[i] = generateOperator(computerNumber);*/
 			char newOperator = generateOperator();
+
 			if (MStringManip::stringContains(allowedOperators, newOperator) == true)
 			{
 				operators += newOperator;
@@ -740,8 +527,7 @@ mstring MBigNumberExpression::generateExpressionTemplate(mstring allowedOperator
 
 	//Generate a new expression without parenthesis
 	size_t newExpressionMaxLength = (countOfOperators * 2 + 1) * 2 + 1;
-	/*char* expression = new char[newExpressionMaxLength + 1];
-	expression[newExpressionMaxLength] = '\0';*/
+
 	mstring expression;
 	size_t operatorsIndexer = 0;
 	for (size_t i = 0; i < newExpressionMaxLength; i++)
@@ -764,36 +550,20 @@ mstring MBigNumberExpression::generateExpressionTemplate(mstring allowedOperator
 	// Closing parenthesis --> x_+x_-x_
 	// _x_+_x_-_x_ ---> (x_+_x_-_x_ ---> (x_+_x)-_x_
 	// (x+)x-_x
-	/*char* openingParenthesis = new char[countOfOperators + 2];
-	openingParenthesis[countOfOperators + 1] = '\0';*/
+
 	mstring openingParenthesis;
 	size_t openParenthesisCount = 0;
 
 	//Randomly generate the opening parenthesis amongst the opening parenthesis spots
-	//for (size_t i = 0; i < strlen(openingParenthesis); i++)
-	//{
-	//	/*computerNumber = rand() % 10;
-	//	openingParenthesis[i] = generateOpeningParenthesis(computerNumber);*/
-
-	//	if (openingParenthesis[i] == '(') openParenthesisCount++;
-	//}
 	for (size_t i = 0; i < countOfOperators + 1; i++)
 	{
-		/*computerNumber = rand() % 10;
-		openingParenthesis[i] = generateOpeningParenthesis(computerNumber);*/
-		
 		openingParenthesis += generateOpeningParenthesis();
 		if (openingParenthesis[i] == '(') openParenthesisCount++;
 	}
 
 	//Randomly generate the closing parenthesis amongst the closing parenthesis spots. Be careful to close out all opening parenthesis with closing ones.
-	/*char* closingParenthesis = new char[countOfOperators + 2];
-	closingParenthesis[countOfOperators + 1] = '\0';*/
 	mstring closingParenthesis;
-	/*for (size_t i = 0; i < strlen(closingParenthesis); i++)
-	{
-		closingParenthesis[i] = '_';
-	}*/
+
 	for (size_t i = 0; i < countOfOperators + 1; i++)
 	{
 		closingParenthesis += '_';
@@ -862,9 +632,6 @@ mstring MBigNumberExpression::generateExpressionTemplate(mstring allowedOperator
 	}
 
 	//Replace the remaining free parenthesis spots with empty spaces
-	/*char* removeWhitespaces = MStringManip::replaceAll(expression, "_", "");
-	delete[] expression;
-	expression = removeWhitespaces;*/
 	expression = MStringManip::replaceAll(expression, "_", "");
 
 	return expression;
@@ -877,41 +644,11 @@ mstring MBigNumberExpression::getExpressionTemplate() const
 
 mstring MBigNumberExpression::getExpressionTemplate(mstring expression) const
 {
-	//if (expression == nullptr) expression = this->getExpression();
-
-	/*char* newExpression = new char[strlen(expression) + 1];
-	strcpy(newExpression, expression);*/
-
 	//Remove all the whitespaces
-	//newExpression = MStringManip::replaceAll(newExpression, " ", "");
 	expression = MStringManip::replaceAll(expression, " ", "");
 
 	bool isValidExpression = this->expressionIsValid(expression);
 	if (!isValidExpression) throw EXPRESSION_INVALID_EXCEPTION;
-
-	////Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
-	//char* expression1 = MStringManip::replaceAll(newExpression, "+-", "+");
-	//char* expression2 = MStringManip::replaceAll(expression1, "--", "-");
-	//char* expression3 = MStringManip::replaceAll(expression2, "-+", "-");
-	//char* expression4 = MStringManip::replaceAll(expression3, "*+", "*");
-	//char* expression5 = MStringManip::replaceAll(expression4, "/+", "/");
-	//char* expression6 = MStringManip::replaceAll(expression5, "%+", "%");
-	//char* expression7 = MStringManip::replaceAll(expression6, "*-", "*");
-	//char* expression8 = MStringManip::replaceAll(expression7, "/-", "/");
-	//char* expression9 = MStringManip::replaceAll(expression8, "%-", "%");
-
-	//delete[] newExpression;
-	//newExpression = expression9;
-
-	////Delete dynamic memory
-	//delete[] expression8;
-	//delete[] expression7;
-	//delete[] expression6;
-	//delete[] expression5;
-	//delete[] expression4;
-	//delete[] expression3;
-	//delete[] expression2;
-	//delete[] expression1;
 
 	//Replace all the -,+ operators where the -,+ belongs to the number instead of being an operator
 	expression = MStringManip::replaceAll(expression, "+-", "+");
@@ -924,36 +661,13 @@ mstring MBigNumberExpression::getExpressionTemplate(mstring expression) const
 	expression = MStringManip::replaceAll(expression, "/-", "/");
 	expression = MStringManip::replaceAll(expression, "%-", "%");
 
-	/*delete[] newExpression;
-	newExpression = expression9;*/
-
-	//Delete dynamic memory
-	/*delete[] expression8;
-	delete[] expression7;
-	delete[] expression6;
-	delete[] expression5;
-	delete[] expression4;
-	delete[] expression3;
-	delete[] expression2;
-	delete[] expression1;*/
-
 	//Check if the first char of the expression is + or -. If it is, then remove it entirely
-	/*if (newExpression[0] == '-' || newExpression[0] == '+')
-	{
-		mstring expressionCopy = newExpression;
-		newExpression = MStringManip::replaceFrom(newExpression, "", 0, 0);
-		delete[] expressionCopy;
-	}*/
 	if (expression[0] == '-' || expression[0] == '+')
 	{
 		expression = MStringManip::replaceFrom(expression, "", 0, 0);
 	}
 
 	//Replace all of the numbers in the expression with an x
-	/*char* newExpressionCopy = replaceNumbers(newExpression, "x");
-	delete[] newExpression;
-	newExpression = newExpressionCopy;*/
-
 	expression = this->replaceNumbers(expression, "x");
 
 	return expression;
@@ -966,8 +680,6 @@ mstring MBigNumberExpression::getExpressionTemplate(const MBigNumberExpression& 
 
 mstring MBigNumberExpression::generateExpressionFromTemplate(mstring expressionTemplate) const
 {
-	//char* expressionFilled = new char[strlen(expressionTemplate) + 1];
-	//strcpy(expressionFilled, expressionTemplate);
 	mstring expressionFilled = expressionTemplate;
 
 	//Replace the x in the expression template with numbers
@@ -975,30 +687,19 @@ mstring MBigNumberExpression::generateExpressionFromTemplate(mstring expressionT
 	{
 		//Generate the sign of the number
 		MBigNumber bigNumber = MBigNumber();
-		/*int signOfNumber = generateSign(rand() % 15);*/
 		int signOfNumber = this->generateSign();
 		if (signOfNumber != 0)
 		{
 			//Randomly generate a number
-			//size_t digitsCount = this->generateDigitsCount(rand() % 51);
 			size_t digitsCount = this->generateDigitsCount();
 			size_t capacity = digitsCount + 1;
 			size_t digitsIndex = 0;
 
 			if (signOfNumber == -1) capacity++;
 
-			/*char* numberString = new char[capacity];
-			numberString[capacity - 1] = '\0';*/
 			mstring numberString;
 
-			/*if (signOfNumber == -1) numberString[digitsIndex++] = '-';*/
 			if (signOfNumber == -1) numberString += '-';
-
-			/*numberString[digitsIndex++] = rand() % 9 + 1 + '0';
-			for (size_t i = digitsIndex; i < digitsCount; i++)
-			{
-				numberString[i] = (rand() % 10) + '0';
-			}*/
 
 			numberString += rand() % 9 + 1 + '0';
 			for (size_t i = 1; i < digitsCount; i++)
@@ -1010,9 +711,6 @@ mstring MBigNumberExpression::generateExpressionFromTemplate(mstring expressionT
 		}
 
 		//Replace the bigNumber in the expressionTemplate
-		/*char* newExpressionTemplate = MStringManip::replaceFirst(expressionFilled, "x", bigNumber.getNumberRaw());
-		delete[] expressionFilled;
-		expressionFilled = newExpressionTemplate;*/
 		expressionFilled = MStringManip::replaceFirst(expressionFilled, "x", bigNumber.getNumberRaw());
 	}
 
@@ -1026,23 +724,10 @@ void MBigNumberExpression::generateExpression()
 
 void MBigNumberExpression::generateExpression(mstring allowedOperators)
 {
-	/*char* expressionTemplate = this->generateExpressionTemplate(allowedOperators);
-
-	char* expression = this->generateExpressionFromTemplate(expressionTemplate);*/
-
 	mstring expressionTemplate = this->generateExpressionTemplate(allowedOperators);
 
 	mstring expression = this->generateExpressionFromTemplate(expressionTemplate);
 
-	//Delete dynamic memory
-	//delete[] expressionTemplate;
-
-	//std::cout << "Expression: " << expression;
-
-	//Finally, set the expression of the object to the new expression
-	/*delete[] this->expression;
-	this->expression = expression;
-	this->capacity = strlen(expression) + 1;*/
 	this->expression = expression;
 }
 
@@ -1051,18 +736,7 @@ mstring MBigNumberExpression::concatExpressionsWithOperator(mstring thisExpressi
 	mstring parenthesisOpening = "(";
 	mstring parenthesisClosing = ")";
 
-	//size_t newExpressionStringCapacity = thisExpression.getSize() + otherExpression.getSize() + concatOperator.getSize() + 5;
-	/*char* newExpressionString = new char[newExpressionStringCapacity];
-	newExpressionString[0] = '\0';*/
 	mstring newExpressionString;
-
-	/*strcat(newExpressionString, parenthesisOpening);
-	strcat(newExpressionString, thisExpression);
-	strcat(newExpressionString, parenthesisClosing);
-	strcat(newExpressionString, concatOperator);
-	strcat(newExpressionString, parenthesisOpening);
-	strcat(newExpressionString, otherExpression);
-	strcat(newExpressionString, parenthesisClosing);*/
 
 	newExpressionString = parenthesisOpening + thisExpression + parenthesisClosing 
 		+ concatOperator 
@@ -1103,12 +777,8 @@ bool MBigNumberExpression::operator>=(const MBigNumberExpression& other) const
 
 MBigNumberExpression MBigNumberExpression::operator+(const MBigNumberExpression& other) const
 {
-	//char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "+");
 	mstring newExpressionString = this->concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "+");
 	MBigNumberExpression newExpression(newExpressionString);
-
-	//Delete dynamic memory
-	//delete[] newExpressionString;
 
 	return newExpression;
 }
@@ -1121,12 +791,8 @@ MBigNumberExpression& MBigNumberExpression::operator+=(const MBigNumberExpressio
 
 MBigNumberExpression MBigNumberExpression::operator-(const MBigNumberExpression& other) const
 {
-	//char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "-");
 	mstring newExpressionString = this->concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "-");
 	MBigNumberExpression newExpression(newExpressionString);
-
-	//Delete dynamic memory
-	//delete[] newExpressionString;
 
 	return newExpression;
 }
@@ -1139,12 +805,8 @@ MBigNumberExpression& MBigNumberExpression::operator-=(const MBigNumberExpressio
 
 MBigNumberExpression MBigNumberExpression::operator*(const MBigNumberExpression& other) const
 {
-	/*char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "*");*/
 	mstring newExpressionString = this->concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "*");
 	MBigNumberExpression newExpression(newExpressionString);
-
-	//Delete dynamic memory
-	//delete[] newExpressionString;
 
 	return newExpression;
 }
@@ -1157,12 +819,8 @@ MBigNumberExpression& MBigNumberExpression::operator*=(const MBigNumberExpressio
 
 MBigNumberExpression MBigNumberExpression::operator/(const MBigNumberExpression& other) const
 {
-	//char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "/");
 	mstring newExpressionString = this->concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "/");
 	MBigNumberExpression newExpression(newExpressionString);
-
-	//Delete dynamic memory
-	//delete[] newExpressionString;
 
 	return newExpression;
 }
@@ -1175,12 +833,8 @@ MBigNumberExpression& MBigNumberExpression::operator/=(const MBigNumberExpressio
 
 MBigNumberExpression MBigNumberExpression::operator%(const MBigNumberExpression& other) const
 {
-	//char* newExpressionString = concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "%");
 	mstring newExpressionString = this->concatExpressionsWithOperator(this->getExpression(), other.getExpression(), "%");
 	MBigNumberExpression newExpression(newExpressionString);
-
-	//Delete dynamic memory
-	//delete[] newExpressionString;
 
 	return newExpression;
 }
@@ -1224,25 +878,12 @@ std::ifstream& operator>>(std::ifstream& is, MBigNumberExpression& expression)
 std::ofstream& operator<<(std::ofstream& os, const MBigNumberExpression& expression)
 {
 	mstring expressionString = expression.getExpression();
-	//mstring equals = "=";
 	MBigNumber resultFromExpression = expression.evaluateExpression();
 	mstring answer = resultFromExpression.getNumber();
 
-	/*size_t textLineCapacity = strlen(expressionString) + 1 + strlen(answer) + 1;
-	char* textLine = new char[textLineCapacity];
-	textLine[0] = '\0';
-
-	strcat(textLine, expressionString);
-	strcat(textLine, equals);
-	strcat(textLine, answer);
-	textLine[textLineCapacity - 1] = '\n';*/
 	mstring textLine = expressionString + "=" + answer;
 
 	os << textLine << "\n";
-
-	//Delete dynamic memory
-	//delete[] textLine;
-	//delete[] answer;
 
 	return os;
 }

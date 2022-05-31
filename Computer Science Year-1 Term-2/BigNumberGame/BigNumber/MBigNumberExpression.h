@@ -13,34 +13,23 @@ public:
 	//Check if the expression contains: **, */, *%, /*, //, /%, %*, %/, %%. If it does, then it is invalid
 	//Check if the expression contains: +*, -*, +/, -/, +%, -%. If it does, then it is invalid
 	//Check if the expression contains: +), -), *), /), %), (). If it does, then it is invalid
-	//FORBIDDEN SYMBOLS CONSTANT
-	/*static constexpr const char* EXPRESSION_DIVIDEBYZERO_EXCEPTION = "DIVISION BY 0 IS NOT ALLOWED!";
-	static constexpr const char* EXPRESSION_PERCENTBYZERO_EXCEPTION = "PERCENT BY 0 IS NOT ALLOWED!";
-	static constexpr const char* EXPRESSION_INVALID_EXCEPTION = "This expression isn't valid";
 
-	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 32;*/
-	//static constexpr const char* EXPRESSION_OPERATORS = "+-*/%";
-	//static constexpr const char* EXPRESSION_NOTDIGIT = "+-*/%()";
+	//OTHER CONSTANTS
 	static const mstring EXPRESSION_DIVIDEBYZERO_EXCEPTION;
 	static const mstring EXPRESSION_PERCENTBYZERO_EXCEPTION;
 	static const mstring EXPRESSION_INVALID_EXCEPTION;
 	static const int EXPRESSION_FORBIDDEN_STRINGS_COUNT = 32;
 	static const mstring EXPRESSION_OPERATORS;
 	static const mstring EXPRESSION_NOTDIGIT;
+
+	//FORBIDDEN SYMBOLS CONSTANT
 	static const mstring EXPRESSION_FORBIDDEN_STRINGS[32];
 
 private:
 
-	/*char* expression;
-	size_t capacity;*/
 	mstring expression;
 
-	//void copy(const MBigNumberExpression& other);
-
-	/*MBigNumber* replaceNumbersFromCalculation(MBigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, MBigNumber* resultNumber) const;
-	void replaceOperatorsFromCalculation(char* operators, size_t index) const;*/
 	MBigNumber* replaceNumbersFromCalculation(MBigNumber* numbers, size_t& countOfNumbers, size_t firstIndex, MBigNumber* resultNumber) const;
-	void replaceOperatorsFromCalculation(mstring& operators, size_t index) const;
 
 	size_t generateCountOfOperators() const;
 
@@ -48,9 +37,6 @@ public:
 
 	//Big 4
 	MBigNumberExpression();
-	//MBigNumberExpression(const MBigNumberExpression& other);
-	//~MBigNumberExpression();
-	//MBigNumberExpression& operator=(const MBigNumberExpression& other);
 
 	MBigNumberExpression(mstring expression);
 
@@ -126,5 +112,5 @@ public:
 	friend std::ofstream& operator<< (std::ofstream& os, const MBigNumberExpression& expression);
 };
 
-
+//TODO: Remove Big4 tests for MBigNumber and MBigNumberExpressions and MBigNumberEquations
 
