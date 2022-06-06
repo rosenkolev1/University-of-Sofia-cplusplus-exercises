@@ -1648,53 +1648,95 @@ void MStringManipTests::parseToStringTests()
     std::cout << std::endl;
 }
 
+void MStringManipTests::parseToLongTests()
+{
+    //parseToLongTests TESTS
+    std::cout << "parseToLongTests TESTS: " << std::endl << std::endl;
+
+    //TEST 1
+    std::cout << "TEST 1" << std::endl;
+    mstring input1 = "12345";
+    long output1 = MStringManip::parseToLong(input1);
+    long expectedOutput1 = 12345;
+
+    std::cout << "Testing MStringManip::parseToLong(\"" << input1 << "\"): Expected(" << expectedOutput1 << ", TRUE) ==> ";
+    std::cout << output1 << ", " << (output1 == expectedOutput1 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 2
+    std::cout << "TEST 2" << std::endl;
+    mstring input2 = "0";
+    long output2 = MStringManip::parseToLong(input2);
+    long expectedOutput2 = 0;
+
+    std::cout << "Testing MStringManip::parseToLong(\"" << input2 << "\"): Expected(" << expectedOutput2 << ", TRUE) ==> ";
+    std::cout << output2 << ", " << (output2 == expectedOutput2 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    //TEST 3
+    std::cout << "TEST 3" << std::endl;
+    mstring input3 = "-19876";
+    long output3 = MStringManip::parseToLong(input3);
+    long expectedOutput3 = -19876;
+
+    std::cout << "Testing MStringManip::parseToLong(\"" << input3 << "\"): Expected(" << expectedOutput3 << ", TRUE) ==> ";
+    std::cout << output3 << ", " << (output3 == expectedOutput3 ? "TRUE" : "FALSE");
+    std::cout << std::endl;
+    std::cout << std::endl;
+}
+
 void MStringManipTests::runTests()
 {
-    //splitByChar TESTS
-    splitByCharTests();
-    
-    //splitByString TESTS
-    splitByStringTests();
-    
-    //splitStringMany TESTS
-    splitStringManyTests();
-    
-    //stringContains TESTS
-    stringContainsTests();
-    
-    //replaceAll TESTS
-    replaceAllTests();
-    
-    //replaceFirst TESTS
-    replaceFirstTests();
-    
-    //replaceFrom TESTS
-    replaceFromTests();
-    
-    //findIndex TESTS
-    findIndexTests();
-    
-    //findIndexLast TESTS
-    findIndexLastTests();
-    
-    //arraysOfStringsAreEqualTests TESTS
-    arraysOfStringsAreEqualTests();
-    
-    //getUnique TESTS
-    getUniqueTests();
-    
-    //getFrom TESTS
-    getFromTests();
-    
-    //getReversed TESTS
-    getReversedTests();
-    
-    //countOf TESTS
-    countOfTests();
-    
-    //countOfMany TESTS
-    countOfManyTests();
+    ////splitByChar TESTS
+    //splitByCharTests();
+    //
+    ////splitByString TESTS
+    //splitByStringTests();
+    //
+    ////splitStringMany TESTS
+    //splitStringManyTests();
+    //
+    ////stringContains TESTS
+    //stringContainsTests();
+    //
+    ////replaceAll TESTS
+    //replaceAllTests();
+    //
+    ////replaceFirst TESTS
+    //replaceFirstTests();
+    //
+    ////replaceFrom TESTS
+    //replaceFromTests();
+    //
+    ////findIndex TESTS
+    //findIndexTests();
+    //
+    ////findIndexLast TESTS
+    //findIndexLastTests();
+    //
+    ////arraysOfStringsAreEqualTests TESTS
+    //arraysOfStringsAreEqualTests();
+    //
+    ////getUnique TESTS
+    //getUniqueTests();
+    //
+    ////getFrom TESTS
+    //getFromTests();
+    //
+    ////getReversed TESTS
+    //getReversedTests();
+    //
+    ////countOf TESTS
+    //countOfTests();
+    //
+    ////countOfMany TESTS
+    //countOfManyTests();
+    //
+    ////parseToString TESTS
+    //parseToStringTests();
 
-    //parseToString TESTS
-    parseToStringTests();
+    //parseToLong TESTS
+    parseToLongTests();
 }

@@ -42,6 +42,8 @@ public:
 
 	static void parseToStringTests();
 
+	static void parseToLongTests();
+
 	static void runTests();
 };
 
