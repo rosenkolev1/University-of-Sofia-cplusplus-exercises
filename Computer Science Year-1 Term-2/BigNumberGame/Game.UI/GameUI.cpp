@@ -14,17 +14,10 @@ void GameUI::printScreenWithText(mstring text, mstring screenTitle)
 	//Print initial empty lines
 	for (int i = 0; i < LINES_EMPTY_INITIAL_COUNT; i++)
 	{
-		//if (i == 1 && screenTitle != nullptr) printLine(screenTitle);
 		if (i == 1) printLine(screenTitle);
 		else printEmptyLine();
 	}
 
-	//Seperate the text if it's too large for a single line or if it has new line characters in it
-	//size_t sizeOfText = text.getSize();
-
-	/*char* currentLine = new __nothrow char[sizeOfText + 1];
-	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
-	int currentLineLength = 0;*/
 	mstring currentLine;
 
 	int totalTextLinesCount = LINES_COUNT;
@@ -34,9 +27,8 @@ void GameUI::printScreenWithText(mstring text, mstring screenTitle)
 	for (int i = 0; i < text.getSize(); i++)
 	{
 		char symbol = text[i];
-		/*currentLine[currentLineLength] = text[i];
-		currentLineLength++;*/
-		currentLine.push_back(symbol);
+
+		currentLine += symbol;
 		if (symbol == '\n' || currentLine.getSize() == TEXT_MAXLENGTH_LINE || i == text.getSize() - 1)
 		{
 			//If it ends in a newline, then delete that newline char and replace it with \0, since the printLine functions returns to a new line anyway.
@@ -48,47 +40,13 @@ void GameUI::printScreenWithText(mstring text, mstring screenTitle)
 			}
 			else printLine(currentLine);
 
-			/*if (hasNewLineEnding) currentLine[currentLineLength - 1] = '\0';
-			else currentLine[currentLineLength] = '\0';*/
-
-			/*if (hasNewLineEnding) printLine(currentLine);
-			else printLine(currentLine);*/
-
-			//Empty currentLine
-			/*delete[] currentLine;
-			currentLine = new __nothrow char[sizeOfText];
-			if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
-
-			currentLineLength = 0;*/
+			//Reset the currentLine
 			currentLine = "";
-
 
 			if (textLinesCount > LINES_COUNT - LINES_EMPTY_INITIAL_COUNT - LINES_EMPTY_ENDING_COUNT) totalTextLinesCount++;
 
 			textLinesCount++;
 		}
-		//if (currentLine[currentLineLength - 1] == '\n' || currentLineLength == TEXT_MAXLENGTH_LINE || i == sizeOfText - 1)
-		//{
-		//	//If it ends in a newline, then delete that newline char and replace it with \0, since the printLine functions returns to a new line anyway.
-		//	bool hasNewLineEnding = currentLine[currentLineLength - 1] == '\n';
-
-		//	if (hasNewLineEnding) currentLine[currentLineLength - 1] = '\0';
-		//	else currentLine[currentLineLength] = '\0';
-
-		//	if (hasNewLineEnding) printLine(currentLine);
-		//	else printLine(currentLine);
-
-		//	//Empty currentLine
-		//	delete[] currentLine;
-		//	currentLine = new __nothrow char[sizeOfText];
-		//	if (currentLine == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION; 
-
-		//	currentLineLength = 0;
-
-		//	if (textLinesCount > LINES_COUNT - LINES_EMPTY_INITIAL_COUNT - LINES_EMPTY_ENDING_COUNT) totalTextLinesCount++;
-
-		//	textLinesCount++;
-		//}
 	}
 
 	//Print ending empty lines
@@ -107,25 +65,9 @@ void GameUI::printScreenWithText(mstring text)
 
 void GameUI::printScreenWithText(const mstring* textArray, size_t arraySize, mstring screenTitle)
 {
-
-	/*char* text = new __nothrow char[arraySize * capacity];
-	if (text == nullptr) throw GlobalConstants::BAD_ALLOC_EXCEPTION;
-	int textCounter = 0;
-	for (size_t i = 0; i < arraySize; i++)
-	{
-		size_t lengtOfText = strlen(textArray[i]);
-		for (size_t y = 0; y < lengtOfText; y++)
-		{
-			text[textCounter] = textArray[i][y];
-			textCounter++;
-		}
-	}
-	text[textCounter++] = '\0';*/
-
 	mstring concatText = MStringManip::concatStrings(textArray, arraySize);
 
 	printScreenWithText(concatText, screenTitle);
-	//delete[] text;
 }
 
 void GameUI::printScreenWithText(const mstring* textArray, size_t arraySize)

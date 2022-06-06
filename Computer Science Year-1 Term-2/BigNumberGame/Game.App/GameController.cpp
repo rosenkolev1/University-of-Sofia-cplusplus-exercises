@@ -84,25 +84,12 @@ void GameController::mainMenuLoggedScreenPrint()
     }
 
     //Make text with current level
-    /*char currentLevelText[100];
-    strcpy(currentLevelText, GlobalConstants::MAINMENU_LEVEL_TEXT);
-    const char* levelText = MStringManip::parseToString(currentUser->level);
-    strcat(currentLevelText, levelText);
-    strcat(currentLevelText, "\n");
-    textArray[textArrayIndex++] = currentLevelText;*/
-
     mstring currentLevelText = GlobalConstants::MAINMENU_LEVEL_TEXT;
     mstring levelText = MStringManip::parseToString(currentUser->level);
     currentLevelText += levelText + "\n";
     textArray[textArrayIndex++] = currentLevelText;
 
     //Make text with current lives
-    /*char currentLivesText[100];
-    strcpy(currentLivesText, GlobalConstants::MAINMENU_LIVES_TEXT);
-    const char* livesText = MStringManip::parseToString(currentUser->lives);
-    strcat(currentLivesText, livesText);
-    strcat(currentLivesText, "\n");
-    textArray[textArrayIndex++] = currentLivesText;*/
     mstring currentLivesText = GlobalConstants::MAINMENU_LIVES_TEXT;
     mstring livesText = MStringManip::parseToString(currentUser->lives);
     currentLivesText += livesText + "\n";
@@ -118,7 +105,7 @@ void GameController::mainMenuLoggedScreenPrint()
     {
         textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_STARTGAME;
     }
-    if(!isAdmin) textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;//strcpy(textArray[textArrayIndex++], GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT);
+    if(!isAdmin) textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;
     else
     {
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO;
@@ -149,11 +136,6 @@ bool GameController::mainMenuLogged()
     bool isAdmin = currentUser->role == UserRoles::Admin;
     while (true)
     { 
-        /*char* selection = new char[10000];
-        char firstChar = (char)std::cin.peek();
-        if (firstChar == '\0' || firstChar == '\n') std::cin.ignore();
-        std::cin.getline(selection, 1000);
-        std::cin.clear();*/
         mstring selection;
         std::cin >> selection;
 
@@ -249,12 +231,6 @@ bool GameController::loginUser()
 
     while (true)
     {
-        /*char selection[1000];
-        char firstChar = (char)std::cin.peek();
-        if (firstChar == '\0' || firstChar == '\n') std::cin.ignore();
-        std::cin.getline(selection, 1000);
-        std::cin.clear();*/
-
         mstring selection;
         std::cin >> selection;
 
@@ -353,11 +329,6 @@ bool GameController::registerUser()
 
     while (true)
     {
-        /*char selection[1000];
-        char firstChar = (char)std::cin.peek();
-        if (firstChar == '\0' || firstChar == '\n') std::cin.ignore();
-        std::cin.getline(selection, 1000);
-        std::cin.clear();*/
         mstring selection;
         std::cin >> selection;
 

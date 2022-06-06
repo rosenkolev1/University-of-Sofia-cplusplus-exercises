@@ -47,8 +47,6 @@ bool FileSystem::userRoleIsValid(mstring role)
 	}
 
 	return false;
-	
-	//return role == GlobalConstants::USER_ROLE_NORMAL || role == GlobalConstants::USER_ROLE_ADMIN;
 }
 
 bool FileSystem::userIsValid(mstring username, mstring password, mstring role)
@@ -61,7 +59,6 @@ bool FileSystem::userIsValid(mstring username, mstring password, mstring role)
 
 bool FileSystem::userIsRegistered(mstring username)
 {
-	//mstring databaseFile = getDatabaseAsString();
 	size_t allUsersCount = 0;
 	const User* allUsers = getAllUsers(allUsersCount);
 
@@ -82,7 +79,6 @@ bool FileSystem::userIsRegistered(mstring username)
 
 bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password)
 {
-	//mstring databaseFile = getDatabaseAsString();
 	size_t allUsersCount = 0;
 	const User* allUsers = getAllUsers(allUsersCount);
 
@@ -110,30 +106,12 @@ mstring FileSystem::getDatabaseAsString()
 		return "";
 	}
 
-	/*size_t databaseDataCapacity = 1000;
-	char* databaseData = new char[databaseDataCapacity];
-	size_t databaseDataIndex = 0;*/
 	mstring databaseData;
 	while (!databaseFile.eof())
 	{
-		/*char newChar[2];
-		databaseFile.read(newChar, 1);
-		newChar[1] = '\0';*/
 		mstring newLine;
 		databaseFile >> newLine;
 		
-		//Increase capacity if it is not enough
-		/*if (databaseDataIndex >= databaseDataCapacity)
-		{
-			char* databaseDataCopy = new char[databaseDataCapacity];
-			strcpy(databaseDataCopy, databaseData);
-			delete[] databaseData;
-			databaseData = new char[databaseDataCapacity * 2];
-			strcpy(databaseData, databaseDataCopy);			
-		}*/
-
-		//databaseData[databaseDataIndex++] = *newChar;
-		//databaseData.push_back(newChar);
 		databaseData += newLine + "\n";
 	}
 
@@ -143,16 +121,6 @@ mstring FileSystem::getDatabaseAsString()
 	databaseData += '\n';
 
 	databaseFile.close();
-
-	//Set the end of the database data properly
-	/*if (databaseData[databaseDataIndex - 1] == '\n' && databaseData[databaseDataIndex - 2] == '\n')
-	{
-		databaseData[databaseDataIndex - 1] = '\0';
-	}
-	else
-	{
-		databaseData[databaseDataIndex] = '\0';
-	}*/
 
 	return databaseData;
 }
@@ -168,27 +136,10 @@ void FileSystem::overwriteDatabase(mstring databaseData)
 		throw "Fuck this shit I'm out ";
 	}
 
-	//databaseFile.write(reinterpret_cast<mstring>(databaseData), strlen(databaseData));
 	databaseFile << databaseData;
 
 	databaseFile.close();
 }
-
-//void FileSystem::appendToDatabase(mstring data)
-//{
-//	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);
-//
-//	//Check if database file is open
-//	if (!databaseFile.is_open())
-//	{
-//		//throw some error
-//		throw "Fuck this shit I'm out ";
-//	}
-//
-//	databaseFile.write(reinterpret_cast<mstring>(data), strlen(data));
-//
-//	databaseFile.close();
-//}
 
 void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
 {
@@ -253,14 +204,10 @@ void FileSystem::registerUser(mstring username, mstring password, UserRoles role
 	//This is the delimiter between the different columns of the table
 	dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
 
-	//databaseFile.write(dataToWriteToFile, dataSize);
 	databaseFile << dataToWriteToFile;
 
 	//Close database connection
 	databaseFile.close();
-
-	//Remove unused memory
-	//delete[] dataToWriteToFile;
 }
 
 void FileSystem::deleteUser(mstring username, mstring adminMessage)
@@ -270,40 +217,14 @@ void FileSystem::deleteUser(mstring username, mstring adminMessage)
 
 void FileSystem::deleteUser(mstring username)
 {
-	//Then the admin doesn't have to write a message because the user has decided to delete their account themselves
-	//if (adminMessage == nullptr);//TODO: make admin deletion work
-
 	mstring databaseFileString = getDatabaseAsString();
 
-	//size_t usersCount = getUsersCount();
-	//size_t databaseFileSize = strlen(databaseFileString);
-
-	//Database is empty in this case, so don't do anything;
-	//if (databaseFileString.getSize() == 0)
-
-		/*char something = databaseFileString[databaseFileSize - 1];
-		char* databaseFileCopy = new char[databaseFileSize + 1];
-		strcpy(databaseFileCopy, databaseFileString);*/
-
-		//Get the start and end file pointer pos of the user which we need to delete
+	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
 	size_t userEndPos = 0;
 	mstring userString = getUserString(username, databaseFileString, userStartPos, userEndPos);
 
-	//Make the changes to the newDatabaseFileString, which we then copy into the database file
-	/*size_t newDatabaseFileSize = databaseFileSize - (userEndPos - userStartPos);
-	char* newDatabaseFile = new char[newDatabaseFileSize + 1];
-	size_t newDatabaseFileIndex = 0;
-	newDatabaseFile[newDatabaseFileSize - 1] = '\0';*/
-	/*mstring newDatabaseFile;
-
-	for (size_t i = 0; i < databaseFileString.getSize(); i++)
-	{
-		if (i < userStartPos || i > userEndPos)
-		{
-			newDatabaseFile.push_back(databaseFileString[i]);
-		}
-	}*/
+	//Make the changes to the newDatabaseFileString, which we then write to the database file
 	mstring newDatabaseFile = MStringManip::replaceFrom(databaseFileString, "", userStartPos, userEndPos);
 
 	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::trunc);
@@ -316,8 +237,6 @@ void FileSystem::deleteUser(mstring username)
 	}
 
 	//Truncate the old database and replace it with the next one
-	//databaseFile.write(reinterpret_cast<mstring>(newDatabaseFile), 1);
-	//databaseFile.write((mstring)(newDatabaseFile), strlen(newDatabaseFile));
 	databaseFile << newDatabaseFile;
 
 	//Close database connection
@@ -326,22 +245,11 @@ void FileSystem::deleteUser(mstring username)
 
 size_t FileSystem::getUsersCount(mstring databaseFile)
 {
-	/*bool deleteDatabaseFile = databaseFile == nullptr;
-	if (deleteDatabaseFile)
-	{
-		databaseFile = getDatabaseAsString();
-	}*/
 	databaseFile = getDatabaseAsString();
 
 	size_t countOfUsers = 0;
 	for (size_t i = 0; i < databaseFile.getSize(); i++)
 	{
-		/*char data[1];
-		data[0] = databaseFile[i];
-		if (*data == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
-		{
-			countOfUsers++;
-		}*/
 		if (databaseFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER) countOfUsers++;
 	}
 
@@ -358,8 +266,6 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 {
 	databaseFile = getDatabaseAsString();
 
-	//size_t countOfUsers = usersCount != 0 ? usersCount : getUsersCount(databaseFile);
-	//size_t countOfUsers = usersCount;
 	countOfUsers = getUsersCount(databaseFile);
 
 	//Return nullptr if users are 0
@@ -373,17 +279,12 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 	size_t deletedUsersCount = 0;
 
 	//Read the database data and parse it to a class
-	/*char* dataRead = new char[1000];
-	dataRead[999] = '\0';*/
 	mstring dataRead;
 	UserFields currentUserField = UserFields::Username;
-	//size_t dataReadCount = 0;
 	size_t databaseFileIndex = 0;
 
 	while (true)
 	{
-
-		//bool dataReadIsOutOfSpace = false;
 		char newSymbol = '\0';
 
 		if (databaseFileIndex >= databaseFile.getSize())
@@ -395,27 +296,21 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 			newSymbol = databaseFile[databaseFileIndex++];
 		}
 
-		//End of fail is reached, so break from loop
-		//if (newSymbol == '\0') break;
-
 		//Check if the built up buffer data should be flushed into the user
 		bool shouldFlushData = (newSymbol == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER ||
 			newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
 
-		if (!shouldFlushData) dataRead += newSymbol;//dataRead[dataReadCount++] = newSymbol;
+		if (!shouldFlushData) dataRead += newSymbol;
 
 		if (shouldFlushData)
 		{
-			//dataRead[dataReadCount] = '\0';
 			if (currentUserField == UserFields::Username)
 			{
-				//strcpy(users[currentUserIndex].username, dataRead);
 				users[currentUserIndex].setUsername(dataRead);
 				currentUserField = UserFields::Password;
 			}
 			else if (currentUserField == UserFields::Password)
 			{
-				//strcpy(users[currentUserIndex].password, dataRead);
 				users[currentUserIndex].setPassword(dataRead);
 				currentUserField = UserFields::Role;
 			}
@@ -427,9 +322,7 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 			}
 			else if (currentUserField == UserFields::Level)
 			{
-				/*dataRead[dataReadCount] = '\0';
-				users[currentUserIndex].level = (std::strtol(dataRead, nullptr, 10));*/
-				users[currentUserIndex].level = MStringManip::parseToLong(dataRead);//std::strtol(dataRead, nullptr, 10);
+				users[currentUserIndex].level = MStringManip::parseToLong(dataRead);
 				currentUserField = UserFields::Lives;
 			}
 			else if (currentUserField == UserFields::Lives)
@@ -439,21 +332,6 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 			}
 			else if (currentUserField == UserFields::LastExpression)
 			{
-				//if (strcmp(dataRead, GlobalConstants::FILESYSTEM_COLUMN_NULL) != 0)
-				//{
-				//	size_t currentExpressionLength = strlen(users[currentUserIndex].lastExpression);
-				//	for (size_t i = 0; i < dataReadCount; i++)
-				//	{
-				//		//Check if last expression hasn't run out of space
-				//		if (currentExpressionLength + i + 1 >= users[currentUserIndex].expressionCapacity)
-				//		{
-				//			users[currentUserIndex].enlargeExpressionCapacity();
-				//		}
-				//		users[currentUserIndex].lastExpression[currentExpressionLength + i] = dataRead[i];
-				//	}
-				//	//Set the end of the string properly
-				//	users[currentUserIndex].lastExpression[currentExpressionLength + dataReadCount] = '\0';
-				//}
 				users[currentUserIndex].lastExpression = dataRead;
 				currentUserField = UserFields::IncludeHighscore;
 			}
@@ -469,10 +347,6 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 			}
 
 			//Reset the dataRead
-			/*dataReadCount = 0;
-			delete[] dataRead;
-			dataRead = new char[1000];
-			dataRead[999] = '\0';*/
 			dataRead = "";
 
 			if (newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
@@ -515,7 +389,6 @@ User* FileSystem::getAllUsers(size_t& countOfUsers, bool includeDeleted)
 
 User* FileSystem::getUser(mstring username, bool includeDeleted)
 {
-	//mstring databaseFile = getDatabaseAsString();
 	size_t usersCount = 0;
 	User* allUsers = getAllUsers(usersCount);
 	User* user = nullptr;
@@ -547,7 +420,6 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 	//TODO: Rework the function???
 	size_t currentColumnCounter = 1;
 	bool currentColIsUsername = true;
-	//char* currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
 	mstring currentUsername;
 	bool foundCurrentUser = false;
 	bool hasDelimBefore = false;
@@ -565,7 +437,6 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 			currentColumnCounter++;
 			if (currentColIsUsername)
 			{
-				//currentUsername[currentUsernameIndex++] = '\0';
 				//if we found the username, then get the entry pos that is right at the start of the username
 				if (currentUsername == username)
 				{
@@ -574,9 +445,7 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 				}
 				//Reset the currentUsername
 				currentColIsUsername = false;
-				/*delete[] currentUsername;
-				currentUsername = new char[GlobalConstants::USERNAME_LENGTH_MAX];
-				currentUsernameIndex = 0;*/
+
 				currentUsername = "";
 			}
 		}
@@ -584,20 +453,11 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
 		{
 			if (!currentColIsUsername) currentColIsUsername = true;
-			//currentUsername[currentUsernameIndex++] = databaseFileCopy[i];
-			currentUsername.push_back(databaseFile[i]);
+			currentUsername += databaseFile[i];
 		}
 	}
 
 	mstring userString = MStringManip::getFrom(databaseFile, startPos, endPos);
-	/*userString[endPos - startPos + 1] = '\0';
-	for (size_t i = startPos; i < endPos - startPos + 1; i++)
-	{
-		userString[i] = databaseFile[i];
-	}*/
-
-	//Delete dynamic memory
-	//delete[] currentUsername;
 
 	return userString;
 }
