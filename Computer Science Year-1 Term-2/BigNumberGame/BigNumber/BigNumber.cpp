@@ -539,8 +539,6 @@ BigNumberDivisionResult BigNumber::divideAndReturn(const BigNumber& other) const
 	bool resultIsNegative = this->sign != other.sign;
 
 	//If the numbers are equal, then just return 1 or -1;
-
-	//TODO: other.number == this->number
 	if (this->number == other.number)
 	{
 		if (resultIsNegative)

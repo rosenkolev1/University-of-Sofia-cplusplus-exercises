@@ -32,9 +32,10 @@ private:
 	static const mstring EXCEPTION_ROLE_NOTFOUND;
 	static const mstring EXCEPTION_USERNAME_TOOLONG;
 	static const mstring EXCEPTION_PASSWORD_TOOLONG;
+	static const mstring EXCEPTION_USERNAME_TOOSHORT;
+	static const mstring EXCEPTION_PASSWORD_TOOSHORT;
 
 public:
-	//TODO: FIX ACCESS MODIFIERS FOR THESE
 	mstring username;
 	mstring password;
 	UserRoles role;

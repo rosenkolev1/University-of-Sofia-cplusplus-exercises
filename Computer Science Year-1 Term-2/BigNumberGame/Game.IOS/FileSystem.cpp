@@ -367,7 +367,6 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 		size_t notDeletedUsersIndex = 0;
 		for (size_t i = 0; i < countOfUsers; i++)
 		{
-			//TODO: FIX
 			if (users[i].isDeleted == false) notDeletedUsers[notDeletedUsersIndex++] = users[i];
 		}
 
@@ -417,7 +416,7 @@ User* FileSystem::getUser(mstring username, bool includeDeleted)
 
 mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t& startPos, size_t& endPos)
 {
-	//TODO: Rework the function???
+	//TODO: Rework the function by using splitString functions of MStringManip???
 	size_t currentColumnCounter = 1;
 	bool currentColIsUsername = true;
 	mstring currentUsername;

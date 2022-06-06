@@ -9,7 +9,6 @@ class FileSystem
 public:
 	//WRITE/UPDATE/PUT/DELETE
 	static void overwriteDatabase(mstring databaseData);
-	//static void appendToDatabase(mstring data);
 	static void registerUser(mstring username, mstring password, UserRoles role = UserRoles::Normal);
 	static void deleteUser(mstring username, mstring adminMessage);
 	static void deleteUser(mstring username);
@@ -23,7 +22,6 @@ public:
 	//Make get functions work with predicates as parameters
 	static User* getUser(mstring username, bool includeDeleted = true);
 
-	//TODO: Switch username and database file order
 	static mstring getUserString(mstring username, mstring databaseFile, size_t& startPos, size_t& endPos);
 	static mstring getUserString(mstring username, size_t& startPos, size_t& endPos);
 

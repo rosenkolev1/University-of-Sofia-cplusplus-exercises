@@ -361,6 +361,58 @@ void MStringTests::pushFrontTests()
 	std::cout << "\n\n";
 }
 
+void MStringTests::peekAndPopTests()
+{
+	std::cout << "peek and pop TESTS:\n\n";
+
+	//Test 1
+	std::cout << "Test 1\n";
+	mstring string1 = "cool!";
+	char expectedOutput1 = '!';
+	std::cout << "Testing \"" << string1 << "\".peek() --> Expected: (" << expectedOutput1 << ", TRUE) ==> ";
+	std::cout << string1.peek() << ", " << (expectedOutput1 == string1.peek() ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 2
+	std::cout << "Test 2\n";
+	mstring string2 = "";
+	std::cout << "Testing \"" << string1 << "\".peek() --> Expected: (Throw Exception) ==> ";
+	try
+	{
+		std::cout << string2.peek() << ", " << (expectedOutput1 == string2.peek() ? "TRUE" : "FALSE");
+	}
+	catch (const mstring&)
+	{
+		std::cout << "Throw Exception";
+	}
+	std::cout << "\n\n";
+
+	//Test 3
+	std::cout << "Test 3\n";
+	mstring string3 = "cool!";
+	char expectedOutput3 = '!';
+	mstring expectedNewString3 = "cool";
+	std::cout << "Testing \"" << string3 << "\".pop() --> Expected: (" << expectedOutput3 << ", TRUE, "<< expectedNewString3 << ", TRUE) ==> ";
+	std::cout << string3.pop() << ", " << (expectedOutput1 == string1.peek() ? "TRUE" : "FALSE") << ", ";
+	std::cout << string3 << ", " << (string3 == expectedNewString3 ? "TRUE" : "FALSE");
+	std::cout << "\n\n";
+
+	//Test 4
+	std::cout << "Test 4\n";
+	mstring string4 = "";
+	std::cout << "Testing \"" << string3 << "\".pop() --> Expected: (Throw Exception) ==> ";
+	try
+	{
+		std::cout << string4.pop() << ", " << (expectedOutput3 == string4.peek() ? "TRUE" : "FALSE");
+		std::cout << string4 << ", " << (string4 == expectedNewString3 ? "TRUE" : "FALSE");
+	}
+	catch(const mstring&)
+	{
+		std::cout << "Throw Exception";
+	}
+	std::cout << "\n\n";
+}
+
 void MStringTests::inputtingFromConsoleTests()
 {
 	std::cout << "READING FROM CONSOLE TESTS:\n\n";
@@ -455,11 +507,9 @@ void MStringTests::readFromFileTests()
 
 void MStringTests::runTests()
 {
-	mstring firstString = "Hey string!!!";
-
 	//IO tests for console
-	printingOutToConsoleTests();
-	inputtingFromConsoleTests();
+	//printingOutToConsoleTests();
+	//inputtingFromConsoleTests();
 	
 	////Big4 tests
 	//big4Tests();
@@ -491,9 +541,12 @@ void MStringTests::runTests()
 	//pushFront TESTS";
 	//pushFrontTests();
 
+	//peekAndPopTests TESTS
+	peekAndPopTests();
+
 	//READ FROM FILE TESTS
-	readFromFileTests();
+	//readFromFileTests();
 
 	//OUTPUT TO FILE TESTS
-	outputToFileTests();
+	//outputToFileTests();
 }

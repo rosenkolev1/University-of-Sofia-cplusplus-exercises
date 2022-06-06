@@ -23,6 +23,8 @@ public:
 
 	static void pushFrontTests();
 
+	static void peekAndPopTests();
+
 	static void printingOutToConsoleTests();
 
 	static void inputtingFromConsoleTests();

@@ -183,14 +183,6 @@ void MString::push_front(const MString& text)
 
 void MString::push_back(const MString& text)
 {
-	/*size_t oldSize = this->size;
-
-	this->setSize(this->size + text.getSize());
-
-	for (size_t i = oldSize; i < this->size + 1; i++)
-	{
-		this->data[i] = text[i - oldSize];
-	}*/
 	this->push_back(text, *this);
 }
 
@@ -207,15 +199,22 @@ void MString::removeAt(size_t index)
 
 char MString::peek() const
 {
-	return this->data[this->getSize() - 1];
+	if (this->getSize() > 0) return this->data[this->getSize() - 1];
+
+	throw mstring("Nothing left to peek because string is empty!");
 }
 
 char MString::pop()
 {
-	char symbolCopy = this->data[this->getSize() - 1];
-	this->data[this->getSize() - 1] = '\0';
-	this->setSize(this->getSize() - 1);
-	return symbolCopy;
+	if (this->getSize() > 0)
+	{
+		char symbolCopy = this->data[this->getSize() - 1];
+		this->data[this->getSize() - 1] = '\0';
+		this->setSize(this->getSize() - 1);
+		return symbolCopy;
+	}
+
+	throw mstring("Nothing left to pop because string is empty!");
 }
 
 std::ostream& operator<<(std::ostream& os, const MString& other)
