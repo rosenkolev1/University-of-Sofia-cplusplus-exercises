@@ -385,7 +385,6 @@ User* FileSystem::getAllUsers(size_t& countOfUsers, bool includeDeleted)
 	return getAllUsers(databaseFile, countOfUsers, includeDeleted);
 }
 
-
 User* FileSystem::getUser(mstring username, bool includeDeleted)
 {
 	size_t usersCount = 0;

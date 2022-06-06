@@ -59,7 +59,6 @@ public:
 	void push_front(const MString& text);
 	void push_back(const MString& text);
 	void removeAt(size_t index);
-	//TODO: TEST PEEK AND POP IN MSTRING
 	char peek() const;
 	char pop();
 
