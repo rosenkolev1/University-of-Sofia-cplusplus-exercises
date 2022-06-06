@@ -202,7 +202,20 @@ void MString::removeAt(size_t index)
 		else this->data[i] = '\0';
 	}
 
-	this->setSize(this->size-1);
+	this->setSize(this->getSize() - 1);
+}
+
+char MString::peek() const
+{
+	return this->data[this->getSize() - 1];
+}
+
+char MString::pop()
+{
+	char symbolCopy = this->data[this->getSize() - 1];
+	this->data[this->getSize() - 1] = '\0';
+	this->setSize(this->getSize() - 1);
+	return symbolCopy;
 }
 
 std::ostream& operator<<(std::ostream& os, const MString& other)

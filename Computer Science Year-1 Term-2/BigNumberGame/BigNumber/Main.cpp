@@ -22,11 +22,11 @@ int main()
     //BigNumberTests::runTests(osBigNumberTests);
 
     //BigNumberExpression tests
-    BigNumberExpressionTests::runTests(std::cout);
+    //BigNumberExpressionTests::runTests(std::cout);
     //BigNumberExpressionTests::runTests(osExpressionTests);
 
     //BigNumberEquations tests
-    BigNumberEquationTests::runTests(std::cout);
+   // BigNumberEquationTests::runTests(std::cout);
     //BigNumberEquationTests::runTests(osEquationTests);
 
     osEquationTests.close();

@@ -7,6 +7,10 @@ public:
 	//Parse an int to string
 	static mstring parseToString(int integer);
 
+	//Parse a string to long
+	//TODO: TEST PARSE TO LONG IN MSTRINGMANIP
+	static long parseToLong(mstring text);
+
 	//Split string by char delim. sizeOfArray returns the numbers of split strings. 
 	static mstring* splitString(const mstring& input, char delim, size_t& sizeOfArray);
 

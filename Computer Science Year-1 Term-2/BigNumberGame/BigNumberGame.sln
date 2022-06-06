@@ -6,17 +6,29 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.App", "Game.App\Game.App.vcxproj", "{770C1522-BD9C-4172-BCBD-68529F83BA41}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D4525C2F-E614-4066-A896-8D2F76F91057} = {D4525C2F-E614-4066-A896-8D2F76F91057}
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599} = {271D5C3D-FCBD-4A2C-950A-19FD44807599}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigNumber", "BigNumber\BigNumber.vcxproj", "{57C2ECD8-33DB-45A9-A0E6-9578331E12CC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.GlobalConstants", "Game.GlobalConstants\Game.GlobalConstants.vcxproj", "{47F8C224-8C43-4BB9-A74D-54847EFFA488}"
+	ProjectSection(ProjectDependencies) = postProject
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599} = {271D5C3D-FCBD-4A2C-950A-19FD44807599}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.UI", "Game.UI\Game.UI.vcxproj", "{95848B7E-CFEF-4721-80F7-3881D3659581}"
+	ProjectSection(ProjectDependencies) = postProject
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599} = {271D5C3D-FCBD-4A2C-950A-19FD44807599}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game.IOS", "Game.IOS\Game.IOS.vcxproj", "{D4525C2F-E614-4066-A896-8D2F76F91057}"
+	ProjectSection(ProjectDependencies) = postProject
+		{271D5C3D-FCBD-4A2C-950A-19FD44807599} = {271D5C3D-FCBD-4A2C-950A-19FD44807599}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project.StringManipulation", "Project.StringManipulation\Project.StringManipulation.vcxproj", "{271D5C3D-FCBD-4A2C-950A-19FD44807599}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +86,14 @@ Global
 		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x64.Build.0 = Release|x64
 		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x86.ActiveCfg = Release|Win32
 		{271D5C3D-FCBD-4A2C-950A-19FD44807599}.Release|x86.Build.0 = Release|Win32
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Debug|x64.ActiveCfg = Debug|x64
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Debug|x64.Build.0 = Debug|x64
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Debug|x86.ActiveCfg = Debug|Win32
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Debug|x86.Build.0 = Debug|Win32
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Release|x64.ActiveCfg = Release|x64
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Release|x64.Build.0 = Release|x64
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Release|x86.ActiveCfg = Release|Win32
+		{0D89BCFB-C4C2-4BA1-9500-D5208A05F712}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

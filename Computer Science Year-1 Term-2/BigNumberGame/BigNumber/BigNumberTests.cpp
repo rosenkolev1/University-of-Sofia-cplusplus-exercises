@@ -1,19 +1,19 @@
 #include "BigNumberTests.h"
-#include "..\Project.StringManipulation\StringManip.h"
+#include "..\Project.StringManipulation\MStringManip.h"
 
-void BigNumberTests::OperatorGreaterThanTestTemplate(const char testTitle[], const char textDescription[],
+void BigNumberTests::OperatorGreaterThanTestTemplate(mstring testTitle, mstring textDescription,
     const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os)
 {
-    if (testTitle != NULL) os << testTitle << std::endl;
+    os << testTitle << std::endl;
     os << textDescription <<
         (bigNumber1 > bigNumber2 ? "TRUE" : "FALSE") << std::endl;
     if (newLine) os << std::endl;
 }
 
-void BigNumberTests::OperatorGreaterThanOrEqualsTestTemplate(const char testTitle[], const char textDescription[],
+void BigNumberTests::OperatorGreaterThanOrEqualsTestTemplate(mstring testTitle, mstring textDescription,
     const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os)
 {
-    if (testTitle != NULL) os << testTitle << std::endl;
+    os << testTitle << std::endl;
     os << textDescription <<
         (bigNumber1 >= bigNumber2 ? "TRUE" : "FALSE") << std::endl;
     if (newLine) os << std::endl;
@@ -156,7 +156,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber1 tests: ",
         "Testing \">\" operator -> (5050 > 65000). Expected: False, because sizes are different:",
         lesserBigNumber1, biggerBigNumber1, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (65000 > 5050). Expected: True, because sizes are different:",
         biggerBigNumber1, lesserBigNumber1, true, os);
 
@@ -164,7 +164,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber2 tests: ",
         "Testing \">\" operator -> (-67890 > -6789). Expected: False, because sizes are different:",
         lesserBigNumber2, biggerBigNumber2, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (-6789 > -67890). Expected: True, because sizes are different:",
         biggerBigNumber2, lesserBigNumber2, true, os);
 
@@ -172,7 +172,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber3 tests: ",
         "Testing \">\" operator -> (-67890 > 1). Expected: False, because signs are different:",
         lesserBigNumber3, biggerBigNumber3, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (1 > -67890). Expected: True, because signs are different:",
         biggerBigNumber3, lesserBigNumber3, true, os);
 
@@ -180,7 +180,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber4 tests: ",
         "Testing \">\" operator -> (-69 > 10). Expected: False, because signs are different:",
         lesserBigNumber4, biggerBigNumber4, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (10 > -69). Expected: True, because signs are different:",
         biggerBigNumber4, lesserBigNumber4, true, os);
 
@@ -188,7 +188,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber5 tests: ",
         "Testing \">\" operator -> (1023 > 1030). Expected: False, because first number is smaller:",
         lesserBigNumber5, biggerBigNumber5, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (1030 > 1023). Expected: True, because first number is bigger:",
         biggerBigNumber5, lesserBigNumber5, true, os);
 
@@ -196,7 +196,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber6 tests: ",
         "Testing \">\" operator -> (-4010 > -4000). Expected: False, because first number is smaller:",
         lesserBigNumber6, biggerBigNumber6, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (-4000 > -4010). Expected: True, because first number is bigger:",
         biggerBigNumber6, lesserBigNumber6, true, os);
 
@@ -204,7 +204,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber7 tests: ",
         "Testing \">\" operator -> (0 > 100). Expected: False, because first number is 0 and second is positive:",
         lesserBigNumber7, biggerBigNumber7, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (100 > 0). Expected: True, because second number is 0 and first is positive:",
         biggerBigNumber7, lesserBigNumber7, true, os);
 
@@ -212,7 +212,7 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
     OperatorGreaterThanTestTemplate("BigNumber8 tests: ",
         "Testing \">\" operator -> (-100 > 0). Expected: False, because second number is 0 and first is negative:",
         lesserBigNumber8, biggerBigNumber8, false, os);
-    OperatorGreaterThanTestTemplate(NULL,
+    OperatorGreaterThanTestTemplate("",
         "REVERSE: Testing \">\" operator -> (0 > -100). Expected: True, because first number is 0 and second is negative:",
         biggerBigNumber8, lesserBigNumber8, true, os);
 
@@ -269,7 +269,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber1 tests: ",
         "Testing \">=\" operator -> (5050 >= 65000). Expected: False, because sizes are different:",
         lesserBigNumber1, biggerBigNumber1, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (65000 >= 5050). Expected: True, because sizes are different:",
         biggerBigNumber1, lesserBigNumber1, true, os);
 
@@ -277,7 +277,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber2 tests: ",
         "Testing \">=\" operator -> (-67890 >= -6789). Expected: False, because sizes are different:",
         lesserBigNumber2, biggerBigNumber2, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (-6789 >= -67890). Expected: True, because sizes are different:",
         biggerBigNumber2, lesserBigNumber2, true, os);
 
@@ -285,7 +285,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber3 tests: ",
         "Testing \">=\" operator -> (-67890 >= 1). Expected: False, because signs are different:",
         lesserBigNumber3, biggerBigNumber3, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (1 >= -67890). Expected: True, because signs are different:",
         biggerBigNumber3, lesserBigNumber3, true, os);
 
@@ -293,7 +293,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber4 tests: ",
         "Testing \">=\" operator -> (-69 >= 10). Expected: False, because signs are different:",
         lesserBigNumber4, biggerBigNumber4, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (10 >= -69). Expected: True, because signs are different:",
         biggerBigNumber4, lesserBigNumber4, true, os);
 
@@ -301,7 +301,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber5 tests: ",
         "Testing \">=\" operator -> (1023 >= 1030). Expected: False, because first number is smaller:",
         lesserBigNumber5, biggerBigNumber5, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (1030 >= 1023). Expected: True, because first number is bigger:",
         biggerBigNumber5, lesserBigNumber5, true, os);
 
@@ -309,7 +309,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber6 tests: ",
         "Testing \">=\" operator -> (-4010 >= -4000). Expected: False, because first number is smaller:",
         lesserBigNumber6, biggerBigNumber6, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (-4000 >= -4010). Expected: True, because first number is bigger:",
         biggerBigNumber6, lesserBigNumber6, true, os);
 
@@ -317,7 +317,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber7 tests: ",
         "Testing \">=\" operator -> (0 >= 100). Expected: False, because first number is 0 and second is positive:",
         lesserBigNumber7, biggerBigNumber7, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (100 >= 0). Expected: True, because second number is 0 and first is positive:",
         biggerBigNumber7, lesserBigNumber7, true, os);
 
@@ -325,7 +325,7 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
     OperatorGreaterThanOrEqualsTestTemplate("BigNumber8 tests: ",
         "Testing \">=\" operator -> (-100 >= 0). Expected: False, because second number is 0 and first is negative:",
         lesserBigNumber8, biggerBigNumber8, false, os);
-    OperatorGreaterThanOrEqualsTestTemplate(NULL,
+    OperatorGreaterThanOrEqualsTestTemplate("",
         "REVERSE: Testing \">=\" operator -> (0 >= -100). Expected: True, because first number is 0 and second is negative:",
         biggerBigNumber8, lesserBigNumber8, true, os);
 
@@ -1558,9 +1558,8 @@ void BigNumberTests::runTests(std::ostream& os)
         std::cout << "The test results are being outputted to text file with name: " << BigNumberTests::OUTPUTFILE_NAME << std::endl;
         time_t timetoday;
         time(&timetoday);
-        char* timeOfRunningTheTests = StringManip::replaceFirst(ctime(&timetoday), "\n", "");
+        mstring timeOfRunningTheTests = MStringManip::replaceFirst(ctime(&timetoday), "\n", "");
         os << "---------------------------- " << "" << timeOfRunningTheTests << " ----------------------------\n\n";
-        delete[] timeOfRunningTheTests;
     }
 
     // CONSTRUCTOR TESTS
@@ -1588,50 +1587,50 @@ void BigNumberTests::runTests(std::ostream& os)
     OperatorLessThanOrEqualsTests(os);
     
     // + Operator Tests
-    OperatorSumTests(os);
-    
-    // += Operator Tests
-    OperatorSumAndEqualsTests(os);
-    
-    // - Operator Tests
-    OperatorMinusTests(os);
-    
-    // -= Operator Tests
-    OperatorMinusAndEqualsTests(os);
-    
-    // ++ OperatorTests
-    OperatorIncrementTests(os);
-    
-    // -- OperatorTests
-    OperatorDecrementTests(os);
-    
-    // * Operator Tests 
-    OperatorMultiplyTests(os);
-    
-    // *= Operator Tests
-    OperatorMultiplyAndEqualsTests(os);
-    
-    // Operator tests
-    OperatorDivideTests(os);
-    
-    //= Operator tests
-    OperatorDivideAndEqualsTests(os);
-    
-    // % Operator tests
-    OperatorPercentTests(os);
-    
-    // %= Operator tests
-    OperatorPercentAndEqualsTests(os);
-    
-    // Test inputs from Pesho and Lubo
-    PeshoAndLuboTests(os);
-    
-    //Special Tests
-    SpecialTests(os);
-    
-    //Tests for getter of number
-    getNumberTests(os);
-    getNumberRawTests(os);
+    //OperatorSumTests(os);
+    //
+    //// += Operator Tests
+    //OperatorSumAndEqualsTests(os);
+    //
+    //// - Operator Tests
+    //OperatorMinusTests(os);
+    //
+    //// -= Operator Tests
+    //OperatorMinusAndEqualsTests(os);
+    //
+    //// ++ OperatorTests
+    //OperatorIncrementTests(os);
+    //
+    //// -- OperatorTests
+    //OperatorDecrementTests(os);
+    //
+    //// * Operator Tests 
+    //OperatorMultiplyTests(os);
+    //
+    //// *= Operator Tests
+    //OperatorMultiplyAndEqualsTests(os);
+    //
+    //// Operator tests
+    //OperatorDivideTests(os);
+    //
+    ////= Operator tests
+    //OperatorDivideAndEqualsTests(os);
+    //
+    //// % Operator tests
+    //OperatorPercentTests(os);
+    //
+    //// %= Operator tests
+    //OperatorPercentAndEqualsTests(os);
+    //
+    //// Test inputs from Pesho and Lubo
+    //PeshoAndLuboTests(os);
+    //
+    ////Special Tests
+    //SpecialTests(os);
+    //
+    ////Tests for getter of number
+    //getNumberTests(os);
+    //getNumberRawTests(os);
 
     // / and % Operator memory leak tests. PROCEED WITH CAUTION!!!
     //OperatorDivideAndPercentMemoryLeakTests();

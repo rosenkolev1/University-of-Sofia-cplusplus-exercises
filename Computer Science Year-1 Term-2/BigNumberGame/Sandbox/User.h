@@ -3,7 +3,7 @@
 
 /*
 * ~
-*	Username| Password| Role| Level| |Lives| Last Equation| includeHighscore| isDeleted| 
+*	Username| Password| Role| Level| |Lives| Last Equation| includeHighscore| isDeleted|
 * ~
 */
 
@@ -29,9 +29,9 @@ class User
 {
 private:
 
-	static const mstring EXCEPTION_ROLE_NOTFOUND;
-	static const mstring EXCEPTION_USERNAME_TOOLONG;
-	static const mstring EXCEPTION_PASSWORD_TOOLONG;
+	//const mstring EXCEPTION_ROLE_NOTFOUND = "Role not found!";
+	//const mstring EXCEPTION_USERNAME_TOOLONG = "Username is too long!";
+	//const mstring EXCEPTION_PASSWORD_TOOLONG = "Password is too long!";
 
 public:
 	//TODO: FIX ACCESS MODIFIERS FOR THESE

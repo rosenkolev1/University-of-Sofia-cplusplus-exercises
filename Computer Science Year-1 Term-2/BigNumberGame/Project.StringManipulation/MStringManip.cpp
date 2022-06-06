@@ -35,6 +35,21 @@ mstring MStringManip::parseToString(int integer)
     return parsedInt;
 }
 
+long MStringManip::parseToLong(mstring text)
+{
+    char* dataOfText = new char[text.getSize() + 1];
+    for (size_t i = 0; i < text.getSize(); i++)
+    {
+        dataOfText[i] = text[i];
+    }
+    dataOfText[text.getSize()] = '\0';
+    long number = std::strtol(dataOfText, nullptr, 10);
+
+    delete[] dataOfText;
+
+    return number;
+}
+
 mstring* MStringManip::splitString(const mstring& input, char delim, size_t& sizeOfArray)
 {
     mstring* stringResult = splitString(input, (mstring)delim, sizeOfArray);

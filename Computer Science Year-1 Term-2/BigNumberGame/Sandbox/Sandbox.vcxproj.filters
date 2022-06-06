@@ -15,34 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Project.StringManipulation.cpp">
+    <ClCompile Include="Sandbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MStringTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MStringManip.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MStringManipTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MStringTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MStringManip.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MStringManipTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

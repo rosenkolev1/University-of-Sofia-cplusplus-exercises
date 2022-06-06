@@ -2,8 +2,8 @@
 //
 
 #include <iostream>
-#include "StringManip.h"
-#include "StringManipTests.h"
+#include "MStringManip.h"
+#include "MStringManipTests.h"
 #include "MStringTests.h"
 #include "MString.h"
 #include "MStringManip.h"

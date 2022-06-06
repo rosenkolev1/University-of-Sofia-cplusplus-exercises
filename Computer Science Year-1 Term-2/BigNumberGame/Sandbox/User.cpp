@@ -4,10 +4,6 @@
 #include "..\Game.GlobalConstants\GlobalConstants.h"
 #include <iostream>
 
-const mstring User::EXCEPTION_ROLE_NOTFOUND = "Role not found!";
-const mstring User::EXCEPTION_USERNAME_TOOLONG = "Username is too long!";
-const mstring User::EXCEPTION_PASSWORD_TOOLONG = "Password is too long!";
-
 void User::setRole(mstring role)
 {
 	for (size_t i = 0; i < GlobalConstants::USER_ROLES_COUNT; i++)
