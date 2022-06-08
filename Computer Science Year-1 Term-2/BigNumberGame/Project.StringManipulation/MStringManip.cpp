@@ -35,6 +35,35 @@ mstring MStringManip::parseToString(int integer)
     return parsedInt;
 }
 
+mstring MStringManip::parseToString(size_t integer)
+{
+    if (integer == 0)
+    {
+        return mstring("0");
+    }
+
+    size_t integerCopy = integer;
+    int digitsCount = 0;
+    while (integerCopy != 0)
+    {
+        digitsCount++;
+        integerCopy /= 10;
+    }
+
+    int charsCount = digitsCount + 1;
+
+    mstring parsedInt;
+
+    for (int i = charsCount - 2; i >= 0; i--)
+    {
+        int digit = integer % 10;
+        parsedInt.push_front((char)digit + '0');
+        integer /= 10;
+    }
+
+    return parsedInt;
+}
+
 long MStringManip::parseToLong(mstring text)
 {
     char* dataOfText = new char[text.getSize() + 1];
@@ -299,11 +328,6 @@ bool MStringManip::stringContains(const mstring& text, const mstring& other)
 
     //If we get to here, then the string hasn't been found
     return false;
-}
-
-void MStringManip::deleteArrayOfStrings(mstring* text, size_t arrayCount)
-{
-    delete[] text;
 }
 
 bool MStringManip::stringStartsWith(const mstring& text, const mstring& other)

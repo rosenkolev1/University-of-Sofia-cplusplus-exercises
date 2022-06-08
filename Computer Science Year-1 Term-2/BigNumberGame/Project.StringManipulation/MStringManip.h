@@ -7,6 +7,9 @@ public:
 	//Parse an int to string
 	static mstring parseToString(int integer);
 
+	//Parse an size_t to string
+	static mstring parseToString(size_t integer);
+
 	//Parse a string to long
 	static long parseToLong(mstring text);
 
@@ -36,9 +39,6 @@ public:
 
 	//Checks if the text ends with the given string
 	static bool stringEndsWith(const mstring& text, const mstring& other);
-
-	//Deletes a dynamically allocated array of dynamically allocated strings
-	static void deleteArrayOfStrings(mstring* text, size_t arrayCount);
 
 	//Concatenates strings from a char of strings
 	static mstring concatStrings(const mstring* strings, size_t stringsCount);

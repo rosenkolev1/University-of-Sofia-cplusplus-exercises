@@ -44,8 +44,8 @@ void User::setPassword(mstring password)
 
 User::User()
 {
-	this->setUsername("");
-	this->setPassword("");
+	this->setUsername("defaultName");
+	this->setPassword("defaultPassword");
 	this->level = 0;
 	this->lastExpression = "";
 	this->role = UserRoles::Normal;

@@ -1,11 +1,16 @@
 #pragma once
 #include "..\Game.IOS\User.h"
+#include "..\Game.IOS\DeletionMessage.h"
 
 class GameController
 {
 public:
     static User* currentUser;
     static bool returnToTitleScreen;
+
+    static void adminDeleteAccountConfirmationScreenPrint(DeletionMessage deletionMessage);
+
+    static bool adminDeleteAccountConfirmation(DeletionMessage deletionMessage);
 
     static void deleteOwnAccountConfirmationScreenPrint();
 

@@ -40,7 +40,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings1, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings1, numberOfStrings);
+    delete[] strings1;
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
@@ -52,7 +52,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings2, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings2, numberOfStrings);
+    delete[] strings2;
 
     //TEST 3
     std::cout << "TEST 3" << std::endl;
@@ -64,7 +64,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings3, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings3, numberOfStrings);
+    delete[] strings3;
 
     //TEST 4
     std::cout << "TEST 4" << std::endl;
@@ -76,7 +76,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings4, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings4, numberOfStrings);
+    delete[] strings4;
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
@@ -88,7 +88,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings5, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings5, numberOfStrings);
+    delete[] strings5;
 
     //TEST 6
     std::cout << "TEST 6" << std::endl;
@@ -100,7 +100,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings6, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings6, numberOfStrings);
+    delete[] strings6;
 
     //TEST 7
     std::cout << "TEST 7" << std::endl;
@@ -112,7 +112,7 @@ void MStringManipTests::splitByCharTests()
     printOutResultStringsFromSplitStringTest(strings7, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings7, numberOfStrings);
+    delete[] strings7;
 
 }
 
@@ -132,7 +132,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings1, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings1, numberOfStrings);
+    delete[] strings1;
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
@@ -145,7 +145,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings2, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings2, numberOfStrings);
+    delete[] strings2;
 
     //TEST 3
     std::cout << "TEST 3" << std::endl;
@@ -158,7 +158,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings3, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings3, numberOfStrings);
+    delete[] strings3;
 
     //TEST 4
     std::cout << "TEST 4" << std::endl;
@@ -171,7 +171,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings4, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings4, numberOfStrings);
+    delete[] strings4;
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
@@ -184,7 +184,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings5, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings5, numberOfStrings);
+    delete[] strings5;
 
     //TEST 6
     std::cout << "TEST 6" << std::endl;
@@ -197,7 +197,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings6, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings6, numberOfStrings);
+    delete[] strings6;
 
     //TEST 7
     std::cout << "TEST 7" << std::endl;
@@ -210,7 +210,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings7, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings7, numberOfStrings);
+    delete[] strings7;
 
     //TEST 8
     std::cout << "TEST 8" << std::endl;
@@ -223,7 +223,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings8, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings8, numberOfStrings);
+    delete[] strings8;
 
     //TEST 9
     std::cout << "TEST 9" << std::endl;
@@ -236,7 +236,7 @@ void MStringManipTests::splitByStringTests()
     printOutResultStringsFromSplitStringTest(strings9, numberOfStrings);
     std::cout << std::endl;
     std::cout << std::endl;
-    MStringManip::deleteArrayOfStrings(strings9, numberOfStrings);
+    delete[] strings9;
 }
 
 void MStringManipTests::splitStringManyTests()
@@ -286,7 +286,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output1, sizeOfOutput1);
+    delete[] output1;
 
     //TEST 2
     std::cout << "TEST 2" << std::endl;
@@ -331,7 +331,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output2, sizeOfOutput2);
+    delete[] output2;
 
     //TEST 3
     std::cout << "TEST 3" << std::endl;
@@ -363,7 +363,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output3, sizeOfOutput3);
+    delete[] output3;
     delete[] delims3;
 
     //TEST 4
@@ -402,7 +402,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output4, sizeOfOutput4);
+    delete[] output4;
 
     //TEST 5
     std::cout << "TEST 5" << std::endl;
@@ -441,7 +441,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output5, sizeOfOutput5);
+    delete[] output5;
 
     //TEST 6
     std::cout << "TEST 6" << std::endl;
@@ -479,7 +479,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output6, sizeOfOutput6);
+    delete[] output6;
 
     //TEST 7
     std::cout << "TEST 7" << std::endl;
@@ -528,7 +528,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output7, sizeOfOutput7);
+    delete[] output7;
 
     //TEST 8
     std::cout << "TEST 8" << std::endl;
@@ -569,7 +569,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output8, sizeOfOutput8);
+    delete[] output8;
 
     //TEST 9
     std::cout << "TEST 9" << std::endl;
@@ -606,7 +606,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output9, sizeOfOutput9);
+    delete[] output9;
 
     //TEST 10
     std::cout << "TEST 10" << std::endl;
@@ -635,7 +635,7 @@ void MStringManipTests::splitStringManyTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output10, sizeOfOutput10);
+    delete[] output10;
 }
 
 void MStringManipTests::stringContainsTests()
@@ -1191,7 +1191,7 @@ void MStringManipTests::getUniqueTests()
     std::cout << std::endl;
 
     //Delete dynamic memory
-    MStringManip::deleteArrayOfStrings(output5, arraySizeOutput);
+    delete[] output5;
 
     //TEST 6
     std::cout << "TEST 6" << std::endl;
@@ -1221,7 +1221,7 @@ void MStringManipTests::getUniqueTests()
         std::cout << (MStringManip::arraysOfStringsAreEqual(output6, expectedOutput6, arraySizeOutput, arraySizeExpectedOutput) ? "TRUE" : "FALSE");
 
         //Delete dynamic memory
-        MStringManip::deleteArrayOfStrings(output6, arraySizeOutput);
+        delete[] output6;
     }
     catch (...)
     {

@@ -3,11 +3,86 @@
 #include "FileSystem.h"
 #include "..\Project.StringManipulation\MStringManip.h"
 
-/*
+/* USER_TABLE
 * ~
 *	Username| Password| Role| Level| |Lives| Last Equation| includeHighscore| isDeleted|
 * ~
 */
+
+/* DELETION_MESSAGE_TABLE
+* ~
+*	Id| Message| Username| 
+* ~
+*/
+
+size_t FileSystem::getCount(mstring tableFile)
+{
+	return MStringManip::countOf(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+}
+
+mstring FileSystem::getTableAsString(const char* table)
+{
+	std::ifstream tableFile(table, std::ios::binary);
+
+	//Check if database file is open
+	if (!tableFile.is_open())
+	{
+		//Database file doesn't exist, i.e. there are not registered people yet!
+		return "";
+	}
+
+	mstring tableData;
+	while (!tableFile.eof())
+	{
+		mstring newLine;
+		tableFile >> newLine;
+
+		tableData += newLine + "\n";
+	}
+
+	//Remove all \n at end of databaseData and then add just one
+	while (tableData.peek() == '\n') tableData.pop();
+
+	tableData += '\n';
+
+	tableFile.close();
+
+	return tableData;
+}
+
+void FileSystem::overwriteTable(mstring tableData, const char* table)
+{
+	std::ofstream tableFile(table, std::ios::binary | std::ios::trunc);
+
+	//Check if database file is open
+	if (!tableFile.is_open())
+	{
+		//throw some error
+		throw "Fuck this shit I'm out ";
+	}
+
+	tableFile << tableData;
+
+	tableFile.close();
+}
+
+void FileSystem::appendToTable(mstring appendData, const char* table)
+{
+	std::ofstream tableFile(table, std::ios::binary | std::ios::app);
+
+	//Check if database file is open
+	if (!tableFile.is_open())
+	{
+		//throw some error
+		throw "Fuck this shit I'm out ";
+	}
+
+	tableFile << appendData;
+
+	tableFile.close();
+}
+
+/**********************************************************************************************************************************/
 
 bool FileSystem::stringContainsForbiddenSymbols(mstring text)
 {
@@ -95,64 +170,8 @@ bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password
 	return false;
 }
 
-mstring FileSystem::getDatabaseAsString()
-{
-	std::ifstream databaseFile("Database.bin", std::ios::binary);
-
-	//Check if database file is open
-	if (!databaseFile.is_open())
-	{
-		//Database file doesn't exist, i.e. there are not registered people yet!
-		return "";
-	}
-
-	mstring databaseData;
-	while (!databaseFile.eof())
-	{
-		mstring newLine;
-		databaseFile >> newLine;
-		
-		databaseData += newLine + "\n";
-	}
-
-	//Remove all \n at end of databaseData and then add just one
-	while (databaseData.peek() == '\n') databaseData.pop();
-
-	databaseData += '\n';
-
-	databaseFile.close();
-
-	return databaseData;
-}
-
-void FileSystem::overwriteDatabase(mstring databaseData)
-{
-	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::trunc);
-
-	//Check if database file is open
-	if (!databaseFile.is_open())
-	{
-		//throw some error
-		throw "Fuck this shit I'm out ";
-	}
-
-	databaseFile << databaseData;
-
-	databaseFile.close();
-}
-
 void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
 {
-	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::app);
-
-	//Check if database file is open
-	if (!databaseFile.is_open())
-	{
-		//throw some error
-		throw "Fuck this shit I'm out ";
-	}
-
-	size_t dataSize = 0;
 	mstring dataToWriteToFile;
 
 	//Enter the username
@@ -204,69 +223,66 @@ void FileSystem::registerUser(mstring username, mstring password, UserRoles role
 	//This is the delimiter between the different columns of the table
 	dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
 
-	databaseFile << dataToWriteToFile;
-
-	//Close database connection
-	databaseFile.close();
+	overwriteTable(dataToWriteToFile, USER_TABLE);
 }
 
 void FileSystem::deleteUser(mstring username, mstring adminMessage)
 {
-	
-}
-
-void FileSystem::deleteUser(mstring username)
-{
-	mstring databaseFileString = getDatabaseAsString();
+	mstring userTableFileString = getTableAsString(USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
 	size_t userEndPos = 0;
-	mstring userString = getUserString(username, databaseFileString, userStartPos, userEndPos);
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
 
-	//Make the changes to the newDatabaseFileString, which we then write to the database file
-	mstring newDatabaseFile = MStringManip::replaceFrom(databaseFileString, "", userStartPos, userEndPos);
+	//Get the isDeleted field and change it to true;
+	//size_t countOfFields = 0;
+	//mstring* fields = MStringManip::splitString(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, countOfFields);
 
-	std::ofstream databaseFile("Database.bin", std::ios::binary | std::ios::trunc);
+	//fields[GlobalConstants::USER_ROLES_COUNT - 1] = GlobalConstants::FILESYSTEM_TRUE;
 
-	//Check if database file is open
-	if (!databaseFile.is_open())
-	{
-		//throw some error
-		throw "Fuck this shit I'm out ";
-	}
+	//mstring newUserString = MStringManip::concatStrings(fields, GlobalConstants::USER_ROLES_COUNT);
 
-	//Truncate the old database and replace it with the next one
-	databaseFile << newDatabaseFile;
+	////Dealloc dynamic memory
+	//delete[] fields;
+	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
 
-	//Close database connection
-	databaseFile.close();
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
+
+	//Now add the new deletion message to the deletion message table
+	addDeletionMessage(adminMessage, username);
 }
 
-size_t FileSystem::getUsersCount(mstring databaseFile)
+void FileSystem::deleteUser(mstring username)
 {
-	databaseFile = getDatabaseAsString();
+	mstring userTableFileString = getTableAsString(USER_TABLE);
 
-	size_t countOfUsers = 0;
-	for (size_t i = 0; i < databaseFile.getSize(); i++)
-	{
-		if (databaseFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER) countOfUsers++;
-	}
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
 
-	return countOfUsers;
+	//Make the changes to the newDatabaseFileString, which we then write to the database file
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, "", userStartPos, userEndPos);
+
+	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
 size_t FileSystem::getUsersCount()
 {
-	mstring databaseFile = getDatabaseAsString();
-	return getUsersCount(databaseFile);
+	mstring tableFile = getTableAsString(USER_TABLE);
+	return getCount(tableFile);
 }
 
-User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool includeDeleted)
+User* FileSystem::getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted)
 {
-	databaseFile = getDatabaseAsString();
-
-	countOfUsers = getUsersCount(databaseFile);
+	countOfUsers = getCount(tableFile);
 
 	//Return nullptr if users are 0
 	if (countOfUsers == 0)
@@ -281,19 +297,19 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 	//Read the database data and parse it to a class
 	mstring dataRead;
 	UserFields currentUserField = UserFields::Username;
-	size_t databaseFileIndex = 0;
+	size_t tableFileIndex = 0;
 
 	while (true)
 	{
 		char newSymbol = '\0';
 
-		if (databaseFileIndex >= databaseFile.getSize())
+		if (tableFileIndex >= tableFile.getSize())
 		{
 			break;
 		}
 		else
 		{
-			newSymbol = databaseFile[databaseFileIndex++];
+			newSymbol = tableFile[tableFileIndex++];
 		}
 
 		//Check if the built up buffer data should be flushed into the user
@@ -381,8 +397,8 @@ User* FileSystem::getAllUsers(mstring databaseFile, size_t& countOfUsers, bool i
 
 User* FileSystem::getAllUsers(size_t& countOfUsers, bool includeDeleted)
 {
-	mstring databaseFile = getDatabaseAsString();
-	return getAllUsers(databaseFile, countOfUsers, includeDeleted);
+	mstring tableFile = getTableAsString(USER_TABLE);
+	return getAllUsers(tableFile, countOfUsers, includeDeleted);
 }
 
 User* FileSystem::getUser(mstring username, bool includeDeleted)
@@ -413,7 +429,7 @@ User* FileSystem::getUser(mstring username, bool includeDeleted)
 	return nullptr;
 }
 
-mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t& startPos, size_t& endPos)
+mstring FileSystem::getUserString(mstring username, mstring tableFile, size_t& startPos, size_t& endPos)
 {
 	//TODO: Rework the function by using splitString functions of MStringManip???
 	size_t currentColumnCounter = 1;
@@ -422,15 +438,15 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 	bool foundCurrentUser = false;
 	bool hasDelimBefore = false;
 	bool hasDelimAfter = false;
-	for (size_t i = 0; i < databaseFile.getSize(); i++)
+	for (size_t i = 0; i < tableFile.getSize(); i++)
 	{
 		//We have found the index of the entry delim right after the user ends
-		if (foundCurrentUser && databaseFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		if (foundCurrentUser && tableFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
 		{
 			endPos = i;
 			break;
 		}
-		if (databaseFile[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || databaseFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		if (tableFile[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || tableFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
 		{
 			currentColumnCounter++;
 			if (currentColIsUsername)
@@ -451,18 +467,203 @@ mstring FileSystem::getUserString(mstring username, mstring databaseFile, size_t
 		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
 		{
 			if (!currentColIsUsername) currentColIsUsername = true;
-			currentUsername += databaseFile[i];
+			currentUsername += tableFile[i];
 		}
 	}
 
-	mstring userString = MStringManip::getFrom(databaseFile, startPos, endPos);
+	if (foundCurrentUser)
+	{
+		mstring userString = MStringManip::getFrom(tableFile, startPos, endPos);
 
-	return userString;
+		return userString;
+	}
+	else
+	{
+		throw "The user has not been found";
+	}
 }
 
 mstring FileSystem::getUserString(mstring username, size_t& startPos, size_t& endPos)
 {
-	mstring databaseFile = getDatabaseAsString();
-	return getUserString(username, databaseFile, startPos, endPos);
+	mstring tableFile = getTableAsString(USER_TABLE);
+	return getUserString(username, tableFile, startPos, endPos);
 }
+
+/**********************************************************************************************************************************/
+
+void FileSystem::addDeletionMessage(mstring message, mstring username)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	size_t countOfMessages = getCount(tableFile);
+
+	mstring dataToWriteToFile = createMessageString(countOfMessages + 1, message, username);
+
+	appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);
+}
+
+void FileSystem::deleteMessage(mstring username)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	size_t countOfMessages = 0;
+	
+	mstring newTableFile;
+
+	//Get all deletion messages
+	DeletionMessage* messages = getAllDeletionMessages(tableFile, countOfMessages);
+
+	bool hasRemovedMessage = false;
+
+	//Remove the message
+	for (size_t i = 0; i < countOfMessages; i++)
+	{
+		if (messages[i].username != username)
+		{
+			mstring messageString = createMessageString(messages[i].id, messages[i].message, messages[i].username);
+			newTableFile += messageString;
+		}
+		else hasRemovedMessage = true;
+	}
+
+	//Dealloc dynamic memory
+	delete[] messages;
+
+	if (!hasRemovedMessage) throw "The message was not found!";
+
+	overwriteTable(newTableFile, DELETION_MESSAGES_TABLE);
+}
+
+mstring FileSystem::createMessageString(size_t id, mstring message, mstring username)
+{
+	mstring messageString;
+	//Enter the Id
+	messageString += MStringManip::parseToString(id);
+
+	//This is the delimiter between the different columns of the table
+	messageString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the message
+	messageString += message;
+
+	//This is the delimiter between the different columns of the table
+	messageString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the username
+	messageString += username;
+
+	//This is the delimiter between the different columns of the table
+	messageString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+
+	return messageString;
+}
+
+DeletionMessage FileSystem::createDeletionMessage(mstring message, mstring username)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return DeletionMessage(getCount(tableFile) + 1, message, username);
+}
+
+DeletionMessage* FileSystem::getAllDeletionMessages(size_t& countOfMessages)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return getAllDeletionMessages(tableFile, countOfMessages);
+}
+
+DeletionMessage* FileSystem::getAllDeletionMessages(mstring tableFile, size_t& countOfMessages)
+{
+	//Get all the message strings
+	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, countOfMessages);
+	countOfMessages--;
+
+	DeletionMessage* messages = new DeletionMessage[countOfMessages];
+
+	for (size_t i = 0; i < countOfMessages; i++)
+	{
+		//Get all the fields for all the messages
+		size_t fieldsCount = 0;
+		mstring* fields = MStringManip::splitString(entries[i], GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
+		//Set the message id
+		messages[i].id = MStringManip::parseToLong(fields[0]);
+		//Set the message
+		messages[i].message = fields[1];
+		//Set the username
+		messages[i].username = fields[2];
+
+		//Dealloc dynamic memory
+		delete[] fields;
+	}
+
+	//Dealloc dynamic memory
+	delete[] entries;
+
+	return messages;
+}
+
+DeletionMessage FileSystem::getDeletionMessage(mstring username)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return getDeletionMessage(tableFile, username);
+}
+
+DeletionMessage FileSystem::getDeletionMessage(mstring tableFile, mstring username)
+{
+	size_t countOfMessages = 0;
+	DeletionMessage* messages = getAllDeletionMessages(tableFile, countOfMessages);
+	size_t indexOfMessage = 0;
+	bool foundUser = false;
+
+	for (size_t i = 0; i < countOfMessages; i++)
+	{
+		if (messages[i].username == username)
+		{
+			indexOfMessage = i;
+			foundUser = true;
+			break;
+		}
+	}
+
+	if (!foundUser) throw "User has not been found!";
+
+	DeletionMessage copyOfMessage = messages[indexOfMessage];
+	
+	//Dealloc dynamic memory
+	delete[] messages;
+
+	return copyOfMessage;
+}
+
+size_t FileSystem::getDeletionMessagesCount()
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return getCount(tableFile);
+}
+
+bool FileSystem::deletionMessageExists(mstring tableFile, mstring username)
+{
+	size_t countOfMessages = 0;
+	DeletionMessage* messages = getAllDeletionMessages(tableFile, countOfMessages);
+	bool foundUser = false;
+
+	for (size_t i = 0; i < countOfMessages; i++)
+	{
+		if (messages[i].username == username)
+		{
+			//Dealloc dynamic memory
+			delete[] messages;
+
+			return true;
+		}
+	}
+
+	//Dealloc dynamic memory
+	delete[] messages;
+
+	return false;
+}
+
+bool FileSystem::deletionMessageExists(mstring username)
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return deletionMessageExists(tableFile, username);
+}
+
 
