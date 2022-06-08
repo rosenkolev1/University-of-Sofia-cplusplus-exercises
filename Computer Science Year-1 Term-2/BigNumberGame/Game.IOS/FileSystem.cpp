@@ -50,6 +50,27 @@ mstring FileSystem::getTableAsString(const char* table)
 	return tableData;
 }
 
+void FileSystem::adminDeleteUser_Common(mstring username)
+{
+	mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+
+	//Get the isDeleted field and change it to true;
+	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
+
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
+}
+
 void FileSystem::overwriteTable(mstring tableData, const char* table)
 {
 	std::ofstream tableFile(table, std::ios::binary | std::ios::trunc);
@@ -223,40 +244,58 @@ void FileSystem::registerUser(mstring username, mstring password, UserRoles role
 	//This is the delimiter between the different columns of the table
 	dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
 
-	overwriteTable(dataToWriteToFile, USER_TABLE);
+	appendToTable(dataToWriteToFile, USER_TABLE);
 }
 
 void FileSystem::deleteUser(mstring username, mstring adminMessage)
 {
-	mstring userTableFileString = getTableAsString(USER_TABLE);
+	//mstring userTableFileString = getTableAsString(USER_TABLE);
 
-	//Get the start and end file pointer pos of the user which we need to delete
-	size_t userStartPos = 0;
-	size_t userEndPos = 0;
-	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+	////Get the start and end file pointer pos of the user which we need to delete
+	//size_t userStartPos = 0;
+	//size_t userEndPos = 0;
+	//mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
 
-	//Get the isDeleted field and change it to true;
-	//size_t countOfFields = 0;
-	//mstring* fields = MStringManip::splitString(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, countOfFields);
+	////Get the isDeleted field and change it to true;
+	//size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	//size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	//mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
 
-	//fields[GlobalConstants::USER_ROLES_COUNT - 1] = GlobalConstants::FILESYSTEM_TRUE;
+	////Get the new user table file string
+	//mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
-	//mstring newUserString = MStringManip::concatStrings(fields, GlobalConstants::USER_ROLES_COUNT);
-
-	////Dealloc dynamic memory
-	//delete[] fields;
-	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
-	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
-	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
-
-	//Get the new user table file string
-	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
-
-	//Replace the new user string in the user table
-	overwriteTable(newUserTableFileString, USER_TABLE);
+	////Replace the new user string in the user table
+	//overwriteTable(newUserTableFileString, USER_TABLE);
+	adminDeleteUser_Common(username);
 
 	//Now add the new deletion message to the deletion message table
 	addDeletionMessage(adminMessage, username);
+}
+
+void FileSystem::deleteUser(DeletionMessage deletionMessage)
+{
+	//mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	////Get the start and end file pointer pos of the user which we need to delete
+	//size_t userStartPos = 0;
+	//size_t userEndPos = 0;
+	//mstring userString = getUserString(deletionMessage.username, userTableFileString, userStartPos, userEndPos);
+
+	////Get the isDeleted field and change it to true;
+	//size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	//size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	//mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
+
+	////Get the new user table file string
+	//mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	////Replace the new user string in the user table
+	//overwriteTable(newUserTableFileString, USER_TABLE);
+
+	adminDeleteUser_Common(deletionMessage.username);
+
+	//Now add the new deletion message to the deletion message table
+	addDeletionMessage(deletionMessage);
 }
 
 void FileSystem::deleteUser(mstring username)
@@ -272,6 +311,30 @@ void FileSystem::deleteUser(mstring username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, "", userStartPos, userEndPos);
 
 	overwriteTable(newUserTableFileString, USER_TABLE);
+}
+
+void FileSystem::restoreUser(mstring username)
+{
+	mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+
+	//Get the isDeleted field and change it to false;
+	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_FALSE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
+
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
+
+	//Now remove the deletion message from the deletion message table
+	deleteMessage(username);
 }
 
 size_t FileSystem::getUsersCount()
@@ -431,7 +494,6 @@ User* FileSystem::getUser(mstring username, bool includeDeleted)
 
 mstring FileSystem::getUserString(mstring username, mstring tableFile, size_t& startPos, size_t& endPos)
 {
-	//TODO: Rework the function by using splitString functions of MStringManip???
 	size_t currentColumnCounter = 1;
 	bool currentColIsUsername = true;
 	mstring currentUsername;
@@ -493,10 +555,22 @@ mstring FileSystem::getUserString(mstring username, size_t& startPos, size_t& en
 
 void FileSystem::addDeletionMessage(mstring message, mstring username)
 {
-	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
-	size_t countOfMessages = getCount(tableFile);
+	/*mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 
-	mstring dataToWriteToFile = createMessageString(countOfMessages + 1, message, username);
+	size_t highestId = getHighestId(tableFile);
+
+	mstring dataToWriteToFile = createMessageString(highestId + 1, message, username);
+
+	appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);*/
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	size_t highestId = getHighestId(tableFile);
+
+	addDeletionMessage(DeletionMessage(highestId + 1, message, username));
+}
+
+void FileSystem::addDeletionMessage(DeletionMessage message)
+{
+	mstring dataToWriteToFile = createMessageString(message.id, message.message, message.username);
 
 	appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);
 }
@@ -558,8 +632,8 @@ mstring FileSystem::createMessageString(size_t id, mstring message, mstring user
 
 DeletionMessage FileSystem::createDeletionMessage(mstring message, mstring username)
 {
-	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
-	return DeletionMessage(getCount(tableFile) + 1, message, username);
+	size_t highestId = getHighestId();
+	return DeletionMessage(highestId + 1, message, username);
 }
 
 DeletionMessage* FileSystem::getAllDeletionMessages(size_t& countOfMessages)
@@ -635,6 +709,28 @@ size_t FileSystem::getDeletionMessagesCount()
 {
 	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 	return getCount(tableFile);
+}
+
+size_t FileSystem::getHighestId()
+{
+	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
+	return getHighestId(tableFile);
+}
+
+size_t FileSystem::getHighestId(mstring tableFile)
+{
+	size_t entriesCount = 0;
+	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, entriesCount);
+	entriesCount--;
+
+	//Get the id from the last entry
+	size_t firstColumnDelimIndex = MStringManip::findIndex(entries[entriesCount - 1], GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	size_t highestId = MStringManip::parseToLong(MStringManip::getFrom(entries[entriesCount - 1], 0, firstColumnDelimIndex - 1));
+
+	//Dealloc dynamic memory
+	delete[] entries;
+
+	return highestId;
 }
 
 bool FileSystem::deletionMessageExists(mstring tableFile, mstring username)

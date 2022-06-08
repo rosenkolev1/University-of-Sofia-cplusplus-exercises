@@ -11,6 +11,58 @@
 User* GameController::currentUser = nullptr;
 bool GameController::returnToTitleScreen = false;
 
+void GameController::adminRecoverAccountConfirmationScreenPrint(DeletionMessage deletionMessage)
+{
+    mstring textArray[5];
+    size_t textArrayIndex = 0;
+
+    //Add the text
+    textArray[textArrayIndex++] = MStringManip::replaceFirst(GlobalConstants::ADMIN_RECOVER_CONFIRMATION,
+        GlobalConstants::USERNAME_PLACEHOLDER, deletionMessage.username);
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_RECOVER_BANREASON;
+    textArray[textArrayIndex++] = deletionMessage.message + "\n";
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_RECOVER_CONFIRMATION_NO;
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_RECOVER_CONFIRMATION_YES;
+
+    //Screen Print
+    GameUI::printScreenWithText(textArray, 5, GlobalConstants::RECOVER_CONFIRM_TITLE);
+}
+
+bool GameController::adminRecoverAccountConfirmation(DeletionMessage deletionMessage)
+{
+    adminRecoverAccountConfirmationScreenPrint(deletionMessage);
+
+    while (true)
+    {
+        mstring selection;
+        std::cin >> selection;
+
+        if (selection == GlobalConstants::COMMAND_RETURN)
+        {
+            //Return to last screen
+            return true;
+        }
+        else if (selection == GlobalConstants::COMMAND_ACCOUNT_RECOVER_CONFIRM)
+        {       
+            //Delete the old deletion message and unban the user
+            FileSystem::restoreUser(deletionMessage.username);    
+
+            //Send the admin a message to inform them of the account deletion
+            GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_RECOVER_SUCCESS,
+                GlobalConstants::USERNAME_PLACEHOLDER, deletionMessage.username));
+
+            //Return to title screen
+            return true;
+        }
+        //If the command is invalid while a game hasnt already been started
+        else
+        {
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+    }
+}
+
 void GameController::adminDeleteAccountConfirmationScreenPrint(DeletionMessage deletionMessage)
 {
     mstring textArray[3];
@@ -43,7 +95,7 @@ bool GameController::adminDeleteAccountConfirmation(DeletionMessage deletionMess
         else if (selection == GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM)
         {
             //Delete the user's account
-            FileSystem::deleteUser(deletionMessage.username, deletionMessage.message);
+            FileSystem::deleteUser(deletionMessage);
 
             //Send the admin a message to inform them of the account deletion
             GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_DELETEACCOUNT_SUCCESS,
@@ -243,7 +295,7 @@ bool GameController::mainMenuLogged()
                 continue;
             }
 
-            //Get the username and password
+            //Get the username and message
             mstring message = splitSelection[1];
             mstring username = splitSelection[2];
 
@@ -256,6 +308,14 @@ bool GameController::mainMenuLogged()
             if (targetUser == nullptr)
             {
                 GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Check if the account is an admin account
+            if (targetUser->role == UserRoles::Admin)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::ADMIN_DELETEACCOUNT_DELETEADMIN_NOTALLOWED);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -277,7 +337,45 @@ bool GameController::mainMenuLogged()
         //Recover user
         else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_RECOVER))
         {
-            std::cout << "recover somebody's account";
+            size_t partsCount = 0;
+            mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
+
+            //Check if the command is with valid syntax
+            if (partsCount != 2)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Get the username
+            mstring username = splitSelection[1];
+
+            //Dealloc dynamic memory
+            delete[] splitSelection;
+
+            User* targetUser = FileSystem::getUser(username);
+
+            //Check if a user with this username exists at all, even amongst the banned accounts
+            if (targetUser == nullptr)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Check if the account is not banned
+            if (!targetUser->isDeleted)
+            {
+                GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_RECOVER_NOTBANNED,
+                    GlobalConstants::USERNAME_PLACEHOLDER, targetUser->username));
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Get the deletion message for the user
+            DeletionMessage deletionMessage = FileSystem::getDeletionMessage(username);
+
+            returnToScreen = adminRecoverAccountConfirmation(deletionMessage);
         }
         //Add powerup to admin
         else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_ADD))
@@ -369,7 +467,6 @@ bool GameController::loginUser()
 
             currentUser = FileSystem::getUser(username);
 
-            //TODO: If this user is deleted, then print a message to them from the second table of the database
             if (currentUser->isDeleted)
             {
                 //Get message from deletionMessages table

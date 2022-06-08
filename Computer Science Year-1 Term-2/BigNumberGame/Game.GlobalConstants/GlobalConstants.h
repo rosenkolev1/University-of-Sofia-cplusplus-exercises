@@ -46,11 +46,20 @@ public:
 	static const mstring ADMIN_DELETEACCOUNT_CONFIRMATION_NO;
 	static const mstring ADMIN_DELETEACCOUNT_SUCCESS;
 	static const mstring ADMIN_DELETEACCOUNT_ALREADY_DELETED;
-
+	static const mstring ADMIN_DELETEACCOUNT_DELETEADMIN_NOTALLOWED;
 
 	static const mstring ADMIN_EXCLUDEFROMLEADERBOARD;
 	static const mstring ADMIN_ADDHELPER;
+
+
 	static const mstring ADMIN_RECOVER;
+	static const mstring ADMIN_RECOVER_CONFIRMATION;
+	static const mstring ADMIN_RECOVER_CONFIRMATION_YES;
+	static const mstring ADMIN_RECOVER_CONFIRMATION_NO;
+	static const mstring ADMIN_RECOVER_SUCCESS;
+	static const mstring ADMIN_RECOVER_NOTBANNED;
+	static const mstring ADMIN_RECOVER_BANREASON;
+
 	static const mstring ADMIN_LOGGEDASADMIN_TEXT;
 	//----------------
 	static const mstring PLAYING_RETURN_TEXT;
@@ -61,6 +70,7 @@ public:
 	static const mstring LOGIN_TITLE;
 	static const mstring MAINMENU_TITLE;
 	static const mstring DELETE_CONFIRM_TITLE;
+	static const mstring RECOVER_CONFIRM_TITLE;
 
 
 	//---USER INFO CONSTANTS
@@ -79,19 +89,27 @@ public:
 	static const mstring COMMAND_MAINMENU_START;
 	static const mstring COMMAND_MAINMENU_END;
 	static const mstring COMMAND_RETURN;
+
 	static const mstring COMMAND_LOGIN_START;
 	static const mstring COMMAND_REGISTER_START;
 	static const char COMMAND_DELIM;
+
 	static const mstring COMMAND_GAME_START;
 	static const mstring COMMAND_GAME_CONTINUE;
 	static const mstring COMMAND_GAME_RESTART;
+
 	static const mstring COMMAND_ACCOUNT_DELETE;
 	static const mstring COMMAND_ACCOUNT_DELETE_CONFIRM;
+
+	static const mstring COMMAND_ACCOUNT_RECOVER_CONFIRM;
+	static const mstring COMMAND_ADMIN_RECOVER;
+
 	static const mstring COMMAND_ADMIN_GETINFO;
 	static const mstring COMMAND_ADMIN_DELETE;
 	static const mstring COMMAND_ADMIN_ADD;
 	static const mstring COMMAND_ADMIN_EXCLUDE;
-	static const mstring COMMAND_ADMIN_RECOVER;
+
+
 
 	//---FILE SYSTEM CONSTANTS
 	static const char FILESYSTEM_ENTRY_DELIMITER;

@@ -8,6 +8,10 @@ public:
     static User* currentUser;
     static bool returnToTitleScreen;
 
+    static void adminRecoverAccountConfirmationScreenPrint(DeletionMessage deletionMessage);
+
+    static bool adminRecoverAccountConfirmation(DeletionMessage deletionMessage);
+
     static void adminDeleteAccountConfirmationScreenPrint(DeletionMessage deletionMessage);
 
     static bool adminDeleteAccountConfirmation(DeletionMessage deletionMessage);

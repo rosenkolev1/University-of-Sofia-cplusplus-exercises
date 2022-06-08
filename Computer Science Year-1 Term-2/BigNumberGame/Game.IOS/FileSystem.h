@@ -8,6 +8,8 @@
 class FileSystem
 {
 	//TODO: Replace constexpr const char* with mstring and have it work by casting mstring to const char* or by making a function for getting the const char* data from mstring
+private:
+	static void adminDeleteUser_Common(mstring username);
 
 public:
 
@@ -27,8 +29,12 @@ public:
 	static void registerUser(mstring username, mstring password, UserRoles role = UserRoles::Normal);
 	//Admin has deleted the user's account
 	static void deleteUser(mstring username, mstring adminMessage);
+	static void deleteUser(DeletionMessage deletionMessage);
 	//User has deleted their own account
 	static void deleteUser(mstring username);
+
+	//Admin restores the user's profile
+	static void restoreUser(mstring username);
 
 	//READ
 	static User* getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted = true);
@@ -55,6 +61,7 @@ public:
 	//Admin deletion messages shit
 	//WRITE/UPDATE/PUT/DELETE
 	static void addDeletionMessage(mstring message, mstring username);
+	static void addDeletionMessage(DeletionMessage message);
 	static void deleteMessage(mstring username);
 
 	//READ
@@ -65,6 +72,9 @@ public:
 
 	static size_t getDeletionMessagesCount();
 
+	static size_t getHighestId();
+	static size_t getHighestId(mstring tableFile);
+
 	//Checks for validity
 	static bool deletionMessageExists(mstring username);
 	static bool deletionMessageExists(mstring tableFile, mstring username);
@@ -73,5 +83,4 @@ public:
 	static mstring createMessageString(size_t id, mstring message, mstring username);
 	static DeletionMessage createDeletionMessage(mstring message, mstring username);
 
-	//TODO: Remove the function which read the tableFile on their own. Instead, get the tableFile string first and then pass it to all other functions
 };
