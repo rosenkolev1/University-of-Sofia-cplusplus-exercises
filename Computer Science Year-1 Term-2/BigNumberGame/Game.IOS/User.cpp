@@ -53,3 +53,15 @@ User::User()
 	this->isDeleted = false;
 	this->lives = 3;
 }
+
+User::User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted)
+{
+	this->setUsername(username);
+	this->setPassword(password);
+	this->role = role;
+	this->level = level;
+	this->lives = lives;
+	this->lastExpression = lastExpression;
+	this->includeHighscore = includeHighscore;
+	this->isDeleted = isDeleted;
+}

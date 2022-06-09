@@ -8,8 +8,112 @@
 #include "..\Project.StringManipulation\MStringManip.h"
 #include "..\Game.IOS\Seeder.h"
 
+//TODO: Change all the params of the functions to & so no needless copying is being made
+
 User* GameController::currentUser = nullptr;
 bool GameController::returnToTitleScreen = false;
+
+void GameController::adminIncludeAccountConfirmationScreenPrint(mstring username)
+{
+    mstring textArray[3];
+    size_t textArrayIndex = 0;
+
+    //Add the text
+    textArray[textArrayIndex++] = MStringManip::replaceFirst(GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_CONFIRMATION,
+        GlobalConstants::USERNAME_PLACEHOLDER, username);
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_CONFIRMATION_NO;
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_CONFIRMATION_YES;
+
+    //Screen Print
+    GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::INCLUDEINLEADERBOARD_CONFIRM_TITLE);
+}
+
+bool GameController::adminIncludeAccountConfirmation(mstring username)
+{
+    adminIncludeAccountConfirmationScreenPrint(username);
+
+    while (true)
+    {
+        mstring selection;
+        std::cin >> selection;
+
+        if (selection == GlobalConstants::COMMAND_RETURN)
+        {
+            //Return to last screen
+            return true;
+        }
+        //Include the user in the leaderboards
+        else if (selection == GlobalConstants::COMMAND_ADMIN_INCLUDE_CONFIRM)
+        {
+            //Include the user in the leaderboards
+            FileSystem::includeUser(username);
+
+            //Send the admin a message to inform them of the account deletion
+            GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_SUCCESS,
+                GlobalConstants::USERNAME_PLACEHOLDER, username));
+
+            //Return to title screen
+            return true;
+        }
+        //If the command is invalid while a game hasnt already been started
+        else
+        {
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+    }
+}
+
+void GameController::adminExcludeAccountConfirmationScreenPrint(mstring username)
+{
+    mstring textArray[3];
+    size_t textArrayIndex = 0;
+
+    //Add the text
+    textArray[textArrayIndex++] = MStringManip::replaceFirst(GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_CONFIRMATION,
+        GlobalConstants::USERNAME_PLACEHOLDER, username);
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_CONFIRMATION_NO;
+    textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_CONFIRMATION_YES;
+
+    //Screen Print
+    GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE);
+}
+
+bool GameController::adminExcludeAccountConfirmation(mstring username)
+{
+    adminExcludeAccountConfirmationScreenPrint(username);
+
+    while (true)
+    {
+        mstring selection;
+        std::cin >> selection;
+
+        if (selection == GlobalConstants::COMMAND_RETURN)
+        {
+            //Return to last screen
+            return true;
+        }
+        //Exclude the user from the leaderboards
+        else if (selection == GlobalConstants::COMMAND_ADMIN_EXCLUDE_CONFIRM)
+        {
+            //Exclude the user from the leaderboards
+            FileSystem::excludeUser(username);
+
+            //Send the admin a message to inform them of the account deletion
+            GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_SUCCESS,
+                GlobalConstants::USERNAME_PLACEHOLDER, username));
+
+            //Return to title screen
+            return true;
+        }
+        //If the command is invalid while a game hasnt already been started
+        else
+        {
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+    }
+}
 
 void GameController::adminRecoverAccountConfirmationScreenPrint(DeletionMessage deletionMessage)
 {
@@ -172,7 +276,7 @@ void GameController::mainMenuLoggedScreenPrint()
 
     bool isAdmin = currentUser->role == UserRoles::Admin;
     //Change the textArraySize and textArray based on the user being or not being an admin
-    if (isAdmin) textArraySize += 5;
+    if (isAdmin) textArraySize += 6;
 
     mstring* textArray = new mstring [textArraySize];
 
@@ -212,6 +316,7 @@ void GameController::mainMenuLoggedScreenPrint()
     {
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_INCLUDEINLEADERBOARD;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_DELETEACCOUNT;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_RECOVER;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_ADDHELPER;
@@ -244,6 +349,11 @@ bool GameController::mainMenuLogged()
 
         bool returnToScreen = false;
         bool continueGame = currentUser->level > 1;
+
+        size_t partsCount = 0;
+        mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
+        mstring command = splitSelection[0];
+
         if (selection == GlobalConstants::COMMAND_RETURN)
         {
             //Return to last screen
@@ -273,21 +383,99 @@ bool GameController::mainMenuLogged()
             std::cout << "do something";
         }
         //Get info about a user
-        else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_GETINFO))
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_GETINFO)
         {
             std::cout << "get info about somebody";
         }
         //Exclude user from leaderboard
-        else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_EXCLUDE))
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_EXCLUDE)
         {
-            std::cout << "exclude somebody from leaderboards";
+            //Check if the command is with valid syntax
+            if (partsCount != 2)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            mstring username = splitSelection[1];
+
+            //Dealloc dynamic memory
+            delete[] splitSelection;
+
+            User* targetUser = FileSystem::getUser(username);
+
+            //Check if a user with this username exists
+            if (targetUser == nullptr)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Check if the user is not included currently
+            if (!targetUser->includeHighscore)
+            {
+                GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_ALREADYEXCLUDED,
+                    GlobalConstants::USERNAME_PLACEHOLDER, username));
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Dealloc dynamic memory
+            delete targetUser;
+
+            returnToScreen = adminExcludeAccountConfirmation(username);
+        }
+        //Include user from leaderboard
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_INCLUDE)
+        {
+            //Check if the command is with valid syntax
+            if (partsCount != 2)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            mstring username = splitSelection[1];
+
+            //Dealloc dynamic memory
+            delete[] splitSelection;
+
+            User* targetUser = FileSystem::getUser(username);
+
+            //Check if a user with this username exists
+            if (targetUser == nullptr)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Check if the user is included currently
+            if (targetUser->includeHighscore)
+            {
+                GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_ALREADYINCLUDED,
+                    GlobalConstants::USERNAME_PLACEHOLDER, username));
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Check if the user is an admin
+            if (targetUser->role == UserRoles::Admin)
+            {
+                GameUI::printLineNoBorders(GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_INCLUDEADMIN_NOTALLOWED);
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
+
+            //Dealloc dynamic memory
+            delete targetUser;
+
+            returnToScreen = adminIncludeAccountConfirmation(username);
         }
         //Delete user
-        else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_DELETE))
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_DELETE)
         {
-            size_t partsCount = 0;
-            mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
-
             //Check if the command is with valid syntax
             if (partsCount != 3)
             {
@@ -329,17 +517,17 @@ bool GameController::mainMenuLogged()
                 continue;
             }
 
+            //Dealloc dynamic memory
+            delete targetUser;
+
             //Create the new deletion message
             DeletionMessage deletionMessage = FileSystem::createDeletionMessage(message, username);
 
             returnToScreen = adminDeleteAccountConfirmation(deletionMessage);
         }
         //Recover user
-        else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_RECOVER))
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_RECOVER)
         {
-            size_t partsCount = 0;
-            mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
-
             //Check if the command is with valid syntax
             if (partsCount != 2)
             {
@@ -372,13 +560,16 @@ bool GameController::mainMenuLogged()
                 continue;
             }
 
+            //Dealloc dynamic memory
+            delete targetUser;
+
             //Get the deletion message for the user
             DeletionMessage deletionMessage = FileSystem::getDeletionMessage(username);
 
             returnToScreen = adminRecoverAccountConfirmation(deletionMessage);
         }
         //Add powerup to admin
-        else if (isAdmin && MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_ADMIN_ADD))
+        else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_ADD)
         {
             std::cout << "add a helper";
         }

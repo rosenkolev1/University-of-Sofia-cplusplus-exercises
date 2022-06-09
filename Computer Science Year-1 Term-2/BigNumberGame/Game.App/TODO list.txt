@@ -1,4 +1,5 @@
---Make the getinfo command for admin work
 --Make the exclude command for admin work
+--Make the include command for admin work
+--Make the getinfo command for admin work
 --Make the add command for admin work (requires making another database table and a whole lot of refactoring work)
 --Make the actual game part itself as well (requires everything above)

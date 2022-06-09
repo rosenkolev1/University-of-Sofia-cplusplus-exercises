@@ -24,8 +24,8 @@ void Seeder::seedUsers(bool overwrite)
 	size_t usersCount = 8;
 	mstring users[] =
 	{
-		"Admin1^Admin1^Admin^0^3^COL_NULL^TRUE^FALSE\n",
-		"Admin2^Admin2^Admin^6^2^COL_NULL^TRUE^FALSE\n",
+		"Admin1^Admin1^Admin^0^3^COL_NULL^FALSE^FALSE\n",
+		"Admin2^Admin2^Admin^6^2^COL_NULL^FALSE^FALSE\n",
 		"roskata123^pederas^Normal^100^2^COL_NULL^TRUE^FALSE\n",
 		"Roskata123^Pederas^Normal^2^1^COL_NULL^TRUE^FALSE\n",
 		"Roskata12^pederasNov^Normal^0^3^COL_NULL^TRUE^FALSE\n",

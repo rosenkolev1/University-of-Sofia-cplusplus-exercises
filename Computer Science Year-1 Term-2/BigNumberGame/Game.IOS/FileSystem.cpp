@@ -60,9 +60,9 @@ void FileSystem::adminDeleteUser_Common(mstring username)
 	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
 
 	//Get the isDeleted field and change it to true;
-	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
-	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
-	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
+	User targetUser = createUserFromString(userString);
+	targetUser.isDeleted = true;
+	mstring newUserString = createUserString(targetUser);
 
 	//Get the new user table file string
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
@@ -193,79 +193,62 @@ bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password
 
 void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
 {
-	mstring dataToWriteToFile;
+	mstring dataToWriteToFile = createUserString(username, password, role, 0, 3, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
 
-	//Enter the username
-	dataToWriteToFile += username;
+	////Enter the username
+	//dataToWriteToFile += username;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the password
-	dataToWriteToFile += password;
+	////Enter the password
+	//dataToWriteToFile += password;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	mstring roleString = GlobalConstants::USER_ROLES[(int)role];
-	//Enter the role of the user, which is normal by default
-	dataToWriteToFile += roleString;
+	//mstring roleString = GlobalConstants::USER_ROLES[(int)role];
+	////Enter the role of the user, which is normal by default
+	//dataToWriteToFile += roleString;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the current level of the user, which is 0 since this user is new
-	dataToWriteToFile += '0';
+	////Enter the current level of the user, which is 0 since this user is new
+	//dataToWriteToFile += '0';
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the current lives of the user, which is 3 since this user is new
-	dataToWriteToFile += '3';
+	////Enter the current lives of the user, which is 3 since this user is new
+	//dataToWriteToFile += '3';
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the last equation of the user, which is NULL since this user is new
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_NULL;
+	////Enter the last equation of the user, which is NULL since this user is new
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_NULL;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the includeHighscore, which is true since this user is new
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_TRUE;
+	////Enter the includeHighscore, which is true since this user is new
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_TRUE;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	//Enter the isDeleted of the user, which is false since this user is new
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_FALSE;
+	////Enter the isDeleted of the user, which is false since this user is new
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_FALSE;
 
-	//This is the delimiter between the different columns of the table
-	dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+	////This is the delimiter between the different columns of the table
+	//dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
 
 	appendToTable(dataToWriteToFile, USER_TABLE);
 }
 
 void FileSystem::deleteUser(mstring username, mstring adminMessage)
 {
-	//mstring userTableFileString = getTableAsString(USER_TABLE);
-
-	////Get the start and end file pointer pos of the user which we need to delete
-	//size_t userStartPos = 0;
-	//size_t userEndPos = 0;
-	//mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
-
-	////Get the isDeleted field and change it to true;
-	//size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
-	//size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
-	//mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
-
-	////Get the new user table file string
-	//mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
-
-	////Replace the new user string in the user table
-	//overwriteTable(newUserTableFileString, USER_TABLE);
 	adminDeleteUser_Common(username);
 
 	//Now add the new deletion message to the deletion message table
@@ -274,24 +257,6 @@ void FileSystem::deleteUser(mstring username, mstring adminMessage)
 
 void FileSystem::deleteUser(DeletionMessage deletionMessage)
 {
-	//mstring userTableFileString = getTableAsString(USER_TABLE);
-
-	////Get the start and end file pointer pos of the user which we need to delete
-	//size_t userStartPos = 0;
-	//size_t userEndPos = 0;
-	//mstring userString = getUserString(deletionMessage.username, userTableFileString, userStartPos, userEndPos);
-
-	////Get the isDeleted field and change it to true;
-	//size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
-	//size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
-	//mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_TRUE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
-
-	////Get the new user table file string
-	//mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
-
-	////Replace the new user string in the user table
-	//overwriteTable(newUserTableFileString, USER_TABLE);
-
 	adminDeleteUser_Common(deletionMessage.username);
 
 	//Now add the new deletion message to the deletion message table
@@ -323,9 +288,9 @@ void FileSystem::restoreUser(mstring username)
 	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
 
 	//Get the isDeleted field and change it to false;
-	size_t lastColumnDelimIndex = MStringManip::findIndexLast(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
-	size_t indexOfEntryDelim = MStringManip::findIndex(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
-	mstring newUserString = MStringManip::replaceFrom(userString, GlobalConstants::FILESYSTEM_FALSE, lastColumnDelimIndex + 1, indexOfEntryDelim - 1);
+	User targetUser = createUserFromString(userString);
+	targetUser.isDeleted = false;
+	mstring newUserString = createUserString(targetUser);
 
 	//Get the new user table file string
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
@@ -335,6 +300,48 @@ void FileSystem::restoreUser(mstring username)
 
 	//Now remove the deletion message from the deletion message table
 	deleteMessage(username);
+}
+
+void FileSystem::excludeUser(mstring username)
+{
+	mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+
+	//Get the includeHighscore field and change it to false;
+	User targetUser = createUserFromString(userString);
+	targetUser.includeHighscore = false;
+	mstring newUserString = createUserString(targetUser);
+
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
+}
+
+void FileSystem::includeUser(mstring username)
+{
+	mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+
+	//Get the includeHighscore field and change it to true;
+	User targetUser = createUserFromString(userString);
+	targetUser.includeHighscore = true;
+	mstring newUserString = createUserString(targetUser);
+
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
 size_t FileSystem::getUsersCount()
@@ -549,6 +556,113 @@ mstring FileSystem::getUserString(mstring username, size_t& startPos, size_t& en
 {
 	mstring tableFile = getTableAsString(USER_TABLE);
 	return getUserString(username, tableFile, startPos, endPos);
+}
+
+mstring FileSystem::createUserString(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted)
+{
+	mstring userString;
+
+	//Enter the username
+	userString += username;
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the password
+	userString += password;
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	mstring roleString = GlobalConstants::USER_ROLES[(int)role];
+	//Enter the role of the user, which is normal by default
+	userString += roleString;
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the current level of the user
+	userString += MStringManip::parseToString(level);
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the current lives of the user
+	userString += MStringManip::parseToString(lives);
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the last equation of the user, which is NULL since this user is new
+	userString += lastExpression;
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the includeHighscore
+	userString += (includeHighscore ? GlobalConstants::FILESYSTEM_TRUE : GlobalConstants::FILESYSTEM_FALSE);
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+
+	//Enter the isDeleted of the user
+	userString += (isDeleted ? GlobalConstants::FILESYSTEM_TRUE : GlobalConstants::FILESYSTEM_FALSE);
+
+	//This is the delimiter between the different columns of the table
+	userString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+
+	return userString;
+}
+
+mstring FileSystem::createUserString(const User& user)
+{
+	return createUserString(user.username, user.password, user.role, user.level, user.lives, user.lastExpression, user.includeHighscore, user.isDeleted);
+}
+
+mstring FileSystem::createUserString(const mstring* fields, size_t fieldsCount)
+{
+	mstring userString;
+	for (int i = 0; i < fieldsCount - 1; i++)
+	{
+		userString += fields[i];
+		userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	}
+
+	userString += fields[fieldsCount - 1];
+	userString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+
+	return userString;
+}
+
+User FileSystem::createUserFromString(mstring userString)
+{
+	size_t fieldsCount = 0;
+	userString = MStringManip::replaceAll(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, "");
+
+	mstring* fields = MStringManip::splitString(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
+
+	mstring username = fields[0]; 
+	mstring password = fields[1]; 
+
+	int roleInt = -1;
+	//Get the role for the user
+	for (size_t i = 0; i < GlobalConstants::USER_ROLES_COUNT; i++)
+	{
+		if (fields[2] == GlobalConstants::USER_ROLES[i])
+		{
+			roleInt = i;
+			break;
+		}
+	}
+	UserRoles role = (UserRoles)roleInt;
+	
+	int level = MStringManip::parseToLong(fields[3]);
+	int lives = MStringManip::parseToLong(fields[4]);
+	mstring lastExpression = fields[5];
+	bool includeHighscore = (fields[6] == GlobalConstants::FILESYSTEM_TRUE ? true : false);
+	bool isDeleted = (fields[7] == GlobalConstants::FILESYSTEM_TRUE ? true : false);
+
+	return User(username, password, role, level, lives, lastExpression, includeHighscore, isDeleted);
 }
 
 /**********************************************************************************************************************************/

@@ -27,6 +27,7 @@ public:
 	//USER SHIT
 	//WRITE/UPDATE/PUT/DELETE
 	static void registerUser(mstring username, mstring password, UserRoles role = UserRoles::Normal);
+
 	//Admin has deleted the user's account
 	static void deleteUser(mstring username, mstring adminMessage);
 	static void deleteUser(DeletionMessage deletionMessage);
@@ -35,6 +36,12 @@ public:
 
 	//Admin restores the user's profile
 	static void restoreUser(mstring username);
+
+	//Exclude the user's account from the leaderboards
+	static void excludeUser(mstring username);
+
+	//Include the user's account in the leaderboards
+	static void includeUser(mstring username);
 
 	//READ
 	static User* getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted = true);
@@ -56,6 +63,12 @@ public:
 	static bool usernameIsValid(mstring username);
 	static bool passwordIsValid(mstring username);
 	static bool userRoleIsValid(mstring role);
+
+	//Miscallaneous
+	static mstring createUserString(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted);
+	static mstring createUserString(const User& user);
+	static mstring createUserString(const mstring* fields, size_t fieldsCount);
+	static User createUserFromString(mstring userString);
 
 	/**********************************************************************************************************************************/
 	//Admin deletion messages shit

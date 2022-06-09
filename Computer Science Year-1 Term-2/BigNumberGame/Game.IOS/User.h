@@ -51,5 +51,6 @@ public:
 	void setPassword(mstring password);
 
 	User();
+	User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted);
 };
 
