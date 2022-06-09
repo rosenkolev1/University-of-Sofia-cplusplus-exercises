@@ -103,6 +103,8 @@ public:
 	//Get the reverse of the source
 	static mstring getReverse(const mstring& source);
 
+	static mstring getFilled(const mstring& filling, size_t count);
+
 	//Compares 2 arrays of strings and says whether or not they are the same
 	static bool arraysOfStringsAreEqual(const mstring* stringsOne, const mstring* stringsTwo, size_t stringsOneSize, size_t stringsTwoSize);
 };

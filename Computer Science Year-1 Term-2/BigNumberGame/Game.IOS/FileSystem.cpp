@@ -120,7 +120,7 @@ bool FileSystem::stringContainsForbiddenSymbols(mstring text)
 bool FileSystem::usernameIsValid(mstring username)
 {
 	//Check if the length of the username is too large or too small
-	if (username.getSize() > GlobalConstants::USERNAME_LENGTH_MAX || username.getSize() < GlobalConstants::USERNAME_LENGTH_MIN) return false;
+	if (username.getSize() > User::USERNAME_LENGTH_MAX || username.getSize() < User::USERNAME_LENGTH_MIN) return false;
 
 	//Check if username contains forbidden symbols
 	return !stringContainsForbiddenSymbols(username);
@@ -129,7 +129,7 @@ bool FileSystem::usernameIsValid(mstring username)
 bool FileSystem::passwordIsValid(mstring password)
 {
 	//Check if the length of the username is too large or too small
-	if (password.getSize() > GlobalConstants::PASSWORD_LENGTH_MAX || password.getSize() < GlobalConstants::PASSWORD_LENGTH_MIN) return false;
+	if (password.getSize() > User::PASSWORD_LENGTH_MAX || password.getSize() < User::PASSWORD_LENGTH_MIN) return false;
 
 	//Check if username contains forbidden symbols
 	return !stringContainsForbiddenSymbols(password);
@@ -137,9 +137,9 @@ bool FileSystem::passwordIsValid(mstring password)
 
 bool FileSystem::userRoleIsValid(mstring role)
 {
-	for (size_t i = 0; i < GlobalConstants::USER_ROLES_COUNT; i++)
+	for (size_t i = 0; i < User::USER_ROLES_COUNT; i++)
 	{
-		if (role == GlobalConstants::USER_ROLES[i]) return true;
+		if (role == User::USER_ROLES[i]) return true;
 	}
 
 	return false;
@@ -194,55 +194,6 @@ bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password
 void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
 {
 	mstring dataToWriteToFile = createUserString(username, password, role, 0, 3, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
-
-	////Enter the username
-	//dataToWriteToFile += username;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the password
-	//dataToWriteToFile += password;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	//mstring roleString = GlobalConstants::USER_ROLES[(int)role];
-	////Enter the role of the user, which is normal by default
-	//dataToWriteToFile += roleString;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the current level of the user, which is 0 since this user is new
-	//dataToWriteToFile += '0';
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the current lives of the user, which is 3 since this user is new
-	//dataToWriteToFile += '3';
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the last equation of the user, which is NULL since this user is new
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_NULL;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the includeHighscore, which is true since this user is new
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_TRUE;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
-
-	////Enter the isDeleted of the user, which is false since this user is new
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_FALSE;
-
-	////This is the delimiter between the different columns of the table
-	//dataToWriteToFile += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
 
 	appendToTable(dataToWriteToFile, USER_TABLE);
 }
@@ -459,6 +410,8 @@ User* FileSystem::getAllUsers(mstring tableFile, size_t& countOfUsers, bool incl
 		//Deallocate dynamic memory
 		delete[] users;
 
+		countOfUsers -= deletedUsersCount;
+
 		return notDeletedUsers;
 	}
 
@@ -469,6 +422,40 @@ User* FileSystem::getAllUsers(size_t& countOfUsers, bool includeDeleted)
 {
 	mstring tableFile = getTableAsString(USER_TABLE);
 	return getAllUsers(tableFile, countOfUsers, includeDeleted);
+}
+
+User* FileSystem::getDeletedUsers(size_t& countOfUsers)
+{
+	User* allUsers = getAllUsers(countOfUsers);
+
+	size_t countOfDeletedUsers = 0;
+	User* notDeletedUsers = new User[countOfUsers];
+	size_t notDeletedUsersIndex = 0;
+
+	for (size_t i = 0; i < countOfUsers; i++)
+	{
+		if (allUsers[i].isDeleted == true)
+		{
+			notDeletedUsers[countOfDeletedUsers++] = allUsers[i];
+		}
+	}
+
+	//Deallocate dynamic memory
+	delete[] allUsers;
+
+	//Copy the notDeleted users in a smaller array
+	User* notDeletedUsersCopy = new User[countOfDeletedUsers];
+	for (size_t i = 0; i < countOfDeletedUsers; i++)
+	{
+		notDeletedUsersCopy[i] = notDeletedUsers[i];
+	}
+	delete[] notDeletedUsers;
+	notDeletedUsers = notDeletedUsersCopy;
+
+	//Set the true count of the users
+	countOfUsers = countOfDeletedUsers;
+
+	return notDeletedUsers;
 }
 
 User* FileSystem::getUser(mstring username, bool includeDeleted)
@@ -574,7 +561,7 @@ mstring FileSystem::createUserString(mstring username, mstring password, UserRol
 	//This is the delimiter between the different columns of the table
 	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
 
-	mstring roleString = GlobalConstants::USER_ROLES[(int)role];
+	mstring roleString = User::USER_ROLES[(int)role];
 	//Enter the role of the user, which is normal by default
 	userString += roleString;
 
@@ -646,9 +633,9 @@ User FileSystem::createUserFromString(mstring userString)
 
 	int roleInt = -1;
 	//Get the role for the user
-	for (size_t i = 0; i < GlobalConstants::USER_ROLES_COUNT; i++)
+	for (size_t i = 0; i < User::USER_ROLES_COUNT; i++)
 	{
-		if (fields[2] == GlobalConstants::USER_ROLES[i])
+		if (fields[2] == User::USER_ROLES[i])
 		{
 			roleInt = i;
 			break;

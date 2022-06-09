@@ -46,6 +46,7 @@ public:
 	//READ
 	static User* getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted = true);
 	static User* getAllUsers(size_t& countOfUsers, bool includeDeleted = true);
+	static User* getDeletedUsers(size_t& countOfUsers);
 
 	//Make get functions work with predicates as parameters
 	static User* getUser(mstring username, bool includeDeleted = true);

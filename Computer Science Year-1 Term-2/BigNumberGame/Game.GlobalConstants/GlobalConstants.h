@@ -18,6 +18,7 @@ public:
 	static const mstring COMMAND_INVALID;
 	static const mstring RETURN_TEXT;
 	static const mstring USERNAME_PLACEHOLDER;
+
 	//------LOGIN/REGISTER
 	static const mstring LOGIN_OR_REGISTER;
 	static const mstring REGISTER;
@@ -25,6 +26,7 @@ public:
 	static const mstring REGISTER_USERNAME_TAKEN;
 	static const mstring LOGIN;
 	static const mstring LOGIN_USERNAME_TAKEN;
+
 	//------LOGGED_MAINMENU
 	static const mstring MAINMENU_LOGGED_STARTGAME;
 	static const mstring MAINMENU_LOGGED_CONTINUEGAME;
@@ -37,8 +39,13 @@ public:
 	static const mstring MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS;
 	static const mstring MAINMENU_LEVEL_TEXT;
 	static const mstring MAINMENU_LIVES_TEXT;
+
 	//------ADMIN_MAINMENU
 	static const mstring ADMIN_GETINFO;
+	static const mstring ADMIN_GETINFO_ALL;
+	static const mstring ADMIN_GETINFO_DOESNOTEXIST;
+	static const mstring ADMIN_GETINFO_SINGLE_HEADER;
+	static const mstring ADMIN_GETINFO_MANY_HEADER;
 
 	static const mstring ADMIN_DELETEACCOUNT;
 	static const mstring ADMIN_DELETEACCOUNT_CONFIRMATION;
@@ -77,6 +84,7 @@ public:
 	static const mstring ADMIN_LOGGEDASADMIN_TEXT;
 	//----------------
 	static const mstring PLAYING_RETURN_TEXT;
+
 	//------SCREEN TITLES
 	static const mstring STARTSCREEN_TITLE;
 	static const mstring LOGINORREGISTER_TITLE;
@@ -88,20 +96,12 @@ public:
 	static const mstring EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE;
 	static const mstring INCLUDEINLEADERBOARD_CONFIRM_TITLE;
 
-
-	//---USER INFO CONSTANTS
-	static const int USERNAME_LENGTH_MAX;
-	static const int USERNAME_LENGTH_MIN;
-	static const int PASSWORD_LENGTH_MAX;
-	static const int PASSWORD_LENGTH_MIN;
-	static const mstring USER_ROLE_NORMAL;
-	static const mstring USER_ROLE_ADMIN;
-	static const int USER_ROLES_COUNT;
-	static const mstring USER_ROLES[];
-	static const mstring USER_BANNED;
-	static const mstring USER_DOES_NOT_EXIST;
-
 	//---COMMAND INPUT CONSTANTS
+	static const mstring COMMAND_TRUE;
+	static const mstring COMMAND_FALSE;
+	static const mstring COMMAND_TRUE_SHORT;
+	static const mstring COMMAND_FALSE_SHORT;
+
 	static const mstring COMMAND_MAINMENU_START;
 	static const mstring COMMAND_MAINMENU_END;
 	static const mstring COMMAND_RETURN;
@@ -121,6 +121,7 @@ public:
 	static const mstring COMMAND_ADMIN_RECOVER;
 
 	static const mstring COMMAND_ADMIN_GETINFO;
+	static const mstring COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY;
 	static const mstring COMMAND_ADMIN_DELETE;
 	static const mstring COMMAND_ADMIN_ADD;
 

@@ -16,6 +16,7 @@ const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAY
 const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
 const mstring GlobalConstants::RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN(r)";
 const mstring GlobalConstants::USERNAME_PLACEHOLDER = "{username}";
+
 //------LOGIN/REGISTER
 const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\nLOGIN(log)\nREGISTER(reg)";
 const mstring GlobalConstants::REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!\nWhitespaces are not allowed!\n'|' character is not allowed as part of the username or password!";
@@ -23,6 +24,7 @@ const mstring GlobalConstants::REGISTER_SUCCESS = "\nSuccessfully registered use
 const mstring GlobalConstants::REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
 const mstring GlobalConstants::LOGIN = "Enter your username and password ({username} | {password}).";
 const mstring GlobalConstants::LOGIN_USERNAME_TAKEN = "Error! This user doesn't exist! Password or username is wrong!";
+
 //------LOGGED_MAINMENU
 const mstring GlobalConstants::MAINMENU_LOGGED_STARTGAME = "\nSTART GAME(s)\n";
 const mstring GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME = "\nCONTINUE GAME(c)\n";
@@ -35,8 +37,13 @@ const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO 
 const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS = "\nACCOUNT DELETION WAS SUCCESSFUL\n";
 const mstring GlobalConstants::MAINMENU_LEVEL_TEXT = "Current Level: ";
 const mstring GlobalConstants::MAINMENU_LIVES_TEXT = "Lives: ";
+
 //------ADMIN_MAINMENU
 const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo|{username})\n";
+const mstring GlobalConstants::ADMIN_GETINFO_ALL = "\nGET INFO ABOUT ACCOUNTS(getinfo|all|(getDeleted: {f}/{FALSE}/{t}/{TRUE}/{deletedOnly}) )\n";
+const mstring GlobalConstants::ADMIN_GETINFO_DOESNOTEXIST = "{username} DOES NOT EXIST!";
+const mstring GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER = "User info:\n";
+const mstring GlobalConstants::ADMIN_GETINFO_MANY_HEADER = "Users info:\n";
 
 const mstring GlobalConstants::ADMIN_DELETEACCOUNT = "\nDELETE ACCOUNT(delete|{message}|{account name})\n";
 const mstring GlobalConstants::ADMIN_DELETEACCOUNT_CONFIRMATION = "\nWARNING: THIS ACTION WILL DELETE {username}'s ACCOUNT. PROCEED ANYWAY?\n";
@@ -85,30 +92,20 @@ const mstring GlobalConstants::RECOVER_CONFIRM_TITLE = "RECOVER ACCOUNT SCREEN";
 const mstring GlobalConstants::EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE = "EXCLUDE FROM LEADERBOARD SCREEN";
 const mstring GlobalConstants::INCLUDEINLEADERBOARD_CONFIRM_TITLE = "INCLUDE IN LEADERBOARD SCREEN";
 
-
-//---USER INFO CONSTANTS
-const int GlobalConstants::USERNAME_LENGTH_MAX = 100;
-const int GlobalConstants::USERNAME_LENGTH_MIN = 6;
-const int GlobalConstants::PASSWORD_LENGTH_MAX = 100;
-const int GlobalConstants::PASSWORD_LENGTH_MIN = 6;
-const mstring GlobalConstants::USER_ROLE_NORMAL = "Normal";
-const mstring GlobalConstants::USER_ROLE_ADMIN = "Admin";
-const int GlobalConstants::USER_ROLES_COUNT = 2;
-const mstring GlobalConstants::USER_ROLES[USER_ROLES_COUNT]
-{
-	GlobalConstants::USER_ROLE_NORMAL,
-	GlobalConstants::USER_ROLE_ADMIN
-};
-const mstring GlobalConstants::USER_BANNED = "You have been banned for an unknown reason!";
-const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
-
 //---COMMAND INPUT CONSTANTS
+const mstring GlobalConstants::COMMAND_TRUE = "true";
+const mstring GlobalConstants::COMMAND_FALSE = "false";
+const mstring GlobalConstants::COMMAND_TRUE_SHORT = "t";
+const mstring GlobalConstants::COMMAND_FALSE_SHORT = "f";
+
 const mstring GlobalConstants::COMMAND_MAINMENU_START = "start";
 const mstring GlobalConstants::COMMAND_MAINMENU_END = "end";
 const mstring GlobalConstants::COMMAND_RETURN = "r";
+
 const mstring GlobalConstants::COMMAND_LOGIN_START = "log";
 const mstring GlobalConstants::COMMAND_REGISTER_START = "reg";
 const char GlobalConstants::COMMAND_DELIM = '|';
+
 const mstring GlobalConstants::COMMAND_GAME_START = "s";
 const mstring GlobalConstants::COMMAND_GAME_CONTINUE = "c";
 const mstring GlobalConstants::COMMAND_GAME_RESTART = "restart";
@@ -119,7 +116,8 @@ const mstring GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM = "delete_account"
 const mstring GlobalConstants::COMMAND_ADMIN_RECOVER = "recover";
 const mstring GlobalConstants::COMMAND_ACCOUNT_RECOVER_CONFIRM = "recover_account";
 
-const mstring GlobalConstants::COMMAND_ADMIN_GETINFO = "getinfo ";
+const mstring GlobalConstants::COMMAND_ADMIN_GETINFO = "getinfo";
+const mstring GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY = "deletedOnly";
 const mstring GlobalConstants::COMMAND_ADMIN_DELETE = "delete";
 const mstring GlobalConstants::COMMAND_ADMIN_ADD = "add";
 

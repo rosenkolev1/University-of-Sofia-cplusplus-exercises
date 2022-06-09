@@ -719,6 +719,17 @@ mstring MStringManip::getReverse(const mstring& source)
     return mstring(reversedSource);
 }
 
+mstring MStringManip::getFilled(const mstring& filling, size_t count)
+{
+    mstring filled;
+    for (size_t i = 0; i < count; i++)
+    {
+        filled += filling;
+    }
+
+    return filled;
+}
+
 bool MStringManip::arraysOfStringsAreEqual(const mstring* stringsOne, const mstring* stringsTwo, size_t stringsOneSize, size_t stringsTwoSize)
 {
     if (stringsOneSize != stringsTwoSize) return false;

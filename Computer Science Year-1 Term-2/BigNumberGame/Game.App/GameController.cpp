@@ -276,7 +276,7 @@ void GameController::mainMenuLoggedScreenPrint()
 
     bool isAdmin = currentUser->role == UserRoles::Admin;
     //Change the textArraySize and textArray based on the user being or not being an admin
-    if (isAdmin) textArraySize += 6;
+    if (isAdmin) textArraySize += 7;
 
     mstring* textArray = new mstring [textArraySize];
 
@@ -315,6 +315,7 @@ void GameController::mainMenuLoggedScreenPrint()
     else
     {
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO;
+        textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO_ALL;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_INCLUDEINLEADERBOARD;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_DELETEACCOUNT;
@@ -385,7 +386,90 @@ bool GameController::mainMenuLogged()
         //Get info about a user
         else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_GETINFO)
         {
-            std::cout << "get info about somebody";
+            //Get info for specific user
+            if (partsCount == 2)
+            {
+                mstring username = splitSelection[1];
+
+                //Dealloc dynamic memory
+                delete[] splitSelection;
+          
+                User* targetUser = FileSystem::getUser(username);
+
+                //Check if the user exists
+                if (targetUser == nullptr)
+                {
+                    GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_GETINFO_DOESNOTEXIST,
+                        GlobalConstants::USERNAME_PLACEHOLDER, username));
+                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                    continue;
+                }
+
+                //Print the information about the user to the console
+                GameUI::printLineNoBorders(GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER);
+                GameUI::printLineNoBorders(targetUser->getInfo());
+
+                mainMenuLoggedScreenPrint();
+
+                //Dealloc dynamic memory
+                delete targetUser;
+
+                continue;
+            }
+            else if (partsCount == 3 && splitSelection[1] == "all")
+            {
+                mstring includeDeletedString = splitSelection[2];
+                bool includeDeleted = true;
+
+                //Dealloc dynamic memory
+                delete[] splitSelection;
+
+                //Check if the command is invalid
+                if (includeDeletedString != GlobalConstants::COMMAND_FALSE &&
+                    includeDeletedString != GlobalConstants::COMMAND_TRUE &&
+                    includeDeletedString != GlobalConstants::COMMAND_FALSE_SHORT &&
+                    includeDeletedString != GlobalConstants::COMMAND_TRUE_SHORT &&
+                    includeDeletedString != GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY)
+                {
+                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                    continue;
+                }
+                
+                size_t countOfUsers = 0;
+                User* allUsers = nullptr;
+
+                //Filter out the users as necessary
+                if (includeDeletedString == GlobalConstants::COMMAND_FALSE ||
+                    includeDeletedString == GlobalConstants::COMMAND_FALSE_SHORT) includeDeleted = false;
+
+                //Get only the deleted users
+                if (includeDeletedString == GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY)
+                {
+                    allUsers = FileSystem::getDeletedUsers(countOfUsers);
+                }
+                //Get all the users, except maybe the deleted ones
+                else
+                {
+                    allUsers = FileSystem::getAllUsers(countOfUsers, includeDeleted);
+                }                       
+
+                //Print the information about the user to the console
+                GameUI::printLineNoBorders(GlobalConstants::ADMIN_GETINFO_MANY_HEADER);
+                GameUI::printLineNoBorders(User::getInfoMany(allUsers, countOfUsers));
+
+                mainMenuLoggedScreenPrint();
+
+                //Dealloc dynamic memory
+                delete[] allUsers;
+
+                continue;
+            }
+            //Command is invalid
+            else
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
         }
         //Exclude user from leaderboard
         else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_EXCLUDE)
@@ -407,7 +491,7 @@ bool GameController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -446,7 +530,7 @@ bool GameController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -495,7 +579,7 @@ bool GameController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -546,7 +630,7 @@ bool GameController::mainMenuLogged()
             //Check if a user with this username exists at all, even amongst the banned accounts
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -844,8 +928,8 @@ void GameController::startUpScreenPrint()
 void GameController::startUp()
 {
     //Seed database
-    Seeder::seedDatabase(false);
-    //Seeder::seedDatabase(true);
+    //Seeder::seedDatabase(false);
+    Seeder::seedDatabase(true);
 
     //Screen print
     startUpScreenPrint();
