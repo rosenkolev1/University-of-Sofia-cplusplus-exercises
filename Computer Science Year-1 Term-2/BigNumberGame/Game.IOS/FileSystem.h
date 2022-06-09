@@ -7,6 +7,7 @@
 
 class FileSystem
 {
+	//TODO: Change all the params of the functions to & so no needless copying is being made
 	//TODO: Replace constexpr const char* with mstring and have it work by casting mstring to const char* or by making a function for getting the const char* data from mstring
 private:
 	static void adminDeleteUser_Common(mstring username);

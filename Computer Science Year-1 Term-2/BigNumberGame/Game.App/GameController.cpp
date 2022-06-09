@@ -8,12 +8,10 @@
 #include "..\Project.StringManipulation\MStringManip.h"
 #include "..\Game.IOS\Seeder.h"
 
-//TODO: Change all the params of the functions to & so no needless copying is being made
-
 User* GameController::currentUser = nullptr;
 bool GameController::returnToTitleScreen = false;
 
-void GameController::adminIncludeAccountConfirmationScreenPrint(mstring username)
+void GameController::adminIncludeAccountConfirmationScreenPrint(const mstring& username)
 {
     mstring textArray[3];
     size_t textArrayIndex = 0;
@@ -28,7 +26,7 @@ void GameController::adminIncludeAccountConfirmationScreenPrint(mstring username
     GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::INCLUDEINLEADERBOARD_CONFIRM_TITLE);
 }
 
-bool GameController::adminIncludeAccountConfirmation(mstring username)
+bool GameController::adminIncludeAccountConfirmation(const mstring& username)
 {
     adminIncludeAccountConfirmationScreenPrint(username);
 
@@ -64,7 +62,7 @@ bool GameController::adminIncludeAccountConfirmation(mstring username)
     }
 }
 
-void GameController::adminExcludeAccountConfirmationScreenPrint(mstring username)
+void GameController::adminExcludeAccountConfirmationScreenPrint(const mstring& username)
 {
     mstring textArray[3];
     size_t textArrayIndex = 0;
@@ -79,7 +77,7 @@ void GameController::adminExcludeAccountConfirmationScreenPrint(mstring username
     GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE);
 }
 
-bool GameController::adminExcludeAccountConfirmation(mstring username)
+bool GameController::adminExcludeAccountConfirmation(const mstring& username)
 {
     adminExcludeAccountConfirmationScreenPrint(username);
 
@@ -115,7 +113,7 @@ bool GameController::adminExcludeAccountConfirmation(mstring username)
     }
 }
 
-void GameController::adminRecoverAccountConfirmationScreenPrint(DeletionMessage deletionMessage)
+void GameController::adminRecoverAccountConfirmationScreenPrint(const DeletionMessage& deletionMessage)
 {
     mstring textArray[5];
     size_t textArrayIndex = 0;
@@ -132,7 +130,7 @@ void GameController::adminRecoverAccountConfirmationScreenPrint(DeletionMessage 
     GameUI::printScreenWithText(textArray, 5, GlobalConstants::RECOVER_CONFIRM_TITLE);
 }
 
-bool GameController::adminRecoverAccountConfirmation(DeletionMessage deletionMessage)
+bool GameController::adminRecoverAccountConfirmation(const DeletionMessage& deletionMessage)
 {
     adminRecoverAccountConfirmationScreenPrint(deletionMessage);
 
@@ -167,7 +165,7 @@ bool GameController::adminRecoverAccountConfirmation(DeletionMessage deletionMes
     }
 }
 
-void GameController::adminDeleteAccountConfirmationScreenPrint(DeletionMessage deletionMessage)
+void GameController::adminDeleteAccountConfirmationScreenPrint(const DeletionMessage& deletionMessage)
 {
     mstring textArray[3];
     size_t textArrayIndex = 0;
@@ -182,7 +180,7 @@ void GameController::adminDeleteAccountConfirmationScreenPrint(DeletionMessage d
     GameUI::printScreenWithText(textArray, 3, GlobalConstants::DELETE_CONFIRM_TITLE);
 }
 
-bool GameController::adminDeleteAccountConfirmation(DeletionMessage deletionMessage)
+bool GameController::adminDeleteAccountConfirmation(const DeletionMessage& deletionMessage)
 {
     adminDeleteAccountConfirmationScreenPrint(deletionMessage);
 

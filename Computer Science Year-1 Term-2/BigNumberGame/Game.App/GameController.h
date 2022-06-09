@@ -8,21 +8,21 @@ public:
     static User* currentUser;
     static bool returnToTitleScreen;
 
-    static void adminIncludeAccountConfirmationScreenPrint(mstring username);
+    static void adminIncludeAccountConfirmationScreenPrint(const mstring& username);
 
-    static bool adminIncludeAccountConfirmation(mstring username);
+    static bool adminIncludeAccountConfirmation(const mstring& username);
 
-    static void adminExcludeAccountConfirmationScreenPrint(mstring username);
+    static void adminExcludeAccountConfirmationScreenPrint(const mstring& username);
 
-    static bool adminExcludeAccountConfirmation(mstring username);
+    static bool adminExcludeAccountConfirmation(const mstring& username);
 
-    static void adminRecoverAccountConfirmationScreenPrint(DeletionMessage deletionMessage);
+    static void adminRecoverAccountConfirmationScreenPrint(const DeletionMessage& deletionMessage);
 
-    static bool adminRecoverAccountConfirmation(DeletionMessage deletionMessage);
+    static bool adminRecoverAccountConfirmation(const DeletionMessage& deletionMessage);
 
-    static void adminDeleteAccountConfirmationScreenPrint(DeletionMessage deletionMessage);
+    static void adminDeleteAccountConfirmationScreenPrint(const DeletionMessage& deletionMessage);
 
-    static bool adminDeleteAccountConfirmation(DeletionMessage deletionMessage);
+    static bool adminDeleteAccountConfirmation(const DeletionMessage& deletionMessage);
 
     static void deleteOwnAccountConfirmationScreenPrint();
 
