@@ -15,7 +15,7 @@ const mstring GlobalConstants::RETURN_TEXT = "\n\nRETURN TO PREVIOUS SCREEN(r)";
 const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
 
 const mstring GlobalConstants::BUTTON_LEADERBOARD = "\nLEADERBOARD(lb)\n\n";
-const mstring GlobalConstants::BUTTON_LEADERBOARD_ADMIN = "\nLEADERBOARD(lb{|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly}))\n";
+const mstring GlobalConstants::BUTTON_LEADERBOARD_ADMIN = "\nLEADERBOARD({lb/lb|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly})|(getExcluded: {exc}/{inc}) )\n";
 const mstring GlobalConstants::LEADERBOARD_TEXT = "\nLEADERBOARD:\n";
 const mstring GlobalConstants::LEADERBOARD_USER_TEXT = ". {username} --> {highscore}";
 const int GlobalConstants::LEADERBOARD_COLS_COUNT = 3;
@@ -151,6 +151,9 @@ const char GlobalConstants::COMMAND_DELIM = '|';
 const mstring GlobalConstants::COMMAND_GAME_START = "s";
 const mstring GlobalConstants::COMMAND_GAME_CONTINUE = "c";
 const mstring GlobalConstants::COMMAND_GAME_RESTART = "restart";
+
+const mstring GlobalConstants::COMMAND_LEADERBOARD_GETEXCLUDED = "exc";
+const mstring GlobalConstants::COMMAND_LEADERBOARD_GETINCLUDED = "inc";
 
 const mstring GlobalConstants::COMMAND_ACCOUNT_DELETE = "delete";
 const mstring GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM = "delete_account";

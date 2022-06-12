@@ -76,10 +76,10 @@ void AuthenticatedController::printGetinfoTable(bool includeDeleted, bool getDel
 }
 
 //If getDeletedOnly == true, then includeDeleted is ignored
-void AuthenticatedController::printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly)
+void AuthenticatedController::printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly, bool getIncluded)
 {
     size_t countOfRows = 0;
-    mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(includeDeleted, getDeletedOnly, countOfRows, GlobalConstants::COMMAND_DELIM);
+    mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(includeDeleted, getDeletedOnly, getIncluded, countOfRows, GlobalConstants::COMMAND_DELIM);
 
     GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
 
@@ -90,7 +90,7 @@ void AuthenticatedController::printLeaderboardsTable(bool includeDeleted, bool g
     delete[] leaderboardRowsInfo;
 }
 
-//SCREEN FUNCTIONS
+//---SCREEN FUNCTIONS
 
 void AuthenticatedController::gameOverScreenPrint(bool newHighscore)
 {
@@ -720,7 +720,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if the user is admin or not and if the command is valid
             if (selection == GlobalConstants::COMMAND_LEADERBOARD)
             {
-                printLeaderboardsTable(true, false);
+                printLeaderboardsTable(true, false, true);
             }
             else if(isAdmin)
             {
@@ -728,7 +728,7 @@ bool AuthenticatedController::mainMenuLogged()
                 mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
 
                 //Check if the param count is correct
-                if (partsCount != 2)
+                if (partsCount < 2 || partsCount > 3)
                 {
                     GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
@@ -738,35 +738,69 @@ bool AuthenticatedController::mainMenuLogged()
                     continue;
                 }
 
-                mstring param = splitSelection[1];
-
-                //Check if param is correct
-                if (param != GlobalConstants::COMMAND_FALSE &&
-                    param != GlobalConstants::COMMAND_TRUE &&
-                    param != GlobalConstants::COMMAND_FALSE_SHORT &&
-                    param != GlobalConstants::COMMAND_TRUE_SHORT &&
-                    param != GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY)
+                bool commandParamsAreInvalid = false;
+                for (size_t i = 1; i < partsCount; i++)
                 {
-                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                    //Check if param is correct
+                    if (splitSelection[i] != GlobalConstants::COMMAND_FALSE &&
+                        splitSelection[i] != GlobalConstants::COMMAND_TRUE &&
+                        splitSelection[i] != GlobalConstants::COMMAND_FALSE_SHORT &&
+                        splitSelection[i] != GlobalConstants::COMMAND_TRUE_SHORT &&
+                        splitSelection[i] != GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY &&
+                        splitSelection[i] != GlobalConstants::COMMAND_LEADERBOARD_GETEXCLUDED &&
+                        splitSelection[i] != GlobalConstants::COMMAND_LEADERBOARD_GETINCLUDED)
+                    {
+                        GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
-                    //Dealloc dynamic memory
-                    delete[] splitSelection;
+                        //Dealloc dynamic memory
+                        delete[] splitSelection;
 
-                    continue;
+                        commandParamsAreInvalid = true;
+                        break;
+                    }
                 }
 
-                if (param == GlobalConstants::COMMAND_FALSE || param == GlobalConstants::COMMAND_FALSE_SHORT)
+                if (commandParamsAreInvalid) continue;
+
+                bool inclusionSet = false;
+                bool deletionSet = false;
+
+                bool includeDeleted = true;
+                bool getDeletedOnly = false;
+                bool getIncluded = true;
+
+                //This is done so you can mix and match the params in any order
+                for (size_t i = 0; i < partsCount; i++)
                 {
-                    printLeaderboardsTable(false, false);
+                    mstring& param = splitSelection[i];
+                    if ((param == GlobalConstants::COMMAND_FALSE || param == GlobalConstants::COMMAND_FALSE_SHORT) && deletionSet == false)
+                    {
+                        includeDeleted = false;
+                        deletionSet = true;
+                    }
+                    else if ((param == GlobalConstants::COMMAND_TRUE || param == GlobalConstants::COMMAND_TRUE_SHORT) && deletionSet == false)
+                    {
+                        includeDeleted = true;
+                        deletionSet = true;
+                    }
+                    else if (param == GlobalConstants::COMMAND_LEADERBOARD_GETEXCLUDED && inclusionSet == false)
+                    {
+                        getIncluded = false;
+                        inclusionSet = true;
+                    }
+                    else if (param == GlobalConstants::COMMAND_LEADERBOARD_GETINCLUDED && inclusionSet == false)
+                    {
+                        getIncluded = true;
+                        inclusionSet = true;
+                    }
+                    else if(param == GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY && deletionSet == false)
+                    {
+                        getDeletedOnly = true;
+                        deletionSet = true;
+                    }
                 }
-                else if(param == GlobalConstants::COMMAND_TRUE || param == GlobalConstants::COMMAND_TRUE_SHORT)
-                {
-                    printLeaderboardsTable(true, false);
-                }
-                else
-                {
-                    printLeaderboardsTable(false, true);
-                }
+
+                printLeaderboardsTable(includeDeleted, getDeletedOnly, getIncluded);
 
                 //Dealloc dynamic memory
                 delete[] splitSelection;

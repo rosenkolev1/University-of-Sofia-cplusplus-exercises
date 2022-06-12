@@ -6,7 +6,7 @@ User* Controller::currentUser = nullptr;
 bool Controller::returnToTitleScreen = false;
 bool Controller::newHighscore = false;
 
-mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim)
+mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, bool getIncluded, size_t& rowsCount, mstring dataDelim)
 {
     //Get all the users
     size_t usersCount = 0;
@@ -23,12 +23,12 @@ mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly
         users = FileSystem::getAllUsers(usersCount, includeDeleted);
     }
 
-    //Filter out the users which are excluded from the leaderboards
+    //Filter out the users which are excluded or included from the leaderboards
     size_t includedUsersCount = 0;
     User* includedUsers = new User[usersCount];
     for (size_t i = 0; i < usersCount; i++)
     {
-        if (users[i].includeHighscore) includedUsers[includedUsersCount++] = users[i];
+        if (users[i].includeHighscore == getIncluded) includedUsers[includedUsersCount++] = users[i];
     }
 
     //Resize array
@@ -44,6 +44,7 @@ mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly
 
     users = copyOfIncludedUsers;
     usersCount = includedUsersCount;
+
 
     //Sort the array of included users
     User* sortedUsers = new User[usersCount];

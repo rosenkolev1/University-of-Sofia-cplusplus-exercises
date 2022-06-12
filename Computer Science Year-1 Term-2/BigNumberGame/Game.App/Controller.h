@@ -9,6 +9,6 @@ public:
 	static bool returnToTitleScreen;
 	static bool newHighscore;
 
-	static mstring* getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim);
+	static mstring* getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, bool getIncluded, size_t& rowsCount, mstring dataDelim);
 };
 

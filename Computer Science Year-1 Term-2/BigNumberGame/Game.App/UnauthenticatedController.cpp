@@ -289,7 +289,7 @@ void UnauthenticatedController::startUp()
         else if (selection == GlobalConstants::COMMAND_LEADERBOARD)
         {
             size_t countOfRows = 0;
-            mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(true, false, countOfRows, GlobalConstants::COMMAND_DELIM);
+            mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(true, false, true, countOfRows, GlobalConstants::COMMAND_DELIM);
 
             GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
 

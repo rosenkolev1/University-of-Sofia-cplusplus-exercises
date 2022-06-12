@@ -31,6 +31,7 @@ private:
 	//FOR BUILDING TABLES OF THINGS
 	static const mstring TABLE_DELIM;
 	static const mstring HORIZONTAL_DELIM;
+	static const mstring EMPTY_TABLE;
 public:
 
 	static void printScreenWithText(mstring text, mstring screenTitle);

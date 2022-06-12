@@ -13,7 +13,7 @@ private:
 
     static void printGetinfoTableSingle(const User& user);
 
-    static void printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly);
+    static void printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly, bool getIncluded);
 public:
 
     static void gameOverScreenPrint(bool newHighscore);

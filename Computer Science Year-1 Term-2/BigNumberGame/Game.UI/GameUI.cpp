@@ -8,6 +8,7 @@ const mstring GameUI::BORDER_BOTTOM = "-----------------------------------------
 
 const mstring GameUI::TABLE_DELIM = " |";
 const mstring GameUI::HORIZONTAL_DELIM = "-";
+const mstring GameUI::EMPTY_TABLE = "EMPTY TABLE";
 
 void GameUI::printScreenWithText(mstring text, mstring screenTitle)
 {
@@ -145,9 +146,10 @@ mstring GameUI::getTable(const mstring* cols, size_t countOfCols, mstring* rows,
 		mstring combinedCols;
 		for (size_t i = 0; i < countOfCols; i++)
 		{
-			combinedCols += colTitles[i];
+			combinedCols += colTitles[i] + TABLE_DELIM;
 		}
 		mstring tableHeader = getTableHeader(combinedCols);
+		tableHeader += EMPTY_TABLE;
 
 		return tableHeader;
 	}

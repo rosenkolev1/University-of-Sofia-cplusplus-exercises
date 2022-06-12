@@ -153,6 +153,9 @@ public:
 	static const mstring COMMAND_GAME_CONTINUE;
 	static const mstring COMMAND_GAME_RESTART;
 
+	static const mstring COMMAND_LEADERBOARD_GETEXCLUDED;
+	static const mstring COMMAND_LEADERBOARD_GETINCLUDED;
+
 	static const mstring COMMAND_ACCOUNT_DELETE;
 	static const mstring COMMAND_ACCOUNT_DELETE_CONFIRM;
 
