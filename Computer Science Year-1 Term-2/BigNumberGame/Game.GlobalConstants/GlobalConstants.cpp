@@ -52,7 +52,7 @@ const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo
 const mstring GlobalConstants::ADMIN_GETINFO_ALL = "\nGET INFO ABOUT ACCOUNTS(getinfo|all|(getDeleted: {f}/{FALSE}/{t}/{TRUE}/{deletedOnly}) )\n";
 const mstring GlobalConstants::ADMIN_GETINFO_DOESNOTEXIST = "{username} DOES NOT EXIST!";
 const mstring GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER = "User info:\n";
-const mstring GlobalConstants::ADMIN_GETINFO_MANY_HEADER = "Users info:\n";
+const mstring GlobalConstants::ADMIN_GETINFO_MANY_HEADER = "\nUsers info:\n";
 
 const mstring GlobalConstants::ADMIN_DELETEACCOUNT = "\nDELETE ACCOUNT(delete|{message}|{account name})\n";
 const mstring GlobalConstants::ADMIN_DELETEACCOUNT_CONFIRMATION = "\nWARNING: THIS ACTION WILL DELETE {username}'s ACCOUNT. PROCEED ANYWAY?\n";

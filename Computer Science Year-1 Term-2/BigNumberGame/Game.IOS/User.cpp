@@ -222,66 +222,15 @@ mstring User::getIsDeletedString() const
 
 mstring User::getInfo()
 {
-	//TODO: USE THE STATIC FUNCTION FOR THIS INSTEAD FOR IMPROVING REUSABILITY 
+	User* users = new User[1];
+	users[0] = *this;
+	size_t countOfUsers = 1;
+	mstring tableString = getInfoMany(users, countOfUsers);
 
-	mstring info;
+	//Dealloc dynamic memory
+	delete[] users;
 
-	//Get columns
-	mstring usernameCol = USER_FIELDS[0];
-	mstring passwordCol = USER_FIELDS[1];
-	mstring roleCol = USER_FIELDS[2];
-	mstring levelCol = USER_FIELDS[3];
-	mstring livesCol = USER_FIELDS[4];
-	mstring lastExpressionCol = USER_FIELDS[5];
-	mstring highscoreCol = USER_FIELDS[6];
-	mstring includeHighscoreCol = USER_FIELDS[7];
-	mstring isDeletedCol = USER_FIELDS[8];
-
-	//Set username col info
-	mstring usernameData = this->username;
-	setColHeaderAndDataInfo(usernameCol, usernameData);
-
-	//Set password col info
-	mstring passwordData = this->password;
-	setColHeaderAndDataInfo(passwordCol, passwordData);
-
-	//Set role col info
-	mstring roleData = getRoleString();
-	setColHeaderAndDataInfo(roleCol, roleData);
-
-	//Set level col info
-	mstring levelData = this->getLevelString();
-	setColHeaderAndDataInfo(levelCol, levelData);
-
-	//Set lives col info
-	mstring livesData = this->getLivesString();
-	setColHeaderAndDataInfo(livesCol, livesData);
-
-	//Set last expression info
-	mstring lastExpressionData = this->lastExpression;
-	setColHeaderAndDataInfo(lastExpressionCol, lastExpressionData);
-
-	//Set highscore col info
-	mstring highscoreData = this->getHighscoreString();
-	setColHeaderAndDataInfo(highscoreCol, highscoreData);
-
-	//Set includeHighscore info
-	mstring includeHighscoreData = this->getIncludeHighscoreString();
-	setColHeaderAndDataInfo(includeHighscoreCol, includeHighscoreData);
-
-	//Set isDeleted info
-	mstring isDeletedData = this->getIsDeletedString();
-	setColHeaderAndDataInfo(isDeletedCol, isDeletedData);
-
-	//Add all of the info
-	mstring combinedCols = usernameCol + passwordCol + roleCol + levelCol + livesCol + lastExpressionCol + highscoreCol + includeHighscoreCol + isDeletedCol;
-	mstring tableHeader = getTableHeader(combinedCols);
-
-	info += tableHeader + 
-		usernameData + passwordData + roleData + levelData + livesData + lastExpressionData + highscoreData + includeHighscoreData + isDeletedData
-		+ getTableSpacer(combinedCols);
-
-	return info;
+	return tableString;
 }
 
 mstring User::getInfoMany(const User* users, size_t countOfUsers)
