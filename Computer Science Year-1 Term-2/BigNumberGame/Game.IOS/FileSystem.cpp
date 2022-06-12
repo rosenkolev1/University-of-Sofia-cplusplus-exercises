@@ -15,7 +15,7 @@
 * ~
 */
 
-size_t FileSystem::getCount(mstring tableFile)
+size_t FileSystem::getCount(const mstring& tableFile)
 {
 	return MStringManip::countOf(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
 }
@@ -50,7 +50,7 @@ mstring FileSystem::getTableAsString(const char* table)
 	return tableData;
 }
 
-void FileSystem::adminDeleteUser_Common(mstring username)
+void FileSystem::adminDeleteUser_Common(const mstring& username)
 {
 	mstring userTableFileString = getTableAsString(USER_TABLE);
 
@@ -71,7 +71,7 @@ void FileSystem::adminDeleteUser_Common(mstring username)
 	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
-void FileSystem::overwriteTable(mstring tableData, const char* table)
+void FileSystem::overwriteTable(const mstring& tableData, const char* table)
 {
 	std::ofstream tableFile(table, std::ios::binary | std::ios::trunc);
 
@@ -87,7 +87,7 @@ void FileSystem::overwriteTable(mstring tableData, const char* table)
 	tableFile.close();
 }
 
-void FileSystem::appendToTable(mstring appendData, const char* table)
+void FileSystem::appendToTable(const mstring& appendData, const char* table)
 {
 	std::ofstream tableFile(table, std::ios::binary | std::ios::app);
 
@@ -105,7 +105,7 @@ void FileSystem::appendToTable(mstring appendData, const char* table)
 
 /**********************************************************************************************************************************/
 
-bool FileSystem::stringContainsForbiddenSymbols(mstring text)
+bool FileSystem::stringContainsForbiddenSymbols(const mstring& text)
 {
 	for (size_t i = 0; i < text.getSize(); i++)
 	{
@@ -117,7 +117,7 @@ bool FileSystem::stringContainsForbiddenSymbols(mstring text)
 	return false;
 }
 
-bool FileSystem::usernameIsValid(mstring username)
+bool FileSystem::usernameIsValid(const mstring& username)
 {
 	//Check if the length of the username is too large or too small
 	if (username.getSize() > User::USERNAME_LENGTH_MAX || username.getSize() < User::USERNAME_LENGTH_MIN) return false;
@@ -126,7 +126,7 @@ bool FileSystem::usernameIsValid(mstring username)
 	return !stringContainsForbiddenSymbols(username);
 }
 
-bool FileSystem::passwordIsValid(mstring password)
+bool FileSystem::passwordIsValid(const mstring& password)
 {
 	//Check if the length of the username is too large or too small
 	if (password.getSize() > User::PASSWORD_LENGTH_MAX || password.getSize() < User::PASSWORD_LENGTH_MIN) return false;
@@ -135,7 +135,7 @@ bool FileSystem::passwordIsValid(mstring password)
 	return !stringContainsForbiddenSymbols(password);
 }
 
-bool FileSystem::userRoleIsValid(mstring role)
+bool FileSystem::userRoleIsValid(const mstring& role)
 {
 	for (size_t i = 0; i < User::USER_ROLES_COUNT; i++)
 	{
@@ -145,7 +145,7 @@ bool FileSystem::userRoleIsValid(mstring role)
 	return false;
 }
 
-bool FileSystem::userIsValid(mstring username, mstring password, mstring role)
+bool FileSystem::userIsValid(const mstring& username, const mstring& password, const mstring& role)
 {
 	//Check if the formatting of the username and password is valid
 	//Check if the username or password are already contained in the database
@@ -153,7 +153,7 @@ bool FileSystem::userIsValid(mstring username, mstring password, mstring role)
 	return usernameIsValid(username) && passwordIsValid(password) && userRoleIsValid(role) && !userIsRegistered(username);
 }
 
-bool FileSystem::userIsRegistered(mstring username)
+bool FileSystem::userIsRegistered(const mstring& username)
 {
 	size_t allUsersCount = 0;
 	const User* allUsers = getAllUsers(allUsersCount);
@@ -173,7 +173,7 @@ bool FileSystem::userIsRegistered(mstring username)
 	return false;
 }
 
-bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password)
+bool FileSystem::userIsRegisteredWithPassword(const mstring& username, const mstring& password)
 {
 	size_t allUsersCount = 0;
 	const User* allUsers = getAllUsers(allUsersCount);
@@ -191,7 +191,7 @@ bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password
 	return false;
 }
 
-void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
+void FileSystem::registerUser(const mstring& username, const mstring& password, UserRoles role)
 {
 	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
 
@@ -214,7 +214,7 @@ void FileSystem::deleteUser(DeletionMessage deletionMessage)
 	addDeletionMessage(deletionMessage);
 }
 
-void FileSystem::deleteUser(mstring username)
+void FileSystem::deleteUser(const mstring& username)
 {
 	mstring userTableFileString = getTableAsString(USER_TABLE);
 
@@ -229,7 +229,7 @@ void FileSystem::deleteUser(mstring username)
 	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
-void FileSystem::restoreUser(mstring username)
+void FileSystem::restoreUser(const mstring& username)
 {
 	mstring userTableFileString = getTableAsString(USER_TABLE);
 
@@ -253,7 +253,7 @@ void FileSystem::restoreUser(mstring username)
 	deleteMessage(username);
 }
 
-void FileSystem::excludeUser(mstring username)
+void FileSystem::excludeUser(const mstring& username)
 {
 	mstring userTableFileString = getTableAsString(USER_TABLE);
 
@@ -274,7 +274,7 @@ void FileSystem::excludeUser(mstring username)
 	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
-void FileSystem::includeUser(mstring username)
+void FileSystem::includeUser(const mstring& username)
 {
 	mstring userTableFileString = getTableAsString(USER_TABLE);
 
@@ -320,7 +320,7 @@ size_t FileSystem::getUsersCount()
 	return getCount(tableFile);
 }
 
-User* FileSystem::getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted)
+User* FileSystem::getAllUsers(const mstring& tableFile, size_t& countOfUsers, bool includeDeleted)
 {
 	countOfUsers = getCount(tableFile);
 
@@ -477,7 +477,7 @@ User* FileSystem::getDeletedUsers(size_t& countOfUsers)
 	return notDeletedUsers;
 }
 
-User* FileSystem::getUser(mstring username, bool includeDeleted)
+User* FileSystem::getUser(const mstring& username, bool includeDeleted)
 {
 	size_t usersCount = 0;
 	User* allUsers = getAllUsers(usersCount);
@@ -505,7 +505,7 @@ User* FileSystem::getUser(mstring username, bool includeDeleted)
 	return nullptr;
 }
 
-mstring FileSystem::getUserString(mstring username, mstring tableFile, size_t& startPos, size_t& endPos)
+mstring FileSystem::getUserString(const mstring& username, const mstring& tableFile, size_t& startPos, size_t& endPos)
 {
 	size_t currentColumnCounter = 1;
 	bool currentColIsUsername = true;
@@ -558,13 +558,13 @@ mstring FileSystem::getUserString(mstring username, mstring tableFile, size_t& s
 	}
 }
 
-mstring FileSystem::getUserString(mstring username, size_t& startPos, size_t& endPos)
+mstring FileSystem::getUserString(const mstring& username, size_t& startPos, size_t& endPos)
 {
 	mstring tableFile = getTableAsString(USER_TABLE);
 	return getUserString(username, tableFile, startPos, endPos);
 }
 
-mstring FileSystem::createUserString(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted)
+mstring FileSystem::createUserString(const mstring& username, const mstring& password, UserRoles role, int level, int lives, const mstring& lastExpression, bool includeHighscore, bool isDeleted)
 {
 	mstring userString;
 
@@ -673,29 +673,22 @@ User FileSystem::createUserFromString(mstring userString)
 
 /**********************************************************************************************************************************/
 
-void FileSystem::addDeletionMessage(mstring message, mstring username)
+void FileSystem::addDeletionMessage(const mstring& message, const mstring& username)
 {
-	/*mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
-
-	size_t highestId = getHighestId(tableFile);
-
-	mstring dataToWriteToFile = createMessageString(highestId + 1, message, username);
-
-	appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);*/
 	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 	size_t highestId = getHighestId(tableFile);
 
 	addDeletionMessage(DeletionMessage(highestId + 1, message, username));
 }
 
-void FileSystem::addDeletionMessage(DeletionMessage message)
+void FileSystem::addDeletionMessage(const DeletionMessage& message)
 {
 	mstring dataToWriteToFile = createMessageString(message.id, message.message, message.username);
 
 	appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);
 }
 
-void FileSystem::deleteMessage(mstring username)
+void FileSystem::deleteMessage(const mstring& username)
 {
 	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 	size_t countOfMessages = 0;
@@ -726,7 +719,7 @@ void FileSystem::deleteMessage(mstring username)
 	overwriteTable(newTableFile, DELETION_MESSAGES_TABLE);
 }
 
-mstring FileSystem::createMessageString(size_t id, mstring message, mstring username)
+mstring FileSystem::createMessageString(size_t id, const mstring& message, const mstring& username)
 {
 	mstring messageString;
 	//Enter the Id
@@ -750,7 +743,7 @@ mstring FileSystem::createMessageString(size_t id, mstring message, mstring user
 	return messageString;
 }
 
-DeletionMessage FileSystem::createDeletionMessage(mstring message, mstring username)
+DeletionMessage FileSystem::createDeletionMessage(const mstring& message, const mstring& username)
 {
 	size_t highestId = getHighestId();
 	return DeletionMessage(highestId + 1, message, username);
@@ -762,7 +755,7 @@ DeletionMessage* FileSystem::getAllDeletionMessages(size_t& countOfMessages)
 	return getAllDeletionMessages(tableFile, countOfMessages);
 }
 
-DeletionMessage* FileSystem::getAllDeletionMessages(mstring tableFile, size_t& countOfMessages)
+DeletionMessage* FileSystem::getAllDeletionMessages(const mstring& tableFile, size_t& countOfMessages)
 {
 	//Get all the message strings
 	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, countOfMessages);
@@ -792,13 +785,13 @@ DeletionMessage* FileSystem::getAllDeletionMessages(mstring tableFile, size_t& c
 	return messages;
 }
 
-DeletionMessage FileSystem::getDeletionMessage(mstring username)
+DeletionMessage FileSystem::getDeletionMessage(const mstring& username)
 {
 	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 	return getDeletionMessage(tableFile, username);
 }
 
-DeletionMessage FileSystem::getDeletionMessage(mstring tableFile, mstring username)
+DeletionMessage FileSystem::getDeletionMessage(const mstring& tableFile, const mstring& username)
 {
 	size_t countOfMessages = 0;
 	DeletionMessage* messages = getAllDeletionMessages(tableFile, countOfMessages);
@@ -837,7 +830,7 @@ size_t FileSystem::getHighestId()
 	return getHighestId(tableFile);
 }
 
-size_t FileSystem::getHighestId(mstring tableFile)
+size_t FileSystem::getHighestId(const mstring& tableFile)
 {
 	size_t entriesCount = 0;
 	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, entriesCount);
@@ -853,7 +846,7 @@ size_t FileSystem::getHighestId(mstring tableFile)
 	return highestId;
 }
 
-bool FileSystem::deletionMessageExists(mstring tableFile, mstring username)
+bool FileSystem::deletionMessageExists(const mstring& tableFile, const mstring& username)
 {
 	size_t countOfMessages = 0;
 	DeletionMessage* messages = getAllDeletionMessages(tableFile, countOfMessages);
@@ -876,7 +869,7 @@ bool FileSystem::deletionMessageExists(mstring tableFile, mstring username)
 	return false;
 }
 
-bool FileSystem::deletionMessageExists(mstring username)
+bool FileSystem::deletionMessageExists(const mstring& username)
 {
 	mstring tableFile = getTableAsString(DELETION_MESSAGES_TABLE);
 	return deletionMessageExists(tableFile, username);

@@ -5,6 +5,8 @@
 #include ".\Game.IOS\FileSystem.h"
 #include ".\BigNumber\BigNumberExpression.h"
 
+//TODO: MAKE IT SO THAT THE GAME ALERTS THE PLAYER IF HE HAS ACHIEVED A HIGHSCORE UPON PASSING A LEVEL
+
 void AuthenticatedController::gameOverScreenPrint()
 {
     mstring textArray[3];
