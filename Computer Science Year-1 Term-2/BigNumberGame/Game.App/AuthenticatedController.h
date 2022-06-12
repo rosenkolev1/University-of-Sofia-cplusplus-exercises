@@ -5,6 +5,10 @@
 class AuthenticatedController
 {
 private:
+    static mstring* getInfoUsersRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim);
+
+    static mstring getInfoUserRow(const User& user, mstring dataDelim);
+
     static void printGetinfoTable(bool includeDeleted, bool getDeletedOnly);
 
     static void printGetinfoTableSingle(const User& user);

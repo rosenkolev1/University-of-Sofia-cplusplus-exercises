@@ -5,10 +5,52 @@
 #include ".\Game.IOS\FileSystem.h"
 #include ".\BigNumber\BigNumberExpression.h"
 
+//---NON SCREEN FUNCTIONS
+
+mstring* AuthenticatedController::getInfoUsersRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim)
+{
+    //Get all the users
+    size_t usersCount = 0;
+    User* users = nullptr;
+
+    if (getDeletedOnly == true) users = FileSystem::getDeletedUsers(usersCount);
+    else users = FileSystem::getAllUsers(usersCount, includeDeleted);
+
+    //Set the count of the rows
+    rowsCount = usersCount;
+
+    mstring* usersRowsInfo = new mstring[rowsCount];
+
+    for (size_t i = 0; i < rowsCount; i++)
+    {
+        usersRowsInfo[i] = getInfoUserRow(users[i], dataDelim);
+    }
+
+    //Dealloc dynamic memory
+    delete[] users;
+
+    return usersRowsInfo;
+}
+
+mstring AuthenticatedController::getInfoUserRow(const User& user, mstring dataDelim)
+{
+    mstring userInfoRow = user.username + dataDelim +
+        user.password + dataDelim +
+        user.getRoleString() + dataDelim +
+        user.getLevelString() + dataDelim +
+        user.getLivesString() + dataDelim +
+        user.lastExpression + dataDelim +
+        user.getHighscoreString() + dataDelim +
+        user.getIncludeHighscoreString() + dataDelim +
+        user.getIsDeletedString();
+
+    return userInfoRow;
+}
+
 //Gets the info for a single user
 void AuthenticatedController::printGetinfoTableSingle(const User& user)
 {
-    mstring userRow = Controller::getInfoUserRow(user, GlobalConstants::COMMAND_DELIM);
+    mstring userRow = getInfoUserRow(user, GlobalConstants::COMMAND_DELIM);
     mstring* usersRows = new mstring[1];
     usersRows[0] = userRow;
 
@@ -24,7 +66,7 @@ void AuthenticatedController::printGetinfoTable(bool includeDeleted, bool getDel
 {
     size_t countOfRows = 0;
 
-    mstring* usersRows = Controller::getInfoUsersRows(includeDeleted, getDeletedOnly, countOfRows, GlobalConstants::COMMAND_DELIM);
+    mstring* usersRows = getInfoUsersRows(includeDeleted, getDeletedOnly, countOfRows, GlobalConstants::COMMAND_DELIM);
 
     mstring tableString = GameUI::getTable(User::USER_FIELDS, User::USER_FIELDS_COUNT, usersRows, countOfRows, GlobalConstants::COMMAND_DELIM);
     GameUI::printLineNoBorders(tableString);
@@ -47,6 +89,8 @@ void AuthenticatedController::printLeaderboardsTable(bool includeDeleted, bool g
     //Dealloc dynamic memory
     delete[] leaderboardRowsInfo;
 }
+
+//SCREEN FUNCTIONS
 
 void AuthenticatedController::gameOverScreenPrint(bool newHighscore)
 {

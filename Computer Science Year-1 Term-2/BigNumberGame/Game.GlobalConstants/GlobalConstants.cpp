@@ -25,7 +25,6 @@ const mstring GlobalConstants::LEADERBOARD_COLS[3]
 	"Username",
 	"Highscore"
 };
-//TODO: ADD A LEADERBOARD PRINTING OPTION
 
 //------PLACEHOLDERS
 const mstring GlobalConstants::USERNAME_PLACEHOLDER = "{username}";

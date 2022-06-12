@@ -10,7 +10,5 @@ public:
 	static bool newHighscore;
 
 	static mstring* getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim);
-	static mstring* getInfoUsersRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim);
-	static mstring getInfoUserRow(const User& user, mstring dataDelim);
 };
 
