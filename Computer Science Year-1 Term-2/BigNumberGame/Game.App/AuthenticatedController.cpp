@@ -116,6 +116,7 @@ void AuthenticatedController::playingGameScreenPrint(const mstring& expression)
 
     //Screen Print
     GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::BIGNUMBER_GAME_TITLE);
+
 }
 
 bool AuthenticatedController::playingGame()
@@ -158,6 +159,8 @@ bool AuthenticatedController::playingGame()
 
         while (true)
         {
+            GameUI::printNoBorders(GlobalConstants::PLAYING_SOLUTION_ENTER_COMMAND_TEXT);
+
             mstring selection;
             std::cin >> selection;
 

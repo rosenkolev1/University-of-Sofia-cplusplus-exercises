@@ -109,6 +109,7 @@ public:
 	static const mstring PLAYING_HELPERS;
 	static const mstring PLAYING_SOLUTION_ENTER;
 	static const mstring PLAYING_RETURN_TEXT;
+	static const mstring PLAYING_SOLUTION_ENTER_COMMAND_TEXT;
 	static const mstring PLAYING_CHEATCODE_GETSOLUTION;
 	static const mstring PLAYING_CORRECT;
 	static const mstring PLAYING_WRONG_TRYAGAIN;

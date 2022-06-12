@@ -109,16 +109,17 @@ const mstring GlobalConstants::PLAYING_EXPRESSION = "\n{expression}\n\n";
 const mstring GlobalConstants::PLAYING_HELPERS = "Helpers: \n";
 const mstring GlobalConstants::PLAYING_SOLUTION_ENTER = "\nENTER THE SOLUTION. THE DIGITS OF THE NUMBER CAN BE SEPERATED BY COMMAS FOR EASIER READABILITY\n";
 const mstring GlobalConstants::PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
-const mstring GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION = "\nThe solution is: {solution}\n";
+const mstring GlobalConstants::PLAYING_SOLUTION_ENTER_COMMAND_TEXT = "\nEnter solution: ";
+const mstring GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION = "The solution is: {solution}\n";
 const mstring GlobalConstants::PLAYING_CORRECT = "\nYou have entered the correct answer, well done!\n";
 const mstring GlobalConstants::PLAYING_WRONG_TRYAGAIN = "\nYour answer is incorrect. You have lost 1 life. Try again!\n";
 const mstring GlobalConstants::PLAYING_WRONG_GAMEOVER = "YOUR ANSWER IS INCORRECT.\nYOU HAVE 0 LIVES LEFT!\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_NEWHIGHSCORE = "\n...BUT YOU HAVE ACHIEVED A NEW HIGHSCORE OF {highscore}! CONGRATULATIONS!\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_RESTART = "\nRESTART FROM THE BEGINNING({s, restart})\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_RETURN_TO_MAINMENU = "\nRETURN TO MAIN MENU(r)\n";
-const mstring GlobalConstants::PLAYING_STARTING_GAME = "Starting Game...";
-const mstring GlobalConstants::PLAYING_CONTINUE_GAME = "Continueing Game...";
-const mstring GlobalConstants::PLAYING_RESTART_GAME = "Restarting Game...";
+const mstring GlobalConstants::PLAYING_STARTING_GAME = "\nStarting Game...";
+const mstring GlobalConstants::PLAYING_CONTINUE_GAME = "\nContinueing Game...";
+const mstring GlobalConstants::PLAYING_RESTART_GAME = "\nRestarting Game...";
 
 //------SCREEN TITLES
 const mstring GlobalConstants::STARTSCREEN_TITLE = "START UP SCREEN";

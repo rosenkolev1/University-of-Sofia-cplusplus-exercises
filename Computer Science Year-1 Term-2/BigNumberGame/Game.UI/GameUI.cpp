@@ -106,7 +106,7 @@ void GameUI::printLine(mstring text)
 	std::cout << std::endl;
 }
 
-void GameUI::printLineNoBorders(mstring text, TextAlign align)
+void GameUI::printNoBorders(mstring text, TextAlign align)
 {
 	if (align == TextAlign::Center)
 	{
@@ -117,7 +117,13 @@ void GameUI::printLineNoBorders(mstring text, TextAlign align)
 			std::cout << " ";
 		}
 	}
-	std::cout << text << std::endl;
+	std::cout << text;
+}
+
+void GameUI::printLineNoBorders(mstring text, TextAlign align)
+{
+	printNoBorders(text, align);
+	std::cout << "\n";
 }
 
 void GameUI::printEmptyLine()

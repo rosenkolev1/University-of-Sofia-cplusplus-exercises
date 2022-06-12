@@ -40,6 +40,7 @@ public:
 	static void printLine(mstring text);
 
 	//Print line without any screen borders
+	static void printNoBorders(mstring text, TextAlign align = TextAlign::Left);
 	static void printLineNoBorders(mstring text, TextAlign align = TextAlign::Left);
 	static void printEmptyLine();
 
