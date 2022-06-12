@@ -15,7 +15,12 @@ const mstring GlobalConstants::BUTTON_END = "END GAME(end)\n";
 const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
 const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
 const mstring GlobalConstants::RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN(r)";
+
+//------PLACEHOLDERS
 const mstring GlobalConstants::USERNAME_PLACEHOLDER = "{username}";
+const mstring GlobalConstants::EXPRESSION_PLACEHOLDER = "{equation}";
+const mstring GlobalConstants::LEVEL_PLACEHOLDER = "{level}";
+const mstring GlobalConstants::LIVES_PLACEHOLDER = "{lives}";
 
 //------LOGIN/REGISTER
 const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\nLOGIN(log)\nREGISTER(reg)";
@@ -79,8 +84,16 @@ const mstring GlobalConstants::ADMIN_RECOVER_SUCCESS = "\n{username}'s ACCOUNT R
 const mstring GlobalConstants::ADMIN_RECOVER_NOTBANNED = "{username}'s ACCOUNT IS NOT BANNED!";
 
 const mstring GlobalConstants::ADMIN_LOGGEDASADMIN_TEXT = "\n!!!LOGGED AS ADMIN!!!\n";
-//----------------
+
+//------PLAYING INSIDE LEVEL
+const mstring GlobalConstants::PLAYING_LEVEL_TEXT = "Current Level: {level}\n";
+const mstring GlobalConstants::PLAYING_LIVES_TEXT = "Lives: {lives}\n";
+const mstring GlobalConstants::PLAYING_EXPRESSION_SOLVE = "\nSolve the equation:\n";
+const mstring GlobalConstants::PLAYING_EXPRESSION = "\n{equation}\n\n";
+const mstring GlobalConstants::PLAYING_HELPERS = "Helpers: \n";
+const mstring GlobalConstants::PLAYING_SOLUTION_ENTER = "\nENTER THE SOLUTION. THE DIGITS OF THE NUMBER CAN BE SEPERATED BY COMMAS FOR EASIER READABILITY\n";
 const mstring GlobalConstants::PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
+
 //------SCREEN TITLES
 const mstring GlobalConstants::STARTSCREEN_TITLE = "START UP SCREEN";
 const mstring GlobalConstants::LOGINORREGISTER_TITLE = "LOGIN OR REGISTER SCREEN";
@@ -91,6 +104,7 @@ const mstring GlobalConstants::DELETE_CONFIRM_TITLE = "DELETE ACCOUNT SCREEN";
 const mstring GlobalConstants::RECOVER_CONFIRM_TITLE = "RECOVER ACCOUNT SCREEN";
 const mstring GlobalConstants::EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE = "EXCLUDE FROM LEADERBOARD SCREEN";
 const mstring GlobalConstants::INCLUDEINLEADERBOARD_CONFIRM_TITLE = "INCLUDE IN LEADERBOARD SCREEN";
+const mstring GlobalConstants::BIGNUMBER_GAME_TITLE = "BIGNUMBER GAME";
 
 //---COMMAND INPUT CONSTANTS
 const mstring GlobalConstants::COMMAND_TRUE = "true";
@@ -125,6 +139,8 @@ const mstring GlobalConstants::COMMAND_ADMIN_EXCLUDE = "exclude";
 const mstring GlobalConstants::COMMAND_ADMIN_INCLUDE = "include";
 const mstring GlobalConstants::COMMAND_ADMIN_EXCLUDE_CONFIRM = "exclude_account";
 const mstring GlobalConstants::COMMAND_ADMIN_INCLUDE_CONFIRM = "include_account";
+
+const mstring GlobalConstants::COMMAND_PLAYING_CHEATCODE_GETSOLUTION = "gsl";
 
 //---FILE SYSTEM CONSTANTS
 const char GlobalConstants::FILESYSTEM_ENTRY_DELIMITER = '\n';

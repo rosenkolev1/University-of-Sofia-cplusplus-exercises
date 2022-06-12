@@ -1,5 +1,4 @@
 #include "GameUI.h"
-#include "../Game.GlobalConstants/GlobalConstants.h"
 #include<iostream>
 #include "..\Project.StringManipulation\MStringManip.h"
 

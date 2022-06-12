@@ -17,7 +17,12 @@ public:
 	static const mstring GAME_END;
 	static const mstring COMMAND_INVALID;
 	static const mstring RETURN_TEXT;
+
+	//------PLACEHOLDERS
 	static const mstring USERNAME_PLACEHOLDER;
+	static const mstring EXPRESSION_PLACEHOLDER;
+	static const mstring LEVEL_PLACEHOLDER;
+	static const mstring LIVES_PLACEHOLDER;
 
 	//------LOGIN/REGISTER
 	static const mstring LOGIN_OR_REGISTER;
@@ -82,7 +87,14 @@ public:
 	static const mstring ADMIN_RECOVER_BANREASON;
 
 	static const mstring ADMIN_LOGGEDASADMIN_TEXT;
-	//----------------
+
+	//------PLAYING INSIDE LEVEL
+	static const mstring PLAYING_LIVES_TEXT;
+	static const mstring PLAYING_LEVEL_TEXT;
+	static const mstring PLAYING_EXPRESSION_SOLVE;
+	static const mstring PLAYING_EXPRESSION;
+	static const mstring PLAYING_HELPERS;
+	static const mstring PLAYING_SOLUTION_ENTER;
 	static const mstring PLAYING_RETURN_TEXT;
 
 	//------SCREEN TITLES
@@ -95,6 +107,7 @@ public:
 	static const mstring RECOVER_CONFIRM_TITLE;
 	static const mstring EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE;
 	static const mstring INCLUDEINLEADERBOARD_CONFIRM_TITLE;
+	static const mstring BIGNUMBER_GAME_TITLE;
 
 	//---COMMAND INPUT CONSTANTS
 	static const mstring COMMAND_TRUE;
@@ -130,6 +143,7 @@ public:
 	static const mstring COMMAND_ADMIN_EXCLUDE_CONFIRM;
 	static const mstring COMMAND_ADMIN_INCLUDE_CONFIRM;
 
+	static const mstring COMMAND_PLAYING_CHEATCODE_GETSOLUTION;
 
 	//---FILE SYSTEM CONSTANTS
 	static const char FILESYSTEM_ENTRY_DELIMITER;

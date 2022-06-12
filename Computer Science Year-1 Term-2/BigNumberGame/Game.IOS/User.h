@@ -71,7 +71,6 @@ public:
 	int level;
 	int lives;
 	mstring lastExpression;
-	size_t expressionCapacity;
 	bool includeHighscore;
 	bool isDeleted;
 
