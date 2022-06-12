@@ -12,11 +12,14 @@ const mstring GlobalConstants::PLACEHOLDER = "LOREM IPSUM TEXT";
 const mstring GlobalConstants::WELCOME_STARTSCREEN_TEXT = "Welcome to the BigNumber game!!!\nHere, you will be forced to answer some equations with BigNumbers in them. Enjoy!\n\n";
 const mstring GlobalConstants::BUTTON_START = "START GAME(start)\n\n";
 const mstring GlobalConstants::BUTTON_END = "END GAME(end)\n";
+const mstring GlobalConstants::BUTTON_LEADERBOARD = "LEADERBOARD(lb)\n\n";
+const mstring GlobalConstants::LEADERBOARD_TEXT = "LEADERBOARD:\n";
+const mstring GlobalConstants::LEADERBOARD_USER_TEXT = ". {username} --> {highscore}";
 const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
 const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
 const mstring GlobalConstants::RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN(r)";
 const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
-
+//TODO: ADD A LEADERBOARD PRINTING OPTION
 
 //------PLACEHOLDERS
 const mstring GlobalConstants::USERNAME_PLACEHOLDER = "{username}";
@@ -132,6 +135,7 @@ const mstring GlobalConstants::COMMAND_FALSE_SHORT = "f";
 
 const mstring GlobalConstants::COMMAND_MAINMENU_START = "start";
 const mstring GlobalConstants::COMMAND_MAINMENU_END = "end";
+const mstring GlobalConstants::COMMAND_MAINMENU_LEADERBOARD = "lb";
 const mstring GlobalConstants::COMMAND_RETURN = "r";
 
 const mstring GlobalConstants::COMMAND_LOGIN_START = "log";

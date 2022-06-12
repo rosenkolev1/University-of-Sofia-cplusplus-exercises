@@ -708,6 +708,20 @@ void MStringManipTests::replaceAllTests()
 
     std::cout << std::endl;
     std::cout << std::endl;
+
+    //TEST 4
+    std::cout << "TEST 4" << std::endl;
+    mstring input4 = ". {username} --> {highscore}";
+    mstring replaced4 = "{username}";
+    mstring replacement4 = "REPLACED";
+    numberOfStrings = 0;
+    std::cout << "Testing input -> \"" << input4 << "\" where \"" << replaced4 << "\"" << " is replaced by \"" << replacement4 << "\"" << std::endl;
+    mstring output4 = MStringManip::replaceAll(input4, replaced4, replacement4);
+    mstring expectedOutput4 = ". REPLACED --> {highscore}";
+    std::cout << "String is: Expected(" << expectedOutput4 << ") ==> " << output4 << (output4 == expectedOutput4 ? " --> TRUE" : " --> FALSE");
+
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 void MStringManipTests::replaceFirstTests()
@@ -1702,7 +1716,7 @@ void MStringManipTests::runTests()
     //stringContainsTests();
     //
     ////replaceAll TESTS
-    //replaceAllTests();
+    replaceAllTests();
     //
     ////replaceFirst TESTS
     //replaceFirstTests();
@@ -1738,5 +1752,5 @@ void MStringManipTests::runTests()
     //parseToStringTests();
 
     //parseToLong TESTS
-    parseToLongTests();
+    //parseToLongTests();
 }

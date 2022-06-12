@@ -14,6 +14,9 @@ public:
 	static const mstring WELCOME_STARTSCREEN_TEXT;
 	static const mstring BUTTON_START;
 	static const mstring BUTTON_END;
+	static const mstring BUTTON_LEADERBOARD;
+	static const mstring LEADERBOARD_TEXT;
+	static const mstring LEADERBOARD_USER_TEXT;
 	static const mstring GAME_END;
 	static const mstring COMMAND_INVALID;
 	static const mstring RETURN_TEXT;
@@ -134,6 +137,7 @@ public:
 
 	static const mstring COMMAND_MAINMENU_START;
 	static const mstring COMMAND_MAINMENU_END;
+	static const mstring COMMAND_MAINMENU_LEADERBOARD;
 	static const mstring COMMAND_RETURN;
 
 	static const mstring COMMAND_LOGIN_START;

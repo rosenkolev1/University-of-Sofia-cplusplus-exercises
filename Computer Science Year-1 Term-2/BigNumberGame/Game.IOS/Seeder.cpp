@@ -9,19 +9,6 @@ void Seeder::seedDatabase(bool overwrite)
 	seedDeletionMessages(overwrite);
 }
 
-/*
-
-"Admin1^Admin1^Admin^0^3^COL_NULL^5^FALSE^FALSE\n",
-		"Admin2^Admin2^Admin^6^2^10+15^7^FALSE^FALSE\n",
-		"roskata123^pederas^Normal^100^2^10123*123-1231254%231*34/111+234^101^TRUE^FALSE\n",
-		"Roskata123^Pederas^Normal^2^1^10+20/2^4^TRUE^FALSE\n",
-		"Roskata12^pederasNov^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",
-		"NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^0^FALSE\n",
-		"SomeNewUser^NewPassword^Normal^0^3^COL_NULL^1000^TRUE^TRUE\n",
-		"SomeStupidUser^Stupid^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",
-
-*/
-
 void Seeder::seedUsers(bool overwrite)
 {
 	size_t usersCount = 8;
@@ -32,7 +19,7 @@ void Seeder::seedUsers(bool overwrite)
 		"roskata123^pederas^Normal^100^2^10123*123-1231254%231*34/111+234^101^TRUE^FALSE\n",
 		"Roskata123^Pederas^Normal^2^1^10+20/2^4^TRUE^FALSE\n",
 		"Roskata12^pederasNov^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",
-		"NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^0^FALSE\n",
+		"NovUser^NovUser^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",
 		"SomeNewUser^NewPassword^Normal^0^3^COL_NULL^1000^TRUE^TRUE\n",
 		"SomeStupidUser^Stupid^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",
 	};
