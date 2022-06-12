@@ -12,8 +12,9 @@ const mstring GlobalConstants::PLACEHOLDER = "LOREM IPSUM TEXT";
 const mstring GlobalConstants::WELCOME_STARTSCREEN_TEXT = "Welcome to the BigNumber game!!!\nHere, you will be forced to answer some equations with BigNumbers in them. Enjoy!\n\n";
 const mstring GlobalConstants::BUTTON_START = "START GAME(start)\n\n";
 const mstring GlobalConstants::BUTTON_END = "END GAME(end)\n";
-const mstring GlobalConstants::BUTTON_LEADERBOARD = "LEADERBOARD(lb)\n\n";
-const mstring GlobalConstants::LEADERBOARD_TEXT = "LEADERBOARD:\n";
+const mstring GlobalConstants::BUTTON_LEADERBOARD = "\nLEADERBOARD(lb)\n\n";
+const mstring GlobalConstants::BUTTON_LEADERBOARD_ADMIN = "\nLEADERBOARD(lb{|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly}))\n";
+const mstring GlobalConstants::LEADERBOARD_TEXT = "\nLEADERBOARD:\n";
 const mstring GlobalConstants::LEADERBOARD_USER_TEXT = ". {username} --> {highscore}";
 const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
 const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
@@ -54,7 +55,7 @@ const mstring GlobalConstants::MAINMENU_HIGHSCORE_NEW = "NEW HIGHSCORE ACHIEVED!
 
 //------ADMIN_MAINMENU
 const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo|{username})\n";
-const mstring GlobalConstants::ADMIN_GETINFO_ALL = "\nGET INFO ABOUT ACCOUNTS(getinfo|all|(getDeleted: {f}/{FALSE}/{t}/{TRUE}/{deletedOnly}) )\n";
+const mstring GlobalConstants::ADMIN_GETINFO_ALL = "\nGET INFO ABOUT ACCOUNTS(getinfo|all|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly}) )\n";
 const mstring GlobalConstants::ADMIN_GETINFO_DOESNOTEXIST = "{username} DOES NOT EXIST!";
 const mstring GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER = "User info:\n";
 const mstring GlobalConstants::ADMIN_GETINFO_MANY_HEADER = "\nUsers info:\n";
@@ -135,7 +136,7 @@ const mstring GlobalConstants::COMMAND_FALSE_SHORT = "f";
 
 const mstring GlobalConstants::COMMAND_MAINMENU_START = "start";
 const mstring GlobalConstants::COMMAND_MAINMENU_END = "end";
-const mstring GlobalConstants::COMMAND_MAINMENU_LEADERBOARD = "lb";
+const mstring GlobalConstants::COMMAND_LEADERBOARD = "lb";
 const mstring GlobalConstants::COMMAND_RETURN = "r";
 
 const mstring GlobalConstants::COMMAND_LOGIN_START = "log";
@@ -153,7 +154,7 @@ const mstring GlobalConstants::COMMAND_ADMIN_RECOVER = "recover";
 const mstring GlobalConstants::COMMAND_ACCOUNT_RECOVER_CONFIRM = "recover_account";
 
 const mstring GlobalConstants::COMMAND_ADMIN_GETINFO = "getinfo";
-const mstring GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY = "deletedOnly";
+const mstring GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY = "deletedOnly";
 const mstring GlobalConstants::COMMAND_ADMIN_DELETE = "delete";
 const mstring GlobalConstants::COMMAND_ADMIN_ADD = "add";
 

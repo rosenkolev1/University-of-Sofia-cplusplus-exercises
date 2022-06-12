@@ -15,6 +15,7 @@ public:
 	static const mstring BUTTON_START;
 	static const mstring BUTTON_END;
 	static const mstring BUTTON_LEADERBOARD;
+	static const mstring BUTTON_LEADERBOARD_ADMIN;
 	static const mstring LEADERBOARD_TEXT;
 	static const mstring LEADERBOARD_USER_TEXT;
 	static const mstring GAME_END;
@@ -137,7 +138,7 @@ public:
 
 	static const mstring COMMAND_MAINMENU_START;
 	static const mstring COMMAND_MAINMENU_END;
-	static const mstring COMMAND_MAINMENU_LEADERBOARD;
+	static const mstring COMMAND_LEADERBOARD;
 	static const mstring COMMAND_RETURN;
 
 	static const mstring COMMAND_LOGIN_START;
@@ -155,7 +156,7 @@ public:
 	static const mstring COMMAND_ADMIN_RECOVER;
 
 	static const mstring COMMAND_ADMIN_GETINFO;
-	static const mstring COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY;
+	static const mstring COMMAND_ADMIN_PARAM_DELETEDONLY;
 	static const mstring COMMAND_ADMIN_DELETE;
 	static const mstring COMMAND_ADMIN_ADD;
 

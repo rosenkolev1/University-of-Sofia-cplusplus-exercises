@@ -480,7 +480,7 @@ bool AuthenticatedController::deleteOwnAccountConfirmation()
 void AuthenticatedController::mainMenuLoggedScreenPrint()
 {
     bool continueGame = Controller::currentUser->continueingGame();
-    size_t textArraySize = continueGame ? 7 : 6;
+    size_t textArraySize = continueGame ? 8 : 7;
 
     bool isAdmin = Controller::currentUser->role == UserRoles::Admin;
     //Change the textArraySize and textArray based on the user being or not being an admin
@@ -535,9 +535,14 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
         textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_STARTGAME;
     }
     //Check if the user is an admin
-    if (!isAdmin) textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;
+    if (!isAdmin)
+    {
+        textArray[textArrayIndex++] = GlobalConstants::BUTTON_LEADERBOARD;
+        textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;      
+    }
     else
     {
+        textArray[textArrayIndex++] = GlobalConstants::BUTTON_LEADERBOARD_ADMIN;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_GETINFO_ALL;
         textArray[textArrayIndex++] = GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD;
@@ -619,7 +624,91 @@ bool AuthenticatedController::mainMenuLogged()
             GameUI::printLineNoBorders(GlobalConstants::PLAYING_RESTART_GAME);
             returnToScreen = playingGame();
         }
-        //Get info about a user
+        //If the user wants to see the leaderboard
+        else if (MStringManip::stringStartsWith(selection, GlobalConstants::COMMAND_LEADERBOARD))
+        {
+            //Check if the user is admin or not and if the command is valid
+            if (selection == GlobalConstants::COMMAND_LEADERBOARD)
+            {
+                mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
+
+                GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
+                GameUI::printLineNoBorders(leaderboardInfo);   
+            }
+            else if(isAdmin)
+            {
+                size_t partsCount = 0;
+                mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
+
+                //Check if the param count is correct
+                if (partsCount != 2)
+                {
+                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                    //Dealloc dynamic memory
+                    delete[] splitSelection;
+
+                    continue;
+                }
+
+                mstring param = splitSelection[1];
+
+                //Check if param is correct
+                if (param != GlobalConstants::COMMAND_FALSE &&
+                    param != GlobalConstants::COMMAND_TRUE &&
+                    param != GlobalConstants::COMMAND_FALSE_SHORT &&
+                    param != GlobalConstants::COMMAND_TRUE_SHORT &&
+                    param != GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY)
+                {
+                    GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                    //Dealloc dynamic memory
+                    delete[] splitSelection;
+
+                    continue;
+                }
+
+                if (param == GlobalConstants::COMMAND_FALSE || param == GlobalConstants::COMMAND_FALSE_SHORT)
+                {
+                    mstring leaderboardInfo = Controller::getLeaderboardInfo(false, false);
+
+                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
+                    GameUI::printLineNoBorders(leaderboardInfo);
+                }
+                else if(param == GlobalConstants::COMMAND_TRUE || param == GlobalConstants::COMMAND_TRUE_SHORT)
+                {
+                    mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
+
+                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
+                    GameUI::printLineNoBorders(leaderboardInfo);
+                }
+                else
+                {
+                    mstring leaderboardInfo = Controller::getLeaderboardInfo(false, true);
+
+                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
+                    GameUI::printLineNoBorders(leaderboardInfo);
+                }
+
+                //Dealloc dynamic memory
+                delete[] splitSelection;
+            }
+            //Invalid input
+            else
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+
+                //Dealloc dynamic memory
+                delete[] splitSelection;
+
+                continue;
+            }
+
+            //Print the main menu screen
+            mainMenuLoggedScreenPrint();
+            continue;
+        }
+        //Get info about a user/users
         else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_GETINFO)
         {
             //Get info for specific user
@@ -665,7 +754,7 @@ bool AuthenticatedController::mainMenuLogged()
                     includeDeletedString != GlobalConstants::COMMAND_TRUE &&
                     includeDeletedString != GlobalConstants::COMMAND_FALSE_SHORT &&
                     includeDeletedString != GlobalConstants::COMMAND_TRUE_SHORT &&
-                    includeDeletedString != GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY)
+                    includeDeletedString != GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY)
                 {
                     GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                     continue;
@@ -679,7 +768,7 @@ bool AuthenticatedController::mainMenuLogged()
                     includeDeletedString == GlobalConstants::COMMAND_FALSE_SHORT) includeDeleted = false;
 
                 //Get only the deleted users
-                if (includeDeletedString == GlobalConstants::COMMAND_ADMIN_GETINFO_PARAM_DELETEDONLY)
+                if (includeDeletedString == GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY)
                 {
                     allUsers = FileSystem::getDeletedUsers(countOfUsers);
                 }
@@ -902,8 +991,6 @@ bool AuthenticatedController::mainMenuLogged()
 
         if (returnToScreen)
         {
-
-
             //Return to this screen
             mainMenuLoggedScreenPrint();
             continue;

@@ -286,74 +286,12 @@ void UnauthenticatedController::startUp()
             //Start the actual game by trying to log in first
             returnToScreen = loginOrRegister();
         }
-        else if (selection == GlobalConstants::COMMAND_MAINMENU_LEADERBOARD)
+        else if (selection == GlobalConstants::COMMAND_LEADERBOARD)
         {
-            //Get all the users
-            size_t usersCount = 0;
-            User* users = FileSystem::getAllUsers(usersCount);
-
-            //Filter out the users which are excluded from the leaderboards
-            size_t includedUsersCount = 0;
-            User* includedUsers = new User[usersCount];
-            for (size_t i = 0; i < usersCount; i++)
-            {
-                if (users[i].includeHighscore) includedUsers[includedUsersCount++] = users[i];
-            }
-
-            //Shorten the array
-            User* copyOfIncludedUsers = new User[includedUsersCount];
-            for (size_t i = 0; i < includedUsersCount; i++)
-            {
-                copyOfIncludedUsers[i] = includedUsers[i];
-            }
-
-            //Dealloc dynamic memory
-            delete[] users;
-            delete[] includedUsers;
-
-            includedUsers = copyOfIncludedUsers;
-
-            //Sort the array of included users
-            User* sortedUsers = new User[includedUsersCount];
-            size_t sortedUsersIndex = 0;
-
-            while (sortedUsersIndex < includedUsersCount)
-            {
-                User largestUser = includedUsers[0];
-                size_t largestUserIndex = 0;
-                for (size_t i = 1; i < includedUsersCount - sortedUsersIndex; i++)
-                {
-                    if (includedUsers[i].highscore > largestUser.highscore)
-                    {
-                        largestUser = includedUsers[i];
-                        largestUserIndex = i;
-                    }
-                }
-                //Swap the current largest user to last place
-                User copyOfLastUser = includedUsers[includedUsersCount - sortedUsersIndex - 1];
-                includedUsers[includedUsersCount - sortedUsersIndex - 1] = largestUser;
-                includedUsers[largestUserIndex] = copyOfLastUser;
-
-                sortedUsers[sortedUsersIndex++] = largestUser;
-            }
-
-            //Dealloc dynamic memory
-            delete[] includedUsers;
-            
-            mstring leaderboardInfo;
-
-            for (size_t i = 0; i < sortedUsersIndex; i++)
-            {
-                mstring userInfo = MStringManip::replaceAll(GlobalConstants::LEADERBOARD_USER_TEXT, GlobalConstants::USERNAME_PLACEHOLDER, sortedUsers[i].username);
-                userInfo = MStringManip::parseToString(i) + MStringManip::replaceAll(userInfo, GlobalConstants::HIGHSCORE_PLACEHOLDER, MStringManip::parseToString(sortedUsers[i].highscore));
-                leaderboardInfo += userInfo + "\n";
-            }
+            mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
 
             GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
             GameUI::printLineNoBorders(leaderboardInfo);
-            
-            //Dealloc dynamic memory
-            delete[] sortedUsers;
 
             startUpScreenPrint();
             continue;
