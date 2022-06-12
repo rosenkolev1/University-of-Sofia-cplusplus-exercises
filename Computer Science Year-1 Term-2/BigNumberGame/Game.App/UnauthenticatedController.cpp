@@ -63,7 +63,7 @@ bool UnauthenticatedController::loginUser()
 
             if (!userExists)
             {
-                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_TAKEN);
+                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_DOESNOTEXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
                 //Clear memory for input from console

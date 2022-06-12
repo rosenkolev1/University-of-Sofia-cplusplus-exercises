@@ -40,7 +40,7 @@ public:
 	static const mstring REGISTER_SUCCESS;
 	static const mstring REGISTER_USERNAME_TAKEN;
 	static const mstring LOGIN;
-	static const mstring LOGIN_USERNAME_TAKEN;
+	static const mstring LOGIN_USERNAME_DOESNOTEXIST;
 
 	//------LOGGED_MAINMENU
 	static const mstring MAINMENU_LOGGED_STARTGAME;

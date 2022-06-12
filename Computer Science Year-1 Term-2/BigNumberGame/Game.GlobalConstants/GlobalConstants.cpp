@@ -1,8 +1,5 @@
 #include "GlobalConstants.h"
 
-//const char* GlobalConstants::BAD_ALLOC_EXCEPTION = "Bad allocation of memory";
-//const int GlobalConstants::something = 35;
-
 // INTERNAL CONSTANTS
 const mstring GlobalConstants::BAD_ALLOC_EXCEPTION = "Bad allocation of memory";
 const mstring GlobalConstants::PLACEHOLDER = "LOREM IPSUM TEXT";
@@ -13,8 +10,8 @@ const mstring GlobalConstants::WELCOME_STARTSCREEN_TEXT = "Welcome to the BigNum
 const mstring GlobalConstants::BUTTON_START = "START GAME(start)\n";
 const mstring GlobalConstants::BUTTON_END = "END GAME(end)\n";
 const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
-const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
-const mstring GlobalConstants::RETURN_TEXT = "RETURN TO PREVIOUS SCREEN(r)";
+const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN\n";
+const mstring GlobalConstants::RETURN_TEXT = "\n\nRETURN TO PREVIOUS SCREEN(r)";
 const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
 
 const mstring GlobalConstants::BUTTON_LEADERBOARD = "\nLEADERBOARD(lb)\n\n";
@@ -39,12 +36,12 @@ const mstring GlobalConstants::SOLUTION_PLACEHOLDER = "{solution}";
 const mstring GlobalConstants::HIGHSCORE_PLACEHOLDER = "{highscore}";
 
 //------LOGIN/REGISTER
-const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\n\nLOGIN(log)\n\nREGISTER(reg)\n\n";
+const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\n\nLOGIN(log)\n\nREGISTER(reg)";
 const mstring GlobalConstants::REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!\nWhitespaces are not allowed!\n'|' character is not allowed as part of the username or password!";
-const mstring GlobalConstants::REGISTER_SUCCESS = "\nSuccessfully registered user!";
-const mstring GlobalConstants::REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";
+const mstring GlobalConstants::REGISTER_SUCCESS = "\nSuccessfully registered user!\n";
+const mstring GlobalConstants::REGISTER_USERNAME_TAKEN = "\nThis username has already been taken! Sorry brother.\n";
 const mstring GlobalConstants::LOGIN = "Enter your username and password ({username} | {password}).";
-const mstring GlobalConstants::LOGIN_USERNAME_TAKEN = "Error! This user doesn't exist! Password or username is wrong!";
+const mstring GlobalConstants::LOGIN_USERNAME_DOESNOTEXIST = "\nError! This user doesn't exist! Password or username is wrong!\n";
 
 //------LOGGED_MAINMENU
 const mstring GlobalConstants::MAINMENU_LOGGED_STARTGAME = "\nSTART GAME(s)\n";
@@ -59,13 +56,13 @@ const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUC
 const mstring GlobalConstants::MAINMENU_LEVEL_TEXT = "Current Level: ";
 const mstring GlobalConstants::MAINMENU_LIVES_TEXT = "Lives: ";
 const mstring GlobalConstants::MAINMENU_HIGHSCORE_TEXT = "Highscore: ";
-const mstring GlobalConstants::MAINMENU_HIGHSCORE_NEW = "NEW HIGHSCORE ACHIEVED!\n";
+const mstring GlobalConstants::MAINMENU_HIGHSCORE_NEW = "\n!!!NEW HIGHSCORE ACHIEVED!!!\n";
 
 //------ADMIN_MAINMENU
 const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo|{username})\n";
 const mstring GlobalConstants::ADMIN_GETINFO_ALL = "\nGET INFO ABOUT ACCOUNTS(getinfo|all|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly}) )\n";
 const mstring GlobalConstants::ADMIN_GETINFO_DOESNOTEXIST = "{username} DOES NOT EXIST!";
-const mstring GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER = "User info:\n";
+const mstring GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER = "\nUser info:\n";
 const mstring GlobalConstants::ADMIN_GETINFO_MANY_HEADER = "\nUsers info:\n";
 
 const mstring GlobalConstants::ADMIN_DELETEACCOUNT = "\nDELETE ACCOUNT(delete|{message}|{account name})\n";
@@ -112,9 +109,9 @@ const mstring GlobalConstants::PLAYING_EXPRESSION = "\n{expression}\n\n";
 const mstring GlobalConstants::PLAYING_HELPERS = "Helpers: \n";
 const mstring GlobalConstants::PLAYING_SOLUTION_ENTER = "\nENTER THE SOLUTION. THE DIGITS OF THE NUMBER CAN BE SEPERATED BY COMMAS FOR EASIER READABILITY\n";
 const mstring GlobalConstants::PLAYING_RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN AND EXIT THIS LEVEL(r)! PROGRESS WILL BE SAVED AUTOMATICALLY";
-const mstring GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION = "The solution is: {solution}\n";
-const mstring GlobalConstants::PLAYING_CORRECT = "\nYou have entered the correct answer, well done!";
-const mstring GlobalConstants::PLAYING_WRONG_TRYAGAIN = "Your answer is incorrect. You have lost 1 life. Try again!\n";
+const mstring GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION = "\nThe solution is: {solution}\n";
+const mstring GlobalConstants::PLAYING_CORRECT = "\nYou have entered the correct answer, well done!\n";
+const mstring GlobalConstants::PLAYING_WRONG_TRYAGAIN = "\nYour answer is incorrect. You have lost 1 life. Try again!\n";
 const mstring GlobalConstants::PLAYING_WRONG_GAMEOVER = "YOUR ANSWER IS INCORRECT.\nYOU HAVE 0 LIVES LEFT!\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_NEWHIGHSCORE = "\n...BUT YOU HAVE ACHIEVED A NEW HIGHSCORE OF {highscore}! CONGRATULATIONS!\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_RESTART = "\nRESTART FROM THE BEGINNING({s, restart})\n";
