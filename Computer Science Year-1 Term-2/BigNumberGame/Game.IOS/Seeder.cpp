@@ -4,16 +4,6 @@
 
 void Seeder::seedDatabase(bool overwrite)
 {
-	/*
-Admin1^Admin1^Admin^0^3^COL_NULL^TRUE^FALSE\n
-roskata123^pederas^Normal^0^3^COL_NULL^TRUE^FALSE\n
-Roskata123^Pederas^Normal^2^1^COL_NULL^TRUE^FALSE\n
-Roskata12^pederasNov^Normal^0^3^COL_NULL^TRUE^FALSE\n
-NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^FALSE\n
-SomeNewUser^NewPassword^Normal^0^3^COL_NULL^TRUE^TRUE\n
-SomeStupidUser^Stupid^Normal^0^3^COL_NULL^TRUE^FALSE\n
-	*/
-
 	seedUsers(overwrite);
 
 	seedDeletionMessages(overwrite);
@@ -25,9 +15,9 @@ void Seeder::seedUsers(bool overwrite)
 	mstring users[] =
 	{
 		"Admin1^Admin1^Admin^0^3^COL_NULL^FALSE^FALSE\n",
-		"Admin2^Admin2^Admin^6^2^COL_NULL^FALSE^FALSE\n",
-		"roskata123^pederas^Normal^100^2^COL_NULL^TRUE^FALSE\n",
-		"Roskata123^Pederas^Normal^2^1^COL_NULL^TRUE^FALSE\n",
+		"Admin2^Admin2^Admin^6^2^10+15^FALSE^FALSE\n",
+		"roskata123^pederas^Normal^100^2^10123*123-1231254%231*34/111+234^TRUE^FALSE\n",
+		"Roskata123^Pederas^Normal^2^1^10+20/2^TRUE^FALSE\n",
 		"Roskata12^pederasNov^Normal^0^3^COL_NULL^TRUE^FALSE\n",
 		"NovUser^NovUser^Normal^0^3^COL_NULL^TRUE^FALSE\n",
 		"SomeNewUser^NewPassword^Normal^0^3^COL_NULL^TRUE^TRUE\n",

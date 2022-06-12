@@ -17,12 +17,14 @@ public:
 	static const mstring GAME_END;
 	static const mstring COMMAND_INVALID;
 	static const mstring RETURN_TEXT;
+	static const mstring USER_DOES_NOT_EXIST;
 
 	//------PLACEHOLDERS
 	static const mstring USERNAME_PLACEHOLDER;
 	static const mstring EXPRESSION_PLACEHOLDER;
 	static const mstring LEVEL_PLACEHOLDER;
 	static const mstring LIVES_PLACEHOLDER;
+	static const mstring SOLUTION_PLACEHOLDER;
 
 	//------LOGIN/REGISTER
 	static const mstring LOGIN_OR_REGISTER;
@@ -89,6 +91,7 @@ public:
 	static const mstring ADMIN_LOGGEDASADMIN_TEXT;
 
 	//------PLAYING INSIDE LEVEL
+	static const int PLAYING_LIVES_DEFAULT;
 	static const mstring PLAYING_LIVES_TEXT;
 	static const mstring PLAYING_LEVEL_TEXT;
 	static const mstring PLAYING_EXPRESSION_SOLVE;
@@ -96,6 +99,15 @@ public:
 	static const mstring PLAYING_HELPERS;
 	static const mstring PLAYING_SOLUTION_ENTER;
 	static const mstring PLAYING_RETURN_TEXT;
+	static const mstring PLAYING_CHEATCODE_GETSOLUTION;
+	static const mstring PLAYING_CORRECT;
+	static const mstring PLAYING_WRONG_TRYAGAIN;
+	static const mstring PLAYING_WRONG_GAMEOVER;
+	static const mstring PLAYING_GAMEOVER_RESTART;
+	static const mstring PLAYING_GAMEOVER_RETURN_TO_MAINMENU;
+	static const mstring PLAYING_STARTING_GAME;
+	static const mstring PLAYING_CONTINUE_GAME;
+	static const mstring PLAYING_RESTART_GAME;
 
 	//------SCREEN TITLES
 	static const mstring STARTSCREEN_TITLE;
@@ -108,6 +120,7 @@ public:
 	static const mstring EXCLUDEFROMLEADERBOARD_CONFIRM_TITLE;
 	static const mstring INCLUDEINLEADERBOARD_CONFIRM_TITLE;
 	static const mstring BIGNUMBER_GAME_TITLE;
+	static const mstring GAMEOVER_TITLE;
 
 	//---COMMAND INPUT CONSTANTS
 	static const mstring COMMAND_TRUE;

@@ -3,10 +3,57 @@
 #include ".\Game.GlobalConstants\GlobalConstants.h"
 #include ".\Game.UI\GameUI.h"
 #include ".\Game.IOS\FileSystem.h"
+#include ".\BigNumber\BigNumberExpression.h"
+
+void AuthenticatedController::gameOverScreenPrint()
+{
+    mstring textArray[3];
+    size_t textArrayIndex = 0;
+
+    //Add the text
+    textArray[textArrayIndex++] = GlobalConstants::PLAYING_WRONG_GAMEOVER;
+    textArray[textArrayIndex++] = GlobalConstants::PLAYING_GAMEOVER_RESTART;
+    textArray[textArrayIndex++] = GlobalConstants::PLAYING_GAMEOVER_RETURN_TO_MAINMENU;
+
+    //Screen Print
+    GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::GAMEOVER_TITLE);
+}
+
+bool AuthenticatedController::gameOver()
+{
+    gameOverScreenPrint();
+
+    while (true)
+    {
+        mstring selection;
+        std::cin >> selection;
+
+        bool returnToScreen = false;
+        bool continueGame = Controller::currentUser->level > 1;
+
+        if (selection == GlobalConstants::COMMAND_RETURN)
+        {
+            //Return to last screen
+            return true;
+        }
+        //Start a new game
+        else if (selection == GlobalConstants::COMMAND_GAME_START || selection == GlobalConstants::COMMAND_GAME_RESTART)
+        {
+            return false;
+        }
+        //If the input is invalid
+        else
+        {
+            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+            continue;
+        }
+    }
+
+}
 
 void AuthenticatedController::playingGameScreenPrint(const mstring& expression)
 {
-    mstring textArray[7];
+    mstring textArray[6];
     size_t textArrayIndex = 0;
 
     mstring currentLevelString = MStringManip::parseToString(Controller::currentUser->level);
@@ -28,63 +75,135 @@ void AuthenticatedController::playingGameScreenPrint(const mstring& expression)
 
 bool AuthenticatedController::playingGame()
 {
-    //Check if there is an expression to be passed. If not, generate a new expression
-    mstring expression = Controller::currentUser->lastExpression == GlobalConstants::FILESYSTEM_COLUMN_NULL ? "15+5" : Controller::currentUser->lastExpression;
+    bool generateNewExpression = false;
 
-    playingGameScreenPrint(expression);
-
-    while(true)
+    while (true)
     {
-        mstring selection;
-        std::cin >> selection;
-
-        bool returnToScreen = false;
-        bool continueGame = Controller::currentUser->level > 1;
-
-        //Split the selection by the commas and then check if the command is valid
-        bool inputIsValidNumber = true;
-        if (MStringManip::stringStartsWith(selection, ",") || MStringManip::stringEndsWith(selection, ",")) inputIsValidNumber = false;
-        
-        //Remove commas from the selection
-        mstring newSelection = MStringManip::replaceAll(selection, ",", "");
-
-        for (size_t i = 0; i < newSelection.getSize(); i++)
+        BigNumberExpression expression;
+        BigNumber solution;
+        //Check if there is an expression to be passed. If not, generate a new expression
+        if (Controller::currentUser->lastExpressionIsNull() || generateNewExpression)
         {
-            if (!isdigit(newSelection[i]) && i >= 1) inputIsValidNumber = false;
-            else if (newSelection[0] != '-' && newSelection[0] != '+' && !isdigit(newSelection[0])) inputIsValidNumber = false;
+            //TODO: TURN THE THING BELOW INTO IT"S OWN FUNCTION AND CLASS
+            //Generate expression until it is solveable(i.e until there is no division by 0 in it)
+            while (true)
+            {
+                try
+                {
+                    expression.generateExpression();
+                    solution = expression.evaluateExpression();
+                    break;
+                }
+                catch (mstring e)
+                {
+                    if (e != BigNumberExpression::EXPRESSION_DIVIDEBYZERO_EXCEPTION && e != BigNumberExpression::EXPRESSION_PERCENTBYZERO_EXCEPTION) throw e;
+                }
+            }
+
+            Controller::currentUser->lastExpression = expression.getExpression();
+            generateNewExpression = false;
         }
-        if (newSelection.getSize() == 0) inputIsValidNumber = false;
-
-
-        if (selection == GlobalConstants::COMMAND_RETURN)
-        {
-            //Return to last screen
-            return true;
-        } 
-        //This is a cheat code for getting the solution to the expression
-        else if (selection == GlobalConstants::COMMAND_PLAYING_CHEATCODE_GETSOLUTION)
-        {
-            //Get solution
-            std::cout << "Get solution!";
-        }
-        else if (inputIsValidNumber)
-        {
-            //Check if the solution is correct
-            std::cout << "Check if the solution is correct!";
-        }
-        //If the input is invalid
         else
         {
-            GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
-            continue;
+            expression.setExpression(Controller::currentUser->lastExpression);
+            solution = expression.evaluateExpression();
         }
 
-        if (returnToScreen)
+        playingGameScreenPrint(expression.getExpression());
+
+        while (true)
         {
-            //Return to this screen
-            //TODO: FIX
-            playingGameScreenPrint("10+5");
-            continue;
+            mstring selection;
+            std::cin >> selection;
+
+            bool returnToScreen = false;
+
+            //Split the selection by the commas and then check if the command is valid
+            bool inputIsValidNumber = true;
+            if (MStringManip::stringStartsWith(selection, ",") || MStringManip::stringEndsWith(selection, ",")) inputIsValidNumber = false;
+
+            //Remove commas from the selection
+            mstring selectionNumber = MStringManip::replaceAll(selection, ",", "");
+
+            for (size_t i = 0; i < selectionNumber.getSize(); i++)
+            {
+                if (!isdigit(selectionNumber[i]) && i >= 1) inputIsValidNumber = false;
+                else if (selectionNumber[0] != '-' && selectionNumber[0] != '+' && !isdigit(selectionNumber[0])) inputIsValidNumber = false;
+            }
+            if (selectionNumber.getSize() == 0) inputIsValidNumber = false;
+
+
+            if (selection == GlobalConstants::COMMAND_RETURN)
+            {
+                //Return to last screen and save changes of game to the user
+                FileSystem::updateUser(*(Controller::currentUser));
+
+                return true;
+            }
+            //This is a cheat code for getting the solution to the expression
+            else if (selection == GlobalConstants::COMMAND_PLAYING_CHEATCODE_GETSOLUTION)
+            {
+                //Print solution
+                GameUI::printLineNoBorders(MStringManip::replaceAll(GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION, GlobalConstants::SOLUTION_PLACEHOLDER, solution.getNumber()));
+                continue;
+            }
+            else if (inputIsValidNumber)
+            {
+                //Check if the solution is correct
+                BigNumber userAnswer(selectionNumber);
+
+                if (userAnswer == solution)
+                {
+                    GameUI::printLineNoBorders(GlobalConstants::PLAYING_CORRECT);
+
+                    //Update the user's current level
+                    Controller::currentUser->level++;
+
+                    //Have the game update the current user's last expression to the one that the current level will generate
+                    generateNewExpression = true;
+
+                    break;
+                }
+                else
+                {
+                    //If the answer is incorrect, let the user try again
+                    Controller::currentUser->lives--;
+                    if (Controller::currentUser->lives <= 0)
+                    {
+                        Controller::currentUser->setLastExpressionToNull();
+                        Controller::currentUser->level = 0;
+                        Controller::currentUser->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
+
+                        //Update the user's profile so that they cannot save scum
+                        FileSystem::updateUser(*Controller::currentUser);
+
+                        bool returnToMainMenu = gameOver();
+                        
+                        //If the users chose to return to the main menu, then do so
+                        if (returnToMainMenu) return true;
+                        
+                        //In this case, we generate the first level for the user.
+                        Controller::currentUser->level = 1;
+                        break;
+                    }
+                    else
+                    {
+                        GameUI::printLineNoBorders(GlobalConstants::PLAYING_WRONG_TRYAGAIN);
+                        playingGameScreenPrint(expression.getExpression());
+                        //Update the user's profile so that they cannot save scum
+                        FileSystem::updateUser(*Controller::currentUser);
+                    }
+                    
+                    continue;
+                }
+
+            }
+            //If the input is invalid
+            else
+            {
+                GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
+                continue;
+            }
         }
     }
 }
@@ -347,7 +466,7 @@ bool AuthenticatedController::deleteOwnAccountConfirmation()
 
 void AuthenticatedController::mainMenuLoggedScreenPrint()
 {
-    bool continueGame = Controller::currentUser->level > 1;
+    bool continueGame = Controller::currentUser->continueingGame();
     size_t textArraySize = continueGame ? 6 : 5;
 
     bool isAdmin = Controller::currentUser->role == UserRoles::Admin;
@@ -425,7 +544,7 @@ bool AuthenticatedController::mainMenuLogged()
         std::cin >> selection;
 
         bool returnToScreen = false;
-        bool continueGame = Controller::currentUser->level > 1;
+        bool continueGame = Controller::currentUser->continueingGame();
 
         size_t partsCount = 0;
         mstring* splitSelection = MStringManip::splitString(selection, GlobalConstants::COMMAND_DELIM, partsCount);
@@ -450,14 +569,26 @@ bool AuthenticatedController::mainMenuLogged()
         //Users starts a new game
         else if (!continueGame && selection == GlobalConstants::COMMAND_GAME_START)
         {
+            Controller::currentUser->level = 1;
+            GameUI::printLineNoBorders(GlobalConstants::PLAYING_STARTING_GAME);
             returnToScreen = playingGame();
         }
-        //User continues a game or restarts a started game
-        else if (continueGame &&
-            (selection == GlobalConstants::COMMAND_GAME_RESTART ||
-                selection == GlobalConstants::COMMAND_GAME_CONTINUE))
+        //User continues a game
+        else if (continueGame && selection == GlobalConstants::COMMAND_GAME_CONTINUE)
         {
-            std::cout << "do something";
+            GameUI::printLineNoBorders(GlobalConstants::PLAYING_CONTINUE_GAME);
+            returnToScreen = playingGame();
+        }
+        //User restarts a started game
+        else if (continueGame && selection == GlobalConstants::COMMAND_GAME_RESTART)
+        {
+            //Reset the user's game
+            Controller::currentUser->level = 1;
+            Controller::currentUser->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
+            Controller::currentUser->setLastExpressionToNull();
+
+            GameUI::printLineNoBorders(GlobalConstants::PLAYING_RESTART_GAME);
+            returnToScreen = playingGame();
         }
         //Get info about a user
         else if (isAdmin && command == GlobalConstants::COMMAND_ADMIN_GETINFO)
@@ -567,7 +698,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -606,7 +737,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -655,7 +786,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if a user with this username exists
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }
@@ -706,7 +837,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if a user with this username exists at all, even amongst the banned accounts
             if (targetUser == nullptr)
             {
-                GameUI::printLineNoBorders(User::USER_DOES_NOT_EXIST);
+                GameUI::printLineNoBorders(GlobalConstants::USER_DOES_NOT_EXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
                 continue;
             }

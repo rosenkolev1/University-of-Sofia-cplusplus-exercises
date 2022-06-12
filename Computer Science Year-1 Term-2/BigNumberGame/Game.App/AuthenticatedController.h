@@ -6,6 +6,10 @@ class AuthenticatedController
 {
 public:
 
+    static void gameOverScreenPrint();
+
+    static bool gameOver();
+
     static void playingGameScreenPrint(const mstring& expression);
 
     static bool playingGame();

@@ -34,9 +34,6 @@ const mstring User::USER_FIELDS[USER_FIELDS_COUNT]
 	"IsDeleted"
 };
 
-const mstring User::USER_BANNED = "You have been banned for an unknown reason!";
-const mstring User::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
-
 const mstring User::EXCEPTION_ROLE_NOTFOUND = "Role not found!";
 const mstring User::EXCEPTION_USERNAME_TOOLONG = "Username is too long!";
 const mstring User::EXCEPTION_PASSWORD_TOOLONG = "Password is too long!";
@@ -145,6 +142,21 @@ void User::setPassword(mstring password)
 	this->password = password;
 }
 
+void User::setLastExpressionToNull()
+{
+	this->lastExpression = GlobalConstants::FILESYSTEM_COLUMN_NULL;
+}
+
+bool User::continueingGame() const
+{
+	return this->level > 0;
+}
+
+bool User::lastExpressionIsNull() const
+{
+	return this->lastExpression == GlobalConstants::FILESYSTEM_COLUMN_NULL;
+}
+
 User::User()
 {
 	this->setUsername("defaultName");
@@ -154,7 +166,7 @@ User::User()
 	this->role = UserRoles::Normal;
 	this->includeHighscore = true;
 	this->isDeleted = false;
-	this->lives = 3;
+	this->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
 }
 
 User::User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted)

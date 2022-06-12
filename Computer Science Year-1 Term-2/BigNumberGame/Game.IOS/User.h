@@ -62,9 +62,6 @@ public:
 	static const int USER_FIELDS_COUNT;
 	static const mstring USER_FIELDS[];
 
-	static const mstring USER_BANNED;
-	static const mstring USER_DOES_NOT_EXIST;
-
 	mstring username;
 	mstring password;
 	UserRoles role;
@@ -78,6 +75,7 @@ public:
 	void setRole(mstring role);
 	void setUsername(mstring username);
 	void setPassword(mstring password);
+	void setLastExpressionToNull();
 
 	//Getters as mstring
 	mstring getRoleString() const;
@@ -85,6 +83,10 @@ public:
 	mstring getLivesString() const;
 	mstring getIncludeHighscoreString() const;
 	mstring getIsDeletedString() const;
+
+	//Getters
+	bool continueingGame() const;
+	bool lastExpressionIsNull() const;
 
 	User();
 	User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted);

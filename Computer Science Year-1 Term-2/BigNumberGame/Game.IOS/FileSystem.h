@@ -44,6 +44,9 @@ public:
 	//Include the user's account in the leaderboards
 	static void includeUser(mstring username);
 
+	//Update the user's account
+	static void updateUser(const User& user);
+
 	//READ
 	static User* getAllUsers(mstring tableFile, size_t& countOfUsers, bool includeDeleted = true);
 	static User* getAllUsers(size_t& countOfUsers, bool includeDeleted = true);

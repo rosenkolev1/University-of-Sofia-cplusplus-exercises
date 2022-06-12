@@ -193,7 +193,7 @@ bool FileSystem::userIsRegisteredWithPassword(mstring username, mstring password
 
 void FileSystem::registerUser(mstring username, mstring password, UserRoles role)
 {
-	mstring dataToWriteToFile = createUserString(username, password, role, 0, 3, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
+	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
 
 	appendToTable(dataToWriteToFile, USER_TABLE);
 }
@@ -292,6 +292,25 @@ void FileSystem::includeUser(mstring username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
 	//Replace the new user string in the user table
+	overwriteTable(newUserTableFileString, USER_TABLE);
+}
+
+void FileSystem::updateUser(const User& user)
+{
+	//Get the current user table
+	mstring userTableFileString = getTableAsString(USER_TABLE);
+
+	//Get the current user string
+	size_t startPos = 0;
+	size_t endPos = 0;
+	mstring oldUserString = getUserString(user.username, startPos, endPos);
+
+	//Create the new user string
+	mstring newUserString = createUserString(user);
+
+	//Replace the current user string with the new one
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, startPos, endPos);
+
 	overwriteTable(newUserTableFileString, USER_TABLE);
 }
 
