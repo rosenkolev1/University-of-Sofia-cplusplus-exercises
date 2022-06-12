@@ -1,2 +1,5 @@
---Make the add command for admin work (requires making another database table and a whole lot of refactoring work)
+--Make the add helpers command for admin work (requires making another database table and a whole lot of refactoring work)
+
 --Make the actual game part itself as well (requires everything above)
+
+--UNIT TEST HAHAHA BLEWGH!
