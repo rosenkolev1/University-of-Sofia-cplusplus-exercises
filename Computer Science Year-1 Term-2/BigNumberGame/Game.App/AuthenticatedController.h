@@ -6,9 +6,9 @@ class AuthenticatedController
 {
 public:
 
-    static void gameOverScreenPrint();
+    static void gameOverScreenPrint(bool newHighscore);
 
-    static bool gameOver();
+    static bool gameOver(bool newHighscore);
 
     static void playingGameScreenPrint(const mstring& expression);
 

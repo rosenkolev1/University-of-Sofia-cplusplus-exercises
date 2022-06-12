@@ -7,13 +7,18 @@
 
 //TODO: MAKE IT SO THAT THE GAME ALERTS THE PLAYER IF HE HAS ACHIEVED A HIGHSCORE UPON PASSING A LEVEL
 
-void AuthenticatedController::gameOverScreenPrint()
+void AuthenticatedController::gameOverScreenPrint(bool newHighscore)
 {
-    mstring textArray[3];
+    mstring textArray[4];
     size_t textArrayIndex = 0;
 
     //Add the text
     textArray[textArrayIndex++] = GlobalConstants::PLAYING_WRONG_GAMEOVER;
+    //If the person has achieved a new highscore, then print that out for him
+    if (newHighscore)
+    {
+        textArray[textArrayIndex++] = MStringManip::replaceAll(GlobalConstants::PLAYING_GAMEOVER_NEWHIGHSCORE, GlobalConstants::HIGHSCORE_PLACEHOLDER, Controller::currentUser->getHighscoreString());
+    }
     textArray[textArrayIndex++] = GlobalConstants::PLAYING_GAMEOVER_RESTART;
     textArray[textArrayIndex++] = GlobalConstants::PLAYING_GAMEOVER_RETURN_TO_MAINMENU;
 
@@ -21,17 +26,14 @@ void AuthenticatedController::gameOverScreenPrint()
     GameUI::printScreenWithText(textArray, textArrayIndex, GlobalConstants::GAMEOVER_TITLE);
 }
 
-bool AuthenticatedController::gameOver()
+bool AuthenticatedController::gameOver(bool newHighscore)
 {
-    gameOverScreenPrint();
+    gameOverScreenPrint(newHighscore);
 
     while (true)
     {
         mstring selection;
         std::cin >> selection;
-
-        bool returnToScreen = false;
-        bool continueGame = Controller::currentUser->level > 1;
 
         if (selection == GlobalConstants::COMMAND_RETURN)
         {
@@ -58,10 +60,10 @@ void AuthenticatedController::playingGameScreenPrint(const mstring& expression)
     mstring textArray[6];
     size_t textArrayIndex = 0;
 
-    mstring currentLevelString = MStringManip::parseToString(Controller::currentUser->level);
-    mstring currentLivesString = MStringManip::parseToString(Controller::currentUser->lives);
-    mstring levelString = MStringManip::replaceAll(GlobalConstants::PLAYING_LEVEL_TEXT, GlobalConstants::LEVEL_PLACEHOLDER, currentLevelString);
-    mstring livesString = MStringManip::replaceAll(GlobalConstants::PLAYING_LIVES_TEXT, GlobalConstants::LIVES_PLACEHOLDER, currentLivesString);
+    /*mstring currentLevelString = MStringManip::parseToString(Controller::currentUser->level);
+    mstring currentLivesString = MStringManip::parseToString(Controller::currentUser->lives);*/
+    mstring levelString = MStringManip::replaceAll(GlobalConstants::PLAYING_LEVEL_TEXT, GlobalConstants::LEVEL_PLACEHOLDER, Controller::currentUser->getLevelString());
+    mstring livesString = MStringManip::replaceAll(GlobalConstants::PLAYING_LIVES_TEXT, GlobalConstants::LIVES_PLACEHOLDER, Controller::currentUser->getLivesString());
 
     //Add the text
     textArray[textArrayIndex++] = levelString;
@@ -137,6 +139,13 @@ bool AuthenticatedController::playingGame()
 
             if (selection == GlobalConstants::COMMAND_RETURN)
             {
+                //Check if the user has achieved a new highscore. If he has, then update that highscore and print a message for him in the main menu
+                if (Controller::currentUser->level > Controller::currentUser->highscore)
+                {
+                    Controller::newHighscore = true;
+                    Controller::currentUser->highscore = Controller::currentUser->level;
+                }
+
                 //Return to last screen and save changes of game to the user
                 FileSystem::updateUser(*(Controller::currentUser));
 
@@ -172,6 +181,10 @@ bool AuthenticatedController::playingGame()
                     Controller::currentUser->lives--;
                     if (Controller::currentUser->lives <= 0)
                     {
+                        //Update the user's highscore
+                        bool achievedNewHighscore = Controller::currentUser->level > Controller::currentUser->highscore;
+                        if (achievedNewHighscore) Controller::currentUser->highscore = Controller::currentUser->level;
+
                         Controller::currentUser->setLastExpressionToNull();
                         Controller::currentUser->level = 0;
                         Controller::currentUser->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
@@ -179,7 +192,7 @@ bool AuthenticatedController::playingGame()
                         //Update the user's profile so that they cannot save scum
                         FileSystem::updateUser(*Controller::currentUser);
 
-                        bool returnToMainMenu = gameOver();
+                        bool returnToMainMenu = gameOver(achievedNewHighscore);
                         
                         //If the users chose to return to the main menu, then do so
                         if (returnToMainMenu) return true;
@@ -475,6 +488,7 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
     //Change the textArraySize and textArray based on the user being or not being an admin
     if (isAdmin) textArraySize += 7;
 
+
     mstring* textArray = new mstring[textArraySize];
 
     size_t textArrayIndex = 0;
@@ -502,6 +516,13 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
     mstring currentHighscoreText = GlobalConstants::MAINMENU_HIGHSCORE_TEXT;
     mstring highscoreText = MStringManip::parseToString(Controller::currentUser->highscore);
     currentHighscoreText += highscoreText + "\n";
+    
+    //If the user has achieved a new highscore, then print that to them.
+    if (Controller::newHighscore)
+    {
+        Controller::newHighscore = false;
+        currentHighscoreText.push_front(GlobalConstants::MAINMENU_HIGHSCORE_NEW);
+    }   
     textArray[textArrayIndex++] = currentHighscoreText;
 
     //Type out the appropriate things depending on the state of the game of the user
@@ -883,6 +904,8 @@ bool AuthenticatedController::mainMenuLogged()
 
         if (returnToScreen)
         {
+
+
             //Return to this screen
             mainMenuLoggedScreenPrint();
             continue;

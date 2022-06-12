@@ -24,6 +24,7 @@ const mstring GlobalConstants::EXPRESSION_PLACEHOLDER = "{expression}";
 const mstring GlobalConstants::LEVEL_PLACEHOLDER = "{level}";
 const mstring GlobalConstants::LIVES_PLACEHOLDER = "{lives}";
 const mstring GlobalConstants::SOLUTION_PLACEHOLDER = "{solution}";
+const mstring GlobalConstants::HIGHSCORE_PLACEHOLDER = "{highscore}";
 
 //------LOGIN/REGISTER
 const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\nLOGIN(log)\nREGISTER(reg)";
@@ -46,6 +47,7 @@ const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUC
 const mstring GlobalConstants::MAINMENU_LEVEL_TEXT = "Current Level: ";
 const mstring GlobalConstants::MAINMENU_LIVES_TEXT = "Lives: ";
 const mstring GlobalConstants::MAINMENU_HIGHSCORE_TEXT = "Highscore: ";
+const mstring GlobalConstants::MAINMENU_HIGHSCORE_NEW = "NEW HIGHSCORE ACHIEVED!\n";
 
 //------ADMIN_MAINMENU
 const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo|{username})\n";
@@ -102,6 +104,7 @@ const mstring GlobalConstants::PLAYING_CHEATCODE_GETSOLUTION = "The solution is:
 const mstring GlobalConstants::PLAYING_CORRECT = "\nYou have entered the correct answer, well done!";
 const mstring GlobalConstants::PLAYING_WRONG_TRYAGAIN = "Your answer is incorrect. You have lost 1 life. Try again!\n";
 const mstring GlobalConstants::PLAYING_WRONG_GAMEOVER = "YOUR ANSWER IS INCORRECT.\nYOU HAVE 0 LIVES LEFT!\n";
+const mstring GlobalConstants::PLAYING_GAMEOVER_NEWHIGHSCORE = "\n...BUT YOU HAVE ACHIEVED A NEW HIGHSCORE OF {highscore}! CONGRATULATIONS!\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_RESTART = "\nRESTART FROM THE BEGINNING({s, restart})\n";
 const mstring GlobalConstants::PLAYING_GAMEOVER_RETURN_TO_MAINMENU = "\nRETURN TO MAIN MENU(r)\n";
 const mstring GlobalConstants::PLAYING_STARTING_GAME = "Starting Game...";

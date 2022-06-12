@@ -7,5 +7,6 @@ class Controller
 public:
 	static User* currentUser;
 	static bool returnToTitleScreen;
+	static bool newHighscore;
 };
 

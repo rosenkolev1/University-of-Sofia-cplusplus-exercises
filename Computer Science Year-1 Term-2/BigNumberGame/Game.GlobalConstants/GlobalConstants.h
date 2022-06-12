@@ -25,6 +25,7 @@ public:
 	static const mstring LEVEL_PLACEHOLDER;
 	static const mstring LIVES_PLACEHOLDER;
 	static const mstring SOLUTION_PLACEHOLDER;
+	static const mstring HIGHSCORE_PLACEHOLDER;
 
 	//------LOGIN/REGISTER
 	static const mstring LOGIN_OR_REGISTER;
@@ -47,6 +48,7 @@ public:
 	static const mstring MAINMENU_LEVEL_TEXT;
 	static const mstring MAINMENU_LIVES_TEXT;
 	static const mstring MAINMENU_HIGHSCORE_TEXT;
+	static const mstring MAINMENU_HIGHSCORE_NEW;
 
 	//------ADMIN_MAINMENU
 	static const mstring ADMIN_GETINFO;
@@ -104,6 +106,7 @@ public:
 	static const mstring PLAYING_CORRECT;
 	static const mstring PLAYING_WRONG_TRYAGAIN;
 	static const mstring PLAYING_WRONG_GAMEOVER;
+	static const mstring PLAYING_GAMEOVER_NEWHIGHSCORE;
 	static const mstring PLAYING_GAMEOVER_RESTART;
 	static const mstring PLAYING_GAMEOVER_RETURN_TO_MAINMENU;
 	static const mstring PLAYING_STARTING_GAME;
