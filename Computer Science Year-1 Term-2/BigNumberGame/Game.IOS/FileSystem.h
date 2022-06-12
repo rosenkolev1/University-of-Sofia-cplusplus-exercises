@@ -78,7 +78,7 @@ public:
 	static bool userRoleIsValid(const mstring& role);
 
 	//Miscallaneous
-	static mstring createUserString(const mstring& username, const mstring& password, UserRoles role, int level, int lives, const mstring& lastExpression, bool includeHighscore, bool isDeleted);
+	static mstring createUserString(const mstring& username, const mstring& password, UserRoles role, int level, int lives, const mstring& lastExpression, int highscore, bool includeHighscore, bool isDeleted);
 	static mstring createUserString(const User& user);
 	static mstring createUserString(const mstring* fields, size_t fieldsCount);
 	static User createUserFromString(mstring userString);

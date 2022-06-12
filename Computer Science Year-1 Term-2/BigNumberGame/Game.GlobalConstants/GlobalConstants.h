@@ -46,6 +46,7 @@ public:
 	static const mstring MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS;
 	static const mstring MAINMENU_LEVEL_TEXT;
 	static const mstring MAINMENU_LIVES_TEXT;
+	static const mstring MAINMENU_HIGHSCORE_TEXT;
 
 	//------ADMIN_MAINMENU
 	static const mstring ADMIN_GETINFO;
@@ -157,16 +158,5 @@ public:
 	static const mstring COMMAND_ADMIN_INCLUDE_CONFIRM;
 
 	static const mstring COMMAND_PLAYING_CHEATCODE_GETSOLUTION;
-
-	//---FILE SYSTEM CONSTANTS
-	/*static const char FILESYSTEM_ENTRY_DELIMITER;
-	static const char FILESYSTEM_COLUMN_DELIMITER;
-	static const char FILESYSTEM_WHITESPACE;
-	static const mstring FILESYSTEM_COLUMN_NULL;
-	static const mstring FILESYSTEM_TRUE;
-	static const mstring FILESYSTEM_FALSE;*/
-
-	//---FORBIDDEN STRING SYMBOLS
-	static const char FORBIDDEN_SYMBOLS[];
 };
 

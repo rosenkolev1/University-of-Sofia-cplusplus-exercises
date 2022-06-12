@@ -5,7 +5,7 @@
 
 /* USER_TABLE
 * ~
-*	Username| Password| Role| Level| |Lives| Last Equation| includeHighscore| isDeleted|
+*	Username| Password| Role| Level| |Lives| Last Equation| Highscore| includeHighscore| isDeleted|
 * ~
 */
 
@@ -21,7 +21,15 @@ const char FileSystem::FILESYSTEM_COLUMN_DELIMITER = '^';
 const char FileSystem::FILESYSTEM_WHITESPACE = ' ';
 const mstring FileSystem::FILESYSTEM_COLUMN_NULL = "COL_NULL";
 const mstring FileSystem::FILESYSTEM_TRUE = "TRUE";
-const mstring FILESYSTEM_FALSE = "FALSE";
+const mstring FileSystem::FILESYSTEM_FALSE = "FALSE";
+const char FileSystem::FORBIDDEN_SYMBOLS[5] =
+{
+	FILESYSTEM_ENTRY_DELIMITER,
+	FILESYSTEM_COLUMN_DELIMITER,
+	FILESYSTEM_WHITESPACE,
+	GlobalConstants::COMMAND_DELIM,
+	'\0'
+};
 
 size_t FileSystem::getCount(const mstring& tableFile)
 {
@@ -117,9 +125,9 @@ bool FileSystem::stringContainsForbiddenSymbols(const mstring& text)
 {
 	for (size_t i = 0; i < text.getSize(); i++)
 	{
-		for (size_t y = 0; y < strlen(GlobalConstants::FORBIDDEN_SYMBOLS); y++)
+		for (size_t y = 0; y < strlen(FORBIDDEN_SYMBOLS); y++)
 		{
-			if (text[i] == GlobalConstants::FORBIDDEN_SYMBOLS[y]) return true;
+			if (text[i] == FORBIDDEN_SYMBOLS[y]) return true;
 		}
 	}
 	return false;
@@ -201,7 +209,7 @@ bool FileSystem::userIsRegisteredWithPassword(const mstring& username, const mst
 
 void FileSystem::registerUser(const mstring& username, const mstring& password, UserRoles role)
 {
-	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, FILESYSTEM_COLUMN_NULL, true, false);
+	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, FILESYSTEM_COLUMN_NULL, 0, true, false);
 
 	appendToTable(dataToWriteToFile, USER_TABLE);
 }
@@ -397,6 +405,11 @@ User* FileSystem::getAllUsers(const mstring& tableFile, size_t& countOfUsers, bo
 			else if (currentUserField == UserFields::LastExpression)
 			{
 				users[currentUserIndex].lastExpression = dataRead;
+				currentUserField = UserFields::Highscore;
+			}
+			else if (currentUserField == UserFields::Highscore)
+			{
+				users[currentUserIndex].highscore = MStringManip::parseToLong(dataRead);
 				currentUserField = UserFields::IncludeHighscore;
 			}
 			else if (currentUserField == UserFields::IncludeHighscore)
@@ -547,7 +560,7 @@ mstring FileSystem::getUserString(const mstring& username, const mstring& tableF
 			}
 		}
 		//Check if we are currently on the first, i.e. the username colummn
-		else if (currentColumnCounter % ((int)UserFields::IsDeleted + 1) == 1)
+		else if (currentColumnCounter % User::USER_FIELDS_COUNT == 1)
 		{
 			if (!currentColIsUsername) currentColIsUsername = true;
 			currentUsername += tableFile[i];
@@ -572,7 +585,7 @@ mstring FileSystem::getUserString(const mstring& username, size_t& startPos, siz
 	return getUserString(username, tableFile, startPos, endPos);
 }
 
-mstring FileSystem::createUserString(const mstring& username, const mstring& password, UserRoles role, int level, int lives, const mstring& lastExpression, bool includeHighscore, bool isDeleted)
+mstring FileSystem::createUserString(const mstring& username, const mstring& password, UserRoles role, int level, int lives, const mstring& lastExpression, int highscore, bool includeHighscore, bool isDeleted)
 {
 	mstring userString;
 
@@ -613,6 +626,12 @@ mstring FileSystem::createUserString(const mstring& username, const mstring& pas
 	//This is the delimiter between the different columns of the table
 	userString += FILESYSTEM_COLUMN_DELIMITER;
 
+	//Enter the current highscore of the user
+	userString += MStringManip::parseToString(highscore);
+
+	//This is the delimiter between the different columns of the table
+	userString += FILESYSTEM_COLUMN_DELIMITER;
+
 	//Enter the includeHighscore
 	userString += (includeHighscore ? FILESYSTEM_TRUE : FILESYSTEM_FALSE);
 
@@ -630,7 +649,7 @@ mstring FileSystem::createUserString(const mstring& username, const mstring& pas
 
 mstring FileSystem::createUserString(const User& user)
 {
-	return createUserString(user.username, user.password, user.role, user.level, user.lives, user.lastExpression, user.includeHighscore, user.isDeleted);
+	return createUserString(user.username, user.password, user.role, user.level, user.lives, user.lastExpression, user.highscore, user.includeHighscore, user.isDeleted);
 }
 
 mstring FileSystem::createUserString(const mstring* fields, size_t fieldsCount)
@@ -673,10 +692,11 @@ User FileSystem::createUserFromString(mstring userString)
 	int level = MStringManip::parseToLong(fields[3]);
 	int lives = MStringManip::parseToLong(fields[4]);
 	mstring lastExpression = fields[5];
-	bool includeHighscore = (fields[6] == FILESYSTEM_TRUE ? true : false);
-	bool isDeleted = (fields[7] == FILESYSTEM_TRUE ? true : false);
+	int highscore = MStringManip::parseToLong(fields[6]);
+	bool includeHighscore = (fields[7] == FILESYSTEM_TRUE ? true : false);
+	bool isDeleted = (fields[8] == FILESYSTEM_TRUE ? true : false);
 
-	return User(username, password, role, level, lives, lastExpression, includeHighscore, isDeleted);
+	return User(username, password, role, level, lives, lastExpression, highscore, includeHighscore, isDeleted);
 }
 
 /**********************************************************************************************************************************/

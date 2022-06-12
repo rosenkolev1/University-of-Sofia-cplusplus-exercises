@@ -45,6 +45,7 @@ const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_NO 
 const mstring GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT_CONFIRMATION_SUCCESS = "\nACCOUNT DELETION WAS SUCCESSFUL\n";
 const mstring GlobalConstants::MAINMENU_LEVEL_TEXT = "Current Level: ";
 const mstring GlobalConstants::MAINMENU_LIVES_TEXT = "Lives: ";
+const mstring GlobalConstants::MAINMENU_HIGHSCORE_TEXT = "Highscore: ";
 
 //------ADMIN_MAINMENU
 const mstring GlobalConstants::ADMIN_GETINFO = "\nGET INFO ABOUT ACCOUNT(getinfo|{username})\n";
@@ -155,21 +156,3 @@ const mstring GlobalConstants::COMMAND_ADMIN_EXCLUDE_CONFIRM = "exclude_account"
 const mstring GlobalConstants::COMMAND_ADMIN_INCLUDE_CONFIRM = "include_account";
 
 const mstring GlobalConstants::COMMAND_PLAYING_CHEATCODE_GETSOLUTION = "gsl";
-
-////---FILE SYSTEM CONSTANTS
-//const char GlobalConstants::FILESYSTEM_ENTRY_DELIMITER = '\n';
-//const char GlobalConstants::FILESYSTEM_COLUMN_DELIMITER = '^';
-//const char GlobalConstants::FILESYSTEM_WHITESPACE = ' ';
-//const mstring GlobalConstants::FILESYSTEM_COLUMN_NULL = "COL_NULL";
-//const mstring GlobalConstants::FILESYSTEM_TRUE = "TRUE";
-//const mstring GlobalConstants::FILESYSTEM_FALSE = "FALSE";
-//
-////---FORBIDDEN STRING SYMBOLS
-//const char GlobalConstants::FORBIDDEN_SYMBOLS[5] =
-//{
-//	GlobalConstants::FILESYSTEM_ENTRY_DELIMITER,
-//	GlobalConstants::FILESYSTEM_COLUMN_DELIMITER,
-//	GlobalConstants::FILESYSTEM_WHITESPACE,
-//	GlobalConstants::COMMAND_DELIM,
-//	'\0'
-//};

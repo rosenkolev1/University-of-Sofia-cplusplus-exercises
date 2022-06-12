@@ -4,6 +4,7 @@
 #include "..\Game.GlobalConstants\GlobalConstants.h"
 #include <iostream>
 #include "..\Project.StringManipulation\MStringManip.h"
+#include "FileSystem.h"
 
 //---USER INFO CONSTANTS
 const int User::USERNAME_LENGTH_MAX = 100;
@@ -21,7 +22,7 @@ const mstring User::USER_ROLES[USER_ROLES_COUNT]
 	User::USER_ROLE_ADMIN
 };
 
-const int User::USER_FIELDS_COUNT = 8;
+const int User::USER_FIELDS_COUNT = 9;
 const mstring User::USER_FIELDS[USER_FIELDS_COUNT]
 {
 	"Username",
@@ -30,6 +31,7 @@ const mstring User::USER_FIELDS[USER_FIELDS_COUNT]
 	"Level",
 	"Lives",
 	"LastExpression",
+	"Highscore",
 	"IncludeHighscore",
 	"IsDeleted"
 };
@@ -144,7 +146,7 @@ void User::setPassword(mstring password)
 
 void User::setLastExpressionToNull()
 {
-	this->lastExpression = GlobalConstants::FILESYSTEM_COLUMN_NULL;
+	this->lastExpression = FileSystem::FILESYSTEM_COLUMN_NULL;
 }
 
 bool User::continueingGame() const
@@ -154,7 +156,7 @@ bool User::continueingGame() const
 
 bool User::lastExpressionIsNull() const
 {
-	return this->lastExpression == GlobalConstants::FILESYSTEM_COLUMN_NULL;
+	return this->lastExpression == FileSystem::FILESYSTEM_COLUMN_NULL;
 }
 
 User::User()
@@ -169,7 +171,7 @@ User::User()
 	this->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
 }
 
-User::User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted)
+User::User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, int highscore, bool includeHighscore, bool isDeleted)
 {
 	this->setUsername(username);
 	this->setPassword(password);
@@ -177,6 +179,7 @@ User::User(mstring username, mstring password, UserRoles role, int level, int li
 	this->level = level;
 	this->lives = lives;
 	this->lastExpression = lastExpression;
+	this->highscore = highscore;
 	this->includeHighscore = includeHighscore;
 	this->isDeleted = isDeleted;
 }
@@ -202,6 +205,11 @@ mstring User::getLivesString() const
 	return MStringManip::parseToString(this->lives);
 }
 
+mstring User::getHighscoreString() const
+{
+	return MStringManip::parseToString(this->highscore);
+}
+
 mstring User::getIncludeHighscoreString() const
 {
 	return this->includeHighscore ? "TRUE" : "FALSE";
@@ -214,6 +222,8 @@ mstring User::getIsDeletedString() const
 
 mstring User::getInfo()
 {
+	//TODO: USE THE STATIC FUNCTION FOR THIS INSTEAD FOR IMPROVING REUSABILITY 
+
 	mstring info;
 
 	//Get columns
@@ -223,8 +233,9 @@ mstring User::getInfo()
 	mstring levelCol = USER_FIELDS[3];
 	mstring livesCol = USER_FIELDS[4];
 	mstring lastExpressionCol = USER_FIELDS[5];
-	mstring includeHighscoreCol = USER_FIELDS[6];
-	mstring isDeletedCol = USER_FIELDS[7];
+	mstring highscoreCol = USER_FIELDS[6];
+	mstring includeHighscoreCol = USER_FIELDS[7];
+	mstring isDeletedCol = USER_FIELDS[8];
 
 	//Set username col info
 	mstring usernameData = this->username;
@@ -250,6 +261,10 @@ mstring User::getInfo()
 	mstring lastExpressionData = this->lastExpression;
 	setColHeaderAndDataInfo(lastExpressionCol, lastExpressionData);
 
+	//Set highscore col info
+	mstring highscoreData = this->getHighscoreString();
+	setColHeaderAndDataInfo(highscoreCol, highscoreData);
+
 	//Set includeHighscore info
 	mstring includeHighscoreData = this->getIncludeHighscoreString();
 	setColHeaderAndDataInfo(includeHighscoreCol, includeHighscoreData);
@@ -259,11 +274,11 @@ mstring User::getInfo()
 	setColHeaderAndDataInfo(isDeletedCol, isDeletedData);
 
 	//Add all of the info
-	mstring combinedCols = usernameCol + passwordCol + roleCol + levelCol + livesCol + lastExpressionCol + includeHighscoreCol + isDeletedCol;
+	mstring combinedCols = usernameCol + passwordCol + roleCol + levelCol + livesCol + lastExpressionCol + highscoreCol + includeHighscoreCol + isDeletedCol;
 	mstring tableHeader = getTableHeader(combinedCols);
 
 	info += tableHeader + 
-		usernameData + passwordData + roleData + levelData + livesData + lastExpressionData + includeHighscoreData + isDeletedData
+		usernameData + passwordData + roleData + levelData + livesData + lastExpressionData + highscoreData + includeHighscoreData + isDeletedData
 		+ getTableSpacer(combinedCols);
 
 	return info;
@@ -280,13 +295,14 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 	mstring levelCol = USER_FIELDS[3];
 	mstring livesCol = USER_FIELDS[4];
 	mstring lastExpressionCol = USER_FIELDS[5];
-	mstring includeHighscoreCol = USER_FIELDS[6];
-	mstring isDeletedCol = USER_FIELDS[7];
+	mstring highscoreCol = USER_FIELDS[6];
+	mstring includeHighscoreCol = USER_FIELDS[7];
+	mstring isDeletedCol = USER_FIELDS[8];
 
 	if (countOfUsers == 0)
 	{
 		//Add all of the info
-		mstring combinedCols = usernameCol + passwordCol + roleCol + levelCol + livesCol + lastExpressionCol + includeHighscoreCol + isDeletedCol;
+		mstring combinedCols = usernameCol + passwordCol + roleCol + levelCol + livesCol + lastExpressionCol + highscoreCol + includeHighscoreCol + isDeletedCol;
 		mstring tableHeader = getTableHeader(combinedCols);
 
 		return tableHeader;
@@ -299,6 +315,7 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 	mstring longestLevel = users[0].getLevelString();
 	mstring longestLives = users[0].getLivesString();
 	mstring longestLastExpression = users[0].lastExpression;
+	mstring longestHighscore = users[0].highscore;
 	mstring longestIncludeHighscore = users[0].getIncludeHighscoreString();
 	mstring longestIsDeleted = users[0].getIsDeletedString();
 	
@@ -311,6 +328,7 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 		if (users[i].getLevelString().getSize() > longestLevel.getSize()) longestLevel = users[i].getLevelString();
 		if (users[i].getLivesString().getSize() > longestLives.getSize()) longestLives = users[i].getLivesString();
 		if (users[i].lastExpression.getSize() > longestLastExpression.getSize()) longestLastExpression = users[i].lastExpression;
+		if (users[i].getHighscoreString().getSize() > longestHighscore.getSize()) longestHighscore = users[i].getHighscoreString();
 		if (users[i].getIncludeHighscoreString().getSize() > longestIncludeHighscore.getSize()) longestIncludeHighscore = users[i].getIncludeHighscoreString();
 		if (users[i].getIsDeletedString().getSize() > longestIsDeleted.getSize()) longestIsDeleted = users[i].getIsDeletedString();
 	}
@@ -332,6 +350,9 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 
 	//Set last expression col
 	setColHeaderInfo(lastExpressionCol, longestLastExpression, false);
+
+	//Set highscore col
+	setColHeaderInfo(highscoreCol, longestHighscore, false);
 
 	//Set includeHighscore col
 	setColHeaderInfo(includeHighscoreCol, longestIncludeHighscore, false);
@@ -372,6 +393,10 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 		mstring lastExpressionData = users[i].lastExpression;
 		setColDataInfo(lastExpressionCol, lastExpressionData, true);
 
+		//Set highscore col info
+		mstring highscoreData = users[i].getHighscoreString();
+		setColDataInfo(highscoreCol, highscoreData, true);
+
 		//Set includeHighscore info
 		mstring includeHighscoreData = users[i].getIncludeHighscoreString();
 		setColDataInfo(includeHighscoreCol, includeHighscoreData, true);
@@ -380,7 +405,7 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 		mstring isDeletedData = users[i].getIsDeletedString();
 		setColDataInfo(isDeletedCol, isDeletedData, true);
 
-		tableRow += usernameData + passwordData + roleData + levelData + livesData + lastExpressionData + includeHighscoreData + isDeletedData;
+		tableRow += usernameData + passwordData + roleData + levelData + livesData + lastExpressionData + highscoreData + includeHighscoreData + isDeletedData;
 
 		tableDataRows[tableDataRowsIndex++] = tableRow;
 	}
@@ -392,6 +417,7 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 		levelCol + TABLE_DELIM +
 		livesCol + TABLE_DELIM +
 		lastExpressionCol + TABLE_DELIM +
+		highscoreCol + TABLE_DELIM +
 		includeHighscoreCol + TABLE_DELIM +
 		isDeletedCol + TABLE_DELIM;
 
@@ -402,7 +428,6 @@ mstring User::getInfoMany(const User* users, size_t countOfUsers)
 	//Set the final table string
 	for (size_t i = 0; i < countOfUsers; i++)
 	{
-		//tableString += mstring("\n") + tableDataRows[i] + "\n" + getTableSpacer(combinedCols);
 		tableString += tableDataRows[i] + getTableSpacer(combinedCols);
 	}
 

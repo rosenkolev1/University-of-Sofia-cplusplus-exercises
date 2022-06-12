@@ -6,7 +6,6 @@
 #include ".\BigNumber\BigNumberExpression.h"
 
 //TODO: MAKE IT SO THAT THE GAME ALERTS THE PLAYER IF HE HAS ACHIEVED A HIGHSCORE UPON PASSING A LEVEL
-//TODO: MOVE FILESYSTEM CONSTANTS INSIDE THE FILESYSTEM CLASS INSTEAD OF THE GLOBALCONSTANTS CLASS
 
 void AuthenticatedController::gameOverScreenPrint()
 {
@@ -470,7 +469,7 @@ bool AuthenticatedController::deleteOwnAccountConfirmation()
 void AuthenticatedController::mainMenuLoggedScreenPrint()
 {
     bool continueGame = Controller::currentUser->continueingGame();
-    size_t textArraySize = continueGame ? 6 : 5;
+    size_t textArraySize = continueGame ? 7 : 6;
 
     bool isAdmin = Controller::currentUser->role == UserRoles::Admin;
     //Change the textArraySize and textArray based on the user being or not being an admin
@@ -499,7 +498,14 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
     currentLivesText += livesText + "\n";
     textArray[textArrayIndex++] = currentLivesText;
 
+    //Make text with highscore
+    mstring currentHighscoreText = GlobalConstants::MAINMENU_HIGHSCORE_TEXT;
+    mstring highscoreText = MStringManip::parseToString(Controller::currentUser->highscore);
+    currentHighscoreText += highscoreText + "\n";
+    textArray[textArrayIndex++] = currentHighscoreText;
+
     //Type out the appropriate things depending on the state of the game of the user
+    //Check if there is a game to be continued
     if (continueGame)
     {
         textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_CONTINUEGAME;
@@ -509,6 +515,7 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
     {
         textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_STARTGAME;
     }
+    //Check if the user is an admin
     if (!isAdmin) textArray[textArrayIndex++] = GlobalConstants::MAINMENU_LOGGED_DELETEOWNACCOUNT;
     else
     {

@@ -1,9 +1,9 @@
 #pragma once
 #include "..\Project.StringManipulation\MString.h"
 
-/*
+/* USER_TABLE
 * ~
-*	Username| Password| Role| Level| |Lives| Last Equation| includeHighscore| isDeleted| 
+*	Username| Password| Role| Level| |Lives| Last Equation| Highscore| includeHighscore| isDeleted|
 * ~
 */
 
@@ -15,6 +15,7 @@ enum class UserFields
 	Level,
 	Lives,
 	LastExpression,
+	Highscore,
 	IncludeHighscore,
 	IsDeleted
 };
@@ -62,12 +63,14 @@ public:
 	static const int USER_FIELDS_COUNT;
 	static const mstring USER_FIELDS[];
 
+	//Actual columns
 	mstring username;
 	mstring password;
 	UserRoles role;
 	int level;
 	int lives;
 	mstring lastExpression;
+	int highscore;
 	bool includeHighscore;
 	bool isDeleted;
 
@@ -81,6 +84,7 @@ public:
 	mstring getRoleString() const;
 	mstring getLevelString() const;
 	mstring getLivesString() const;
+	mstring getHighscoreString() const;
 	mstring getIncludeHighscoreString() const;
 	mstring getIsDeletedString() const;
 
@@ -89,7 +93,7 @@ public:
 	bool lastExpressionIsNull() const;
 
 	User();
-	User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, bool includeHighscore, bool isDeleted);
+	User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, int highscore, bool includeHighscore, bool isDeleted);
 
 	//Get info about user formatted in a table
 	mstring getInfo();
