@@ -156,20 +156,20 @@ const mstring GlobalConstants::COMMAND_ADMIN_INCLUDE_CONFIRM = "include_account"
 
 const mstring GlobalConstants::COMMAND_PLAYING_CHEATCODE_GETSOLUTION = "gsl";
 
-//---FILE SYSTEM CONSTANTS
-const char GlobalConstants::FILESYSTEM_ENTRY_DELIMITER = '\n';
-const char GlobalConstants::FILESYSTEM_COLUMN_DELIMITER = '^';
-const char GlobalConstants::FILESYSTEM_WHITESPACE = ' ';
-const mstring GlobalConstants::FILESYSTEM_COLUMN_NULL = "COL_NULL";
-const mstring GlobalConstants::FILESYSTEM_TRUE = "TRUE";
-const mstring GlobalConstants::FILESYSTEM_FALSE = "FALSE";
-
-//---FORBIDDEN STRING SYMBOLS
-const char GlobalConstants::FORBIDDEN_SYMBOLS[5] =
-{
-	GlobalConstants::FILESYSTEM_ENTRY_DELIMITER,
-	GlobalConstants::FILESYSTEM_COLUMN_DELIMITER,
-	GlobalConstants::FILESYSTEM_WHITESPACE,
-	GlobalConstants::COMMAND_DELIM,
-	'\0'
-};
+////---FILE SYSTEM CONSTANTS
+//const char GlobalConstants::FILESYSTEM_ENTRY_DELIMITER = '\n';
+//const char GlobalConstants::FILESYSTEM_COLUMN_DELIMITER = '^';
+//const char GlobalConstants::FILESYSTEM_WHITESPACE = ' ';
+//const mstring GlobalConstants::FILESYSTEM_COLUMN_NULL = "COL_NULL";
+//const mstring GlobalConstants::FILESYSTEM_TRUE = "TRUE";
+//const mstring GlobalConstants::FILESYSTEM_FALSE = "FALSE";
+//
+////---FORBIDDEN STRING SYMBOLS
+//const char GlobalConstants::FORBIDDEN_SYMBOLS[5] =
+//{
+//	GlobalConstants::FILESYSTEM_ENTRY_DELIMITER,
+//	GlobalConstants::FILESYSTEM_COLUMN_DELIMITER,
+//	GlobalConstants::FILESYSTEM_WHITESPACE,
+//	GlobalConstants::COMMAND_DELIM,
+//	'\0'
+//};

@@ -159,12 +159,12 @@ public:
 	static const mstring COMMAND_PLAYING_CHEATCODE_GETSOLUTION;
 
 	//---FILE SYSTEM CONSTANTS
-	static const char FILESYSTEM_ENTRY_DELIMITER;
+	/*static const char FILESYSTEM_ENTRY_DELIMITER;
 	static const char FILESYSTEM_COLUMN_DELIMITER;
 	static const char FILESYSTEM_WHITESPACE;
 	static const mstring FILESYSTEM_COLUMN_NULL;
 	static const mstring FILESYSTEM_TRUE;
-	static const mstring FILESYSTEM_FALSE;
+	static const mstring FILESYSTEM_FALSE;*/
 
 	//---FORBIDDEN STRING SYMBOLS
 	static const char FORBIDDEN_SYMBOLS[];

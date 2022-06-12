@@ -15,9 +15,17 @@
 * ~
 */
 
+//---FILE SYSTEM CONSTANTS
+const char FileSystem::FILESYSTEM_ENTRY_DELIMITER = '\n';
+const char FileSystem::FILESYSTEM_COLUMN_DELIMITER = '^';
+const char FileSystem::FILESYSTEM_WHITESPACE = ' ';
+const mstring FileSystem::FILESYSTEM_COLUMN_NULL = "COL_NULL";
+const mstring FileSystem::FILESYSTEM_TRUE = "TRUE";
+const mstring FILESYSTEM_FALSE = "FALSE";
+
 size_t FileSystem::getCount(const mstring& tableFile)
 {
-	return MStringManip::countOf(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+	return MStringManip::countOf(tableFile, FILESYSTEM_ENTRY_DELIMITER);
 }
 
 mstring FileSystem::getTableAsString(const char* table)
@@ -193,7 +201,7 @@ bool FileSystem::userIsRegisteredWithPassword(const mstring& username, const mst
 
 void FileSystem::registerUser(const mstring& username, const mstring& password, UserRoles role)
 {
-	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, GlobalConstants::FILESYSTEM_COLUMN_NULL, true, false);
+	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, FILESYSTEM_COLUMN_NULL, true, false);
 
 	appendToTable(dataToWriteToFile, USER_TABLE);
 }
@@ -353,8 +361,8 @@ User* FileSystem::getAllUsers(const mstring& tableFile, size_t& countOfUsers, bo
 		}
 
 		//Check if the built up buffer data should be flushed into the user
-		bool shouldFlushData = (newSymbol == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER ||
-			newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER);
+		bool shouldFlushData = (newSymbol == FILESYSTEM_COLUMN_DELIMITER ||
+			newSymbol == FILESYSTEM_ENTRY_DELIMITER);
 
 		if (!shouldFlushData) dataRead += newSymbol;
 
@@ -393,19 +401,19 @@ User* FileSystem::getAllUsers(const mstring& tableFile, size_t& countOfUsers, bo
 			}
 			else if (currentUserField == UserFields::IncludeHighscore)
 			{
-				users[currentUserIndex].includeHighscore = dataRead == GlobalConstants::FILESYSTEM_TRUE;
+				users[currentUserIndex].includeHighscore = dataRead == FILESYSTEM_TRUE;
 				currentUserField = UserFields::IsDeleted;
 			}
 			else if (currentUserField == UserFields::IsDeleted)
 			{
-				users[currentUserIndex].isDeleted = dataRead == GlobalConstants::FILESYSTEM_TRUE;
+				users[currentUserIndex].isDeleted = dataRead == FILESYSTEM_TRUE;
 				if (users[currentUserIndex].isDeleted) deletedUsersCount++;
 			}
 
 			//Reset the dataRead
 			dataRead = "";
 
-			if (newSymbol == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+			if (newSymbol == FILESYSTEM_ENTRY_DELIMITER)
 			{
 				currentUserIndex++;
 				currentUserField = UserFields::Username;
@@ -516,12 +524,12 @@ mstring FileSystem::getUserString(const mstring& username, const mstring& tableF
 	for (size_t i = 0; i < tableFile.getSize(); i++)
 	{
 		//We have found the index of the entry delim right after the user ends
-		if (foundCurrentUser && tableFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		if (foundCurrentUser && tableFile[i] == FILESYSTEM_ENTRY_DELIMITER)
 		{
 			endPos = i;
 			break;
 		}
-		if (tableFile[i] == GlobalConstants::FILESYSTEM_COLUMN_DELIMITER || tableFile[i] == GlobalConstants::FILESYSTEM_ENTRY_DELIMITER)
+		if (tableFile[i] == FILESYSTEM_COLUMN_DELIMITER || tableFile[i] == FILESYSTEM_ENTRY_DELIMITER)
 		{
 			currentColumnCounter++;
 			if (currentColIsUsername)
@@ -572,50 +580,50 @@ mstring FileSystem::createUserString(const mstring& username, const mstring& pas
 	userString += username;
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the password
 	userString += password;
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	mstring roleString = User::USER_ROLES[(int)role];
 	//Enter the role of the user, which is normal by default
 	userString += roleString;
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the current level of the user
 	userString += MStringManip::parseToString(level);
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the current lives of the user
 	userString += MStringManip::parseToString(lives);
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the last equation of the user, which is NULL since this user is new
 	userString += lastExpression;
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the includeHighscore
-	userString += (includeHighscore ? GlobalConstants::FILESYSTEM_TRUE : GlobalConstants::FILESYSTEM_FALSE);
+	userString += (includeHighscore ? FILESYSTEM_TRUE : FILESYSTEM_FALSE);
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	userString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the isDeleted of the user
-	userString += (isDeleted ? GlobalConstants::FILESYSTEM_TRUE : GlobalConstants::FILESYSTEM_FALSE);
+	userString += (isDeleted ? FILESYSTEM_TRUE : FILESYSTEM_FALSE);
 
 	//This is the delimiter between the different columns of the table
-	userString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+	userString += FILESYSTEM_ENTRY_DELIMITER;
 
 	return userString;
 }
@@ -631,11 +639,11 @@ mstring FileSystem::createUserString(const mstring* fields, size_t fieldsCount)
 	for (int i = 0; i < fieldsCount - 1; i++)
 	{
 		userString += fields[i];
-		userString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+		userString += FILESYSTEM_COLUMN_DELIMITER;
 	}
 
 	userString += fields[fieldsCount - 1];
-	userString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+	userString += FILESYSTEM_ENTRY_DELIMITER;
 
 	return userString;
 }
@@ -643,9 +651,9 @@ mstring FileSystem::createUserString(const mstring* fields, size_t fieldsCount)
 User FileSystem::createUserFromString(mstring userString)
 {
 	size_t fieldsCount = 0;
-	userString = MStringManip::replaceAll(userString, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, "");
+	userString = MStringManip::replaceAll(userString, FILESYSTEM_ENTRY_DELIMITER, "");
 
-	mstring* fields = MStringManip::splitString(userString, GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
+	mstring* fields = MStringManip::splitString(userString, FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
 
 	mstring username = fields[0]; 
 	mstring password = fields[1]; 
@@ -665,8 +673,8 @@ User FileSystem::createUserFromString(mstring userString)
 	int level = MStringManip::parseToLong(fields[3]);
 	int lives = MStringManip::parseToLong(fields[4]);
 	mstring lastExpression = fields[5];
-	bool includeHighscore = (fields[6] == GlobalConstants::FILESYSTEM_TRUE ? true : false);
-	bool isDeleted = (fields[7] == GlobalConstants::FILESYSTEM_TRUE ? true : false);
+	bool includeHighscore = (fields[6] == FILESYSTEM_TRUE ? true : false);
+	bool isDeleted = (fields[7] == FILESYSTEM_TRUE ? true : false);
 
 	return User(username, password, role, level, lives, lastExpression, includeHighscore, isDeleted);
 }
@@ -726,19 +734,19 @@ mstring FileSystem::createMessageString(size_t id, const mstring& message, const
 	messageString += MStringManip::parseToString(id);
 
 	//This is the delimiter between the different columns of the table
-	messageString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	messageString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the message
 	messageString += message;
 
 	//This is the delimiter between the different columns of the table
-	messageString += GlobalConstants::FILESYSTEM_COLUMN_DELIMITER;
+	messageString += FILESYSTEM_COLUMN_DELIMITER;
 
 	//Enter the username
 	messageString += username;
 
 	//This is the delimiter between the different columns of the table
-	messageString += GlobalConstants::FILESYSTEM_ENTRY_DELIMITER;
+	messageString += FILESYSTEM_ENTRY_DELIMITER;
 
 	return messageString;
 }
@@ -758,7 +766,7 @@ DeletionMessage* FileSystem::getAllDeletionMessages(size_t& countOfMessages)
 DeletionMessage* FileSystem::getAllDeletionMessages(const mstring& tableFile, size_t& countOfMessages)
 {
 	//Get all the message strings
-	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, countOfMessages);
+	mstring* entries = MStringManip::splitString(tableFile, FILESYSTEM_ENTRY_DELIMITER, countOfMessages);
 	countOfMessages--;
 
 	DeletionMessage* messages = new DeletionMessage[countOfMessages];
@@ -767,7 +775,7 @@ DeletionMessage* FileSystem::getAllDeletionMessages(const mstring& tableFile, si
 	{
 		//Get all the fields for all the messages
 		size_t fieldsCount = 0;
-		mstring* fields = MStringManip::splitString(entries[i], GlobalConstants::FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
+		mstring* fields = MStringManip::splitString(entries[i], FILESYSTEM_COLUMN_DELIMITER, fieldsCount);
 		//Set the message id
 		messages[i].id = MStringManip::parseToLong(fields[0]);
 		//Set the message
@@ -833,11 +841,11 @@ size_t FileSystem::getHighestId()
 size_t FileSystem::getHighestId(const mstring& tableFile)
 {
 	size_t entriesCount = 0;
-	mstring* entries = MStringManip::splitString(tableFile, GlobalConstants::FILESYSTEM_ENTRY_DELIMITER, entriesCount);
+	mstring* entries = MStringManip::splitString(tableFile, FILESYSTEM_ENTRY_DELIMITER, entriesCount);
 	entriesCount--;
 
 	//Get the id from the last entry
-	size_t firstColumnDelimIndex = MStringManip::findIndex(entries[entriesCount - 1], GlobalConstants::FILESYSTEM_COLUMN_DELIMITER);
+	size_t firstColumnDelimIndex = MStringManip::findIndex(entries[entriesCount - 1], FILESYSTEM_COLUMN_DELIMITER);
 	size_t highestId = MStringManip::parseToLong(MStringManip::getFrom(entries[entriesCount - 1], 0, firstColumnDelimIndex - 1));
 
 	//Dealloc dynamic memory
