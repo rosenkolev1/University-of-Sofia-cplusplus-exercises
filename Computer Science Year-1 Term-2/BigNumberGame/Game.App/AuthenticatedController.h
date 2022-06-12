@@ -4,6 +4,12 @@
 
 class AuthenticatedController
 {
+private:
+    static void printGetinfoTable(bool includeDeleted, bool getDeletedOnly);
+
+    static void printGetinfoTableSingle(const User& user);
+
+    static void printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly);
 public:
 
     static void gameOverScreenPrint(bool newHighscore);

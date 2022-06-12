@@ -96,7 +96,7 @@ public:
 	User(mstring username, mstring password, UserRoles role, int level, int lives, mstring lastExpression, int highscore, bool includeHighscore, bool isDeleted);
 
 	//Get info about user formatted in a table
-	mstring getInfo();
-	static mstring getInfoMany(const User* users, size_t countOfUsers);
+	/*mstring getInfo();
+	static mstring getInfoMany(const User* users, size_t countOfUsers);*/
 };
 

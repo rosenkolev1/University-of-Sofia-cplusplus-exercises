@@ -6,11 +6,22 @@ User* Controller::currentUser = nullptr;
 bool Controller::returnToTitleScreen = false;
 bool Controller::newHighscore = false;
 
-mstring Controller::getLeaderboardInfo(bool includeDeleted, bool getDeletedOnly)
+mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim)
 {
     //Get all the users
     size_t usersCount = 0;
-    User* users = FileSystem::getAllUsers(usersCount);
+    User* users = nullptr;
+
+    //Filter out the users which are not deleted
+    if (getDeletedOnly)
+    {        
+        users = FileSystem::getDeletedUsers(usersCount);
+    }
+    //Filter out the users which are deleted
+    else
+    {     
+        users = FileSystem::getAllUsers(usersCount, includeDeleted);
+    }
 
     //Filter out the users which are excluded from the leaderboards
     size_t includedUsersCount = 0;
@@ -33,53 +44,6 @@ mstring Controller::getLeaderboardInfo(bool includeDeleted, bool getDeletedOnly)
 
     users = copyOfIncludedUsers;
     usersCount = includedUsersCount;
-
-    //Filter out the users which are not deleted
-    if(getDeletedOnly)
-    {
-        size_t deletedUsersIndex = 0;
-        User* deletedUsers = new User[usersCount];
-        for (size_t i = 0; i < usersCount; i++)
-        {
-            if (users[i].isDeleted) deletedUsers[deletedUsersIndex++] = users[i];
-        }
-
-        //Resize array
-        User* copyOfDeletedUsers = new User[deletedUsersIndex];
-        for (size_t i = 0; i < deletedUsersIndex; i++)
-        {
-            copyOfDeletedUsers[i] = deletedUsers[i];
-        }
-        //Dealloc dynamic memory
-        delete[] deletedUsers;
-        delete[] users;
-
-        users = copyOfDeletedUsers;
-        usersCount = deletedUsersIndex;
-    }
-    //Filter out the users which are deleted
-    else if (!includeDeleted)
-    {
-        size_t nonDeletedUsersIndex = 0;
-        User* nonDeletedUsers = new User[usersCount];
-        for (size_t i = 0; i < usersCount; i++)
-        {
-            if (!users[i].isDeleted) nonDeletedUsers[nonDeletedUsersIndex++] = users[i];
-        }
-
-        //Resize array
-        User* copyOfNonDeletedUsers = new User[nonDeletedUsersIndex];
-        for (size_t i = 0; i < nonDeletedUsersIndex; i++)
-        {
-            copyOfNonDeletedUsers[i] = nonDeletedUsers[i];
-        }
-        //Dealloc dynamic memory
-        delete[] nonDeletedUsers;
-        delete[] users;
-
-        users = copyOfNonDeletedUsers;
-        usersCount = nonDeletedUsersIndex;
-    }
 
     //Sort the array of included users
     User* sortedUsers = new User[usersCount];
@@ -108,17 +72,59 @@ mstring Controller::getLeaderboardInfo(bool includeDeleted, bool getDeletedOnly)
     //Dealloc dynamic memory
     delete[] users;
 
-    mstring leaderboardInfo;
+    //Set the count of the rows
+    rowsCount = sortedUsersIndex;
 
-    for (size_t i = 0; i < sortedUsersIndex; i++)
+    mstring* leaderboardRowsInfo = new mstring[rowsCount];
+
+    for (size_t i = 0; i < rowsCount; i++)
     {
-        mstring userInfo = MStringManip::replaceAll(GlobalConstants::LEADERBOARD_USER_TEXT, GlobalConstants::USERNAME_PLACEHOLDER, sortedUsers[i].username);
-        userInfo = MStringManip::parseToString(i + 1) + MStringManip::replaceAll(userInfo, GlobalConstants::HIGHSCORE_PLACEHOLDER, MStringManip::parseToString(sortedUsers[i].highscore));
-        leaderboardInfo += userInfo + "\n";
+		//Number. Username. Highscore
+		leaderboardRowsInfo[i] = MStringManip::parseToString(i + 1) + dataDelim + sortedUsers[i].username + dataDelim + sortedUsers[i].getHighscoreString();
     }
 
     //Dealloc dynamic memory
     delete[] sortedUsers;
 
-    return leaderboardInfo;
+    return leaderboardRowsInfo;
+}
+
+mstring* Controller::getInfoUsersRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim)
+{
+    //Get all the users
+    size_t usersCount = 0;
+    User* users = nullptr; 
+    
+    if (getDeletedOnly == true) users = FileSystem::getDeletedUsers(usersCount);
+    else users = FileSystem::getAllUsers(usersCount, includeDeleted);
+
+    //Set the count of the rows
+    rowsCount = usersCount;
+
+    mstring* usersRowsInfo = new mstring[rowsCount];
+
+    for (size_t i = 0; i < rowsCount; i++)
+    {       
+        usersRowsInfo[i] = getInfoUserRow(users[i], dataDelim);
+    }
+
+    //Dealloc dynamic memory
+    delete[] users;
+
+    return usersRowsInfo;
+}
+
+mstring Controller::getInfoUserRow(const User& user, mstring dataDelim)
+{
+    mstring userInfoRow = user.username + dataDelim +
+        user.password + dataDelim +
+        user.getRoleString() + dataDelim +
+        user.getLevelString() + dataDelim +
+        user.getLivesString() + dataDelim +
+        user.lastExpression + dataDelim +
+        user.getHighscoreString() + dataDelim +
+        user.getIncludeHighscoreString() + dataDelim +
+        user.getIsDeletedString();
+
+    return userInfoRow;
 }

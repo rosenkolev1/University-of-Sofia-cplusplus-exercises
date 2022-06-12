@@ -5,6 +5,49 @@
 #include ".\Game.IOS\FileSystem.h"
 #include ".\BigNumber\BigNumberExpression.h"
 
+//Gets the info for a single user
+void AuthenticatedController::printGetinfoTableSingle(const User& user)
+{
+    mstring userRow = Controller::getInfoUserRow(user, GlobalConstants::COMMAND_DELIM);
+    mstring* usersRows = new mstring[1];
+    usersRows[0] = userRow;
+
+    mstring tableString = GameUI::getTable(User::USER_FIELDS, User::USER_FIELDS_COUNT, usersRows, 1, GlobalConstants::COMMAND_DELIM);
+    GameUI::printLineNoBorders(tableString);
+
+    //Dealloc dynamic memory
+    delete[] usersRows;
+}
+
+//Gets the info for many users. If getDeletedOnly == true, then includeDeleted is ignored
+void AuthenticatedController::printGetinfoTable(bool includeDeleted, bool getDeletedOnly)
+{
+    size_t countOfRows = 0;
+
+    mstring* usersRows = Controller::getInfoUsersRows(includeDeleted, getDeletedOnly, countOfRows, GlobalConstants::COMMAND_DELIM);
+
+    mstring tableString = GameUI::getTable(User::USER_FIELDS, User::USER_FIELDS_COUNT, usersRows, countOfRows, GlobalConstants::COMMAND_DELIM);
+    GameUI::printLineNoBorders(tableString);
+
+    //Dealloc dynamic memory
+    delete[] usersRows;
+}
+
+//If getDeletedOnly == true, then includeDeleted is ignored
+void AuthenticatedController::printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly)
+{
+    size_t countOfRows = 0;
+    mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(includeDeleted, getDeletedOnly, countOfRows, GlobalConstants::COMMAND_DELIM);
+
+    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
+
+    mstring tableString = GameUI::getTable(GlobalConstants::LEADERBOARD_COLS, GlobalConstants::LEADERBOARD_COLS_COUNT, leaderboardRowsInfo, countOfRows, GlobalConstants::COMMAND_DELIM);
+    GameUI::printLineNoBorders(tableString);
+
+    //Dealloc dynamic memory
+    delete[] leaderboardRowsInfo;
+}
+
 void AuthenticatedController::gameOverScreenPrint(bool newHighscore)
 {
     mstring textArray[4];
@@ -630,10 +673,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Check if the user is admin or not and if the command is valid
             if (selection == GlobalConstants::COMMAND_LEADERBOARD)
             {
-                mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
-
-                GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
-                GameUI::printLineNoBorders(leaderboardInfo);   
+                printLeaderboardsTable(true, false);
             }
             else if(isAdmin)
             {
@@ -670,24 +710,15 @@ bool AuthenticatedController::mainMenuLogged()
 
                 if (param == GlobalConstants::COMMAND_FALSE || param == GlobalConstants::COMMAND_FALSE_SHORT)
                 {
-                    mstring leaderboardInfo = Controller::getLeaderboardInfo(false, false);
-
-                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
-                    GameUI::printLineNoBorders(leaderboardInfo);
+                    printLeaderboardsTable(false, false);
                 }
                 else if(param == GlobalConstants::COMMAND_TRUE || param == GlobalConstants::COMMAND_TRUE_SHORT)
                 {
-                    mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
-
-                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
-                    GameUI::printLineNoBorders(leaderboardInfo);
+                    printLeaderboardsTable(true, false);
                 }
                 else
                 {
-                    mstring leaderboardInfo = Controller::getLeaderboardInfo(false, true);
-
-                    GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
-                    GameUI::printLineNoBorders(leaderboardInfo);
+                    printLeaderboardsTable(false, true);
                 }
 
                 //Dealloc dynamic memory
@@ -732,7 +763,8 @@ bool AuthenticatedController::mainMenuLogged()
 
                 //Print the information about the user to the console
                 GameUI::printLineNoBorders(GlobalConstants::ADMIN_GETINFO_SINGLE_HEADER);
-                GameUI::printLineNoBorders(targetUser->getInfo());
+
+                printGetinfoTableSingle(*targetUser);
 
                 mainMenuLoggedScreenPrint();
 
@@ -745,6 +777,7 @@ bool AuthenticatedController::mainMenuLogged()
             {
                 mstring includeDeletedString = splitSelection[2];
                 bool includeDeleted = true;
+                bool getDeletedOnly = false;
 
                 //Dealloc dynamic memory
                 delete[] splitSelection;
@@ -760,32 +793,20 @@ bool AuthenticatedController::mainMenuLogged()
                     continue;
                 }
 
-                size_t countOfUsers = 0;
-                User* allUsers = nullptr;
-
-                //Filter out the users as necessary
+                //If true, then remove deleted from the list
                 if (includeDeletedString == GlobalConstants::COMMAND_FALSE ||
                     includeDeletedString == GlobalConstants::COMMAND_FALSE_SHORT) includeDeleted = false;
-
-                //Get only the deleted users
-                if (includeDeletedString == GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY)
-                {
-                    allUsers = FileSystem::getDeletedUsers(countOfUsers);
-                }
-                //Get all the users, except maybe the deleted ones
-                else
-                {
-                    allUsers = FileSystem::getAllUsers(countOfUsers, includeDeleted);
-                }
-
+                //If true, then keep deleted in the list
+                else if (includeDeletedString == GlobalConstants::COMMAND_TRUE ||
+                    includeDeletedString == GlobalConstants::COMMAND_TRUE_SHORT) includeDeleted = true;
+                else if (includeDeletedString == GlobalConstants::COMMAND_ADMIN_PARAM_DELETEDONLY) getDeletedOnly = true;
+               
                 //Print the information about the user to the console
                 GameUI::printLineNoBorders(GlobalConstants::ADMIN_GETINFO_MANY_HEADER);
-                GameUI::printLineNoBorders(User::getInfoMany(allUsers, countOfUsers));
+
+                printGetinfoTable(includeDeleted, getDeletedOnly);
 
                 mainMenuLoggedScreenPrint();
-
-                //Dealloc dynamic memory
-                delete[] allUsers;
 
                 continue;
             }

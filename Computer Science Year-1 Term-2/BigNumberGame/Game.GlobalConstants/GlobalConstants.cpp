@@ -10,16 +10,24 @@ const mstring GlobalConstants::PLACEHOLDER = "LOREM IPSUM TEXT";
 //---UI AND TEXT OUTPUT CONSTANTS
 //------NOT LOGGED/GLOBAL
 const mstring GlobalConstants::WELCOME_STARTSCREEN_TEXT = "Welcome to the BigNumber game!!!\nHere, you will be forced to answer some equations with BigNumbers in them. Enjoy!\n\n";
-const mstring GlobalConstants::BUTTON_START = "START GAME(start)\n\n";
+const mstring GlobalConstants::BUTTON_START = "START GAME(start)\n";
 const mstring GlobalConstants::BUTTON_END = "END GAME(end)\n";
+const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
+const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
+const mstring GlobalConstants::RETURN_TEXT = "RETURN TO PREVIOUS SCREEN(r)";
+const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
+
 const mstring GlobalConstants::BUTTON_LEADERBOARD = "\nLEADERBOARD(lb)\n\n";
 const mstring GlobalConstants::BUTTON_LEADERBOARD_ADMIN = "\nLEADERBOARD(lb{|(getDeleted: {f}/{false}/{t}/{true}/{deletedOnly}))\n";
 const mstring GlobalConstants::LEADERBOARD_TEXT = "\nLEADERBOARD:\n";
 const mstring GlobalConstants::LEADERBOARD_USER_TEXT = ". {username} --> {highscore}";
-const mstring GlobalConstants::GAME_END = "GAME HAS ENDED!!!\nTHANK YOU FOR PLAYING";
-const mstring GlobalConstants::COMMAND_INVALID = "INVALID COMMAND! TRY AGAIN";
-const mstring GlobalConstants::RETURN_TEXT = "\nRETURN TO PREVIOUS SCREEN(r)";
-const mstring GlobalConstants::USER_DOES_NOT_EXIST = "Error! This user doesn't exist!";
+const int GlobalConstants::LEADERBOARD_COLS_COUNT = 3;
+const mstring GlobalConstants::LEADERBOARD_COLS[3]
+{
+	"Position",
+	"Username",
+	"Highscore"
+};
 //TODO: ADD A LEADERBOARD PRINTING OPTION
 
 //------PLACEHOLDERS
@@ -31,7 +39,7 @@ const mstring GlobalConstants::SOLUTION_PLACEHOLDER = "{solution}";
 const mstring GlobalConstants::HIGHSCORE_PLACEHOLDER = "{highscore}";
 
 //------LOGIN/REGISTER
-const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\nLOGIN(log)\nREGISTER(reg)";
+const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\n\nLOGIN(log)\n\nREGISTER(reg)\n\n";
 const mstring GlobalConstants::REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!\nWhitespaces are not allowed!\n'|' character is not allowed as part of the username or password!";
 const mstring GlobalConstants::REGISTER_SUCCESS = "\nSuccessfully registered user!";
 const mstring GlobalConstants::REGISTER_USERNAME_TAKEN = "This username has already been taken! Sorry brother.";

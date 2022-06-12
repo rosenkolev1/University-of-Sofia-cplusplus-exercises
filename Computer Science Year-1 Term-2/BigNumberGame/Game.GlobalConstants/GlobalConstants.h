@@ -14,14 +14,17 @@ public:
 	static const mstring WELCOME_STARTSCREEN_TEXT;
 	static const mstring BUTTON_START;
 	static const mstring BUTTON_END;
-	static const mstring BUTTON_LEADERBOARD;
-	static const mstring BUTTON_LEADERBOARD_ADMIN;
-	static const mstring LEADERBOARD_TEXT;
-	static const mstring LEADERBOARD_USER_TEXT;
 	static const mstring GAME_END;
 	static const mstring COMMAND_INVALID;
 	static const mstring RETURN_TEXT;
 	static const mstring USER_DOES_NOT_EXIST;
+
+	static const mstring BUTTON_LEADERBOARD;
+	static const mstring BUTTON_LEADERBOARD_ADMIN;
+	static const mstring LEADERBOARD_TEXT;
+	static const mstring LEADERBOARD_USER_TEXT;
+	static const int LEADERBOARD_COLS_COUNT;
+	static const mstring LEADERBOARD_COLS[];
 
 	//------PLACEHOLDERS
 	static const mstring USERNAME_PLACEHOLDER;

@@ -288,10 +288,16 @@ void UnauthenticatedController::startUp()
         }
         else if (selection == GlobalConstants::COMMAND_LEADERBOARD)
         {
-            mstring leaderboardInfo = Controller::getLeaderboardInfo(true, false);
+            size_t countOfRows = 0;
+            mstring* leaderboardRowsInfo = Controller::getLeaderboardRows(true, false, countOfRows, GlobalConstants::COMMAND_DELIM);
 
             GameUI::printLineNoBorders(GlobalConstants::LEADERBOARD_TEXT);
-            GameUI::printLineNoBorders(leaderboardInfo);
+
+            mstring tableString = GameUI::getTable(GlobalConstants::LEADERBOARD_COLS, GlobalConstants::LEADERBOARD_COLS_COUNT, leaderboardRowsInfo, countOfRows, GlobalConstants::COMMAND_DELIM);
+            GameUI::printLineNoBorders(tableString);
+
+            //Dealloc dynamic memory
+            delete[] leaderboardRowsInfo;
 
             startUpScreenPrint();
             continue;
