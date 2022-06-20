@@ -28,9 +28,6 @@ public:
 
 	//Big 4
 	BigNumberEquation();
-	/*BigNumberEquation(const BigNumberEquation& other);
-	BigNumberEquation& operator= (const BigNumberEquation& other);
-	~BigNumberEquation();*/
 
 	//Other constructors
 	BigNumberEquation(mstring equation);

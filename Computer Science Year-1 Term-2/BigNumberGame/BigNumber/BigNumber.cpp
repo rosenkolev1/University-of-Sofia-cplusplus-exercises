@@ -122,41 +122,11 @@ bool BigNumber::operator>(const BigNumber& other) const
 	else if (signOfOther < 0 && signOfThis > 0) return true;
 	else if (signOfOther > 0 && signOfThis > 0)
 	{
-		//Check by size of numbers second
-		//if (this->number.getSize() > other.number.getSize()) return true;
-		//else if (this->number.getSize() < other.number.getSize()) return false;
-		//else
-		//{
-		//	for (long long int i = other.number.getSize() - 1; i >= 0; i--)
-		//	{
-		//		int thisDigit = this->number[i] - '0';
-		//		int otherDigit = other.number[i] - '0';
-		//		//Return if the digits arent equal. Continue cycle if digits are equal
-		//		if (thisDigit > otherDigit) return true;
-		//		else if (thisDigit < otherDigit) return false;
-		//	}
-		//}
 		int comparisonResult = this->compareByAbsolute(other);
 		return comparisonResult == 1;
 	}
 	else if (signOfOther < 0 && signOfThis < 0)
 	{
-		//Check by size of numbers second
-		//if (this->number.getSize() > other.number.getSize()) return false;
-		//else if (this->number.getSize() < other.number.getSize()) return true;
-		//else
-		//{
-		//	for (long long int i = other.number.getSize() - 1; i >= 0; i--)
-		//	{
-		//		//abs is included here because the front digits are negative, which means comparing them is weird
-		//		int thisDigit = this->number[i] - '0';
-		//		int otherDigit = other.number[i] - '0';
-		//		//Return if the digits arent equal. Continue cycle if digits are equal
-		//		if (thisDigit > otherDigit) return false;
-		//		else if (thisDigit < otherDigit) return true;
-		//	}
-		//}
-
 		int comparisonResult = this->compareByAbsolute(other);
 		return comparisonResult == -1;
 	}
@@ -178,7 +148,6 @@ bool BigNumber::isZero() const
 bool BigNumber::greaterThanOrEqualsAbsolute(const BigNumber& other) const
 {
 	return this->compareByAbsolute(other) >= 0;
-	//return (*this > other && this->sign == 1) || (*this < other && this->sign == -1);
 }
 
 int BigNumber::compareByAbsolute(const BigNumber& other) const

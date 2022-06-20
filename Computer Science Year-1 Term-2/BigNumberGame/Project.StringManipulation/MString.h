@@ -5,7 +5,6 @@
 class MString
 {
 private:
-	//size_t INIT_CAPACITY = 10;
 	const int INCREASE_STEP = 2;
 
 	char* data;

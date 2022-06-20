@@ -8,6 +8,7 @@ class BigNumberDivisionResult
 private:
 	//Quotient means result the result of the division
 	BigNumber& divisionQuotient;
+
 	//The leftover (%) part of the division
 	BigNumber& divisionLeftover;
 public:

@@ -29,7 +29,9 @@ public:
 	static void includeUser(const mstring& username);
 
 	//Update the user's account
-	static void updateUser(const User& user);
+	static void updateUser(User& user);
+	static void updateUser(User& user, void (*updateFunc)(User& user));
+	static void updateUser(const mstring& username, void (*updateFunc)(User& user));
 
 	//READ
 	static User* getAllUsers(const mstring& tableFile, size_t& countOfUsers, bool includeDeleted = true);

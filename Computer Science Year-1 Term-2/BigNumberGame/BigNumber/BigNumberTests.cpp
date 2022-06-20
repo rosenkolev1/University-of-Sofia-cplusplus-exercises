@@ -123,31 +123,31 @@ void BigNumberTests::OperatorGreaterThanTests(std::ostream& os)
 
     BigNumber lesserBigNumber1 = BigNumber(5050);
     BigNumber biggerBigNumber1 = BigNumber(65000);
-    //
+    
     BigNumber lesserBigNumber2 = BigNumber(-67890);
     BigNumber biggerBigNumber2 = BigNumber(-6789);
-    //
+    
     BigNumber lesserBigNumber3 = BigNumber(-67890);
     BigNumber biggerBigNumber3 = BigNumber(1);
-    //
+    
     BigNumber lesserBigNumber4 = BigNumber(-69);
     BigNumber biggerBigNumber4 = BigNumber(10);
-    //
+    
     BigNumber lesserBigNumber5 = BigNumber(1023);
     BigNumber biggerBigNumber5 = BigNumber(1030);
-    //
+    
     BigNumber lesserBigNumber6 = BigNumber(-4010);
     BigNumber biggerBigNumber6 = BigNumber(-4000);
-    //
+    
     BigNumber lesserBigNumber7 = BigNumber();
     BigNumber biggerBigNumber7 = BigNumber(100);
-    //
+    
     BigNumber lesserBigNumber8 = BigNumber(-100);
     BigNumber biggerBigNumber8 = BigNumber();
-    //
+    
     BigNumber lesserBigNumber9 = BigNumber();
     BigNumber biggerBigNumber9 = BigNumber();
-    //
+    
     BigNumber lesserBigNumber10 = BigNumber(2456);
 
     //TEST Phase
@@ -236,31 +236,31 @@ void BigNumberTests::OperatorGreaterThanOrEqualsTests(std::ostream& os)
 
     BigNumber lesserBigNumber1 = BigNumber(5050);
     BigNumber biggerBigNumber1 = BigNumber(65000);
-    //
+    
     BigNumber lesserBigNumber2 = BigNumber(-67890);
     BigNumber biggerBigNumber2 = BigNumber(-6789);
-    //
+    
     BigNumber lesserBigNumber3 = BigNumber(-67890);
     BigNumber biggerBigNumber3 = BigNumber(1);
-    //
+    
     BigNumber lesserBigNumber4 = BigNumber(-69);
     BigNumber biggerBigNumber4 = BigNumber(10);
-    //
+    
     BigNumber lesserBigNumber5 = BigNumber(1023);
     BigNumber biggerBigNumber5 = BigNumber(1030);
-    //
+    
     BigNumber lesserBigNumber6 = BigNumber(-4010);
     BigNumber biggerBigNumber6 = BigNumber(-4000);
-    //
+    
     BigNumber lesserBigNumber7 = BigNumber();
     BigNumber biggerBigNumber7 = BigNumber(100);
-    //
+    
     BigNumber lesserBigNumber8 = BigNumber(-100);
     BigNumber biggerBigNumber8 = BigNumber();
-    //
+    
     BigNumber lesserBigNumber9 = BigNumber();
     BigNumber biggerBigNumber9 = BigNumber();
-    //
+    
     BigNumber lesserBigNumber10 = BigNumber(2456);
 
     //TEST Phase
@@ -493,7 +493,7 @@ void BigNumberTests::OperatorSumAndEqualsTests(std::ostream& os)
     os << "Testing \"+=\" operator -> (0 + (-79)). Expected: -79: " << number10 << std::endl;
     os << std::endl;
 
-    ////TEST 5
+    //TEST 5
     BigNumber number13 = BigNumber(-101);
     BigNumber number14 = BigNumber();
     number13 += number14;
@@ -1565,8 +1565,8 @@ void BigNumberTests::runTests(std::ostream& os)
     // CONSTRUCTOR TESTS
     ConstructorAndCopyAndAssignTests(os);
     
-    ////// READING OPERATOR TESTS
-    ////ReadingOperatorTests();
+    //// READING OPERATOR TESTS
+    //ReadingOperatorTests();
     
     // ARITHMETIC AND COMPARATIVE OPERATORS TESTS
     os << std::endl << "TESTS FOR ARITHMETIC AND COMPARATIVE OPERATORS:\n" << std::endl;

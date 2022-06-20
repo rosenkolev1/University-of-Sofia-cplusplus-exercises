@@ -112,5 +112,4 @@ public:
 	friend std::ofstream& operator<< (std::ofstream& os, const BigNumberExpression& expression);
 };
 
-//TODO: Remove Big4 tests for BigNumber and BigNumberExpressions and BigNumberEquations
 

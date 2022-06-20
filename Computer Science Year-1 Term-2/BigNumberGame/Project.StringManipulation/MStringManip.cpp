@@ -262,8 +262,6 @@ mstring* MStringManip::splitStringMany(const mstring& input, const mstring* deli
             splitInput += input[i + startIndexSearch];
         }
 
-        //splitInput += '\0';
-
         finalSplitInput[finalSplitInputIndex++] = splitInput;
 
         //Change the starting point of the search in input for splitters

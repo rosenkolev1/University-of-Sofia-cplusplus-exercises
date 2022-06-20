@@ -72,24 +72,6 @@ BigNumberExpression::BigNumberExpression()
 	this->expression = "0";
 }
 
-//BigNumberExpression::BigNumberExpression(const BigNumberExpression& other)
-//	:BigNumberExpression()
-//{
-//	this->copy(other);
-//}
-
-//BigNumberExpression::~BigNumberExpression()
-//{
-//	delete[] this->expression;
-//}
-
-//BigNumberExpression& BigNumberExpression::operator=(const BigNumberExpression& other)
-//{
-//	if (this == &other) return *this;
-//	this->copy(other);
-//	return *this;
-//}
-
 BigNumberExpression::BigNumberExpression(mstring expression)
 	:BigNumberExpression()
 {

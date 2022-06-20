@@ -98,13 +98,6 @@ MString::~MString()
 
 MString MString::operator+(const MString& other) const
 {
-	/*size_t newSize = this->size + other.size;
-	
-	char* newData = new char[newSize + 1];
-	strcpy(newData, this->data);
-	strcat(newData, other.data);
-
-	return mstring(newData);*/
 	mstring thisCopy = *this;
 
 	this->push_back(other, thisCopy);
@@ -116,8 +109,6 @@ MString& MString::operator+=(const MString& other)
 {
 	this->push_back(other);
 
-	//*this = *this + other;
-	//return *this;
 	return *this;
 }
 

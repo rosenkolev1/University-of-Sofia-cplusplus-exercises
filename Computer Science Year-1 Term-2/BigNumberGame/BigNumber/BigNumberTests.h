@@ -8,6 +8,7 @@ class BigNumberTests
 private:
 	static void OperatorGreaterThanTestTemplate(mstring testTitle, mstring textDescription,
 		const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os);
+
 	static void OperatorGreaterThanOrEqualsTestTemplate(mstring testTitle, mstring textDescription,
 		const BigNumber& bigNumber1, const BigNumber& bigNumber2, bool newLine, std::ostream& os);
 

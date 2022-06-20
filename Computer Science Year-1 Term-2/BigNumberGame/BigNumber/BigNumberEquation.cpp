@@ -517,16 +517,10 @@ void BigNumberEquation::setEquation(mstring equation)
 {
 	if (!isValidEquation(equation)) throw "The expression that you are trying to set is invalid";
 
-	//Remove all the whitespaces
-	//equation = MStringManip::replaceAll(equation, " ", "");
-
 	size_t capacityOfNewEquation = equation.getSize() + 1;
 
 	//Remove all the whitespaces
 	this->equation = MStringManip::replaceAll(equation, " ", "");
-
-	//Delete dynamic memory
-	//delete[] equationCopy;
 }
 
 mstring BigNumberEquation::getRightExpression() const
