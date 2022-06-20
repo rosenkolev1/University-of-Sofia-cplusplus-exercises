@@ -14,6 +14,8 @@ private:
     static void printGetinfoTableSingle(const User& user);
 
     static void printLeaderboardsTable(bool includeDeleted, bool getDeletedOnly, bool getIncluded);
+
+    static bool newHighscore;
 public:
 
     static void gameOverScreenPrint(bool newHighscore);

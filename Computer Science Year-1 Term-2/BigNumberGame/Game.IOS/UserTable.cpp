@@ -3,7 +3,7 @@
 #include "FileSystem.h"
 #include "..\Project.StringManipulation\MStringManip.h"
 
-/* USER_TABLE
+/* FileSystem::USER_TABLE
 * ~
 *	Username| Password| Role| Level| |Lives| Last Equation| Highscore| includeHighscore| isDeleted|
 * ~
@@ -11,7 +11,7 @@
 
 void UserTable::adminDeleteUser_Common(const mstring& username)
 {
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
@@ -27,7 +27,7 @@ void UserTable::adminDeleteUser_Common(const mstring& username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
 	//Replace the new user string in the user table
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 }
 
 bool UserTable::usernameIsValid(const mstring& username)
@@ -56,14 +56,6 @@ bool UserTable::userRoleIsValid(const mstring& role)
 	}
 
 	return false;
-}
-
-bool UserTable::userIsValid(const mstring& username, const mstring& password, const mstring& role)
-{
-	//Check if the formatting of the username and password is valid
-	//Check if the username or password are already contained in the database
-	//Check if the roles is correct
-	return usernameIsValid(username) && passwordIsValid(password) && userRoleIsValid(role) && !userIsRegistered(username);
 }
 
 bool UserTable::userIsRegistered(const mstring& username)
@@ -108,7 +100,7 @@ void UserTable::registerUser(const mstring& username, const mstring& password, U
 {
 	mstring dataToWriteToFile = createUserString(username, password, role, 0, GlobalConstants::PLAYING_LIVES_DEFAULT, FileSystem::FILESYSTEM_COLUMN_NULL, 0, true, false);
 
-	FileSystem::appendToTable(dataToWriteToFile, USER_TABLE);
+	FileSystem::appendToTable(dataToWriteToFile, FileSystem::USER_TABLE);
 }
 
 void UserTable::deleteUser(mstring username, mstring adminMessage)
@@ -129,7 +121,7 @@ void UserTable::deleteUser(DeletionMessage deletionMessage)
 
 void UserTable::deleteUser(const mstring& username)
 {
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
@@ -139,12 +131,12 @@ void UserTable::deleteUser(const mstring& username)
 	//Make the changes to the newDatabaseFileString, which we then write to the database file
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, "", userStartPos, userEndPos);
 
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 }
 
 void UserTable::restoreUser(const mstring& username)
 {
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
@@ -160,7 +152,7 @@ void UserTable::restoreUser(const mstring& username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
 	//Replace the new user string in the user table
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 
 	//Now remove the deletion message from the deletion message table
 	DeletionMessageTable::deleteMessage(username);
@@ -168,7 +160,7 @@ void UserTable::restoreUser(const mstring& username)
 
 void UserTable::excludeUser(const mstring& username)
 {
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
@@ -184,12 +176,12 @@ void UserTable::excludeUser(const mstring& username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
 	//Replace the new user string in the user table
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 }
 
 void UserTable::includeUser(const mstring& username)
 {
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the start and end file pointer pos of the user which we need to delete
 	size_t userStartPos = 0;
@@ -205,13 +197,13 @@ void UserTable::includeUser(const mstring& username)
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
 
 	//Replace the new user string in the user table
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 }
 
 void UserTable::updateUser(const User& user)
 {
 	//Get the current user table
-	mstring userTableFileString = FileSystem::getTableAsString(USER_TABLE);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 
 	//Get the current user string
 	size_t startPos = 0;
@@ -224,12 +216,12 @@ void UserTable::updateUser(const User& user)
 	//Replace the current user string with the new one
 	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, startPos, endPos);
 
-	FileSystem::overwriteTable(newUserTableFileString, USER_TABLE);
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 }
 
 size_t UserTable::getUsersCount()
 {
-	mstring tableFile = FileSystem::getTableAsString(USER_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 	return FileSystem::getCount(tableFile);
 }
 
@@ -357,7 +349,7 @@ User* UserTable::getAllUsers(const mstring& tableFile, size_t& countOfUsers, boo
 
 User* UserTable::getAllUsers(size_t& countOfUsers, bool includeDeleted)
 {
-	mstring tableFile = FileSystem::getTableAsString(USER_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 	return getAllUsers(tableFile, countOfUsers, includeDeleted);
 }
 
@@ -478,7 +470,7 @@ mstring UserTable::getUserString(const mstring& username, const mstring& tableFi
 
 mstring UserTable::getUserString(const mstring& username, size_t& startPos, size_t& endPos)
 {
-	mstring tableFile = FileSystem::getTableAsString(USER_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::USER_TABLE);
 	return getUserString(username, tableFile, startPos, endPos);
 }
 

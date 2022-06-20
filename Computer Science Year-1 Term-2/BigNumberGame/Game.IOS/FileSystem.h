@@ -8,9 +8,10 @@
 class FileSystem
 {
 public:
+
 	//---FILE SYSTEM CONSTANTS
-	static constexpr const char* USER_TABLE = "USER_TABLE.bin";
 	static constexpr const char* DELETION_MESSAGES_TABLE = "DELETION_MESSAGES_TABLE.bin";
+	static constexpr const char* USER_TABLE = "USER_TABLE.bin";
 
 	static const char FILESYSTEM_ENTRY_DELIMITER;
 	static const char FILESYSTEM_COLUMN_DELIMITER;
@@ -26,6 +27,7 @@ public:
 	static void overwriteTable(const mstring& tableData, const char* table);
 	static void appendToTable(const mstring& appendData, const char* table);
 	static mstring getTableAsString(const char* table);
+	//Gets the count of the entries in the database
 	static size_t getCount(const mstring& tableFile);
 
 	//Check for validity

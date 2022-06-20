@@ -7,7 +7,6 @@ class Controller
 public:
 	static User* currentUser;
 	static bool returnToTitleScreen;
-	static bool newHighscore;
 
 	static mstring* getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, bool getIncluded, size_t& rowsCount, mstring dataDelim);
 

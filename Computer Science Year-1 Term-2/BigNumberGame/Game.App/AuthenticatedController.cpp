@@ -6,6 +6,8 @@
 #include ".\Game.IOS\DeletionMessageTable.h"
 #include ".\BigNumber\BigNumberExpression.h"
 
+bool AuthenticatedController::newHighscore = false;
+
 //---NON SCREEN FUNCTIONS
 
 mstring* AuthenticatedController::getInfoUsersRows(bool includeDeleted, bool getDeletedOnly, size_t& rowsCount, mstring dataDelim)
@@ -231,7 +233,7 @@ bool AuthenticatedController::playingGame()
                 //Check if the user has achieved a new highscore. If he has, then update that highscore and print a message for him in the main menu
                 if (Controller::currentUser->level > Controller::currentUser->highscore)
                 {
-                    Controller::newHighscore = true;
+                    newHighscore = true;
                     Controller::currentUser->highscore = Controller::currentUser->level;
                 }
 
@@ -607,9 +609,9 @@ void AuthenticatedController::mainMenuLoggedScreenPrint()
     currentHighscoreText += highscoreText + "\n";
     
     //If the user has achieved a new highscore, then print that to them.
-    if (Controller::newHighscore)
+    if (newHighscore)
     {
-        Controller::newHighscore = false;
+        newHighscore = false;
         currentHighscoreText.push_front(GlobalConstants::MAINMENU_HIGHSCORE_NEW);
     }   
     textArray[textArrayIndex++] = currentHighscoreText;

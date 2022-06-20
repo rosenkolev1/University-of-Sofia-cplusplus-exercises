@@ -11,9 +11,6 @@ private:
 
 public:
 
-	//---FILE SYSTEM CONSTANTS
-	static constexpr const char* USER_TABLE = "USER_TABLE.bin";
-
 	//USER SHIT
 	//WRITE/UPDATE/PUT/DELETE
 	static void registerUser(const mstring& username, const mstring& password, UserRoles role = UserRoles::Normal);
@@ -50,7 +47,6 @@ public:
 	static size_t getUsersCount();
 
 	//Checks for validity
-	static bool userIsValid(const mstring& username, const mstring& password, const mstring& role);
 	static bool userIsRegistered(const mstring& username);
 	static bool userIsRegisteredWithPassword(const mstring& username, const mstring& password);
 	static bool usernameIsValid(const mstring& username);

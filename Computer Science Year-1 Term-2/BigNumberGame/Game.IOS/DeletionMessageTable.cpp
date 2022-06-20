@@ -10,7 +10,7 @@
 
 void DeletionMessageTable::addDeletionMessage(const mstring& message, const mstring& username)
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::FileSystem::DELETION_MESSAGES_TABLE);
 	size_t highestId = getHighestId(tableFile);
 
 	addDeletionMessage(DeletionMessage(highestId + 1, message, username));
@@ -20,12 +20,12 @@ void DeletionMessageTable::addDeletionMessage(const DeletionMessage& message)
 {
 	mstring dataToWriteToFile = createMessageString(message.id, message.message, message.username);
 
-	FileSystem::appendToTable(dataToWriteToFile, DELETION_MESSAGES_TABLE);
+	FileSystem::appendToTable(dataToWriteToFile, FileSystem::DELETION_MESSAGES_TABLE);
 }
 
 void DeletionMessageTable::deleteMessage(const mstring& username)
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	size_t countOfMessages = 0;
 
 	mstring newTableFile;
@@ -51,7 +51,7 @@ void DeletionMessageTable::deleteMessage(const mstring& username)
 
 	if (!hasRemovedMessage) throw "The message was not found!";
 
-	FileSystem::overwriteTable(newTableFile, DELETION_MESSAGES_TABLE);
+	FileSystem::overwriteTable(newTableFile, FileSystem::DELETION_MESSAGES_TABLE);
 }
 
 mstring DeletionMessageTable::createMessageString(size_t id, const mstring& message, const mstring& username)
@@ -88,7 +88,7 @@ DeletionMessage DeletionMessageTable::createDeletionMessage(const mstring& messa
 
 DeletionMessage* DeletionMessageTable::getAllDeletionMessages(size_t& countOfMessages)
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	return getAllDeletionMessages(tableFile, countOfMessages);
 }
 
@@ -124,7 +124,7 @@ DeletionMessage* DeletionMessageTable::getAllDeletionMessages(const mstring& tab
 
 DeletionMessage DeletionMessageTable::getDeletionMessage(const mstring& username)
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	return getDeletionMessage(tableFile, username);
 }
 
@@ -157,13 +157,13 @@ DeletionMessage DeletionMessageTable::getDeletionMessage(const mstring& tableFil
 
 size_t DeletionMessageTable::getDeletionMessagesCount()
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	return FileSystem::getCount(tableFile);
 }
 
 size_t DeletionMessageTable::getHighestId()
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	return getHighestId(tableFile);
 }
 
@@ -208,7 +208,7 @@ bool DeletionMessageTable::deletionMessageExists(const mstring& tableFile, const
 
 bool DeletionMessageTable::deletionMessageExists(const mstring& username)
 {
-	mstring tableFile = FileSystem::getTableAsString(DELETION_MESSAGES_TABLE);
+	mstring tableFile = FileSystem::getTableAsString(FileSystem::DELETION_MESSAGES_TABLE);
 	return deletionMessageExists(tableFile, username);
 }
 

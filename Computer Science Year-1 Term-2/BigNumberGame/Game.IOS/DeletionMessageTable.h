@@ -8,9 +8,6 @@ class DeletionMessageTable
 {
 public:
 
-	//---FILE SYSTEM CONSTANTS
-	static constexpr const char* DELETION_MESSAGES_TABLE = "DELETION_MESSAGES_TABLE.bin";
-
 	//Admin deletion messages shit
 	//WRITE/UPDATE/PUT/DELETE
 	static void addDeletionMessage(const mstring& message, const mstring& username);

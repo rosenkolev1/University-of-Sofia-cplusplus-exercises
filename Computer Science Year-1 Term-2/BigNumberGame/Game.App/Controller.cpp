@@ -4,7 +4,6 @@
 
 User* Controller::currentUser = nullptr;
 bool Controller::returnToTitleScreen = false;
-bool Controller::newHighscore = false;
 
 mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, bool getIncluded, size_t& rowsCount, mstring dataDelim)
 {
