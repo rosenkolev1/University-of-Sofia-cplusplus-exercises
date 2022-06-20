@@ -9,27 +9,6 @@
 * ~
 */
 
-void UserTable::adminDeleteUser_Common(const mstring& username)
-{
-	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
-
-	//Get the start and end file pointer pos of the user which we need to delete
-	size_t userStartPos = 0;
-	size_t userEndPos = 0;
-	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
-
-	//Get the isDeleted field and change it to true;
-	User targetUser = createUserFromString(userString);
-	targetUser.isDeleted = true;
-	mstring newUserString = createUserString(targetUser);
-
-	//Get the new user table file string
-	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
-
-	//Replace the new user string in the user table
-	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
-}
-
 bool UserTable::usernameIsValid(const mstring& username)
 {
 	//Check if the length of the username is too large or too small
@@ -105,7 +84,23 @@ void UserTable::registerUser(const mstring& username, const mstring& password, U
 
 void UserTable::deleteUser(mstring username, mstring adminMessage)
 {
-	adminDeleteUser_Common(username);
+	mstring userTableFileString = FileSystem::getTableAsString(FileSystem::USER_TABLE);
+
+	//Get the start and end file pointer pos of the user which we need to delete
+	size_t userStartPos = 0;
+	size_t userEndPos = 0;
+	mstring userString = getUserString(username, userTableFileString, userStartPos, userEndPos);
+
+	//Get the isDeleted field and change it to true;
+	User targetUser = createUserFromString(userString);
+	targetUser.isDeleted = true;
+	mstring newUserString = createUserString(targetUser);
+
+	//Get the new user table file string
+	mstring newUserTableFileString = MStringManip::replaceFrom(userTableFileString, newUserString, userStartPos, userEndPos);
+
+	//Replace the new user string in the user table
+	FileSystem::overwriteTable(newUserTableFileString, FileSystem::USER_TABLE);
 
 	//Now add the new deletion message to the deletion message table
 	DeletionMessageTable::addDeletionMessage(adminMessage, username);
@@ -113,10 +108,7 @@ void UserTable::deleteUser(mstring username, mstring adminMessage)
 
 void UserTable::deleteUser(DeletionMessage deletionMessage)
 {
-	adminDeleteUser_Common(deletionMessage.username);
-
-	//Now add the new deletion message to the deletion message table
-	DeletionMessageTable::addDeletionMessage(deletionMessage);
+	deleteUser(deletionMessage.username, deletionMessage.message);
 }
 
 void UserTable::deleteUser(const mstring& username)

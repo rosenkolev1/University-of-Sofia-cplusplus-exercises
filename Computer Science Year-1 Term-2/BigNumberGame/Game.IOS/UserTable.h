@@ -6,8 +6,6 @@
 
 class UserTable
 {
-private:
-	static void adminDeleteUser_Common(const mstring& username);
 
 public:
 
