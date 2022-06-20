@@ -1,6 +1,6 @@
 #include "Controller.h"
+#include "..\Game.IOS\UserTable.h"
 #include "..\Project.StringManipulation\MStringManip.h"
-#include "..\Game.IOS\FileSystem.h"
 
 User* Controller::currentUser = nullptr;
 bool Controller::returnToTitleScreen = false;
@@ -15,12 +15,12 @@ mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly
     //Filter out the users which are not deleted
     if (getDeletedOnly)
     {        
-        users = FileSystem::getDeletedUsers(usersCount);
+        users = UserTable::getDeletedUsers(usersCount);
     }
     //Filter out the users which are deleted
     else
     {     
-        users = FileSystem::getAllUsers(usersCount, includeDeleted);
+        users = UserTable::getAllUsers(usersCount, includeDeleted);
     }
 
     //Filter out the users which are excluded or included from the leaderboards
@@ -88,5 +88,10 @@ mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly
     delete[] sortedUsers;
 
     return leaderboardRowsInfo;
+}
+
+void Controller::initialize()
+{
+    srand(time(NULL));
 }
 

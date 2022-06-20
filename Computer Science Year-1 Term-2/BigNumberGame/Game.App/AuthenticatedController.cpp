@@ -2,7 +2,8 @@
 #include ".\Project.StringManipulation\MStringManip.h"
 #include ".\Game.GlobalConstants\GlobalConstants.h"
 #include ".\Game.UI\GameUI.h"
-#include ".\Game.IOS\FileSystem.h"
+#include ".\Game.IOS\UserTable.h"
+#include ".\Game.IOS\DeletionMessageTable.h"
 #include ".\BigNumber\BigNumberExpression.h"
 
 //---NON SCREEN FUNCTIONS
@@ -13,8 +14,8 @@ mstring* AuthenticatedController::getInfoUsersRows(bool includeDeleted, bool get
     size_t usersCount = 0;
     User* users = nullptr;
 
-    if (getDeletedOnly == true) users = FileSystem::getDeletedUsers(usersCount);
-    else users = FileSystem::getAllUsers(usersCount, includeDeleted);
+    if (getDeletedOnly == true) users = UserTable::getDeletedUsers(usersCount);
+    else users = UserTable::getAllUsers(usersCount, includeDeleted);
 
     //Set the count of the rows
     rowsCount = usersCount;
@@ -235,7 +236,7 @@ bool AuthenticatedController::playingGame()
                 }
 
                 //Return to last screen and save changes of game to the user
-                FileSystem::updateUser(*(Controller::currentUser));
+                UserTable::updateUser(*(Controller::currentUser));
 
                 return true;
             }
@@ -278,7 +279,7 @@ bool AuthenticatedController::playingGame()
                         Controller::currentUser->lives = GlobalConstants::PLAYING_LIVES_DEFAULT;
 
                         //Update the user's profile so that they cannot save scum
-                        FileSystem::updateUser(*Controller::currentUser);
+                        UserTable::updateUser(*Controller::currentUser);
 
                         bool returnToMainMenu = gameOver(achievedNewHighscore);
                         
@@ -294,7 +295,7 @@ bool AuthenticatedController::playingGame()
                         GameUI::printLineNoBorders(GlobalConstants::PLAYING_WRONG_TRYAGAIN);
                         playingGameScreenPrint(expression.getExpression());
                         //Update the user's profile so that they cannot save scum
-                        FileSystem::updateUser(*Controller::currentUser);
+                        UserTable::updateUser(*Controller::currentUser);
                     }
                     
                     continue;
@@ -344,7 +345,7 @@ bool AuthenticatedController::adminIncludeAccountConfirmation(const mstring& use
         else if (selection == GlobalConstants::COMMAND_ADMIN_INCLUDE_CONFIRM)
         {
             //Include the user in the leaderboards
-            FileSystem::includeUser(username);
+            UserTable::includeUser(username);
 
             //Send the admin a message to inform them of the account deletion
             GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_INCLUDEINLEADERBOARD_SUCCESS,
@@ -395,7 +396,7 @@ bool AuthenticatedController::adminExcludeAccountConfirmation(const mstring& use
         else if (selection == GlobalConstants::COMMAND_ADMIN_EXCLUDE_CONFIRM)
         {
             //Exclude the user from the leaderboards
-            FileSystem::excludeUser(username);
+            UserTable::excludeUser(username);
 
             //Send the admin a message to inform them of the account deletion
             GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_EXCLUDEFROMLEADERBOARD_SUCCESS,
@@ -447,7 +448,7 @@ bool AuthenticatedController::adminRecoverAccountConfirmation(const DeletionMess
         else if (selection == GlobalConstants::COMMAND_ACCOUNT_RECOVER_CONFIRM)
         {
             //Delete the old deletion message and unban the user
-            FileSystem::restoreUser(deletionMessage.username);
+            UserTable::restoreUser(deletionMessage.username);
 
             //Send the admin a message to inform them of the account deletion
             GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_RECOVER_SUCCESS,
@@ -497,7 +498,7 @@ bool AuthenticatedController::adminDeleteAccountConfirmation(const DeletionMessa
         else if (selection == GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM)
         {
             //Delete the user's account
-            FileSystem::deleteUser(deletionMessage);
+            UserTable::deleteUser(deletionMessage);
 
             //Send the admin a message to inform them of the account deletion
             GameUI::printLineNoBorders(MStringManip::replaceFirst(GlobalConstants::ADMIN_DELETEACCOUNT_SUCCESS,
@@ -547,7 +548,7 @@ bool AuthenticatedController::deleteOwnAccountConfirmation()
         else if (selection == GlobalConstants::COMMAND_ACCOUNT_DELETE_CONFIRM)
         {
             //Delete the user's account
-            FileSystem::deleteUser(Controller::currentUser->username);
+            UserTable::deleteUser(Controller::currentUser->username);
 
             //Set the current user to nullptr because it was deleted
             Controller::currentUser = nullptr;
@@ -831,7 +832,7 @@ bool AuthenticatedController::mainMenuLogged()
                 //Dealloc dynamic memory
                 delete[] splitSelection;
 
-                User* targetUser = FileSystem::getUser(username);
+                User* targetUser = UserTable::getUser(username);
 
                 //Check if the user exists
                 if (targetUser == nullptr)
@@ -913,7 +914,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Dealloc dynamic memory
             delete[] splitSelection;
 
-            User* targetUser = FileSystem::getUser(username);
+            User* targetUser = UserTable::getUser(username);
 
             //Check if a user with this username exists
             if (targetUser == nullptr)
@@ -952,7 +953,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Dealloc dynamic memory
             delete[] splitSelection;
 
-            User* targetUser = FileSystem::getUser(username);
+            User* targetUser = UserTable::getUser(username);
 
             //Check if a user with this username exists
             if (targetUser == nullptr)
@@ -1001,7 +1002,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Dealloc dynamic memory
             delete[] splitSelection;
 
-            User* targetUser = FileSystem::getUser(username);
+            User* targetUser = UserTable::getUser(username);
 
             //Check if a user with this username exists
             if (targetUser == nullptr)
@@ -1032,7 +1033,7 @@ bool AuthenticatedController::mainMenuLogged()
             delete targetUser;
 
             //Create the new deletion message
-            DeletionMessage deletionMessage = FileSystem::createDeletionMessage(message, username);
+            DeletionMessage deletionMessage = DeletionMessageTable::createDeletionMessage(message, username);
 
             returnToScreen = adminDeleteAccountConfirmation(deletionMessage);
         }
@@ -1052,7 +1053,7 @@ bool AuthenticatedController::mainMenuLogged()
             //Dealloc dynamic memory
             delete[] splitSelection;
 
-            User* targetUser = FileSystem::getUser(username);
+            User* targetUser = UserTable::getUser(username);
 
             //Check if a user with this username exists at all, even amongst the banned accounts
             if (targetUser == nullptr)
@@ -1075,7 +1076,7 @@ bool AuthenticatedController::mainMenuLogged()
             delete targetUser;
 
             //Get the deletion message for the user
-            DeletionMessage deletionMessage = FileSystem::getDeletionMessage(username);
+            DeletionMessage deletionMessage = DeletionMessageTable::getDeletionMessage(username);
 
             returnToScreen = adminRecoverAccountConfirmation(deletionMessage);
         }

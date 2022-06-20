@@ -2,4 +2,8 @@
 
 --Make the actual game part itself as well (requires everything above)
 
+--MAKE OWN VECTOR CLASS AND REFACTOR
+
+--MAKE OWN SMART POINTER CLASS AND REFACTOR
+
 --UNIT TEST HAHAHA BLEWGH!

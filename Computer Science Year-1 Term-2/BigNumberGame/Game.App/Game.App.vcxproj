@@ -95,7 +95,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.UI\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.IOS\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Project.StringManipulation\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\Game.GlobalConstants\Debug;D:\Материали от унито\Задачи по УП\University-of-Sofia-cplusplus-exercises\Computer Science Year-1 Term-2\BigNumberGame\BigNumber\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameUI.obj;FileSystem.obj;User.obj;ConsoleSystem.obj;Seeder.obj;MStringManip.obj;MString.obj;DeletionMessage.obj;GlobalConstants.obj;BigNumber.obj;BigNumberExpression.obj;BigNumberEquation.obj;BigNumberExpressionCommon.obj;BigNumberDivisionResult.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GameUI.obj;FileSystem.obj;UserTable.obj;DeletionMessageTable.obj;User.obj;ConsoleSystem.obj;Seeder.obj;MStringManip.obj;MString.obj;DeletionMessage.obj;GlobalConstants.obj;BigNumber.obj;BigNumberExpression.obj;BigNumberEquation.obj;BigNumberExpressionCommon.obj;BigNumberDivisionResult.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,13 +148,11 @@
   <ItemGroup>
     <ClCompile Include="AuthenticatedController.cpp" />
     <ClCompile Include="Game.App.cpp" />
-    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="UnauthenticatedController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthenticatedController.h" />
-    <ClInclude Include="GameController.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="UnauthenticatedController.h" />
   </ItemGroup>

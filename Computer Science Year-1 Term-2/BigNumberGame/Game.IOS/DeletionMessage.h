@@ -8,6 +8,9 @@ public:
 	mstring message;
 	mstring username;
 
+	//Getters as mstring
+	mstring getIdString() const;
+
 	DeletionMessage();
 	DeletionMessage(size_t id, mstring message, mstring username);
 };

@@ -36,16 +36,6 @@ private:
 	static const mstring EXCEPTION_USERNAME_TOOSHORT;
 	static const mstring EXCEPTION_PASSWORD_TOOSHORT;
 
-	static const mstring TABLE_DELIM;
-	static const mstring HORIZONTAL_DELIM;
-
-	//Get info shit
-	static mstring getTableHeader(const mstring& combinedCols);
-	static mstring getTableSpacer(const mstring& combinedCols);
-	static void setColHeaderAndDataInfo(mstring& colHeader, mstring& colData);
-	static void setColHeaderInfo(mstring& colHeader, const mstring& colData, bool includeDelim);
-	static void setColDataInfo(const mstring& colHeader, mstring& colData, bool includeDelim);
-
 public:
 
 	//---USER INFO CONSTANTS

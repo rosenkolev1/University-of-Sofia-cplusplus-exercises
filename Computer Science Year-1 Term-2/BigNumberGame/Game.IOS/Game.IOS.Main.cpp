@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "..\Project.StringManipulation\MStringManip.h"
-#include "FileSystem.h"
+#include "UserTable.h"
 
 void printOutResultsFromTest(mstring* strings, size_t numberOfStrings)
 {
@@ -141,7 +141,7 @@ void testUserInputOne()
 {
     mstring input = "Testing User Assignment and Copy constructor --> User b = allUsers[0]; User a(b)";
     size_t allUsersCount = 0;
-    User* allUsers = FileSystem::getAllUsers(allUsersCount);
+    User* allUsers = UserTable::getAllUsers(allUsersCount);
     User b = allUsers[0];
     User a = User(b);
     std::cout << input << std::endl;

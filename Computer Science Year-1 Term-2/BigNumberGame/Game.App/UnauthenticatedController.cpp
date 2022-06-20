@@ -2,10 +2,10 @@
 #include ".\Project.StringManipulation\MStringManip.h"
 #include ".\Game.GlobalConstants\GlobalConstants.h"
 #include ".\Game.UI\GameUI.h"
-#include ".\Game.IOS\FileSystem.h"
+#include ".\Game.IOS\UserTable.h"
+#include "..\Game.IOS\DeletionMessageTable.h"
 #include ".\Game.IOS\Seeder.h"
 #include "AuthenticatedController.h"
-//#include ".\Game.IOS\User.h"
 
 void UnauthenticatedController::loginUserScreenPrint()
 {
@@ -38,7 +38,7 @@ bool UnauthenticatedController::loginUser()
         mstring password = splitStringsCount == 2 ? splitInput[1] : "";
 
         // Validate if text is inputted in the correct format
-        textIsValid = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
+        textIsValid = UserTable::usernameIsValid(username) && UserTable::passwordIsValid(password);
 
         if (selection == GlobalConstants::COMMAND_RETURN)
         {
@@ -59,7 +59,7 @@ bool UnauthenticatedController::loginUser()
         }
         else if (textIsValid)
         {
-            bool userExists = FileSystem::userIsRegisteredWithPassword(username, password);
+            bool userExists = UserTable::userIsRegisteredWithPassword(username, password);
 
             if (!userExists)
             {
@@ -72,12 +72,12 @@ bool UnauthenticatedController::loginUser()
                 continue;
             }
 
-            Controller::currentUser = FileSystem::getUser(username);
+            Controller::currentUser = UserTable::getUser(username);
 
             if (Controller::currentUser->isDeleted)
             {
                 //Get message from deletionMessages table
-                DeletionMessage message = FileSystem::getDeletionMessage(Controller::currentUser->username);
+                DeletionMessage message = DeletionMessageTable::getDeletionMessage(Controller::currentUser->username);
                 GameUI::printLineNoBorders(message.message);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
@@ -136,7 +136,7 @@ bool UnauthenticatedController::registerUser()
         mstring password = splitStringsCount == 2 ? splitInput[1] : "";
 
         // Validate if text is inputted in the correct format
-        textIsValid = FileSystem::usernameIsValid(username) && FileSystem::passwordIsValid(password);
+        textIsValid = UserTable::usernameIsValid(username) && UserTable::passwordIsValid(password);
 
         if (selection == GlobalConstants::COMMAND_RETURN)
         {
@@ -158,7 +158,7 @@ bool UnauthenticatedController::registerUser()
         else if (textIsValid)
         {
             //Check if the user hasn't been registered already
-            bool userIsRegistered = FileSystem::userIsRegistered(username);
+            bool userIsRegistered = UserTable::userIsRegistered(username);
             if (userIsRegistered)
             {
                 GameUI::printLineNoBorders(GlobalConstants::REGISTER_USERNAME_TAKEN);
@@ -171,7 +171,7 @@ bool UnauthenticatedController::registerUser()
             }
 
             //Register the user, print the successful registration text and then send the user back to the login or register screen
-            FileSystem::registerUser(username, password);
+            UserTable::registerUser(username, password);
 
             GameUI::printLineNoBorders(GlobalConstants::REGISTER_SUCCESS);
 

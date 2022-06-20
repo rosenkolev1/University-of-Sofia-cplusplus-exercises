@@ -10,5 +10,7 @@ public:
 	static bool newHighscore;
 
 	static mstring* getLeaderboardRows(bool includeDeleted, bool getDeletedOnly, bool getIncluded, size_t& rowsCount, mstring dataDelim);
+
+	static void initialize();
 };
 

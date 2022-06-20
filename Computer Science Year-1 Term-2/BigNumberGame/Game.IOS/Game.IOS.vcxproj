@@ -146,16 +146,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DeletionMessage.cpp" />
+    <ClCompile Include="DeletionMessageTable.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Game.IOS.Main.cpp" />
     <ClCompile Include="Seeder.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeletionMessage.h" />
+    <ClInclude Include="DeletionMessageTable.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Seeder.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="UserTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game.GlobalConstants\Game.GlobalConstants.vcxproj">

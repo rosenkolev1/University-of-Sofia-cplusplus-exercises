@@ -1,4 +1,10 @@
 #include "DeletionMessage.h"
+#include "..\Project.StringManipulation\MStringManip.h"
+
+mstring DeletionMessage::getIdString() const
+{
+	return MStringManip::parseToString(this->id);
+}
 
 DeletionMessage::DeletionMessage()
 	:DeletionMessage(0, "", "")
