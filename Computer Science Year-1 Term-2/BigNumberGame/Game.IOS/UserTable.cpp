@@ -228,94 +228,16 @@ User* UserTable::getAllUsers(const mstring& tableFile, size_t& countOfUsers, boo
 	}
 
 	User* users = new User[countOfUsers];
-	size_t currentUserIndex = 0;
+
 	size_t deletedUsersCount = 0;
 
-	//Read the database data and parse it to a class
-	mstring dataRead;
-	UserFields currentUserField = UserFields::Username;
-	size_t tableFileIndex = 0;
+	size_t usersStringsCount = countOfUsers;
+	mstring* usersStrings = MStringManip::splitString(tableFile, FileSystem::FILESYSTEM_ENTRY_DELIMITER, usersStringsCount);
 
-	while (true)
+	for (size_t i = 0; i < countOfUsers; i++)
 	{
-		char newSymbol = '\0';
-
-		if (tableFileIndex >= tableFile.getSize())
-		{
-			break;
-		}
-		else
-		{
-			newSymbol = tableFile[tableFileIndex++];
-		}
-
-		//Check if the built up buffer data should be flushed into the user
-		bool shouldFlushData = (newSymbol == FileSystem::FILESYSTEM_COLUMN_DELIMITER ||
-			newSymbol == FileSystem::FILESYSTEM_ENTRY_DELIMITER);
-
-		if (!shouldFlushData) dataRead += newSymbol;
-
-		if (shouldFlushData)
-		{
-			if (currentUserField == UserFields::Username)
-			{
-				users[currentUserIndex].setUsername(dataRead);
-				currentUserField = UserFields::Password;
-			}
-			else if (currentUserField == UserFields::Password)
-			{
-				users[currentUserIndex].setPassword(dataRead);
-				currentUserField = UserFields::Role;
-			}
-			else if (currentUserField == UserFields::Role)
-			{
-				//Set the role of the user if it exists. If not, throw an error
-				users[currentUserIndex].setRole(dataRead);
-				currentUserField = UserFields::Level;
-			}
-			else if (currentUserField == UserFields::Level)
-			{
-				users[currentUserIndex].level = MStringManip::parseToLong(dataRead);
-				currentUserField = UserFields::Lives;
-			}
-			else if (currentUserField == UserFields::Lives)
-			{
-				users[currentUserIndex].lives = MStringManip::parseToLong(dataRead);
-				currentUserField = UserFields::LastExpression;
-			}
-			else if (currentUserField == UserFields::LastExpression)
-			{
-				users[currentUserIndex].lastExpression = dataRead;
-				currentUserField = UserFields::Highscore;
-			}
-			else if (currentUserField == UserFields::Highscore)
-			{
-				users[currentUserIndex].highscore = MStringManip::parseToLong(dataRead);
-				currentUserField = UserFields::IncludeHighscore;
-			}
-			else if (currentUserField == UserFields::IncludeHighscore)
-			{
-				users[currentUserIndex].includeHighscore = dataRead == FileSystem::FILESYSTEM_TRUE;
-				currentUserField = UserFields::IsDeleted;
-			}
-			else if (currentUserField == UserFields::IsDeleted)
-			{
-				users[currentUserIndex].isDeleted = dataRead == FileSystem::FILESYSTEM_TRUE;
-				if (users[currentUserIndex].isDeleted) deletedUsersCount++;
-			}
-
-			//Reset the dataRead
-			dataRead = "";
-
-			if (newSymbol == FileSystem::FILESYSTEM_ENTRY_DELIMITER)
-			{
-				currentUserIndex++;
-				currentUserField = UserFields::Username;
-
-				if (currentUserIndex >= countOfUsers) break;
-			}
-		}
-
+		users[i] = createUserFromString(usersStrings[i]);
+		if (users[i].isDeleted) deletedUsersCount++;
 	}
 
 	//Filter out the deleted users
