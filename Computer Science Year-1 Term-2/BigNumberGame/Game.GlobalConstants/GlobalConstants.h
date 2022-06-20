@@ -35,12 +35,13 @@ public:
 	static const mstring HIGHSCORE_PLACEHOLDER;
 
 	//------LOGIN/REGISTER
+	static const mstring USERNAME_OR_PASSWORD_INVALID;
 	static const mstring LOGIN_OR_REGISTER;
 	static const mstring REGISTER;
 	static const mstring REGISTER_SUCCESS;
 	static const mstring REGISTER_USERNAME_TAKEN;
 	static const mstring LOGIN;
-	static const mstring LOGIN_USERNAME_DOESNOTEXIST;
+	static const mstring LOGIN_USER_DOESNOTEXIST;
 
 	//------LOGGED_MAINMENU
 	static const mstring MAINMENU_LOGGED_STARTGAME;

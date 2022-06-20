@@ -53,6 +53,8 @@ bool UnauthenticatedController::loginUser()
             //Clear memory for input from console
             delete[] splitInput;
 
+            GameUI::printLineNoBorders(GlobalConstants::USERNAME_OR_PASSWORD_INVALID);
+
             // Print on a single line without screen borders
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
             continue;
@@ -63,7 +65,7 @@ bool UnauthenticatedController::loginUser()
 
             if (!userExists)
             {
-                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USERNAME_DOESNOTEXIST);
+                GameUI::printLineNoBorders(GlobalConstants::LOGIN_USER_DOESNOTEXIST);
                 GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);
 
                 //Clear memory for input from console
@@ -150,6 +152,8 @@ bool UnauthenticatedController::registerUser()
         {
             //Clear memory for input from console
             delete[] splitInput;
+
+            GameUI::printLineNoBorders(GlobalConstants::USERNAME_OR_PASSWORD_INVALID);
 
             // Print on a single line without screen borders
             GameUI::printLineNoBorders(GlobalConstants::COMMAND_INVALID);

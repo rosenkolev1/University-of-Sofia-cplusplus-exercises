@@ -35,12 +35,13 @@ const mstring GlobalConstants::SOLUTION_PLACEHOLDER = "{solution}";
 const mstring GlobalConstants::HIGHSCORE_PLACEHOLDER = "{highscore}";
 
 //------LOGIN/REGISTER
+const mstring GlobalConstants::USERNAME_OR_PASSWORD_INVALID = "\nError! The username or password is invalid! Check that you meet the criteria above for validity of the username or password!\n";
 const mstring GlobalConstants::LOGIN_OR_REGISTER = "Choose one of the following:\n\nLOGIN(log)\n\nREGISTER(reg)";
 const mstring GlobalConstants::REGISTER = "Enter your username and password ({username} | {password})\nUsername is between 6 and 100 characters!\nPassword is between 6 and 100 characters!\nWhitespaces are not allowed!\n'|' character is not allowed as part of the username or password!";
 const mstring GlobalConstants::REGISTER_SUCCESS = "\nSuccessfully registered user!\n";
 const mstring GlobalConstants::REGISTER_USERNAME_TAKEN = "\nThis username has already been taken! Sorry brother.\n";
 const mstring GlobalConstants::LOGIN = "Enter your username and password ({username} | {password}).";
-const mstring GlobalConstants::LOGIN_USERNAME_DOESNOTEXIST = "\nError! This user doesn't exist! Password or username is wrong!\n";
+const mstring GlobalConstants::LOGIN_USER_DOESNOTEXIST = "\nError! This user doesn't exist! Password or username is wrong!\n";
 
 //------LOGGED_MAINMENU
 const mstring GlobalConstants::MAINMENU_LOGGED_STARTGAME = "\nSTART GAME(s)\n";
