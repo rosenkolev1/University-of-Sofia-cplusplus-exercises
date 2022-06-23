@@ -1,10 +1,10 @@
 #include "UnauthenticatedController.h"
-#include ".\Project.StringManipulation\MStringManip.h"
-#include ".\Game.GlobalConstants\GlobalConstants.h"
-#include ".\Game.UI\GameUI.h"
-#include ".\Game.IOS\UserTable.h"
+#include "..\Project.StringManipulation\MStringManip.h"
+#include "..\Game.GlobalConstants\GlobalConstants.h"
+#include "..\Game.UI\GameUI.h"
+#include "..\Game.IOS\UserTable.h"
 #include "..\Game.IOS\DeletionMessageTable.h"
-#include ".\Game.IOS\Seeder.h"
+#include "..\Game.IOS\Seeder.h"
 #include "AuthenticatedController.h"
 
 void UnauthenticatedController::loginUserScreenPrint()

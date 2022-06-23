@@ -1,6 +1,6 @@
 #pragma once
 
-#include ".\Game.IOS\User.h"
+#include "..\Game.IOS\User.h"
 
 class Controller
 {
