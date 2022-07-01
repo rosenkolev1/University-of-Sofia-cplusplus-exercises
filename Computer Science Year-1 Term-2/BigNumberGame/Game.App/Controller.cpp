@@ -1,6 +1,7 @@
 #include "Controller.h"
 #include "..\Game.IOS\UserTable.h"
 #include "..\Project.StringManipulation\MStringManip.h"
+#include "..\Game.IOS\Seeder.h"
 
 User* Controller::currentUser = nullptr;
 bool Controller::returnToTitleScreen = false;
@@ -92,5 +93,9 @@ mstring* Controller::getLeaderboardRows(bool includeDeleted, bool getDeletedOnly
 void Controller::initialize()
 {
     srand(time(NULL));
+
+    //Seed database
+    //Seeder::seedDatabase(false);
+    Seeder::seedDatabase(true);
 }
 

@@ -16,6 +16,7 @@ void Seeder::seedUsers(bool overwrite)
 	{
 		"Admin1^Admin1^Admin^0^3^COL_NULL^5^FALSE^FALSE\n",
 		"Admin2^Admin2^Admin^6^2^10+15^7^FALSE^FALSE\n",
+		"PeshoAdmin^PeshoAdmin^Admin^919^2^(1230124+12321313212312321441241111111750/125*(2425+11)-98570505698498571529928888000*(3000-575+20-3*3))^921^FALSE^FALSE\n",
 		"roskata123^pederas^Normal^100^2^10123*123-1231254%231*34/111+234^101^TRUE^FALSE\n",
 		"Roskata123^Pederas^Normal^2^1^10+20/2^4^TRUE^FALSE\n",
 		"Roskata12^pederasNov^Normal^0^3^COL_NULL^0^TRUE^FALSE\n",

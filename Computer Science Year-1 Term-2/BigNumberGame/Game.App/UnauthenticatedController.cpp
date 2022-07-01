@@ -264,10 +264,6 @@ void UnauthenticatedController::startUpScreenPrint()
 
 void UnauthenticatedController::startUp()
 {
-    //Seed database
-    //Seeder::seedDatabase(false);
-    Seeder::seedDatabase(true);
-
     //Screen print
     startUpScreenPrint();
 
